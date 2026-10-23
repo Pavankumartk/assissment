@@ -1,0 +1,466 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import {
+  AlertTriangle,
+  BarChart3,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  ChevronsRight,
+  Eye,
+  LockKeyhole,
+  MessageCircle,
+  RefreshCw,
+  ShieldCheck,
+  Target,
+  Video,
+  X,
+} from "lucide-react";
+import Sidebar from "../../components/sidebar/page";
+import Header from "../../components/header/Header";
+// Reuse the exact same 5-chevron progress bar, number circles and breadcrumb.
+
+import "./evaluation.css";
+
+type Settings = {
+  maximumAttempts: string;
+  scoreForResult: string;
+  attemptCooldown: string;
+  feedbackTiming: string;
+  resultAvailable: string;
+  releaseMarks: string;
+  accessControl: string;
+  violationThreshold: string;
+  violationAction: string;
+  showResult: boolean;
+  showScore: boolean;
+  showPassFail: boolean;
+  showCorrectAnswers: boolean;
+  showAnswerFeedback: boolean;
+  showExplanation: boolean;
+  showRubric: boolean;
+  showGraderComments: boolean;
+  doubleMarking: boolean;
+  moderation: boolean;
+  answerSwitching: boolean;
+  reviewWrongAnswers: boolean;
+  weaknessMap: boolean;
+  secureBrowser: boolean;
+  preventCopyPaste: boolean;
+  preventPrinting: boolean;
+  webcamMonitoring: boolean;
+  screenMonitoring: boolean;
+  fullScreenMode: boolean;
+  identityVerification: boolean;
+  detectTabSwitching: boolean;
+  detectMultipleScreens: boolean;
+  detectBrowserExit: boolean;
+  recordViolations: boolean;
+};
+
+const initialSettings: Settings = {
+  maximumAttempts: "2", scoreForResult: "Highest", attemptCooldown: "None", feedbackTiming: "After",
+  resultAvailable: "Immediately", releaseMarks: "After Grading", accessControl: "Open",
+  violationThreshold: "3", violationAction: "Warn",
+  showResult: true, showScore: true, showPassFail: true, showCorrectAnswers: true,
+  showAnswerFeedback: true, showExplanation: true,
+  showRubric: true, showGraderComments: false, doubleMarking: true, moderation: true,
+  answerSwitching: true, reviewWrongAnswers: true, weaknessMap: true,
+  secureBrowser: true, preventCopyPaste: true, preventPrinting: true,
+  webcamMonitoring: true, screenMonitoring: true, fullScreenMode: true, identityVerification: true,
+  detectTabSwitching: true, detectMultipleScreens: true, detectBrowserExit: true, recordViolations: true,
+};
+
+type SettingKey = keyof Settings;
+type SwitchKey = { [K in SettingKey]: Settings[K] extends boolean ? K : never }[SettingKey];
+type SelectKey = { [K in SettingKey]: Settings[K] extends string ? K : never }[SettingKey];
+
+function SettingSwitch({ checked, onChange, label }: { checked: boolean; onChange: () => void; label: string }) {
+  return (
+    <button className={`ev-switch ${checked ? "ev-switch-on" : "ev-switch-off"}`} type="button"
+      role="switch" aria-label={label} aria-checked={checked} onClick={onChange}>
+      <span className="ev-switch-word">{checked ? "ON" : "OFF"}</span><span className="ev-switch-knob" />
+    </button>
+  );
+}
+
+function SettingRow({ label, value, options, checked, onSelect, onToggle }: {
+  label: string;
+  value?: string;
+  options?: string[];
+  checked?: boolean;
+  onSelect?: (value: string) => void;
+  onToggle?: () => void;
+}) {
+  return (
+    <div className="ev-setting-row">
+      <span className="ev-setting-name">{label}</span>
+      {onToggle ? <SettingSwitch label={label} checked={Boolean(checked)} onChange={onToggle} /> : options ? (
+        <span className="ev-select-wrap">
+          <select aria-label={label} value={value} onChange={(e) => onSelect?.(e.target.value)}>
+            {options.map((option) => <option key={option}>{option}</option>)}
+          </select>
+          <ChevronDown size={15} strokeWidth={1.5} aria-hidden="true" />
+        </span>
+      ) : <span className="ev-setting-value">{value || "—"}</span>}
+    </div>
+  );
+}
+
+function SettingCard({ title, icon, color, children, id }: {
+  title: string;
+  icon: ReactNode;
+  color: string;
+  children: ReactNode;
+  id?: string;
+}) {
+  return <section className="ev-setting-card" id={id} aria-label={title}>
+    <h3 className="ev-card-heading"><span className="ev-card-icon" style={{ color }}>{icon}</span><span>{title}</span></h3>
+    <div className="ev-card-rows">{children}</div>
+  </section>;
+}
+
+// Saved questions for the existing evaluation summary. No sample questions are inserted.
+type EvaluationQuestion = {
+  type?: string;
+  text?: string;
+  question?: string;
+  points?: number | string;
+  category?: string;
+  bloom?: string;
+  difficulty?: string;
+  options?: string[];
+  correct?: number;
+};
+
+type SavedQuestionBundle = {
+  questions?: EvaluationQuestion[];
+  extras?: Record<string, { type?: string; correct?: string }>;
+};
+
+type QuestionRailItem = {
+  index: number;
+  type: string;
+  label: string;
+  text: string;
+  points: number;
+  configured: boolean;
+  needsAttention: boolean;
+};
+
+function shortQuestionType(type: string): string {
+  const names: Record<string, string> = {
+    "True / False": "T/F", "True/False": "T/F", "MCQ": "MCQ",
+    "Multiple Choice Question (MCQ)": "MCQ", "One-Word Answer": "OW",
+    "One Word Answer": "OW", "Fill in the Blank": "FB",
+    "Fill in the blanks": "FB", "Short Answer": "SA",
+    "Long Answer / Essay": "LS", "Long Answer": "LS",
+    "Drag & Drop": "DD", "Image-Based Assessment": "IM",
+    "Multiple Response": "MR", "Quick Quiz": "QC",
+  };
+  return names[type] ?? type.split(/\s+/).filter(Boolean).map(word => word[0]).join("").slice(0, 3).toUpperCase();
+}
+
+function buildQuestionRail(questions: EvaluationQuestion[], extras: SavedQuestionBundle["extras"], total: number): QuestionRailItem[] {
+  return Array.from({ length: total }, (_, index) => {
+    const q = questions[index];
+    const text = typeof q?.text === "string" ? q.text : typeof q?.question === "string" ? q.question : "";
+    const rawType = extras?.[String(index)]?.type || q?.type || "One-Word Answer";
+    const type = typeof rawType === "string" ? rawType : "One-Word Answer";
+    const points = Number(q?.points ?? 0);
+    const configured = Boolean(text.trim() && Number.isFinite(points) && points > 0);
+    const validOptions = Array.isArray(q?.options) && q.options.length > 0
+      ? q.options.filter(value => typeof value === "string" && value.trim()).length >= 2 && typeof q.correct === "number" && q.correct >= 0
+      : true;
+    const needsAttention = !configured || !validOptions || !q?.category || !q?.bloom;
+    return { index, type, label: shortQuestionType(type), text, points: Number.isFinite(points) ? points : 0, configured, needsAttention };
+  });
+}
+
+const progress = ["Type", "Details", "Content", "Evaluation", "Review"];
+
+export default function EvaluationPage() {
+  const router = useRouter();
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [securityOpen, setSecurityOpen] = useState(false);
+  const [settings, setSettings] = useState<Settings>(initialSettings);
+  const [notice, setNotice] = useState("");
+  const [totalMarks, setTotalMarks] = useState(30);
+  const [passingScore, setPassingScore] = useState("60%");
+  const [activeFeedbackTab, setActiveFeedbackTab] = useState("");
+  const [activeSecurityTab, setActiveSecurityTab] = useState("");
+  const pageRef = useRef<HTMLElement>(null);
+  const [questionCount, setQuestionCount] = useState(20);
+  const [savedQuestions, setSavedQuestions] = useState<EvaluationQuestion[]>([]);
+  const [savedExtras, setSavedExtras] = useState<SavedQuestionBundle["extras"]>({});
+  const [railFilter, setRailFilter] = useState<"all" | "attention">("all");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [selectedQuestion, setSelectedQuestion] = useState<number | null>(null);
+
+  useEffect(() => {
+    try {
+      const previous = localStorage.getItem("neurolxp-one-word-evaluation");
+      if (previous) {
+        const parsed = JSON.parse(previous) as Partial<Settings>;
+        setSettings({ ...initialSettings, ...parsed });
+      }
+      const draft = sessionStorage.getItem("oneWordAssessmentDraft");
+      if (draft) {
+        const details = JSON.parse(draft) as { totalMarks?: string; passingScore?: string; attempts?: string; cooldown?: string; gradingMethod?: string };
+        const marks = Number(details.totalMarks);
+        if (Number.isFinite(marks) && marks > 0) setTotalMarks(marks);
+        if (details.passingScore) setPassingScore(details.passingScore);
+        setSettings((old) => ({ ...old,
+          ...(details.attempts ? { maximumAttempts: details.attempts } : {}),
+          ...(details.cooldown ? { attemptCooldown: details.cooldown } : {}),
+          ...(details.gradingMethod ? { scoreForResult: details.gradingMethod.toLowerCase().includes("highest") ? "Highest" : "Latest" } : {}),
+        }));
+      }
+    } catch { /* Keep all screenshot defaults if no prior draft exists. */ }
+  }, []);
+
+  useEffect(() => {
+    // Content and assessment details are saved by the existing One-Word flow.
+    // Read-only: do not alter the question builder or its storage format.
+    try {
+      const details = JSON.parse(sessionStorage.getItem("oneWordAssessmentDraft") || "{}") as { questionCount?: number | string };
+      const count = Number(details.questionCount);
+      const content = JSON.parse(sessionStorage.getItem("oneWordContentDraft") || "{}") as SavedQuestionBundle;
+      const preview = JSON.parse(sessionStorage.getItem("oneWordPreviewDraft") || "{}") as SavedQuestionBundle;
+      const chosen = Array.isArray(content.questions) && content.questions.length ? content : preview;
+      const questions = Array.isArray(chosen.questions) ? chosen.questions : [];
+      setSavedQuestions(questions);
+      setSavedExtras(chosen.extras || {});
+      setQuestionCount(Number.isFinite(count) && count > 0 ? Math.max(Math.floor(count), questions.length) : Math.max(20, questions.length));
+    } catch {
+      // Keep an empty question summary if the saved draft is unavailable.
+    }
+  }, []);
+
+  const questionItems = useMemo(() => buildQuestionRail(savedQuestions, savedExtras, questionCount), [savedQuestions, savedExtras, questionCount]);
+  const configuredCount = questionItems.filter(q => q.configured).length;
+  const needsAttentionCount = questionItems.filter(q => q.needsAttention).length;
+  const questionTypes = Array.from(new Set(questionItems.filter(q => q.configured).map(q => q.type)));
+  const shownQuestions = questionItems.filter(q => (railFilter === "all" || q.needsAttention) && (typeFilter === "all" || q.type === typeFilter));
+
+  const passingMarks = useMemo(() => {
+    const percentage = Number.parseFloat(passingScore);
+    return Number.isFinite(percentage) ? `${Number(((percentage / 100) * totalMarks).toFixed(2))}/${totalMarks}` : `—/${totalMarks}`;
+  }, [passingScore, totalMarks]);
+
+  function setSelect(key: SelectKey, value: string) { setSettings((prev) => ({ ...prev, [key]: value })); }
+  function flip(key: SwitchKey) { setSettings((prev) => ({ ...prev, [key]: !prev[key] })); }
+  function selectRow(label: string, key: SelectKey, options: string[]) {
+    return <SettingRow label={label} value={settings[key]} options={options} onSelect={(v) => setSelect(key, v)} />;
+  }
+  function switchRow(label: string, key: SwitchKey) {
+    return <SettingRow label={label} checked={settings[key]} onToggle={() => flip(key)} />;
+  }
+  function saveDraft(): boolean {
+    try {
+      localStorage.setItem("neurolxp-one-word-evaluation", JSON.stringify(settings));
+      setNotice("Evaluation settings saved as a draft.");
+      return true;
+    } catch { setNotice("Browser storage is unavailable. Settings remain on this page."); return false; }
+  }
+  function continueToReview() {
+    const percentage = Number.parseFloat(passingScore);
+    if (!Number.isFinite(totalMarks) || totalMarks <= 0) {
+      setNotice("Total marks must be greater than zero.");
+      return;
+    }
+    if (!Number.isFinite(percentage) || percentage <= 0 || percentage > 100) {
+      setNotice("Passing score must be between 1% and 100%.");
+      return;
+    }
+    if (configuredCount === 0) {
+      setNotice("Add at least one question in Content before continuing to Review.");
+      return;
+    }
+    if (!saveDraft()) return;
+    window.dispatchEvent(new CustomEvent("one-word-step", { detail: "review" }));
+  }
+  function goToTab(section: "feedback" | "security", tab: string, target: string) {
+    if (section === "feedback") { setFeedbackOpen(true); setActiveFeedbackTab(tab); }
+    else { setSecurityOpen(true); setActiveSecurityTab(tab); }
+    requestAnimationFrame(() => document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  }
+
+  return (
+    <div className="oneWordEvalShell"><div className="oneWordEvalLayout"><Sidebar/><div className="oneWordEvalMain"><Header/><div className="oneWordEvalScroll">
+      <div className="sa-route sa-route-in-shell ev-route">
+        <main className="sa-screen ev-screen" ref={pageRef}>
+          <div className="sa-content ev-content">
+            <nav className="sa-breadcrumb ev-breadcrumb" aria-label="Breadcrumb">
+              <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("one-word-step", { detail: "type" }))}>Assessment</button>
+              <ChevronsRight size={20} aria-hidden="true" />
+              <strong>Create Assessment</strong>
+            </nav>
+            <ol className="sa-progress ev-progress" aria-label="Assessment creation steps">
+              {progress.map((name, index) => <li key={name}
+                className={`sa-step ${index === 3 ? "sa-step-current" : ""} ${index < 3 ? "sa-step-complete" : ""}`}
+                aria-current={index === 3 ? "step" : undefined}>
+                <span className="sa-step-number">{index + 1}</span><span className="sa-step-title">{name}</span>
+              </li>)}
+            </ol>
+
+            <div className="ev-page-title">
+              <h1>Assessment Details (One-Word)</h1>
+              <p>Set Evaluation, Feedback, Results, And Security.</p>
+            </div>
+
+            <div className="ev-body-layout">
+              <div className="ev-body-primary">
+            <section className={`ev-major-section ${feedbackOpen ? "ev-major-section-expanded" : ""}`} aria-label="Feedback and results">
+              <div className="ev-major-header">
+                <div className="ev-major-header-inner">
+                  <span className="ev-major-main-icon" style={{ color: "#67096E" }}><BarChart3 size={34} strokeWidth={1.5}/></span>
+                  <div className="ev-header-copy">
+                    <h2 className="ev-purple">Feedback And Results</h2>
+                    <p>Configure Scoring, Passing Criteria, Attempts, And What Learners See After Completing The Assessment.</p>
+                    <div className="ev-tabs ev-tabs-feedback" aria-label="Feedback and results categories">
+                      {[["Score", "ev-scoring"], ["Passing", "ev-scoring"], ["Attempts", "ev-attempts"], ["Feedback", "ev-feedback"], ["Results", "ev-results"]].map(([label, target]) =>
+                        <button key={label} type="button" className={`ev-tab ev-tab-purple ${activeFeedbackTab === label ? "ev-tab-selected" : ""}`} onClick={() => goToTab("feedback", label, target)}>{label}</button>)}
+                    </div>
+                  </div>
+                </div>
+                <button className="ev-section-toggle ev-purple" type="button" aria-label="Toggle Feedback and Results" aria-expanded={feedbackOpen} onClick={() => setFeedbackOpen((v) => !v)}>
+                  {feedbackOpen ? <ChevronUp size={29}/> : <ChevronDown size={29}/>}
+                </button>
+              </div>
+              {feedbackOpen && <div className="ev-card-grid">
+                <SettingCard id="ev-scoring" title="Scorings" icon={<Target size={22}/>} color="#2D4CC8">
+                  <SettingRow label="Total Marks" value={String(totalMarks)} />
+                  <SettingRow label="Passing Score" value={passingScore} />
+                  <SettingRow label="Passing Marks" value={passingMarks} />
+                </SettingCard>
+                <SettingCard id="ev-attempts" title="Attempts" icon={<RefreshCw size={22}/>} color="#2A7308">
+                  {selectRow("Maximum Attempts", "maximumAttempts", ["1", "2", "3", "4", "5", "Unlimited"])}
+                  {selectRow("Score used for Result", "scoreForResult", ["Highest", "Latest", "Average", "First Attempt"])}
+                  {selectRow("Attempt Cooldown", "attemptCooldown", ["None", "1 Hr", "6 Hrs", "12 Hrs", "24 Hrs", "48 Hrs"])}
+                </SettingCard>
+                <SettingCard id="ev-results" title="Results" icon={<BarChart3 size={22}/>} color="#CB5F14">
+                  {switchRow("Show Result After Submission", "showResult")}
+                  {switchRow("Show Score", "showScore")}
+                  {switchRow("Show Pass/ Fail", "showPassFail")}
+                  {switchRow("Show Correct Answers", "showCorrectAnswers")}
+                  {selectRow("Result Available", "resultAvailable", ["Immediately", "After Grading", "After Closing", "Manually"])}
+                </SettingCard>
+                <SettingCard id="ev-feedback" title="Answer Feedback" icon={<MessageCircle size={22}/>} color="#91860C">
+                  {switchRow("Show Answer Feedback", "showAnswerFeedback")}
+                  {switchRow("Show Explanation", "showExplanation")}
+                  {selectRow("Feedback Timing", "feedbackTiming", ["After", "Immediately", "After Closing", "Never"])}
+                  <div className="ev-feedback-checks" aria-label="Available feedback types">
+                    {['Correct Answer Feedback', 'Wrong Answer Feedback', 'Question Explanation'].map(label =>
+                      <span key={label}><span className="ev-tick"><Check size={14} strokeWidth={3}/></span>{label}</span>)}
+                  </div>
+                </SettingCard>
+                <SettingCard id="ev-cognitive" title="Cognitive & Behavioral Insights" icon={<Eye size={22}/>} color="#89800C">
+                  {switchRow("Answer Switching Behavioral", "answerSwitching")}
+                  {switchRow("Review Wrong Answers", "reviewWrongAnswers")}
+                  {switchRow("View Weakness Map", "weaknessMap")}
+                </SettingCard>
+              </div>}
+            </section>
+
+            <section className={`ev-major-section ${securityOpen ? "ev-major-section-expanded" : ""}`} aria-label="Security and integrity">
+              <div className="ev-major-header">
+                <div className="ev-major-header-inner">
+                  <span className="ev-major-main-icon" style={{ color: "#2A7308" }}><ShieldCheck size={34} strokeWidth={1.5}/></span>
+                  <div className="ev-header-copy">
+                    <h2 className="ev-green">Security &amp; Integrity</h2>
+                    <p>Configure Proctoring, Browser Restrictions, Question Security, And Assessment Integrity Controls.</p>
+                    <div className="ev-tabs ev-tabs-security" aria-label="Security and integrity categories">
+                      {[["Proctoring", "ev-proctoring"], ["Access", "ev-access"], ["Monitoring", "ev-monitoring"], ["Restrictions", "ev-restrictions"]].map(([label, target]) =>
+                        <button type="button" key={label} className={`ev-tab ev-tab-green ${activeSecurityTab === label ? "ev-tab-selected" : ""}`} onClick={() => goToTab("security", label, target)}>{label}</button>)}
+                    </div>
+                  </div>
+                </div>
+                <button className="ev-section-toggle ev-green" type="button" aria-label="Toggle Security and Integrity" aria-expanded={securityOpen} onClick={() => setSecurityOpen(v => !v)}>
+                  {securityOpen ? <ChevronUp size={29}/> : <ChevronDown size={29}/>}
+                </button>
+              </div>
+              {securityOpen && <div className="ev-card-grid">
+                <SettingCard id="ev-access" title="Assessment Access" icon={<LockKeyhole size={22}/>} color="#C65C15">
+                  {selectRow("Access Control", "accessControl", ["Open", "Enrolled Only", "Access Code", "Restricted"])}
+                  {switchRow("Require Secure Browser", "secureBrowser")}
+                  {switchRow("Prevent Copy / Paste", "preventCopyPaste")}
+                  {switchRow("Prevent Printing", "preventPrinting")}
+                </SettingCard>
+                <SettingCard id="ev-proctoring" title="Proctoring" icon={<Video size={22}/>} color="#2D4CC8">
+                  {switchRow("Webcam Monitoring", "webcamMonitoring")}
+                  {switchRow("Screen Monitoring", "screenMonitoring")}
+                  {switchRow("Full-Screen Mode", "fullScreenMode")}
+                  {switchRow("Identity Verification", "identityVerification")}
+                </SettingCard>
+                <SettingCard id="ev-monitoring" title="Monitoring" icon={<Eye size={22}/>} color="#89800C">
+                  {switchRow("Detect Tab Switching", "detectTabSwitching")}
+                  {switchRow("Detect Multiple Screens", "detectMultipleScreens")}
+                  {switchRow("Detect Browser Exit", "detectBrowserExit")}
+                  {switchRow("Record Violations", "recordViolations")}
+                </SettingCard>
+                <SettingCard id="ev-restrictions" title="Restriction" icon={<AlertTriangle size={22}/>} color="#89800C">
+                  {selectRow("Violation Threshold", "violationThreshold", ["1", "2", "3", "4", "5", "10"])}
+                  {selectRow("Action", "violationAction", ["Warn", "Notify Admin", "Submit Assessment", "Block Access"])}
+                </SettingCard>
+              </div>}
+            </section>
+
+            <footer className="ev-footer">
+              <button className="ev-footer-button" type="button" onClick={() => window.dispatchEvent(new CustomEvent("one-word-step", { detail: "content" }))}>Back</button>
+              <div className="ev-footer-right">
+                <button className="ev-footer-button" type="button" onClick={saveDraft}>Save</button>
+                <button className="ev-footer-button ev-footer-continue" type="button" onClick={continueToReview}>Continue</button>
+              </div>
+            </footer>
+              </div>
+              <aside className="ev-question-rail" aria-label="Question summary">
+                <div className="ev-question-rail-inner">
+                  <div className="ev-question-overview">
+                    <h2>Question</h2>
+                    <p>{configuredCount} of {questionCount} configured</p>
+                    <div className="ev-question-progress" role="progressbar" aria-label="Questions configured" aria-valuemin={0} aria-valuemax={questionCount} aria-valuenow={configuredCount}>
+                      <span style={{ width: `${questionCount ? configuredCount / questionCount * 100 : 0}%` }} />
+                    </div>
+                  </div>
+                  <div className="ev-question-pills" aria-label="Question status filters">
+                    <button type="button" className={railFilter === "all" ? "ev-question-pill-active" : ""} aria-pressed={railFilter === "all"} onClick={() => setRailFilter("all")}>All {questionCount}</button>
+                    <button type="button" className={railFilter === "attention" ? "ev-question-pill-active" : ""} aria-pressed={railFilter === "attention"} onClick={() => setRailFilter("attention")}>Need Attention&nbsp; {needsAttentionCount}</button>
+                  </div>
+                  <label className="ev-question-type-select">
+                    <span className="ev-question-visually-hidden">Filter question types</span>
+                    <select value={typeFilter} onChange={event => setTypeFilter(event.target.value)}>
+                      <option value="all">All types</option>
+                      {questionTypes.map(type => <option key={type} value={type}>{type}</option>)}
+                    </select>
+                    <ChevronDown size={18} strokeWidth={1.6} aria-hidden="true" />
+                  </label>
+                  <div className="ev-question-scroll" aria-label="Questions">
+                    {shownQuestions.map(question => <button
+                      type="button"
+                      key={question.index}
+                      className={`ev-question-item ${selectedQuestion === question.index ? "ev-question-item-selected" : ""}`}
+                      aria-pressed={selectedQuestion === question.index}
+                      aria-label={`Question ${question.index + 1}. ${question.type}. ${question.configured ? question.text : "Not configured"}. ${question.needsAttention ? "Needs attention" : "Complete"}`}
+                      onClick={() => setSelectedQuestion(question.index)}
+                    >
+                      <span className={`ev-question-status-dot ${question.needsAttention ? "ev-question-status-attention" : ""}`} aria-hidden="true" />
+                      <span className="ev-question-number">Q{question.index + 1}</span>
+                      <span className="ev-question-type">{question.label}</span>
+                      <span className="ev-question-snippet" title={question.text || "Not configured"}>{question.text || "Not configured"}</span>
+                      <span className="ev-question-points">{question.points || "—"} M</span>
+                    </button>)}
+                    {shownQuestions.length === 0 && <p className="ev-question-empty">No questions match this filter.</p>}
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </main>
+        {notice && <div className="ev-toast" role="status"><span>{notice}</span><button type="button" aria-label="Close notification" onClick={() => setNotice("")}><X size={17}/></button></div>}
+      </div>
+    </div></div></div></div>
+  );
+}

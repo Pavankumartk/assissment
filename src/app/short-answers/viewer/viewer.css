@@ -1,0 +1,1026 @@
+/* MCQ viewer. Shared Sidebar and Header styles remain in their own files. */
+.viewerAppShell{--viewer-bg:#DFE6E9;--viewer-ink:#2F3547;background:var(--viewer-bg);color:var(--viewer-ink);font-family:'Segoe UI',Arial,sans-serif;min-width:0}
+.viewerAppShell *,.viewerAppShell *::before,.viewerAppShell *::after{box-sizing:border-box}
+.viewerLayout{display:flex;height:100dvh;min-width:0;overflow:hidden}
+.viewerMain{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
+.viewerSharedHeader{flex:0 0 auto}
+.viewerScroll{flex:1 1 auto;min-width:0;min-height:0;overflow-x:hidden;overflow-y:auto}
+.viewerContent{width:100%;max-width:1260px;min-width:0;margin:0 auto;padding:26px 24px 55px}
+.viewerBreadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:24px;margin:0 0 20px;font-size:16px;line-height:24px;letter-spacing:.02em}
+.viewerBreadcrumb a{color:var(--viewer-ink);text-decoration:none}
+.viewerBreadcrumb img{flex:none;display:block;object-fit:contain}
+.viewerBreadcrumb strong{color:#2D4CC8;font-weight:700;overflow-wrap:anywhere}
+.viewerPageHeading{margin-bottom:20px}
+.viewerPageHeading h1{margin:0 0 8px;color:#2D4CC8;font-size:24px;line-height:32px;font-weight:700;letter-spacing:.02em}
+.viewerPageHeading p{margin:0;font-size:16px;line-height:24px;letter-spacing:.03em}
+.viewerColumns{display:grid;grid-template-columns:minmax(295px,364px) minmax(0,1fr);align-items:stretch;gap:24px;min-width:0}
+.viewerSummary,.viewerInstructions,.viewerConfirmation{min-width:0;background:var(--viewer-bg);border-radius:8px;box-shadow:-4px -4px 8px #FFFFFF,4px 4px 8px #C4C4C4}
+.viewerSummary{display:flex;flex-direction:column;justify-content:space-between;gap:16px;padding:16px}
+.viewerStat{display:flex;align-items:center;gap:16px;min-width:0;min-height:92px;padding:14px 16px;border-radius:8px;background:var(--viewer-bg);box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.viewerStatIcon{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:var(--viewer-bg);box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4}
+.viewerStatIcon img{display:block;width:24px;height:24px;object-fit:contain}
+.viewerStatText{display:flex;flex-direction:column;gap:8px;min-width:0}
+.viewerStatText strong{font-size:18px;line-height:28px;font-weight:600;letter-spacing:.02em}
+.viewerStatText>span{font-size:16px;line-height:24px;letter-spacing:.03em;overflow-wrap:anywhere}
+.viewerStat--blue .viewerStatText strong{color:#2D4CC8}
+.viewerStat--orange .viewerStatText strong{color:#C05512}
+.viewerStat--purple .viewerStatText strong{color:#67096E}
+.viewerStat--green .viewerStatText strong{color:#2A7308}
+.viewerStat--red .viewerStatText strong{color:#A91E2C}
+.viewerRightColumn{display:flex;flex-direction:column;gap:24px;min-width:0}
+.viewerInstructions{display:flex;flex-direction:column;gap:16px;padding:24px;flex:1 1 auto}
+.viewerInstructions h2{margin:0;font-size:18px;line-height:28px;font-weight:600;color:#111}
+.viewerInstructions ol{display:flex;flex-direction:column;justify-content:space-between;gap:14px;list-style:none;margin:0;padding:0;flex:1 1 auto}
+.viewerInstructions li{display:flex;align-items:center;min-height:40px;padding:8px 16px;border-radius:4px;background:var(--viewer-bg);box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;font-size:16px;line-height:24px;letter-spacing:.02em;overflow-wrap:anywhere}
+.viewerConfirmation{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:24px;min-height:130px}
+.viewerAgreement{display:flex;align-items:center;gap:12px;cursor:pointer;font-size:14px;line-height:22px;letter-spacing:.02em;min-width:0;flex:1 1 290px}
+.viewerAgreement input{position:absolute;opacity:0;width:1px;height:1px}
+.viewerCheckboxIcon{display:grid;place-items:center;width:24px;height:24px;flex:0 0 24px;border-radius:4px;background:var(--viewer-bg);box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px rgba(196,196,196,.8)}
+.viewerAgreement input:focus-visible+.viewerCheckboxIcon{outline:2px solid #2D4CC8;outline-offset:3px}
+.viewerCheckboxIcon img{display:block;width:20px;height:20px}
+.viewerAgreement input:checked+.viewerCheckboxIcon{box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.viewerStart{align-self:flex-end;flex:0 0 auto;min-width:203px;min-height:48px;padding:10px 20px;border:0;border-radius:8px;background:var(--viewer-bg);color:#2D4CC8;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 8px #C4C4C4;font:700 18px/26px 'Segoe UI',Arial,sans-serif;letter-spacing:.03em;cursor:pointer}
+.viewerStart:disabled{cursor:not-allowed;opacity:.55}
+.viewerStart:focus-visible{outline:2px solid #2D4CC8;outline-offset:4px}
+.viewerStartNote{margin:0;flex-basis:100%;color:#2F3547;font-size:12px;line-height:18px}
+@media(max-width:1050px){.viewerContent{padding:22px 20px 40px}.viewerColumns{grid-template-columns:minmax(250px,34%) minmax(0,1fr);gap:18px}.viewerInstructions,.viewerConfirmation{padding:20px}.viewerSummary{gap:12px;padding:12px}.viewerStat{padding:12px;gap:12px}.viewerStatText strong{font-size:16px}.viewerStatText>span,.viewerInstructions li{font-size:14px}}
+@media(max-width:780px){.viewerColumns{grid-template-columns:minmax(0,1fr)}.viewerSummary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.viewerStat{min-height:88px}.viewerRightColumn{gap:18px}.viewerInstructions ol{gap:12px}.viewerInstructions li{min-height:42px}}
+@media(max-width:520px){.viewerContent{padding:16px 12px 28px}.viewerBreadcrumb{font-size:12px;line-height:20px;gap:5px}.viewerBreadcrumb img{width:15px;height:15px}.viewerPageHeading h1{font-size:20px;line-height:28px}.viewerPageHeading p{font-size:14px}.viewerSummary{grid-template-columns:minmax(0,1fr);padding:12px}.viewerStat{min-height:76px}.viewerStatText{gap:3px}.viewerStatText strong{font-size:16px;line-height:24px}.viewerStatText>span{font-size:14px}.viewerInstructions,.viewerConfirmation{padding:16px}.viewerInstructions h2{font-size:17px}.viewerInstructions li{padding:9px 12px;font-size:14px;line-height:21px}.viewerAgreement{flex-basis:100%;font-size:13px}.viewerStart{width:100%;font-size:16px;min-height:46px}}
+
+/* Viewer scroll ownership: only the main viewer page scrolls.
+   Keep the shared sidebar/header and all card styling unchanged. */
+.viewerAppShell {
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+.viewerAppShell .viewerLayout {
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.viewerAppShell .viewerMain {
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.viewerAppShell .viewerSharedHeader {
+  flex: 0 0 auto;
+  min-height: 0;
+}
+.viewerAppShell .viewerScroll {
+  flex: 1 1 0%;
+  height: auto;
+  max-height: none;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.viewerAppShell .viewerContent {
+  height: auto;
+  max-height: none;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Final scroll fix: prevent the browser/document from scrolling as well as
+   the viewer's internal content area. This is scoped to the viewer route. */
+html:has(.viewerAppShell),
+body:has(.viewerAppShell) {
+  height: 100%;
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+body:has(.viewerAppShell) { margin: 0; }
+
+.viewerAppShell.superAdminPage.institutionAdminPage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  min-height: 0 !important;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden !important;
+}
+.viewerAppShell .viewerLayout {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden !important;
+}
+.viewerAppShell .viewerMain {
+  flex: 1 1 0%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden !important;
+}
+.viewerAppShell .viewerScroll.institutionScrollArea {
+  flex: 1 1 0%;
+  height: auto;
+  min-height: 0;
+  max-height: 100%;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+}
+.viewerAppShell .viewerContent {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Viewer checkbox: keep its focusable input in the 24px square rather than
+   an absolutely positioned 1px input that can scroll the page on click. */
+.viewerAppShell .viewerAgreement {
+  position: relative;
+  align-items: center;
+  min-height: 24px;
+}
+.viewerAppShell .viewerAgreement input[type="checkbox"] {
+  position: absolute;
+  inset: auto;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+.viewerAppShell .viewerCheckboxIcon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF,
+              inset 2px 2px 2px #C4C4C4;
+  transform: none;
+}
+.viewerAppShell .viewerAgreement input:checked + .viewerCheckboxIcon {
+  box-shadow: -4px -4px 4px #FFFFFF,
+              4px 4px 4px rgba(196,196,196,.8);
+}
+.viewerAppShell .viewerCheckboxIcon img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+.viewerAppShell .viewerConfirmation {
+  align-content: start;
+}
+
+/* Figma checkbox rendered entirely with CSS: no SVG/image is shown.
+   Unchecked = recessed 24px frame; checked = raised 24px frame,
+   20px cobalt square and white checkmark. */
+.viewerAppShell .viewerAgreement .viewerCheckboxIcon,
+.viewerAppShell .viewerAgreement input[type="checkbox"]:not(:checked) + .viewerCheckboxIcon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  flex: 0 0 24px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+  overflow: visible;
+}
+/* Hide existing image from page.tsx without changing the component. */
+.viewerAppShell .viewerCheckboxIcon img { display: none !important; }
+.viewerAppShell .viewerAgreement input[type="checkbox"]:checked + .viewerCheckboxIcon {
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px rgba(196,196,196,.8);
+}
+.viewerAppShell .viewerAgreement input[type="checkbox"]:checked + .viewerCheckboxIcon::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background: #2D4CC8;
+}
+.viewerAppShell .viewerAgreement input[type="checkbox"]:checked + .viewerCheckboxIcon::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  transform: rotate(-45deg);
+}
+
+/* Compact checked indicator — first reference image. Keep the 24px frame
+   and the agreement row unchanged; reduce only the blue inset indicator. */
+.viewerAppShell .viewerAgreement input[type="checkbox"]:checked + .viewerCheckboxIcon::before {
+  left: 3px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: #2D4CC8;
+}
+.viewerAppShell .viewerAgreement input[type="checkbox"]:checked + .viewerCheckboxIcon::after {
+  left: 8px;
+  top: 8px;
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  transform: rotate(-45deg);
+}
+
+/* Confirmation card alignment: one-line acknowledgment, button at bottom right. */
+.viewerAppShell .viewerConfirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 18px;
+  min-height: 130px;
+  padding: 24px;
+}
+.viewerAppShell .viewerAgreement {
+  display: flex;
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 100%;
+  align-items: center;
+  align-self: flex-start;
+  gap: 12px;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 22px;
+}
+.viewerAppShell .viewerAgreement > span:last-child {
+  min-width: 0;
+  white-space: nowrap;
+}
+.viewerAppShell .viewerStart {
+  align-self: flex-end;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 203px;
+  margin: 0;
+}
+.viewerAppShell .viewerStartNote {
+  align-self: flex-start;
+  flex: 0 0 auto;
+  width: 100%;
+}
+@media (max-width: 520px) {
+  .viewerAppShell .viewerConfirmation { padding: 16px; gap: 16px; }
+  .viewerAppShell .viewerAgreement,
+  .viewerAppShell .viewerAgreement > span:last-child {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .viewerAppShell .viewerStart { width: 100%; min-width: 0; }
+}
+
+/* Question-taking view (the shared header/sidebar and instruction layout are retained). */
+.viewerExamTop{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+.viewerExamTop .viewerBreadcrumb{margin:0}
+.viewerExamClock{display:flex;align-items:center;justify-content:center;gap:5px;padding:11px 12px;border-radius:8px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.viewerTimeGroup{display:flex;align-items:center;gap:4px}.viewerTimeColon{font-weight:700;font-size:20px;margin-inline:2px}.viewerTimeDigit{display:grid;place-items:center;width:26px;height:28px;border-radius:4px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;font-size:18px;font-weight:600}
+.viewerExamHeading{margin-bottom:22px}.viewerExamGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,310px);gap:24px;align-items:stretch}.viewerExamCard{background:#DFE6E9;border-radius:8px;box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4;min-width:0}.viewerQuestionCard{padding:24px;display:flex;flex-direction:column;gap:20px}.viewerProgressLabel{font-size:16px;color:#2A7308}.viewerProgressLabel strong{font-weight:700}.viewerProgressLabel span{color:#374151}.viewerProgressRow{display:flex;gap:12px;align-items:center;color:#2A7308}.viewerProgressTrack{flex:1;min-width:0;height:18px;padding:4px;border-radius:40px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}.viewerProgressTrack span{display:block;height:100%;border-radius:30px;background:#2A7308;transition:width .2s}.viewerQuestionHeading h2{margin:0 0 8px;font-size:18px;line-height:28px;color:#2D4CC8}.viewerQuestionHeading p{margin:0;font-size:16px;line-height:26px}.viewerAnswerList{display:grid;gap:18px}.viewerAnswer{display:flex;align-items:center;gap:12px;position:relative;min-height:54px;width:100%;padding:9px 15px;border:1px solid transparent;text-align:left;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4;color:#374151;font:400 17px/26px 'Segoe UI',Arial,sans-serif;cursor:pointer}.viewerAnswer:disabled{cursor:default}.viewerAnswer.isSelected{border-color:#2D4CC8}.viewerAnswer.isCorrect{border-color:#2A7308;box-shadow:-2px -2px 3px #fff,2px 2px 4px #b8bfc3}.viewerAnswer.isIncorrect{border-color:#A91E2C}.viewerAnswerRadio{display:grid;place-items:center;width:28px;height:28px;flex:0 0 28px;border-radius:50%;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}.viewerAnswerRadio:before{content:'';width:16px;height:16px;border:1.5px solid #C6C6C9;border-radius:50%}.viewerAnswer.isSelected .viewerAnswerRadio:before{background:#2D4CC8;border-color:#2D4CC8;box-shadow:inset 0 0 0 4px #DFE6E9}.viewerAnswer.isCorrect .viewerAnswerRadio:before{display:none}.viewerAnswerRadio img{display:block}.viewerCorrectMark{margin-left:auto;display:flex}
+.viewerHintBox{border-radius:8px;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}.viewerHintToggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:66px;padding:10px 16px;background:transparent;border:0;cursor:pointer;color:#63560B;font:600 18px 'Segoe UI',Arial,sans-serif}.viewerHintTitle{display:flex;align-items:center;gap:14px}.viewerHintIcon{display:grid;place-items:center;width:39px;height:39px;border-radius:50%;border:1px solid #63560B;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}.viewerHintEye{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}.viewerHintBox p{margin:0;padding:0 18px 18px 69px;font-size:14px;line-height:22px}.viewerQuestionSettings{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}.viewerQuestionSettings label{display:block;font-size:15px;font-weight:600;margin-bottom:8px}.viewerBloomValue{display:block;min-width:175px;max-width:100%;padding:9px 14px;min-height:42px;border-radius:8px;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4}.viewerFlagButton{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 16px;min-height:42px;border:0;border-radius:5px;color:#C05512;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4;cursor:pointer}.viewerFlagButton.isFlagged{box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}.viewerExamActions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:12px}.viewerExamButton{display:flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:10px 18px;border:0;border-radius:30px;background:#DFE6E9;color:#374151;font:600 16px 'Segoe UI',Arial,sans-serif;box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4;cursor:pointer}.viewerExamButton:disabled{opacity:.5;cursor:not-allowed}.viewerExamButton.viewerNext{color:#2A7308;border:1px solid #2A7308}
+.viewerNavigator{padding:24px 19px;display:flex;flex-direction:column;gap:19px}.viewerNavigator h2{margin:0;color:#2D4CC8;font-size:18px;line-height:28px}.viewerQuestionTiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 12px}.viewerQuestionTile{min-width:0;aspect-ratio:1/1;min-height:38px;border:1px solid #adb5bb;border-radius:5px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;font:600 16px 'Segoe UI',Arial,sans-serif;color:#374151;cursor:pointer}.viewerQuestionTile.is-answered{border-color:#2A7308;color:#2A7308}.viewerQuestionTile.is-flagged{border-color:#C05512;color:#C05512}.viewerQuestionTile.is-current{border-color:#2D4CC8;color:#2D4CC8;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}.viewerStatusRows{display:grid;gap:14px;margin-top:4px}.viewerStatusRows>div{display:flex;align-items:center;gap:11px;min-height:44px;padding:8px 12px;border-radius:6px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:15px}.viewerStatusRows strong{margin-left:auto}.viewerStatusRows>div:first-child strong{color:#2A7308}.viewerStatusRows>div:last-child strong{color:#C05512}.viewerRemainingCircle{width:22px;height:22px;display:block;border:1px solid #C4C4C4;border-radius:50%;flex:none}.viewerToolsHeading{margin-top:8px!important}.viewerToolsList{display:grid;gap:13px}.viewerToolsList button{display:flex;align-items:center;gap:12px;min-height:42px;padding:8px 12px;border:0;border-radius:5px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;background:#DFE6E9;color:#2F3547;text-align:left;font:600 14px 'Segoe UI',Arial,sans-serif;cursor:pointer}.viewerToolsList button span{margin-left:auto;font-size:18px}.viewerToolPanel{padding:13px;border-radius:7px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}.viewerToolPanelTop{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.viewerToolPanelTop button{cursor:pointer;border:0;background:transparent;font-size:23px}.viewerToolPanel textarea,.viewerToolPanel input{width:100%;padding:10px;background:#DFE6E9;border:0;border-radius:5px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;color:#374151}.viewerToolPanel p{font-size:13px}.viewerToolPanel>div>button{cursor:pointer}.viewerExamFinished{padding:30px;max-width:600px}.viewerExamFinished h2{color:#2A7308}
+@media(max-width:1050px){.viewerExamGrid{grid-template-columns:minmax(0,1fr) 265px;gap:16px}.viewerQuestionCard{padding:18px}.viewerNavigator{padding:18px 12px}.viewerQuestionTiles{gap:9px}.viewerExamActions{flex-wrap:wrap}}
+@media(max-width:780px){.viewerExamGrid{grid-template-columns:minmax(0,1fr)}.viewerNavigator{padding:20px}.viewerQuestionTiles{grid-template-columns:repeat(5,minmax(0,1fr))}.viewerExamTop{gap:14px}}
+@media(max-width:520px){.viewerExamTop .viewerBreadcrumb{font-size:12px}.viewerQuestionCard,.viewerNavigator{padding:14px}.viewerAnswer{font-size:14px;line-height:22px}.viewerQuestionTiles{gap:8px}.viewerQuestionTile{min-height:38px}.viewerExamActions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.viewerExamActions .viewerExamButton{font-size:12px;min-height:44px;padding:8px}.viewerExamActions .viewerExamButton:nth-child(2){grid-column:1/-1;grid-row:1}.viewerTimeDigit{width:23px;height:27px;font-size:15px}}
+
+/* Mark visited unanswered questions orange, while the current question remains blue. */
+.viewerAppShell .viewerQuestionTile.is-skipped{color:#C05512;border-color:#C05512;}
+/* Keep the three actions separated on desktop without changing the mobile button order. */
+@media(min-width:521px){
+  .viewerAppShell .viewerExamActions{gap:clamp(20px,3vw,44px);}
+  .viewerAppShell .viewerExamActions>.viewerExamButton:nth-child(2){margin-left:auto;}
+  .viewerAppShell .viewerExamActions>.viewerNext{margin-left:clamp(24px,5vw,80px);}
+}
+
+/* Main question answer states — single source of truth, no conflicting radio rules. */
+.viewerAppShell .viewerAnswer .viewerAnswerRadio {
+  position:relative;display:grid;place-items:center;flex:0 0 28px;
+  width:28px;height:28px;border-radius:50%;background:#DFE6E9;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;
+}
+.viewerAppShell .viewerAnswer .viewerAnswerRadio::before {
+  content:"";position:absolute;inset:auto;width:16px;height:16px;
+  border:1.5px solid #C6C6C9;border-radius:50%;background:transparent;box-shadow:none;
+}
+.viewerAppShell .viewerAnswer .viewerAnswerRadio::after {content:none;display:none;}
+.viewerAppShell .viewerAnswer .viewerAnswerStatusIcon {display:none;}
+/* A selected option stays neutral until Check Answer is clicked. */
+.viewerAppShell .viewerAnswer.isSelected:not(.isCorrect):not(.isIncorrect) {
+  border-color:#2D4CC8;
+}
+.viewerAppShell .viewerAnswer.isSelected:not(.isCorrect):not(.isIncorrect) .viewerAnswerRadio::before {
+  background:#DFE6E9;border-color:#939DA4;box-shadow:none;
+}
+/* Figma 28x28 raised ring and 16x16 correct/wrong artwork. */
+.viewerAppShell .viewerAnswer.isCorrect,
+.viewerAppShell .viewerAnswer.isIncorrect {
+  background:#DFE6E9;
+  box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;
+}
+.viewerAppShell .viewerAnswer.isCorrect {border:1px solid #2A7308;}
+.viewerAppShell .viewerAnswer.isIncorrect {border:1px solid #A91E2C;}
+.viewerAppShell .viewerAnswer .viewerAnswerRadio.viewerAnswerRadioCorrect,
+.viewerAppShell .viewerAnswer .viewerAnswerRadio.viewerAnswerRadioWrong {
+  position:relative;display:grid;place-items:center;flex:0 0 28px;
+  width:28px;height:28px;border-radius:50%;background:#DFE6E9;
+  box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF;
+}
+.viewerAppShell .viewerAnswer .viewerAnswerRadio.viewerAnswerRadioCorrect::before,
+.viewerAppShell .viewerAnswer .viewerAnswerRadio.viewerAnswerRadioWrong::before,
+.viewerAppShell .viewerAnswer .viewerAnswerRadio.viewerAnswerRadioCorrect::after,
+.viewerAppShell .viewerAnswer .viewerAnswerRadio.viewerAnswerRadioWrong::after {content:none;display:none;}
+.viewerAppShell .viewerAnswer .viewerAnswerRadioCorrect .viewerAnswerStatusIcon,
+.viewerAppShell .viewerAnswer .viewerAnswerRadioWrong .viewerAnswerStatusIcon {
+  display:block;position:relative;flex:0 0 16px;width:16px;height:16px;
+  border-radius:50%;
+}
+.viewerAppShell .viewerAnswer .viewerAnswerRadioCorrect .viewerAnswerStatusIcon {
+  background:#2A7308;border:1px solid #2A7308;
+}
+.viewerAppShell .viewerAnswer .viewerAnswerRadioCorrect .viewerAnswerStatusIcon::after {
+  content:"";position:absolute;left:4px;top:4px;width:6px;height:4px;
+  border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;
+  transform:rotate(-45deg);
+}
+.viewerAppShell .viewerAnswer .viewerAnswerRadioWrong .viewerAnswerStatusIcon {
+  background:transparent;border:1.5px solid #A91E2C;
+}
+.viewerAppShell .viewerAnswer .viewerAnswerRadioWrong .viewerAnswerStatusIcon::before,
+.viewerAppShell .viewerAnswer .viewerAnswerRadioWrong .viewerAnswerStatusIcon::after {
+  content:"";position:absolute;left:3px;top:6px;width:8px;height:1.5px;
+  background:#A91E2C;border:0;border-radius:1px;
+}
+.viewerAppShell .viewerAnswer .viewerAnswerRadioWrong .viewerAnswerStatusIcon::before {transform:rotate(45deg);}
+.viewerAppShell .viewerAnswer .viewerAnswerRadioWrong .viewerAnswerStatusIcon::after {transform:rotate(-45deg);}
+@media(max-width:520px){
+  .viewerAppShell .viewerAnswer .viewerAnswerRadio{flex:0 0 28px;width:28px;height:28px;}
+}
+
+
+/* Short Answer second screen — compact Figma spacing; first page and MCQ untouched.
+   Override the question card's inherited flex gap and the old margin stacking. */
+
+/* Short Answer question-taking view — Figma measurements, scoped to second screen only. */
+.viewerAppShell .viewerExamGrid{gap:24px}
+.viewerAppShell .viewerQuestionCard.viewerShortAnswer{display:flex;flex-direction:column;gap:0;padding:24px!important;min-height:732px}
+.viewerAppShell .viewerShortAnswer .viewerProgressLabel{margin:0 0 4px;line-height:26px;font-size:16px}
+.viewerAppShell .viewerShortAnswer .viewerProgressRow{gap:12px;margin:0 0 16px;min-height:24px}
+.viewerAppShell .viewerShortAnswer .viewerProgressTrack{height:20px}
+.viewerAppShell .viewerShortAnswer .viewerQuestionHeading{margin:0 0 16px;padding:0}
+.viewerAppShell .viewerShortAnswer .viewerQuestionHeading h2{margin:0 0 4px;font-size:18px;line-height:28px}
+.viewerAppShell .viewerShortAnswer .viewerQuestionHeading p{margin:0;font-size:16px;line-height:28px}
+.viewerAppShell .viewerShortAnswer .viewerShortResponse{display:flex;flex-direction:column;gap:4px;margin:0 0 24px}
+.viewerAppShell .viewerShortAnswer .viewerShortCount{margin:0;text-align:right;font-size:14px;line-height:24px}
+.viewerAppShell .viewerShortAnswer .viewerShortResponse textarea{box-sizing:border-box;width:100%;height:120px;min-height:120px;padding:20px 24px;border:0;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4;font:400 14px/22px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em;resize:vertical}
+.viewerAppShell .viewerShortAnswer .viewerHintBox{margin:0 0 16px;padding:0;min-height:66px;border-radius:8px}
+.viewerAppShell .viewerShortAnswer .viewerHintToggle{min-height:66px;padding:8px 17px;font-size:18px;line-height:24px}
+.viewerAppShell .viewerShortAnswer .viewerHintTitle{gap:14px}
+.viewerAppShell .viewerShortAnswer .viewerHintIcon{width:39px;height:39px;flex:0 0 39px}
+.viewerAppShell .viewerShortAnswer .viewerHintBox p{margin:0;padding:0 17px 12px 70px;font-size:14px;line-height:22px}
+.viewerAppShell .viewerShortAnswer .viewerQuestionSettings{margin:0;min-height:72px;align-items:flex-end}
+.viewerAppShell .viewerShortAnswer .viewerQuestionSettings label{font-size:16px;line-height:24px;margin:0 0 8px}
+.viewerAppShell .viewerShortAnswer .viewerBloomValue{min-width:178px;min-height:40px;padding:8px 16px;font-size:16px;line-height:24px}
+.viewerAppShell .viewerShortAnswer .viewerFlagButton{min-height:40px;font-size:16px;line-height:24px}
+.viewerAppShell .viewerShortAnswer .viewerExamActions{margin-top:36px;padding-top:0;gap:24px}
+.viewerAppShell .viewerShortAnswer .viewerExamButton{min-height:54px;padding:11px 24px;font-size:20px;line-height:32px}
+.viewerAppShell .viewerShortAnswer .viewerExamButton:first-child{min-width:170px}
+.viewerAppShell .viewerShortAnswer .viewerExamButton:nth-child(2){min-width:197px}
+.viewerAppShell .viewerShortAnswer .viewerExamButton.viewerNext{min-width:171px;margin-left:0}
+@media(max-width:1050px){.viewerAppShell .viewerExamGrid{gap:16px}.viewerAppShell .viewerQuestionCard.viewerShortAnswer{min-height:0;padding:18px!important}.viewerAppShell .viewerShortAnswer .viewerExamButton{font-size:16px;min-width:0!important;padding:10px 14px}}
+@media(max-width:780px){.viewerAppShell .viewerQuestionCard.viewerShortAnswer{padding:18px!important}.viewerAppShell .viewerShortAnswer .viewerExamActions{margin-top:24px}}
+@media(max-width:520px){.viewerAppShell .viewerQuestionCard.viewerShortAnswer{padding:14px!important}.viewerAppShell .viewerShortAnswer .viewerExamButton{min-width:0!important;font-size:13px;line-height:22px}.viewerAppShell .viewerShortAnswer .viewerExamActions{gap:9px}}
+
+
+/* Correct-answer Figma state: scoped exclusively to assessment viewer */
+.viewerShortAnswer .viewerAnswerFeedback{box-sizing:border-box;width:100%;min-height:120px;border:1px solid #2A7308;border-radius:8px;padding:17px;background:#DFE6E9;box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4;animation:viewerFeedbackEnter .28s ease-out}
+.viewerShortAnswer .viewerAnswerFeedback--incorrect{border-color:#C05512}
+.viewerFeedbackTitle{display:flex;align-items:center;gap:9px;color:#2A7308;font:600 14px/22px 'Segoe UI',sans-serif}
+.viewerAnswerFeedback--incorrect .viewerFeedbackTitle{color:#C05512}
+.viewerFeedbackTitle span{font-size:25px;line-height:24px}
+.viewerAnswerFeedback p{font:400 14px/22px 'Segoe UI',sans-serif;letter-spacing:.02em;color:#374151;margin:15px 0 0}
+.viewerNavigator--result{position:relative;overflow:hidden;min-height:732px;display:flex;align-items:center;justify-content:center;padding:16px!important}
+.viewerResultPanel{width:100%;min-height:650px;display:flex;flex-direction:column;align-items:center;position:relative;padding-top:205px;box-sizing:border-box;font-family:'Segoe UI',sans-serif;animation:viewerFeedbackEnter .4s ease-out}
+.viewerConfetti{position:absolute;top:8px;left:0;right:0;height:250px;overflow:hidden;pointer-events:none}
+.viewerConfetti i{position:absolute;top:calc(var(--y) - 90px);left:var(--x);width:6px;height:16px;border-radius:2px;background:var(--color);transform:rotate(calc(var(--piece)*31deg));animation:viewerConfettiFall 2.8s ease-in-out var(--delay) infinite;opacity:.9}
+.viewerConfetti i:nth-child(3n){width:4px;height:21px;border-radius:60%}
+.viewerConfetti i:nth-child(5n){width:8px;height:8px;border-radius:50%}
+.viewerResultCheck{width:50px;height:50px;display:grid;place-items:center;border-radius:50%;background:#2A7308;border:3px solid white;color:white;font:700 35px 'Segoe UI',sans-serif;z-index:1;box-shadow:0 2px 6px #999;animation:viewerCheckPop .55s cubic-bezier(.2,1.8,.4,1)}
+.viewerResultCheck--review{background:#C05512}
+.viewerResultPanel>h2{font:700 24px/32px 'Segoe UI',sans-serif;color:#2A7308;margin:10px 0 14px;text-align:center}
+.viewerResultAnswers{width:100%;padding:0 12px;box-sizing:border-box;color:#374151;font:600 16px/22px 'Segoe UI',sans-serif}
+.viewerResultAnswers p{margin:0 0 9px;overflow-wrap:anywhere}
+.viewerResultAnswers strong{font-weight:600;color:#2A7308}
+.viewerResultWhy{width:100%;height:280px;box-sizing:border-box;border:1px solid #2D4CC8;border-bottom-color:#F03D69;border-radius:8px;margin-top:12px;padding:16px 15px;display:flex;flex-direction:column;align-items:center}
+.viewerResultWhy h3{align-self:flex-start;margin:0 0 13px;font:700 16px/24px 'Segoe UI',sans-serif;color:#A326A4}
+.viewerResultWhy p{align-self:stretch;margin:0;color:#111;font:400 14px/22px 'Segoe UI',sans-serif}
+.viewerHappyEmoji{position:relative;display:grid;place-items:center;margin-top:auto;margin-bottom:20px;width:100px;height:100px;border-radius:50%;background:linear-gradient(140deg,#ffcd00,#ff9c19);font-size:65px;animation:viewerEmojiBounce 1.4s ease-in-out infinite;box-shadow:inset -2px -4px 0 #ffab0c}
+.viewerEmojiEye{position:absolute;top:26px;width:24px;height:33px;border-radius:50%;background:white;display:grid;place-items:end center;padding-bottom:3px;box-sizing:border-box}
+.viewerEmojiEye--left{left:23px}.viewerEmojiEye--right{right:23px}
+.viewerEmojiEye b{width:13px;height:18px;background:#242424;border-radius:50%;position:relative}
+.viewerEmojiEye b:after{content:'';position:absolute;top:2px;right:1px;width:5px;height:6px;background:white;border-radius:50%}
+.viewerEmojiMouth{position:absolute;top:60px;left:42px;width:18px;height:18px;background:#ed3b41;border-radius:4px 4px 55% 55%}
+@keyframes viewerConfettiFall{0%{transform:translateY(-45px) rotate(0);opacity:0}18%{opacity:1}80%{opacity:1}100%{transform:translateY(180px) translateX(30px) rotate(460deg);opacity:0}}
+@keyframes viewerCheckPop{0%{transform:scale(.3)}65%{transform:scale(1.13)}100%{transform:scale(1)}}
+@keyframes viewerEmojiBounce{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+@keyframes viewerFeedbackEnter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.viewerConfetti i,.viewerHappyEmoji,.viewerResultCheck,.viewerResultPanel,.viewerAnswerFeedback{animation:none!important}}
+@media(max-width:900px){.viewerNavigator--result{min-height:650px}.viewerResultPanel{min-height:610px;padding-top:185px}}
+
+/* Figma correct-answer state refinements; existing instruction screen untouched. */
+.viewerAppShell .viewerNavigator.viewerNavigator--result{min-height:732px;align-items:stretch;justify-content:flex-start;padding:16px!important}
+.viewerAppShell .viewerResultPanel{min-height:690px;padding-top:204px;justify-content:flex-start}
+.viewerAppShell .viewerResultWhy{margin-top:12px}
+.viewerAppShell .viewerResultCheck:empty::after{content:"";width:14px;height:23px;border-right:3px solid #fff;border-bottom:3px solid #fff;transform:rotate(45deg) translate(-2px,-2px)}
+.viewerAppShell .viewerFeedbackTitle span:empty::after{content:"";display:inline-block;width:9px;height:16px;border-right:2px solid #2A7308;border-bottom:2px solid #2A7308;transform:rotate(45deg);margin:0 7px}
+@media(prefers-reduced-motion:reduce){.viewerConfetti i,.viewerResultCheck,.viewerResultPanel{animation:none!important}}
+
+/* Figma incorrect-answer state: red #A91E2C, original assets untouched */
+.viewerAppShell .viewerShortAnswer .viewerAnswerFeedback--incorrect{border:1px solid #A91E2C}
+.viewerAppShell .viewerAnswerFeedback--incorrect .viewerFeedbackTitle{color:#A91E2C}
+.viewerAppShell .viewerAnswerFeedback--incorrect .viewerFeedbackTitle span:empty::after{width:13px;height:13px;border:0;background:linear-gradient(45deg,transparent 44%,#A91E2C 44%,#A91E2C 56%,transparent 56%),linear-gradient(-45deg,transparent 44%,#A91E2C 44%,#A91E2C 56%,transparent 56%);transform:none;margin:0 4px}
+.viewerAppShell .viewerResultCheck--review{background:#A91E2C;border:0;box-shadow:none}
+.viewerAppShell .viewerResultCheck--review:empty::after{content:"";width:24px;height:24px;border:0;transform:none;background:linear-gradient(45deg,transparent 47%,#fff 47%,#fff 53%,transparent 53%),linear-gradient(-45deg,transparent 47%,#fff 47%,#fff 53%,transparent 53%)}
+.viewerAppShell .viewerResultPanel:has(.viewerResultCheck--review){padding-top:38px}
+.viewerAppShell .viewerResultPanel:has(.viewerResultCheck--review)>h2{color:#A91E2C;margin:10px 0 18px}
+.viewerAppShell .viewerResultPanel:has(.viewerResultCheck--review) .viewerResultAnswers{margin-bottom:12px}
+.viewerAppShell .viewerResultPanel:has(.viewerResultCheck--review) .viewerResultAnswers p:first-child strong{color:#A91E2C;font-weight:400}
+.viewerAppShell .viewerResultWhy--wrong{height:280px;margin-top:12px}
+.viewerAppShell .viewerSadEmoji{width:122px;height:122px;margin-bottom:20px;animation:none;background:linear-gradient(145deg,#ffc04c,#ffa826);box-shadow:none}
+.viewerSadEye{position:absolute;top:39px;width:31px;height:33px;border-radius:50%;background:#fff;display:grid;place-items:center;transform:rotate(9deg)}
+.viewerSadEye--left{left:26px}.viewerSadEye--right{right:26px;transform:rotate(-9deg)}
+.viewerSadEye b{width:20px;height:24px;border-radius:50%;background:#29303a;position:relative}
+.viewerSadEye b:after{content:"";position:absolute;top:3px;left:4px;width:8px;height:9px;border-radius:50%;background:#fff}
+.viewerSadBrow{position:absolute;top:25px;width:21px;height:10px;border-bottom:4px solid #29303a;border-radius:0 0 70% 70%}
+.viewerSadBrow--left{left:27px;transform:rotate(-24deg)}.viewerSadBrow--right{right:27px;transform:rotate(24deg)}
+.viewerSadMouth{position:absolute;left:38px;bottom:21px;width:48px;height:22px;border:0;border-top:5px solid #29303a;border-radius:65% 65% 0 0}
+/* Ribbon-like celebratory confetti: only shown for correct answers */
+.viewerAppShell .viewerConfetti{height:245px;top:6px;overflow:hidden}
+.viewerAppShell .viewerConfetti i{width:7px;height:26px;border-radius:45% 20% 55% 20%;background:transparent;border:3px solid var(--color);border-left-color:transparent;border-bottom-color:transparent;animation:viewerRibbonFall 3s ease-in-out var(--delay) infinite}
+.viewerAppShell .viewerConfetti i:nth-child(3n){width:9px;height:31px;border-radius:65% 20% 65% 20%}
+.viewerAppShell .viewerConfetti i:nth-child(5n){width:5px;height:17px;border:0;background:var(--color);border-radius:1px}
+@keyframes viewerRibbonFall{0%{transform:translateY(-30px) rotate(0);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translateY(170px) translateX(30px) rotate(520deg);opacity:0}}
+@media(prefers-reduced-motion:reduce){.viewerAppShell .viewerConfetti i{animation:none}}
+
+/* Shared LMS header — matches the supplied Header CSS, scoped to Viewer only.
+   Keep the existing shared <Header /> and all its original image paths. */
+.viewerAppShell .viewerSharedHeader .topHeader {
+  min-height:55px;
+  height:55px;
+  width:100%;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#DFE6E9;
+  box-shadow:-8px -8px 16px #FFFFFF,8px 8px 16px #C4C4C4;
+  position:relative;
+  z-index:1000;
+  box-sizing:border-box;
+}
+.viewerAppShell .viewerSharedHeader .topHeader .desktopBreadcrumb {display:none;}
+.viewerAppShell .viewerSharedHeader .topHeader .headerRight {
+  display:flex;align-items:center;gap:10px;margin-left:auto;
+}
+.viewerAppShell .viewerSharedHeader .notificationButton {
+  position:relative;width:35px;height:33px;display:flex;
+  align-items:center;justify-content:center;padding:0;
+  background:#DFE6E9;border:0;border-radius:8px;
+  box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;
+  cursor:pointer;
+}
+.viewerAppShell .viewerSharedHeader .notificationDot {
+  position:absolute;top:5px;right:6px;width:7px;height:7px;
+  background:#E01E5A;border-radius:50%;
+}
+.viewerAppShell .viewerSharedHeader .headerDivider {
+  width:1px;height:30px;background:rgba(120,130,137,.35);
+}
+.viewerAppShell .viewerSharedHeader .topUserProfile {
+  display:flex;align-items:center;gap:8px;min-width:0;
+}
+.viewerAppShell .viewerSharedHeader .smallAvatar {
+  position:relative;width:44px;height:44px;flex:0 0 44px;
+  background:#DFE6E9;border:0;border-radius:50%;
+  box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;
+  overflow:hidden;
+}
+.viewerAppShell .viewerSharedHeader .avatarImage {
+  position:absolute!important;width:36px!important;height:36px!important;
+  left:4px!important;top:4px!important;right:auto!important;bottom:auto!important;
+  object-fit:cover;object-position:center;border-radius:50%;
+}
+.viewerAppShell .viewerSharedHeader .topUserDetails {min-width:0;}
+.viewerAppShell .viewerSharedHeader .topUserName {
+  margin:0;color:#2F3547;font-size:12px;font-weight:700;white-space:nowrap;
+}
+.viewerAppShell .viewerSharedHeader .topUserRole {
+  margin-top:2px;color:#2F3547;font-size:9px;white-space:nowrap;
+}
+@media(max-width:700px){
+  .viewerAppShell .viewerSharedHeader .topHeader {
+    width:100%;min-height:80px;height:80px;padding:0 14px;
+    justify-content:flex-end;
+  }
+  .viewerAppShell .viewerSharedHeader .headerDivider,
+  .viewerAppShell .viewerSharedHeader .topUserDetails {display:none;}
+  .viewerAppShell .viewerSharedHeader .mobileMenuButton {
+    width:36px;height:36px;padding:6px;display:flex;
+    flex-direction:column;justify-content:center;gap:5px;
+    background:transparent;border:0;cursor:pointer;
+  }
+  .viewerAppShell .viewerSharedHeader .mobileMenuButton span {
+    display:block;width:24px;height:2px;background:#374151;border-radius:2px;
+  }
+}
+
+/* Figma celebration: full, colorful curled streamers above the result check. */
+.viewerAppShell .viewerNavigator--result .viewerResultPanel:has(.viewerConfetti){padding-top:204px}
+.viewerAppShell .viewerNavigator--result .viewerConfetti{position:absolute;inset:8px 0 auto;height:245px;overflow:hidden;pointer-events:none;z-index:0}
+.viewerAppShell .viewerNavigator--result .viewerConfetti i{
+  position:absolute;left:var(--x);top:calc(var(--y) - 64px);
+  width:11px;height:31px;background:transparent;
+  border:3px solid var(--color);border-left-color:transparent;
+  border-radius:65% 12% 60% 12%;opacity:1;
+  transform-origin:center center;
+  animation:viewerFigmaStreamers 3.2s ease-in-out var(--delay) infinite;
+}
+.viewerAppShell .viewerNavigator--result .viewerConfetti i:nth-child(4n){width:13px;height:39px;border-width:3px;border-left-color:var(--color);border-right-color:transparent;border-radius:25% 75% 30% 70%}
+.viewerAppShell .viewerNavigator--result .viewerConfetti i:nth-child(5n){width:6px;height:18px;border:0;border-radius:1px;background:var(--color)}
+.viewerAppShell .viewerNavigator--result .viewerConfetti i:nth-child(7n){width:18px;height:25px;border-bottom-color:transparent;border-top-color:var(--color);border-radius:50% 30% 65% 25%}
+.viewerAppShell .viewerNavigator--result .viewerConfetti i:nth-child(9n){width:9px;height:45px;border-width:4px;border-radius:65% 25% 70% 20%}
+.viewerAppShell .viewerNavigator--result .viewerResultCheck{position:relative;z-index:2}
+@keyframes viewerFigmaStreamers{
+  0%{transform:translate3d(0,-48px,0) rotate(-55deg) scale(.7);opacity:0}
+  15%{opacity:1}
+  48%{transform:translate3d(12px,32px,0) rotate(100deg) scale(1.06);opacity:1}
+  82%{opacity:1}
+  100%{transform:translate3d(-17px,145px,0) rotate(355deg) scale(.85);opacity:0}
+}
+@media(prefers-reduced-motion:reduce){.viewerAppShell .viewerNavigator--result .viewerConfetti i{animation:none;opacity:1}}
+
+/* Supplied Figma celebration artwork: static confetti image and party popper.
+   Only the yellow happy emoji animates in the correct-answer state. */
+.viewerAppShell .viewerNavigator--result .viewerConfetti{position:absolute;top:28px;left:0;right:0;height:245px;display:flex;align-items:flex-start;justify-content:center;overflow:visible;pointer-events:none;z-index:0;animation:none!important}
+.viewerAppShell .viewerNavigator--result .viewerConfetti img{display:block;width:min(100%,315px);height:225px;object-fit:contain;object-position:center;animation:none!important;transform:none!important}
+.viewerAppShell .viewerNavigator--result .viewerResultPanel:has(.viewerConfetti){padding-top:204px;animation:none!important}
+.viewerAppShell .viewerNavigator--result .viewerResultCheck{animation:none!important}
+.viewerAppShell .viewerNavigator--result .viewerResultPanel>h2{display:flex;align-items:center;justify-content:center;gap:6px}
+.viewerAppShell .viewerNavigator--result .viewerResultPanel>h2 img{width:26px;height:26px;object-fit:contain;animation:none!important}
+.viewerAppShell .viewerNavigator--result .viewerResultPanel:has(.viewerConfetti) .viewerHappyEmoji{animation:viewerEmojiBounce 1.4s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.viewerAppShell .viewerNavigator--result .viewerResultPanel .viewerHappyEmoji{animation:none!important}}
+
+/* Viewer mobile navigation: drawer opens from the RIGHT, not over the left edge.
+   Hide the shared Header's unrelated profile breadcrumb on this route only. */
+@media (max-width: 700px) {
+  .viewerAppShell .viewerLayout > .sidebar,
+  .viewerAppShell .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    bottom: 0 !important;
+    width: min(245px, 85vw) !important;
+    min-width: 0 !important;
+    max-width: 85vw !important;
+    height: 100dvh !important;
+    z-index: 1600 !important;
+    flex: none !important;
+    transform: translateX(110%) !important;
+    transition: transform 180ms ease !important;
+    box-shadow: -7px 0 15px #b0b9bf;
+    overflow-y: auto;
+  }
+  body.mobileSidebarOpen .viewerAppShell .sidebar,
+  .viewerAppShell .shell--mobile-sidebar-open > .sidebar {
+    transform: translateX(0) !important;
+  }
+  .viewerAppShell .viewerMain {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 1 100% !important;
+  }
+  .viewerAppShell .viewerSharedHeader .mobileBreadcrumb,
+  .viewerAppShell .viewerSharedHeader .breadcrumb.mobileBreadcrumb,
+  .viewerAppShell .viewerSharedHeader .desktopBreadcrumb {
+    display: none !important;
+  }
+  .viewerAppShell .viewerSharedHeader .topHeader {
+    width: 100% !important;
+  }
+}
+
+/* Mobile sidebar: dock directly BELOW the header, never cover the header.
+   Drawer is fixed and non-scrollable; assessment content retains its own scroll. */
+@media (max-width: 700px) {
+  .viewerAppShell .viewerLayout > .sidebar,
+  .viewerAppShell .sidebar {
+    top: 80px !important;
+    bottom: auto !important;
+    height: calc(100dvh - 80px) !important;
+    max-height: calc(100dvh - 80px) !important;
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    overscroll-behavior: none !important;
+    z-index: 1100 !important;
+  }
+  .viewerAppShell .viewerSharedHeader,
+  .viewerAppShell .viewerSharedHeader .topHeader {
+    position: relative;
+    z-index: 1200 !important;
+  }
+  .viewerAppShell .sidebar *,
+  .viewerAppShell .sidebar *::before,
+  .viewerAppShell .sidebar *::after {
+    scrollbar-width: none;
+  }
+  .viewerAppShell .sidebar *::-webkit-scrollbar { display: none; }
+}
+
+/* Mobile right drawer: allow vertical scrolling below the fixed header. */
+@media (max-width: 700px) {
+  .viewerAppShell .viewerLayout > .sidebar,
+  .viewerAppShell .sidebar {
+    top: 80px !important;
+    bottom: 0 !important;
+    height: calc(100dvh - 80px) !important;
+    max-height: calc(100dvh - 80px) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain !important;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+}
+
+/* Mobile-only alignment: center sections and headings while keeping long copy readable. */
+@media (max-width: 700px) {
+  .viewerAppShell .viewerContent { width:100%; max-width:100%; padding:18px 16px 32px; margin-inline:auto; }
+  .viewerAppShell .viewerBreadcrumb { justify-content:center; text-align:center; gap:6px; margin-bottom:14px; }
+  .viewerAppShell .viewerPageHeading,
+  .viewerAppShell .viewerExamHeading { text-align:center; margin-inline:auto; }
+  .viewerAppShell .viewerPageHeading h1,
+  .viewerAppShell .viewerExamHeading h1 { text-align:center; overflow-wrap:anywhere; }
+  .viewerAppShell .viewerPageHeading p,
+  .viewerAppShell .viewerExamHeading p { text-align:center; line-height:1.5; margin-inline:auto; }
+  .viewerAppShell .viewerColumns,
+  .viewerAppShell .viewerExamGrid { width:100%; grid-template-columns:minmax(0,1fr); gap:18px; }
+  .viewerAppShell .viewerSummary,
+  .viewerAppShell .viewerInstructions,
+  .viewerAppShell .viewerConfirmation,
+  .viewerAppShell .viewerExamCard { width:100%; min-width:0; margin-inline:auto; }
+  .viewerAppShell .viewerSummary { grid-template-columns:minmax(0,1fr); }
+  .viewerAppShell .viewerStat { justify-content:center; text-align:center; gap:12px; }
+  .viewerAppShell .viewerStatText { align-items:center; text-align:center; }
+  .viewerAppShell .viewerStatText strong,
+  .viewerAppShell .viewerStatText > span { line-height:1.45; }
+  .viewerAppShell .viewerInstructions h2 { text-align:center; line-height:1.4; }
+  .viewerAppShell .viewerInstructions li { justify-content:center; text-align:center; line-height:1.5; }
+  .viewerAppShell .viewerConfirmation { justify-content:center; align-items:center; text-align:center; }
+  .viewerAppShell .viewerAgreement { justify-content:center; text-align:center; line-height:1.5; }
+  .viewerAppShell .viewerStart { align-self:center; }
+  .viewerAppShell .viewerStartNote { text-align:center; }
+  .viewerAppShell .viewerExamTop { justify-content:center; align-items:center; text-align:center; }
+  .viewerAppShell .viewerQuestionHeading { text-align:center; }
+  .viewerAppShell .viewerQuestionHeading h2 { line-height:1.4; }
+  .viewerAppShell .viewerQuestionHeading p { line-height:1.5; }
+  .viewerAppShell .viewerShortAnswer .viewerQuestionHeading h2,
+  .viewerAppShell .viewerShortAnswer .viewerQuestionHeading p { text-align:center; }
+  .viewerAppShell .viewerShortAnswer .viewerShortResponse textarea { text-align:left; line-height:1.5; }
+  .viewerAppShell .viewerHintTitle { justify-content:center; }
+  .viewerAppShell .viewerHintToggle { justify-content:center; }
+  .viewerAppShell .viewerHintBox p { text-align:center; padding-left:16px; padding-right:16px; line-height:1.5; }
+  .viewerAppShell .viewerShortAnswer .viewerHintBox p { padding-left:16px; padding-right:16px; }
+  .viewerAppShell .viewerQuestionSettings { justify-content:center; align-items:center; text-align:center; }
+  .viewerAppShell .viewerQuestionSettings label { text-align:center; }
+  .viewerAppShell .viewerBloomValue { margin-inline:auto; }
+  .viewerAppShell .viewerExamActions { justify-content:center; }
+  .viewerAppShell .viewerNavigator h2,
+  .viewerAppShell .viewerToolsHeading { text-align:center; }
+  .viewerAppShell .viewerQuestionTiles { justify-items:center; }
+  .viewerAppShell .viewerStatusRows > div { text-align:left; }
+  .viewerAppShell .viewerResultPanel,
+  .viewerAppShell .viewerResultPanel > h2 { text-align:center; }
+  .viewerAppShell .viewerResultAnswers { text-align:center; }
+  .viewerAppShell .viewerResultWhy p { text-align:left; line-height:1.5; }
+  /* Keep the right-side mobile drawer scrollable and below the header. */
+  .viewerAppShell .sidebar { top:80px !important; height:calc(100dvh - 80px) !important; overflow-y:auto !important; }
+}
+@media (max-width: 380px) {
+  .viewerAppShell .viewerContent { padding-inline:12px; }
+  .viewerAppShell .viewerQuestionCard.viewerShortAnswer,
+  .viewerAppShell .viewerNavigator { padding:12px !important; }
+  .viewerAppShell .viewerExamActions { gap:8px; }
+}
+
+/* Mobile refinement: cards and all text inside them retain original left alignment. */
+@media (max-width:700px) {
+  .viewerAppShell .viewerStat,
+  .viewerAppShell .viewerStatText,
+  .viewerAppShell .viewerInstructions h2,
+  .viewerAppShell .viewerInstructions li,
+  .viewerAppShell .viewerConfirmation,
+  .viewerAppShell .viewerAgreement,
+  .viewerAppShell .viewerExamTop,
+  .viewerAppShell .viewerQuestionHeading,
+  .viewerAppShell .viewerShortAnswer .viewerQuestionHeading h2,
+  .viewerAppShell .viewerShortAnswer .viewerQuestionHeading p,
+  .viewerAppShell .viewerHintTitle,
+  .viewerAppShell .viewerHintToggle,
+  .viewerAppShell .viewerHintBox p,
+  .viewerAppShell .viewerShortAnswer .viewerHintBox p,
+  .viewerAppShell .viewerQuestionSettings,
+  .viewerAppShell .viewerQuestionSettings label,
+  .viewerAppShell .viewerNavigator h2,
+  .viewerAppShell .viewerToolsHeading,
+  .viewerAppShell .viewerResultWhy p {
+    text-align:left !important;
+  }
+  .viewerAppShell .viewerStat,
+  .viewerAppShell .viewerHintTitle,
+  .viewerAppShell .viewerHintToggle,
+  .viewerAppShell .viewerExamTop { justify-content:flex-start !important; }
+  .viewerAppShell .viewerStatText,
+  .viewerAppShell .viewerQuestionSettings { align-items:flex-start !important; }
+  .viewerAppShell .viewerBloomValue { margin-left:0 !important; }
+  .viewerAppShell .viewerInstructions ol { gap:9px; }
+  .viewerAppShell .viewerInstructions li {
+    justify-content:flex-start !important;
+    align-items:center;
+    font-size:16px;
+    line-height:24px;
+    letter-spacing:.02em;
+    padding:8px 16px;
+    min-height:40px;
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+  .viewerAppShell .viewerInstructions { padding:12px; gap:12px; }
+}
+
+/* Keep original Figma instruction text sizing on mobile; shorten copy in TSX instead. */
+@media (max-width:700px) {
+  .viewerAppShell .viewerInstructions li {
+    font-size:16px !important;
+    line-height:24px !important;
+    letter-spacing:.02em;
+    padding:8px 16px;
+    min-height:40px;
+    text-align:left !important;
+  }
+  .viewerAppShell .viewerInstructions { padding:16px; }
+}
+
+/* Mobile instructions: preserve original 16px font, no scaling or centering inside boxes. */
+@media (max-width:700px) {
+  .viewerAppShell .viewerInstructions ol li {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size:16px !important;
+    line-height:24px !important;
+    font-weight:400 !important;
+    text-align:left !important;
+    justify-content:flex-start !important;
+    letter-spacing:.02em !important;
+  }
+}
+
+/* Mobile short-answer controls: center eye glyph and both navigation buttons. */
+@media (max-width: 700px) {
+  .viewerAppShell .viewerShortAnswer .viewerHintToggle {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerHintEye {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 36px;
+    margin-left: 0;
+    padding: 0;
+    line-height: 0;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerHintEye img {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    object-fit: contain;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerExamActions {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    align-items: center !important;
+    justify-items: center !important;
+    gap: 12px !important;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton,
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton:nth-child(2),
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerNext {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    margin: 0 !important;
+    justify-self: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    white-space: nowrap;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerExamActions .viewerExamButton img {
+    display: block;
+    flex-shrink: 0;
+  }
+}
+
+/* Mobile refinement: eye glyph stays INSIDE the circular control at the right;
+   Previous and Next are grouped on the right, with icons centered in each button. */
+@media (max-width:700px) {
+  .viewerAppShell .viewerShortAnswer .viewerHintToggle {
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerHintEye {
+    box-sizing:border-box !important;
+    position:relative !important;
+    display:flex !important;
+    width:36px !important;
+    height:36px !important;
+    min-width:36px !important;
+    min-height:36px !important;
+    flex:0 0 36px !important;
+    margin-left:auto !important;
+    margin-right:0 !important;
+    padding:0 !important;
+    align-items:center !important;
+    justify-content:center !important;
+    border-radius:50% !important;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerHintEye img {
+    position:static !important;
+    display:block !important;
+    width:20px !important;
+    height:20px !important;
+    max-width:20px !important;
+    max-height:20px !important;
+    margin:0 !important;
+    padding:0 !important;
+    transform:none !important;
+    object-fit:contain !important;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerExamActions {
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    gap:12px !important;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton,
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerNext {
+    display:inline-flex !important;
+    flex:0 1 auto !important;
+    margin:0 !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:8px !important;
+    white-space:nowrap !important;
+  }
+}
+
+/* Mobile: Previous flush left, Next flush right (keep eye icon unchanged). */
+@media (max-width: 700px) {
+  .viewerAppShell .viewerShortAnswer .viewerExamActions {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton:first-child {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton:last-child {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+}
+
+
+/* Submission confirmation — Figma frame; scoped to this dialog only. */
+.viewerAppShell .viewerSubmitOverlay{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(47,53,71,.24)}
+.viewerAppShell .viewerSubmitDialog{box-sizing:border-box;width:min(564px,100%);height:303px;max-height:calc(100dvh - 32px);padding:22px 22px 19px;border-radius:22px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;display:flex;flex-direction:column;justify-content:space-between;gap:17px;color:#2F3547;overflow-y:auto}
+.viewerAppShell .viewerSubmitNotice{display:flex;align-items:flex-start;gap:10px;width:100%;min-height:166px;padding:16px 15px;border:1px solid #C05512;transform: translateY(7);border-radius:23px}
+.viewerAppShell .viewerSubmitIcon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#C05512;box-shadow:none}
+.viewerAppShell .viewerSubmitIcon img{display:block;width:24px;height:24px;object-fit:contain}
+.viewerAppShell .viewerSubmitNoticeText{min-width:0;flex:1}
+.viewerAppShell .viewerSubmitDialog h2{margin:5px 0 14px;color:#2F3547;font:700 17px/22px 'Segoe UI',Arial,sans-serif;text-align:left}
+.viewerAppShell .viewerSubmitDialog p{margin:0;text-align:left;font:400 14px/23px 'Segoe UI',Arial,sans-serif;letter-spacing:.01em}
+.viewerAppShell .viewerSubmitDialog .viewerSubmitQuestion{margin:0 0 13px;font-weight:600}
+.viewerAppShell .viewerSubmitDialog .viewerSubmitDescription{font-size:13px;line-height:23px}
+.viewerAppShell .viewerSubmitActions{display:flex;align-items:center;justify-content:space-between;width:100%;gap:14px;margin:0}
+.viewerAppShell .viewerSubmitActions button{display:flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:9px 16px;border-radius:28px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;font:600 16px/22px 'Segoe UI',Arial,sans-serif;white-space:nowrap;cursor:pointer}
+.viewerAppShell .viewerSubmitActions img{display:block;width:20px;height:20px;object-fit:contain;flex:none}
+.viewerAppShell .viewerSubmitBack{width:170px;color:#2F3547;border:1px solid transparent}
+.viewerAppShell .viewerSubmitConfirm{width:224px;color:#2A7308;border:1px solid #2A7308}
+.viewerAppShell .viewerSubmitActions button:focus-visible{outline:2px solid #2D4CC8;outline-offset:3px}
+@media(max-width:600px){.viewerAppShell .viewerSubmitDialog{height:auto;min-height:303px;max-height:calc(100dvh - 32px);padding:15px;gap:18px}.viewerAppShell .viewerSubmitNotice{padding:13px 11px;gap:9px;min-height:0}.viewerAppShell .viewerSubmitDialog h2{font-size:16px;margin:5px 0 10px}.viewerAppShell .viewerSubmitDialog p{font-size:13px;line-height:20px}.viewerAppShell .viewerSubmitDialog .viewerSubmitDescription{font-size:12px;line-height:20px}.viewerAppShell .viewerSubmitActions button{flex:1;width:auto;min-width:0;padding:9px 8px;font-size:14px;gap:6px}}
+@media(max-width:370px){.viewerAppShell .viewerSubmitActions button{font-size:12px}.viewerAppShell .viewerSubmitActions img{width:16px;height:16px}}
+
+
+/* Reference image (22 Oct): question-taking screen ONLY.
+   Existing introduction, shared Header/Sidebar, tools, and submission styles are unchanged. */
+.viewerAppShell .viewerExamGrid > .viewerQuestionCard.viewerShortAnswer,
+.viewerAppShell .viewerExamGrid > .viewerNavigator { min-height:748px; }
+.viewerAppShell .viewerQuestionCard.viewerShortAnswer { padding:24px !important; }
+.viewerAppShell .viewerShortAnswer .viewerProgressLabel { margin:0 0 4px; line-height:26px; }
+.viewerAppShell .viewerShortAnswer .viewerProgressRow { margin:0 0 21px; }
+.viewerAppShell .viewerShortAnswer .viewerQuestionHeading { margin:0 0 23px; }
+.viewerAppShell .viewerShortAnswer .viewerQuestionHeading h2 { margin-bottom:4px; }
+.viewerAppShell .viewerShortAnswer .viewerQuestionHeading p { line-height:26px; }
+.viewerAppShell .viewerShortAnswer .viewerShortResponse { gap:0; margin:0 0 24px; }
+.viewerAppShell .viewerShortAnswer .viewerShortCount { display:none; }
+.viewerAppShell .viewerShortAnswer .viewerShortResponse textarea,
+.viewerAppShell .viewerShortAnswer .viewerShortResponse input {
+  box-sizing:border-box;width:100%;height:52px;min-height:52px;
+  padding:13px 24px;border:0;border-radius:8px;background:#DFE6E9;
+  box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;
+  color:#2F3547;font:400 14px/24px 'Segoe UI',Arial,sans-serif;
+  letter-spacing:.02em;outline:none;
+}
+.viewerAppShell .viewerShortAnswer .viewerShortResponse textarea { resize:vertical; }
+.viewerAppShell .viewerShortAnswer .viewerShortResponse input::placeholder,
+.viewerAppShell .viewerShortAnswer .viewerShortResponse textarea::placeholder {color:#848E9C;opacity:1}
+.viewerAppShell .viewerShortAnswer .viewerShortResponse input:focus-visible,
+.viewerAppShell .viewerShortAnswer .viewerShortResponse textarea:focus-visible {outline:2px solid #2D4CC8;outline-offset:2px}
+.viewerAppShell .viewerShortAnswer .viewerReferenceHint {
+  min-height:70px;margin:0 0 19px;border-radius:8px;
+  background:#DFE6E9;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;
+}
+.viewerAppShell .viewerShortAnswer .viewerReferenceHint .viewerHintToggle {
+  display:flex;width:100%;min-height:70px;align-items:center;
+  padding:9px 16px;justify-content:flex-start;text-align:left;
+}
+.viewerAppShell .viewerShortAnswer .viewerReferenceHint .viewerHintTitle {align-items:center;gap:15px}
+.viewerAppShell .viewerShortAnswer .viewerReferenceHint .viewerHintIcon {flex:0 0 39px;width:39px;height:39px}
+.viewerAppShell .viewerShortAnswer .viewerReferenceHintCopy {display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.viewerAppShell .viewerShortAnswer .viewerReferenceHintCopy strong {font:600 18px/25px 'Segoe UI',Arial,sans-serif;color:#63560B}
+.viewerAppShell .viewerShortAnswer .viewerReferenceHintCopy small {font:400 14px/21px 'Segoe UI',Arial,sans-serif;color:#374151;overflow-wrap:anywhere}
+.viewerAppShell .viewerShortAnswer .viewerQuestionSettings {min-height:73px;align-items:flex-end}
+.viewerAppShell .viewerShortAnswer .viewerFlagButton {color:#C05512}
+.viewerAppShell .viewerShortAnswer .viewerExamActions {
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;
+  margin-top:36px;gap:16px;
+}
+.viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton {
+  margin:0;flex:0 1 auto;white-space:nowrap;min-height:54px;
+  font-size:18px;line-height:28px;padding:10px 22px;
+}
+.viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton:first-child {min-width:172px}
+.viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerCheckAnswer {min-width:197px;justify-self:center}
+.viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerNext {min-width:170px;margin-left:0}
+.viewerAppShell .viewerShortAnswer .viewerCheckAnswer:disabled {opacity:.65}
+@media(max-width:1100px) {
+  .viewerAppShell .viewerExamGrid > .viewerQuestionCard.viewerShortAnswer,
+  .viewerAppShell .viewerExamGrid > .viewerNavigator {min-height:0}
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton {min-width:0 !important;padding:10px 15px;font-size:15px}
+}
+@media(max-width:700px) {
+  .viewerAppShell .viewerShortAnswer .viewerExamActions {display:grid !important;grid-template-columns:1fr 1fr;gap:12px !important;justify-items:stretch !important;flex-wrap:wrap !important}
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton,
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton:first-child,
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton:last-child {
+    min-width:0 !important;width:100%;margin:0 !important;justify-self:stretch !important;
+    font-size:14px;padding:10px 12px;
+  }
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerCheckAnswer {grid-column:1/-1;grid-row:1}
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerExamButton:first-child {grid-column:1;grid-row:2}
+  .viewerAppShell .viewerShortAnswer .viewerExamActions > .viewerNext {grid-column:2;grid-row:2}
+  .viewerAppShell .viewerQuestionCard.viewerShortAnswer {padding:16px !important}
+  .viewerAppShell .viewerShortAnswer .viewerQuestionHeading {margin-bottom:16px}
+  .viewerAppShell .viewerShortAnswer .viewerReferenceHintCopy small {font-size:13px}
+}

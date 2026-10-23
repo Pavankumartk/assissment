@@ -1,0 +1,1089 @@
+/* Assessment main content ONLY. Header and sidebar belong to the parent layout. */
+
+.assessment-page {
+
+  --asm-bg: #dfe6e9;
+
+  --asm-ink: #2f3547;
+
+  --asm-blue: #2d4cc8;
+
+  --asm-out: -4px -4px 8px #ffffff, 4px 4px 8px rgba(196, 196, 196, .8);
+
+  --asm-in: inset -4px -4px 4px #ffffff, inset 4px 4px 8px #c4c4c4;
+
+  box-sizing: border-box;
+
+  width: 100%;
+
+  min-width: 0;
+
+  max-width: none;
+
+  background: var(--asm-bg);
+
+  font-family: "Segoe UI", Arial, sans-serif;
+
+  color: var(--asm-ink);
+
+  padding: 22px 24px 20px;
+
+  font-size: 16px;
+
+}
+
+.assessment-page *, .assessment-page *::before, .assessment-page *::after { box-sizing: border-box; }
+
+.assessment-page button, .assessment-page input { font: inherit; }
+
+.assessment-page button { cursor: pointer; }
+
+.assessment-page img { display: block; object-fit: contain; flex-shrink: 0; }
+
+.assessment-page button:focus-visible, .assessment-page input:focus-visible { outline: 2px solid var(--asm-blue); outline-offset: 3px; }
+
+.asm-heading-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 30px; }
+
+.asm-heading h1 { margin: 0 0 10px; font-size: 24px; line-height: 32px; letter-spacing: .02em; font-weight: 700; color: var(--asm-blue); }
+
+.asm-heading p { margin: 0; font-size: 16px; line-height: 24px; letter-spacing: .03em; }
+
+.asm-create { width: 115px; height: 40px; background: var(--asm-bg); border: 0; border-radius: 8px; box-shadow: -4px -4px 4px #fff, 4px 4px 8px #c4c4c4; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px !important; font-weight: 700 !important; color: var(--asm-blue); flex-shrink: 0; }
+
+.asm-create:active, .asm-view-all:active { box-shadow: var(--asm-in); }
+
+.asm-kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 2.3vw, 29px); margin-bottom: 36px; }
+
+.asm-kpi { height: 90px; min-width: 0; padding: 13px 16px 12px 24px; display: flex; flex-direction: column; justify-content: center; gap: 5px; background: var(--asm-bg); border-radius: 8px; box-shadow: var(--asm-out); }
+
+.asm-kpi-label { font-size: 18px; line-height: 26px; font-weight: 600; letter-spacing: .03em; white-space: nowrap; }
+
+.asm-kpi-value { font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: .03em; }
+
+.asm-kpi-value--total { color: #2d4cc8; }
+
+.asm-kpi-value--draft { color: #67096e; }
+
+.asm-kpi-value--published { color: #2a7308; }
+
+.asm-kpi-value--grading { color: #c05512; }
+
+.asm-kpi-value--closing { color: #a91e2c; }
+
+.asm-filters { display: grid; grid-template-columns: minmax(210px, 1fr) 126px 105px 116px 126px; gap: clamp(12px, 1.8vw, 28px); margin-bottom: 36px; position: relative; z-index: 3; }
+
+.asm-search, .asm-filter-trigger { height: 48px; border: 0; background: var(--asm-bg); box-shadow: var(--asm-in); border-radius: 8px; }
+
+.asm-search { min-width: 0; display: flex; align-items: center; gap: 12px; padding: 0 16px; }
+
+.asm-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--asm-ink); font-size: 16px; }
+
+.asm-search input::placeholder { color: var(--asm-ink); opacity: 1; }
+
+.asm-filter { position: relative; min-width: 0; }
+
+.asm-filter-trigger { padding: 0 14px 0 16px; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--asm-ink); font-size: 16px; letter-spacing: .03em; white-space: nowrap; }
+
+.asm-filter-trigger span { text-overflow: ellipsis; overflow: hidden; }
+
+.asm-filter-menu { position: absolute; top: calc(100% + 9px); left: 0; min-width: max(100%, 210px); max-width: min(310px, 90vw); background: var(--asm-bg); box-shadow: var(--asm-out); border-radius: 10px; padding: 12px; z-index: 10; }
+
+.asm-filter--sort .asm-filter-menu { right: 0; left: auto; }
+
+.asm-filter-input { display: block; width: 100%; height: 38px; padding: 0 11px; border-radius: 7px; border: 0; outline: 0; background: var(--asm-bg); box-shadow: var(--asm-in); color: var(--asm-ink); font-size: 14px !important; }
+
+.asm-filter-options { max-height: 210px; overflow: auto; padding-top: 9px; }
+
+.asm-filter-option { display: block; width: 100%; text-align: left; padding: 9px 10px; border: 0; background: transparent; color: var(--asm-ink); border-radius: 6px; font-size: 14px !important; }
+
+.asm-filter-option:hover, .asm-filter-option.is-selected { background: #d2dce1; color: var(--asm-blue); }
+
+.asm-no-options { padding: 10px; font-size: 14px; }
+
+.asm-recent { width: 100%; height: 604px; min-width: 0; padding: 24px; background: var(--asm-bg); border-radius: 16px; box-shadow: -4px -4px 4px #fff, 4px 4px 4px #c4c4c4; display: flex; flex-direction: column; gap: 24px; }
+
+.asm-recent-header { display: flex; align-items: center; justify-content: space-between; gap: 15px; flex-shrink: 0; }
+
+.asm-recent-header h2 { font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: .02em; color: #374151; margin: 0; }
+
+.asm-view-all { border: 0; background: var(--asm-bg); box-shadow: -4px -4px 4px #fff, 4px 4px 4px #c4c4c4; color: var(--asm-ink); border-radius: 24px; width: 92px; height: 32px; flex-shrink: 0; font-size: 16px; }
+
+.asm-table-scroll { flex: 1; min-height: 0; min-width: 0; overflow: auto; scrollbar-width: thin; }
+
+.asm-table { border-collapse: collapse; width: 100%; min-width: 915px; table-layout: fixed; color: var(--asm-ink); }
+
+.asm-col-assessment { width: 24%; } .asm-col-status { width: 12%; } .asm-col-window { width: 15%; } .asm-col-attempts { width: 11%; } .asm-col-grading { width: 13%; } .asm-col-submissions { width: 16%; } .asm-col-actions { width: 9%; }
+
+.asm-table th { height: 46px; padding: 8px 12px; background: #d7dfe3; border: 1px solid #d7d5d5; text-align: left; font-size: 16px; line-height: 22px; font-weight: 600; white-space: nowrap; }
+
+.asm-table th:first-child { padding-left: 15px; }
+
+.asm-table th img { float: right; margin-top: 2px; }
+
+.asm-table th:last-child { text-align: center; }
+
+.asm-table td { height: 71px; padding: 8px 12px; border: 1px solid #d7d5d5; font-size: 13px; line-height: 21px; vertical-align: middle; }
+
+.asm-table td:first-child { padding-left: 15px; }
+
+.asm-assessment-name { font-weight: 600; font-size: 15px; line-height: 22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.asm-assessment-meta { margin-top: 3px; font-size: 12px; white-space: nowrap; }
+
+.asm-status { display: inline-flex; align-items: center; gap: 9px; font-size: 15px; line-height: 22px; font-weight: 600; white-space: nowrap; }
+
+.asm-status i { display: inline-block; width: 9px; height: 9px; background: currentColor; border-radius: 50%; flex-shrink: 0; }
+
+.asm-status--published { color: #2a7308; } .asm-status--draft { color: #67096e; } .asm-status--closing-soon { color: #a91e2c; } .asm-status--scheduled { color: #c05512; }
+
+.asm-window { display: flex; flex-direction: column; gap: 5px; white-space: nowrap; }
+
+.asm-action-cell { position: relative; text-align: center; }
+
+.asm-action-button { border: 0; background: transparent; display: inline-flex; width: 34px; height: 34px; justify-content: center; align-items: center; border-radius: 7px; }
+
+.asm-action-button:hover { box-shadow: var(--asm-in); }
+
+.asm-action-menu { position: absolute; right: 45px; top: 15px; width: 168px; z-index: 5; padding: 7px; border-radius: 9px; box-shadow: var(--asm-out); background: var(--asm-bg); }
+
+.asm-action-menu button { text-align: left; border: 0; background: transparent; padding: 7px; display: block; width: 100%; border-radius: 6px; font-size: 13px; color: var(--asm-ink); }
+
+.asm-action-menu button:hover { background: #d2dce1; }
+
+.asm-empty { text-align: center; padding: 30px !important; }
+
+.asm-footer { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 29px 4px 0; font-size: 15px; line-height: 24px; }
+
+.asm-pagination { display: flex; align-items: center; gap: 12px; }
+
+.asm-pagination button, .asm-current-page { width: 31px; height: 31px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 6px; }
+
+.asm-pagination button { background: var(--asm-bg); box-shadow: var(--asm-out); }
+
+.asm-pagination button:disabled { opacity: .45; cursor: not-allowed; }
+
+.asm-current-page { color: #fff; background: var(--asm-blue); font-size: 14px; font-weight: 700; box-shadow: 2px 3px 6px #bfc7cb; }
+
+.asm-notice { position: fixed; bottom: 24px; right: 24px; z-index: 30; padding: 14px 42px 14px 18px; border-radius: 8px; background: var(--asm-bg); box-shadow: var(--asm-out); max-width: 350px; font-size: 14px; }
+
+.asm-notice button { position: absolute; right: 12px; top: 8px; background: none; border: none; font-size: 24px; color: var(--asm-ink); }
+
+@media (min-width: 1320px) { .asm-kpi { padding-left: 24px; } }
+
+@media (max-width: 1170px) { .asm-kpis { gap: 15px; } .asm-kpi { padding-left: 15px; } .asm-kpi-label { font-size: 16px; } .asm-filters { grid-template-columns: minmax(200px, 1fr) repeat(4, minmax(92px, 120px)); gap: 13px; } .asm-filter-trigger { padding: 0 9px; font-size: 14px; } }
+
+@media (max-width: 900px) { .assessment-page { padding: 20px 18px; } .asm-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } .asm-filters { grid-template-columns: repeat(4, minmax(0, 1fr)); } .asm-search { grid-column: 1 / -1; } .asm-filter-trigger { padding: 0 12px; font-size: 16px; } .asm-recent { height: 604px; padding: 20px; } }
+
+@media (max-width: 600px) { .assessment-page { padding: 18px 12px 20px; } .asm-heading-row { align-items: center; margin-bottom: 24px; gap: 8px; } .asm-heading h1 { font-size: 22px; margin-bottom: 6px; } .asm-heading p { font-size: 13px; line-height: 20px; } .asm-create { width: 94px; height: 40px; gap: 4px; font-size: 14px !important; } .asm-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; margin-bottom: 24px; } .asm-kpi { height: 90px; padding: 12px 10px 12px 15px; } .asm-kpi-label { font-size: 15px; line-height: 23px; letter-spacing: 0; } .asm-kpi-value { font-size: 24px; } .asm-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 26px; } .asm-search { grid-column: 1 / -1; } .asm-filter-trigger { font-size: 15px; } .asm-filter--sort .asm-filter-menu { left: auto; right: 0; } .asm-recent { padding: 16px 12px; height: 604px; gap: 19px; } .asm-recent-header h2 { font-size: 18px; } .asm-view-all { font-size: 14px; width: 82px; } .asm-footer { padding-top: 22px; font-size: 13px; } .asm-pagination { gap: 8px; } }
+
+@media (max-width: 350px) { .asm-kpi-label { font-size: 13px; } .asm-heading h1 { font-size: 20px; } .asm-heading p { font-size: 12px; } }
+
+/* Dropdown-only additions. Existing page layout remains unchanged. */
+
+.assessment-page .asm-filter-menu {
+
+  width: max(100%, 270px);
+
+  max-width: min(380px, calc(100vw - 28px));
+
+  max-height: min(480px, 68vh);
+
+  padding: 12px;
+
+  background: #DFE6E9;
+
+  box-shadow: inset -4px -4px 8px #FFFFFF,inset  4px 4px 8px rgba(196,196,196,.8);
+
+  border-radius: 12px;
+
+  z-index: 30;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  transform: translateY(-8);
+
+}
+
+.assessment-page .asm-filter-options { overflow-y: auto; min-height: 0; max-height: none; padding: 6px 2px; scrollbar-width: thin; }
+
+.assessment-page .asm-dropdown-search { flex-shrink: 0; height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 12px; border-radius: 8px; background: #DFE6E9; box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 4px #C4C4C4; }
+
+.assessment-page .asm-dropdown-search input { border: 0; outline: 0; min-width: 0; width: 100%; background: transparent; color: #2F3547; font-size: 14px; }
+
+.assessment-page .asm-filter-group { border-top: 1px solid #cbd3d7; padding-top: 5px; margin-top: 5px; }
+
+.assessment-page .asm-filter-group-heading { display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: left; gap: 12px; border: 0; padding: 10px 8px; background: transparent; font-size: 14px; font-weight: 600; color: #2D4CC8; }
+
+.assessment-page .asm-group-chevron { width: 9px; height: 9px; flex-shrink: 0; border-bottom: 1.5px solid #2D4CC8; border-right: 1.5px solid #2D4CC8; transform: rotate(45deg); transition: transform .15s ease; }
+
+.assessment-page .asm-group-chevron.is-open { transform: rotate(225deg); }
+
+.assessment-page .asm-filter-group-items { padding-left: 8px; }
+
+.assessment-page .asm-filter-option { display: flex; align-items: center; width: 100%; gap: 11px; min-height: 42px; padding: 7px 8px; font-size: 14px !important; line-height: 20px; white-space: normal; text-align: left; }
+
+.assessment-page .asm-filter-option:hover { background: #d4dee2; }
+
+.assessment-page .asm-choice-circle { width: 24px; height: 24px; display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 50%; background: #DFE6E9; box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4; position: relative; }
+
+.assessment-page .asm-choice-circle::after { content: ""; width: 12px; height: 12px; border: 1.5px solid #C6C6C9; border-radius: 50%; }
+
+.assessment-page .asm-choice-circle.is-checked { box-shadow: 4px 4px 4px #C4C4C4, -4px -4px 4px #FFFFFF; }
+
+.assessment-page .asm-choice-circle.is-checked::after { content: ""; width: 12px; height: 12px; border: 0; border-radius: 50%; background: #2D4CC8; }
+
+.assessment-page .asm-choice-circle.is-checked::before { content: ""; position: absolute; width: 7px; height: 4px; border-left: 1.5px solid white; border-bottom: 1.5px solid white; transform: rotate(-45deg); z-index: 1; top: 9px; left: 8px; }
+
+@media (max-width: 600px) {
+
+  .assessment-page .asm-filter-menu { max-width: min(320px, calc(100vw - 24px)); }
+
+  .assessment-page .asm-filter--type .asm-filter-menu, .assessment-page .asm-filter--sort .asm-filter-menu { right: 0; left: auto; }
+
+}
+
+/* Focused refinements: compact Status / Sort By menus */
+
+.assessment-page .asm-filter--status .asm-filter-menu,
+
+.assessment-page .asm-filter--sort .asm-filter-menu {
+
+  width: max-content;
+
+  min-width: 100%;
+
+  max-width: min(260px, calc(100vw - 28px));
+
+}
+
+.assessment-page .asm-filter--status .asm-filter-options--simple,
+
+.assessment-page .asm-filter--sort .asm-filter-options--simple {
+
+  width: max-content;
+
+  max-width: 100%;
+
+}
+
+.assessment-page .asm-filter--status .asm-filter-option,
+
+.assessment-page .asm-filter--sort .asm-filter-option {
+
+  width: 100%;
+
+  white-space: nowrap;
+
+  padding-right: 9px;
+
+}
+
+.assessment-page .asm-filter--status .asm-filter-menu { left: 0; right: auto; }
+
+.assessment-page .asm-filter--sort .asm-filter-menu { left: auto; right: 0; }
+
+/* Neumorphic scrollbars in filters, table and any page-owned scroll region */
+
+.assessment-page,
+
+.assessment-page * {
+
+  scrollbar-width: thin;
+
+  scrollbar-color: #aebac1 #dfe6e9;
+
+}
+
+.assessment-page::-webkit-scrollbar,
+
+.assessment-page *::-webkit-scrollbar {
+
+  width: 9px;
+
+  height: 9px;
+
+}
+
+.assessment-page::-webkit-scrollbar-track,
+
+.assessment-page *::-webkit-scrollbar-track {
+
+  background: #dfe6e9;
+
+  border-radius: 12px;
+
+  box-shadow: inset 2px 2px 3px #c4c4c4, inset -2px -2px 3px #ffffff;
+
+}
+
+.assessment-page::-webkit-scrollbar-thumb,
+
+.assessment-page *::-webkit-scrollbar-thumb {
+
+  background: #d3dde2;
+
+  border-radius: 12px;
+
+  border: 1px solid #dfe6e9;
+
+  box-shadow: inset 1px 1px 2px #ffffff, inset -1px -1px 2px #aebbc2;
+
+}
+
+.assessment-page::-webkit-scrollbar-thumb:hover,
+
+.assessment-page *::-webkit-scrollbar-thumb:hover {
+
+  background: #bbc7ce;
+
+}
+
+
+/* Create Assessment: content-only. Header and sidebar are imported separately. */
+.assessment-page.asm-create-page {
+  --asm-bg: #DFE6E9;
+  min-height: 100%;
+  padding: 24px 24px 24px;
+  overflow: visible;
+}
+.asm-create-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 22px; margin-bottom: 36px; }
+.asm-create-progress-area { flex: 1 1 auto; min-width: 0; }
+.asm-breadcrumb { height: 44px; display: flex; align-items: center; gap: 18px; white-space: nowrap; margin-bottom: 18px; font-size: 16px; }
+.asm-breadcrumb-back { width: 36px; height: 36px; border-radius: 8px; flex: 0 0 auto; border: 0; background: #DFE6E9; box-shadow: -4px -4px 4px #fff, 4px 4px 4px #C4C4C4; display: grid; place-items: center; }
+.asm-breadcrumb-back img { height: 18px; width: 18px; }
+.asm-breadcrumb-parent { border: 0; background: none; color: #2F3547; padding: 0; }
+.asm-breadcrumb-current { font-weight: 700; color: #2D4CC8; }
+.asm-breadcrumb-divider { font-size: 27px; font-weight: 400; line-height: 1; color: #2F3547; }
+.asm-wizard { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; padding: 0 16px 0 0; margin: 0; list-style: none; max-width: 960px; }
+.asm-wizard-step { height: 52px; padding: 0 10px 0 27px; display: flex; align-items: center; gap: 12px; white-space: nowrap; min-width: 0; color: #374151; font-size: 15px; font-weight: 600; background: #DFE6E9; box-shadow: inset -3px -3px 4px #FFFFFF, inset 3px 3px 5px #C4C4C4; clip-path: polygon(0 0, calc(100% - 23px) 0, 100% 50%, calc(100% - 23px) 100%, 0 100%, 23px 50%); margin-right: -14px; }
+.asm-wizard-step:first-child { padding-left: 22px; clip-path: polygon(0 0, calc(100% - 23px) 0, 100% 50%, calc(100% - 23px) 100%, 0 100%); }
+.asm-wizard-step--active { color: #2D4CC8; outline: 1px solid #2D4CC8; background: #D8E1E9; }
+.asm-wizard-number { display: inline-grid; place-items: center; width: 21px; height: 21px; border-radius: 50%; font-size: 12px; flex: 0 0 auto; background: #DFE6E9; box-shadow: -2px -2px 3px white, 2px 2px 3px #C4C4C4; }
+.asm-welcome { border: 1px solid transparent; background: linear-gradient(#DFE6E9, #DFE6E9) padding-box, linear-gradient(110deg, #2D4CC8, #A02A9A, #F03F83) border-box; border-radius: 10px; padding: 17px 14px; min-width: 295px; flex: 0 0 auto; display: flex; flex-direction: column; justify-content: center; gap: 9px; text-align: center; }
+.asm-welcome-title { display: flex; align-items: center; gap: 10px; justify-content: center; font-size: 23px; line-height: 30px; white-space: nowrap; }
+.asm-welcome-title strong { background: linear-gradient(95deg, #2D4CC8, #9137A2 52%, #D1286D); color: transparent; background-clip: text; -webkit-background-clip: text; font-weight: 700; }
+.asm-welcome-wave { color: #7B37AD; font-size: 25px; }
+.asm-welcome > span { font-size: 16px; letter-spacing: .01em; color: #2F3547; }
+.asm-type-section { min-width: 0; }
+.asm-type-section-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 32px; }
+.asm-type-copy h1 { color: #374151; margin: 0 0 10px; font-size: 22px; font-weight: 700; line-height: 30px; }
+.asm-type-copy p { margin: 0; font-size: 16px; line-height: 24px; letter-spacing: .02em; }
+.asm-create-search { width: 320px; height: 50px; min-width: 0; border-radius: 8px; flex-shrink: 0; box-shadow: inset 4px 4px 6px #C4C4C4, inset -4px -4px 5px #fff; background: #DFE6E9; display: flex; align-items: center; gap: 13px; padding: 0 15px; }
+.asm-create-search input { border: none; outline: none; width: 100%; min-width: 0; background: transparent; font-size: 16px; color: #2F3547; }
+.asm-create-search input::placeholder { color: #374151; opacity: 1; }
+.asm-type-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 26px; }
+.asm-type-card { min-width: 0; min-height: 138px; display: flex; flex-direction: column; align-items: stretch; gap: 9px; padding: 20px 20px 16px; color: #2F3547; text-align: left; background: #DFE6E9; border: 1px solid transparent; border-radius: 9px; box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px #C4C4C4; transition: border-color .15s ease, box-shadow .15s ease; }
+.asm-type-card:hover, .asm-type-card:focus-visible, .asm-type-card--selected { border-color: var(--asm-card-color); box-shadow: -4px -4px 7px #fff, 4px 4px 7px #C4C4C4; }
+.asm-type-title { font-size: 19px; font-weight: 700; line-height: 25px; color: var(--asm-card-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.asm-type-subtitle { font-size: 15px; line-height: 23px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.asm-type-bottom { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+.asm-type-arrow { font-size: 25px; line-height: 20px; font-weight: 400; }
+.asm-type-card--academic { --asm-card-color: #CE590A; }
+.asm-type-card--interactive { --asm-card-color: #73077D; }
+.asm-type-card--multimedia { --asm-card-color: #267512; }
+.asm-type-card--practical { --asm-card-color: #18366C; }
+.asm-type-card--portfolio { --asm-card-color: #086466; }
+.asm-type-card--collaborative { --asm-card-color: #3436B9; }
+.asm-type-card--gamified { --asm-card-color: #777100; }
+.asm-type-card--ai { --asm-card-color: #006F9E; }
+.asm-type-card--certification { --asm-card-color: #64306A; }
+.asm-type-card--career { --asm-card-color: #AD004A; }
+.asm-types-empty { grid-column: 1 / -1; text-align: center; padding: 28px; color: #374151; }
+.asm-create-footer { display: flex; align-items: center; justify-content: flex-end; gap: 26px; margin-top: 36px; }
+.asm-create-footer-button {
+  min-width: 156px;
+  height: 53px;
+  background: #DFE6E9;
+  color: #374151;
+  border: 0;
+  border-radius: 999px;
+  box-shadow:
+    4px 4px 8px #c4c4c4,
+    -4px -4px 4px #ffffff;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+}
+.asm-create-footer-button--continue { color: #2A7308; }
+.asm-create-footer-button:active { box-shadow: inset 3px 3px 5px #C4C4C4, inset -3px -3px 5px #fff; }
+.asm-next-note { margin-right: auto; font-size: 13px; }
+@media (max-width: 1180px) { .asm-create-top { flex-wrap: wrap; } .asm-create-progress-area { width: 100%; flex-basis: 100%; } .asm-welcome { order: -1; margin-left: auto; } .asm-type-grid { gap: 18px; } .asm-type-card { padding: 17px 14px; } .asm-type-title { font-size: 16px; } }
+@media (max-width: 900px) { .asm-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .asm-welcome { margin-left: 0; width: 100%; min-width: 0; } .asm-wizard { overflow: hidden; } .asm-wizard-step { padding-left: 22px; font-size: 13px; gap: 7px; } }
+@media (max-width: 600px) { .assessment-page.asm-create-page { padding: 16px 12px 24px; } .asm-create-top { gap: 15px; margin-bottom: 24px; } .asm-breadcrumb { gap: 8px; font-size: 13px; height: auto; margin-bottom: 18px; } .asm-breadcrumb-back { width: 32px; height: 32px; } .asm-welcome-title { font-size: 18px; } .asm-welcome > span { font-size: 13px; } .asm-wizard { grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 0 8px 0 0; } .asm-wizard-step { height: 45px; font-size: 10px; flex-direction: column; justify-content: center; gap: 2px; padding-left: 12px; padding-right: 5px; margin-right: -8px; } .asm-wizard-step:first-child { padding-left: 5px; } .asm-wizard-number { width: 16px; height: 16px; font-size: 10px; } .asm-type-section-header { flex-wrap: wrap; gap: 16px; margin-bottom: 22px; } .asm-type-copy h1 { font-size: 20px; margin-bottom: 6px; } .asm-type-copy p { font-size: 14px; } .asm-create-search { flex: 1 1 100%; width: 100%; height: 48px; } .asm-type-grid { gap: 12px; } .asm-type-card { min-height: 137px; padding: 13px 10px; gap: 7px; } .asm-type-title { font-size: 14px; line-height: 20px; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } .asm-type-subtitle { font-size: 12px; line-height: 19px; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } .asm-type-bottom { font-size: 12px; } .asm-type-arrow { font-size: 22px; } .asm-create-footer { margin-top: 24px; gap: 12px; flex-wrap: wrap; } .asm-create-footer-button { min-width: 0; flex: 1 1 120px; height: 48px; } .asm-next-note { flex-basis: 100%; } }
+@media (max-width: 360px) { .asm-type-grid { grid-template-columns: 1fr; } }
+
+/* Create Assessment reference alignment overrides; no header/sidebar styling. */
+.assessment-page.asm-create-page .asm-breadcrumb { gap: 18px; }
+.assessment-page.asm-create-page .asm-wizard {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 960px;
+  gap: 0;
+  padding: 0;
+  overflow: visible;
+  isolation: isolate;
+  filter: drop-shadow(0 -2px 2px #ffffff) drop-shadow(1px 3px 2px rgba(196,196,196,.7));
+}
+.assessment-page.asm-create-page .asm-wizard-step {
+  position: relative;
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+  height: 52px;
+  margin: 0 0 0 -1px;
+  padding: 0 14px 0 29px;
+  background: #DFE6E9;
+  box-shadow: none;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%, 22px 50%);
+  gap: 12px;
+  font-size: 16px;
+  white-space: nowrap;
+}
+.assessment-page.asm-create-page .asm-wizard-step:first-child {
+  padding-left: 22px;
+  margin-left: 0;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%);
+}
+.assessment-page.asm-create-page .asm-wizard-step::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #fff;
+  z-index: -1;
+}
+.assessment-page.asm-create-page .asm-wizard-step--active {
+  color: #2D4CC8;
+  background: #D8E1E9;
+  outline: none;
+}
+.assessment-page.asm-create-page .asm-wizard-step--active::before { background: #fff; }
+.assessment-page.asm-create-page .asm-wizard-number {
+  width: 31px;
+  height: 31px;
+  font-size: 14px;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 5px #fff, 3px 3px 5px #C4C4C4;
+}
+.assessment-page.asm-create-page .asm-welcome-wave { width: 30px; height: 30px; display: block; object-fit: contain; }
+.assessment-page.asm-create-page .asm-type-arrow { width: 24px; height: 24px; object-fit: contain; }
+.assessment-page.asm-create-page .asm-type-card { border-color: transparent; }
+.assessment-page.asm-create-page .asm-type-card:hover,
+.assessment-page.asm-create-page .asm-type-card:focus-visible,
+.assessment-page.asm-create-page .asm-type-card--selected { border-color: var(--asm-card-color); }
+.assessment-page.asm-create-page .asm-create-footer { display: flex; flex-wrap: nowrap; align-items: center; justify-content: flex-end; gap: 24px; }
+.assessment-page.asm-create-page .asm-create-footer-button { border: 0; flex: 0 0 156px; }
+@media (max-width: 1180px) {
+  .assessment-page.asm-create-page .asm-wizard-step { font-size: 14px; padding-left: 25px; padding-right: 7px; gap: 7px; }
+}
+@media (max-width: 700px) {
+  .assessment-page.asm-create-page .asm-create-top { gap: 16px; }
+  .assessment-page.asm-create-page .asm-breadcrumb { flex-wrap: wrap; white-space: normal; gap: 10px; font-size: 14px; }
+  .assessment-page.asm-create-page .asm-wizard { width: 100%; }
+  .assessment-page.asm-create-page .asm-wizard-step { height: 56px; flex-direction: column; justify-content: center; gap: 3px; padding: 6px 4px 6px 16px; font-size: 11px; line-height: 13px; text-align: center; }
+  .assessment-page.asm-create-page .asm-wizard-step:first-child { padding-left: 4px; }
+  .assessment-page.asm-create-page .asm-wizard-step .asm-wizard-number { width: 22px; height: 22px; font-size: 11px; }
+  .assessment-page.asm-create-page .asm-wizard-step { clip-path: polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%); }
+  .assessment-page.asm-create-page .asm-wizard-step:first-child { clip-path: polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%); }
+  .assessment-page.asm-create-page .asm-create-footer { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-top: 24px; }
+  .assessment-page.asm-create-page .asm-create-footer-button { width: 100%; min-width: 0; height: 49px; }
+  .assessment-page.asm-create-page .asm-next-note { grid-column: 1/-1; }
+}
+@media (max-width: 390px) {
+  .assessment-page.asm-create-page .asm-wizard-step { font-size: 10px; padding-left: 11px; }
+  .assessment-page.asm-create-page .asm-wizard-step:first-child { padding-left: 3px; }
+  .assessment-page.asm-create-page .asm-welcome-title { font-size: 16px; white-space: normal; }
+  .assessment-page.asm-create-page .asm-welcome-title strong { white-space: normal; }
+}
+
+/* Connected inset stepper, matching the Figma treatment. */
+.assessment-page.asm-create-page .asm-wizard {
+  display: flex;
+  width: 100%;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  filter: none;
+  isolation: isolate;
+  background: transparent;
+}
+
+.assessment-page.asm-create-page .asm-wizard-step {
+  --asm-chevron: 19px;
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 52px;
+  margin: 0 0 0 calc(-1 * var(--asm-chevron));
+  padding: 0 14px 0 30px;
+  border: 0;
+  outline: 0;
+  color: #374151;
+  background: #DFE6E9;
+  box-shadow: none;
+  clip-path: polygon(0 0, calc(100% - var(--asm-chevron)) 0, 100% 50%, calc(100% - var(--asm-chevron)) 100%, 0 100%, var(--asm-chevron) 50%);
+  isolation: isolate;
+  z-index: 1;
+}
+
+.assessment-page.asm-create-page .asm-wizard-step:first-child {
+  margin-left: 0;
+  padding-left: 22px;
+  clip-path: polygon(0 0, calc(100% - var(--asm-chevron)) 0, 100% 50%, calc(100% - var(--asm-chevron)) 100%, 0 100%);
+}
+
+.assessment-page.asm-create-page .asm-wizard-step:last-child {
+  margin-right: 0;
+}
+
+/* The inset shading is inside the connected surface, not a raised white frame. */
+.assessment-page.asm-create-page .asm-wizard-step::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  background: #DFE6E9;
+  box-shadow: inset 2px 3px 5px rgba(154, 166, 172, .42), inset -2px -3px 4px rgba(255,255,255,.78);
+}
+
+.assessment-page.asm-create-page .asm-wizard-step::after {
+  content: none;
+}
+
+.assessment-page.asm-create-page .asm-wizard-step--active {
+  color: #2D4CC8;
+  background: #DFE6E9;
+  outline: none;
+  z-index: 2;
+}
+
+.assessment-page.asm-create-page .asm-wizard-step--active::before {
+  background: #D8E2E9;
+  box-shadow: inset 2px 3px 5px rgba(135,153,168,.48), inset -2px -3px 4px rgba(255,255,255,.8);
+}
+
+.assessment-page.asm-create-page .asm-wizard-number {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 700px) {
+  .assessment-page.asm-create-page .asm-wizard-step {
+    --asm-chevron: 10px;
+    height: 56px;
+    padding: 6px 4px 6px 15px;
+    font-size: 11px;
+    gap: 3px;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .assessment-page.asm-create-page .asm-wizard-step:first-child {
+    padding-left: 4px;
+  }
+}
+
+@media (max-width: 390px) {
+  .assessment-page.asm-create-page .asm-wizard-step {
+    font-size: 10px;
+    padding-left: 11px;
+  }
+  .assessment-page.asm-create-page .asm-wizard-step:first-child {
+    padding-left: 3px;
+  }
+}
+
+/* Figma arrow-stepper: continuous joined arrows, with full-height pointed ends.
+   This replaces the old thin, decorative inner chevrons. */
+.assessment-page.asm-create-page .asm-wizard {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 960px;
+  height: 50px;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+  list-style: none;
+  overflow: visible;
+  isolation: isolate;
+  filter: none;
+}
+.assessment-page.asm-create-page .asm-wizard-step {
+  --asm-tip: 20px;
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: 0;
+  min-width: 0;
+  height: 50px;
+  margin: 0 0 0 calc(-1 * var(--asm-tip));
+  padding: 0 7px 0 34px;
+  gap: 10px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: .03em;
+  white-space: nowrap;
+  color: #374151;
+  background: #DFE6E9;
+  border: 0;
+  outline: 0;
+  box-shadow: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+  clip-path: polygon(0 0, calc(100% - var(--asm-tip)) 0, 100% 50%, calc(100% - var(--asm-tip)) 100%, 0 100%, var(--asm-tip) 50%);
+  isolation: isolate;
+}
+.assessment-page.asm-create-page .asm-wizard-step:first-child {
+  margin-left: 0;
+  padding-left: 24px;
+  clip-path: polygon(0 0, calc(100% - var(--asm-tip)) 0, 100% 50%, calc(100% - var(--asm-tip)) 100%, 0 100%);
+}
+.assessment-page.asm-create-page .asm-wizard-step:nth-child(1) { z-index: 5; }
+.assessment-page.asm-create-page .asm-wizard-step:nth-child(2) { z-index: 4; }
+.assessment-page.asm-create-page .asm-wizard-step:nth-child(3) { z-index: 3; }
+.assessment-page.asm-create-page .asm-wizard-step:nth-child(4) { z-index: 2; }
+.assessment-page.asm-create-page .asm-wizard-step:nth-child(5) { z-index: 1; }
+/* The inset shading sits inside each FULL arrow shape, not a separate small > icon. */
+.assessment-page.asm-create-page .asm-wizard-step::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #DFE6E9;
+  box-shadow: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+  pointer-events: none;
+}
+.assessment-page.asm-create-page .asm-wizard-step::after,
+.assessment-page.asm-create-page .asm-wizard-step:not(:last-child)::after {
+  content: none;
+  display: none;
+}
+.assessment-page.asm-create-page .asm-wizard-step--active {
+  color: #2D4CC8;
+  font-weight: 700;
+  background: #2D4CC8;
+  outline: none;
+  box-shadow: none;
+}
+.assessment-page.asm-create-page .asm-wizard-step--active::before {
+  inset: 1px;
+  background: #DFE6E9;
+  clip-path: polygon(0 0, calc(100% - var(--asm-tip)) 0, 100% 50%, calc(100% - var(--asm-tip)) 100%, 0 100%);
+  box-shadow: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+}
+.assessment-page.asm-create-page .asm-wizard-number,
+.assessment-page.asm-create-page .asm-wizard-step .asm-wizard-number {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 21px;
+  width: 21px;
+  height: 21px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #374151;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px rgba(196,196,196,.8);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 600;
+  isolation: isolate;
+}
+.assessment-page.asm-create-page .asm-wizard-number::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #DFE6E9;
+  box-shadow: 2px 2px 2px #C6C6C9, -2px -2px 2px #FFFFFF;
+}
+.assessment-page.asm-create-page .asm-wizard-step--active .asm-wizard-number {
+  color: #2D4CC8;
+  font-weight: 700;
+}
+@media (max-width: 700px) {
+  .assessment-page.asm-create-page .asm-wizard { height: 50px; max-width: none; }
+  .assessment-page.asm-create-page .asm-wizard-step {
+    --asm-tip: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 2px 3px 12px;
+    height: 50px;
+    font-size: clamp(9px, 2.45vw, 11px);
+    line-height: 13px;
+    letter-spacing: 0;
+    text-align: center;
+  }
+  .assessment-page.asm-create-page .asm-wizard-step:first-child { padding-left: 3px; }
+  .assessment-page.asm-create-page .asm-wizard-step .asm-wizard-number {
+    flex: 0 0 21px;
+    width: 21px;
+    height: 21px;
+    font-size: 12px;
+  }
+}
+
+/* FINAL arrow-joint correction: visible FULL-HEIGHT V joins, not tiny chevrons.
+   The arrow heads overlap the adjoining step so the five pieces remain attached. */
+.assessment-page.asm-create-page .asm-wizard-step {
+  overflow: visible;
+}
+.assessment-page.asm-create-page .asm-wizard-step::after,
+.assessment-page.asm-create-page .asm-wizard-step:not(:last-child)::after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 3;
+  width: var(--asm-tip);
+  height: 100%;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+  /* A full-length edge: dark upper shadow / bright lower highlight.
+     This follows the sloping 50px-high arrowhead. */
+  background: linear-gradient(135deg, #B6C0C6 0%, #C6CED3 42%, #FFFFFF 57%, #FFFFFF 100%);
+  clip-path: polygon(0 0, 3px 0, 100% 50%, 3px 100%, 0 100%, calc(100% - 4px) 50%);
+}
+.assessment-page.asm-create-page .asm-wizard-step--active::after,
+.assessment-page.asm-create-page .asm-wizard-step--active:not(:last-child)::after {
+  background: #2D4CC8;
+}
+.assessment-page.asm-create-page .asm-wizard-step:last-child::after {
+  display: none;
+}
+@media (max-width: 700px) {
+  /* Existing Create Assessment elements: breadcrumb, welcome, then wizard. */
+  .assessment-page.asm-create-page .asm-create-top {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .assessment-page.asm-create-page .asm-create-progress-area {
+    display: contents;
+  }
+
+  .assessment-page.asm-create-page .asm-breadcrumb {
+    order: 1;
+    width: 100%;
+    height: auto;
+    min-height: 32px;
+    margin: 0;
+    gap: 9px;
+    flex-wrap: wrap;
+    white-space: normal;
+    font-size: 14px;
+  }
+
+  .assessment-page.asm-create-page .asm-welcome {
+    order: 2;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 14px 12px;
+    gap: 7px;
+  }
+
+  .assessment-page.asm-create-page .asm-wizard {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  /* Remove excessive vertical whitespace from the assessment type cards. */
+  .assessment-page.asm-create-page .asm-type-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .assessment-page.asm-create-page .asm-type-card {
+    height: auto;
+    min-height: 110px;
+    padding: 15px 16px;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+
+  .assessment-page.asm-create-page .asm-type-title {
+    display: block;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 700;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .assessment-page.asm-create-page .asm-type-subtitle {
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .assessment-page.asm-create-page .asm-type-bottom {
+    margin-top: 7px;
+    font-size: 13px;
+    min-height: 21px;
+  }
+
+  .assessment-page.asm-create-page .asm-type-arrow {
+    width: 21px;
+    height: 21px;
+  }
+
+  .assessment-page.asm-create-page .asm-wizard-step::after,
+  .assessment-page.asm-create-page .asm-wizard-step:not(:last-child)::after {
+    width: var(--asm-tip);
+    clip-path: polygon(0 0, 2px 0, 100% 50%, 2px 100%, 0 100%, calc(100% - 2px) 50%);
+  }
+}
+
+
+/* Assessment type selection popup — reuses the existing dropdown radio circles. */
+.assessment-page.asm-create-page .asm-type-section { position: relative; }
+.assessment-page.asm-create-page .asm-subtype-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+}
+.assessment-page.asm-create-page .asm-subtype-panel {
+  position: fixed;
+  width: 280px;
+  max-width: calc(100vw - 24px);
+  max-height: min(365px, calc(100dvh - 24px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--asm-card-color, #ce590a);
+  border-radius: 9px;
+  background: #dfe6e9;
+  box-shadow: -5px -5px 9px #fff, 6px 7px 13px rgba(142, 151, 155, .45);
+  pointer-events: auto;
+  transform: translateX(-8);
+}
+.assessment-page.asm-create-page .asm-subtype-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  min-height: 45px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 7px rgba(163, 171, 174, .35);
+}
+.assessment-page.asm-create-page .asm-subtype-header h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 21px;
+  color: var(--asm-card-color, #ce590a);
+}
+.assessment-page.asm-create-page .asm-subtype-close {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #dfe6e9;
+  box-shadow: -3px -3px 5px #fff, 3px 3px 5px #c4c4c4;
+  color: #374151;
+  font-size: 26px;
+  line-height: 1;
+}
+.assessment-page.asm-create-page .asm-subtype-options {
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px 12px 12px;
+}
+.assessment-page.asm-create-page .asm-subtype-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 32px;
+  padding: 4px 5px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #374151;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.assessment-page.asm-create-page .asm-subtype-option .asm-choice-circle {
+  flex: 0 0 24px;
+}
+.assessment-page.asm-create-page .asm-subtype-option.is-selected {
+  color: #2d4cc8;
+  font-weight: 600;
+}
+.assessment-page.asm-create-page .asm-subtype-option:hover { background: rgba(197, 208, 213, .45); }
+@media (max-width: 700px) {
+  .assessment-page.asm-create-page .asm-subtype-overlay {
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .assessment-page.asm-create-page .asm-subtype-panel {
+    position: fixed;
+    width: min(290px, calc(100vw - 24px));
+    max-width: calc(100vw - 24px);
+    max-height: min(365px, calc(100dvh - 24px));
+  }
+
+  .assessment-page.asm-create-page .asm-subtype-option {
+    min-height: 36px;
+    font-size: 14px;
+  }
+}
+
+/* =============================================================
+   SIDEBAR-AWARE ASSESSMENT LAYOUT
+   Existing data, markup, and dropdown logic are unchanged.
+   Expanded sidebar = 3 type cards; collapsed = 4 type cards.
+   ============================================================= */
+@media (min-width: 901px) {
+  .dashboardLayout:has(> .sidebar) {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .dashboardLayout:has(> .sidebar) > .mainContent {
+    min-width: 0;
+    width: 0;
+    flex: 1 1 0;
+    transition: min-width 420ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .dashboardLayout:has(> .sidebar) .institutionScrollArea,
+  .dashboardLayout:has(> .sidebar) .pageContent,
+  .dashboardLayout:has(> .sidebar) .assessment-page {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .dashboardLayout:has(> .sidebar) .assessment-page.asm-create-page .asm-type-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px 24px;
+  }
+
+  .dashboardLayout:has(> .sidebar.sidebarCollapsed) .assessment-page.asm-create-page .asm-type-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .dashboardLayout:has(> .sidebar) .assessment-page.asm-create-page .asm-type-card {
+    min-width: 0;
+  }
+
+  .dashboardLayout:has(> .sidebar) .assessment-page.asm-create-page .asm-type-title,
+  .dashboardLayout:has(> .sidebar) .assessment-page.asm-create-page .asm-type-subtitle {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dashboardLayout:has(> .sidebar) .asm-kpis {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(12px, 1.8vw, 24px);
+  }
+
+  .dashboardLayout:has(> .sidebar) .asm-kpi {
+    min-width: 0;
+    padding-left: clamp(12px, 1.3vw, 24px);
+  }
+
+  .dashboardLayout:has(> .sidebar) .asm-kpi-label {
+    font-size: clamp(14px, 1.15vw, 18px);
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  .dashboardLayout:has(> .sidebar) .asm-filters {
+    grid-template-columns: minmax(160px, 1fr) 126px 105px 116px 126px;
+    gap: clamp(10px, 1.3vw, 22px);
+  }
+
+  .dashboardLayout:has(> .sidebar) .asm-recent {
+    min-width: 0;
+  }
+
+  .dashboardLayout:has(> .sidebar) .asm-table-scroll {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .dashboardLayout:has(> .sidebar) .asm-recent-header {
+    justify-content: space-between;
+  }
+
+  .dashboardLayout:has(> .sidebar) .assessment-page.asm-create-page .asm-create-top {
+    min-width: 0;
+  }
+
+  .dashboardLayout:has(> .sidebar) .assessment-page.asm-create-page .asm-create-progress-area {
+    min-width: 0;
+  }
+}
+
+/* Keep the design usable at smaller laptop widths; mobile unchanged. */
+@media (min-width: 901px) and (max-width: 1240px) {
+  .dashboardLayout:has(> .sidebar) .asm-filters {
+    grid-template-columns: minmax(160px, 1fr) repeat(4, minmax(82px, 105px));
+    gap: 10px;
+  }
+  .dashboardLayout:has(> .sidebar) .assessment-page.asm-create-page .asm-type-grid,
+  .dashboardLayout:has(> .sidebar.sidebarCollapsed) .assessment-page.asm-create-page .asm-type-grid {
+    gap: 16px;
+  }
+  .dashboardLayout:has(> .sidebar) .assessment-page.asm-create-page .asm-type-card {
+    padding: 15px 12px;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 900px) {
+  .dashboardLayout:has(> .sidebar) .assessment-page.asm-create-page .asm-type-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Expanded desktop sidebar: shift step content slightly left only.
+   Preserve the original chevrons, dimensions, shadows and typography. */
+@media (min-width: 701px) {
+  .dashboardLayout:has(> .sidebar:not(.sidebarCollapsed))
+  .assessment-page.asm-create-page .asm-wizard-step > span {
+    position: relative;
+    left: -7px;
+  }
+}

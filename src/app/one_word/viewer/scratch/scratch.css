@@ -1,0 +1,90 @@
+.scratchAppShell{--sb:#DFE6E9;--ink:#2F3547;position:fixed;inset:0;height:100dvh;background:var(--sb);color:var(--ink);font:14px/1.5 'Segoe UI',Arial,sans-serif;overflow:hidden}
+.scratchAppShell *,.scratchAppShell *::before,.scratchAppShell *::after{box-sizing:border-box}
+.scratchScroll{height:100%;overflow:hidden;padding:20px;scrollbar-width:thin;scrollbar-color:#B6C0C5 #DFE6E9}
+.scratchScroll::-webkit-scrollbar,.scratchMenuList::-webkit-scrollbar,.scratchSavedList::-webkit-scrollbar{width:9px}
+.scratchScroll::-webkit-scrollbar-track,.scratchMenuList::-webkit-scrollbar-track,.scratchSavedList::-webkit-scrollbar-track{background:#DFE6E9;border-radius:12px;box-shadow:inset 2px 2px 2px #C4C4C4,inset -2px -2px 2px #fff}
+.scratchScroll::-webkit-scrollbar-thumb,.scratchMenuList::-webkit-scrollbar-thumb,.scratchSavedList::-webkit-scrollbar-thumb{background:#B6C0C5;border:2px solid #DFE6E9;border-radius:12px;box-shadow:-1px -1px 2px #fff,1px 1px 2px #C4C4C4}
+.scratchGrid{display:grid;grid-template-columns:minmax(0,1fr) 265px;gap:20px;max-width:1500px;height:100%;min-height:0;margin:0 auto;align-items:stretch}
+.scratchWorkspace,.scratchAside{min-width:0;background:var(--sb);border-radius:12px;box-shadow:-4px -4px 6px #fff,4px 4px 6px #C4C4C4}
+.scratchWorkspace{display:flex;flex-direction:column;gap:13px;padding:20px;min-height:0;overflow:hidden}
+.scratchTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.scratchTop h1{margin:0 0 4px;color:#2D4CC8;font-size:22px;line-height:30px}
+.scratchTop p,.scratchAside>p{margin:0;font-size:14px;color:#677385}
+.scratchStatus{font-size:14px;color:#C05512;white-space:nowrap}
+.scratchStatus.saved{color:#2A7308}
+.scratchQuestion{display:flex;align-items:center;gap:7px;min-height:43px;padding:9px 12px;border-left:3px solid #2D4CC8;border-radius:8px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:14px}
+.scratchQuestion strong{color:#2D4CC8;white-space:nowrap}
+.scratchControls{display:flex;align-items:flex-start;flex-wrap:wrap;gap:14px}
+.scratchMenuField{position:relative;display:flex;flex-direction:column;gap:6px;min-width:150px;max-width:100%;font-size:14px;z-index:2}
+.scratchMenuField:has(.scratchMenuList){z-index:20}
+.scratchMenuField label{color:#596576;font-size:14px}
+.scratchMenuTrigger{width:100%;height:39px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 12px;background:#DFE6E9;border:0;border-radius:7px;color:#2F3547;font:14px 'Segoe UI',Arial,sans-serif;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;cursor:pointer}
+.scratchMenuTrigger img{width:20px;height:20px;flex:none;object-fit:contain}
+.scratchMenuList{position:absolute;top:calc(100% + 5px);left:0;width:100%;max-height:234px;overflow-y:auto;padding:5px;background:#DFE6E9;border-radius:8px;box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4;scrollbar-width:thin;scrollbar-color:#B6C0C5 #DFE6E9}
+.scratchMenuList button{display:block;width:100%;padding:10px 12px;background:transparent;border:0;border-radius:5px;color:#2F3547;text-align:left;font:14px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.scratchMenuList button:hover,.scratchMenuList button:focus-visible,.scratchMenuList button.selected{background:#cbd7e6;color:#2D4CC8}
+.scratchQuestionMenu{min-width:165px}
+.scratchTabs{display:flex;gap:9px}
+.scratchTabs button,.scratchToolbar>button,.scratchFooter button,.scratchSavedList button,.scratchToolLinks button{border:0;background:#DFE6E9;color:#2F3547;font:500 14px 'Segoe UI',Arial,sans-serif;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;cursor:pointer}
+.scratchTabs button{padding:9px 17px;border-radius:8px;color:#2D4CC8;font-weight:600}
+.scratchTabs button.active{box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.scratchToolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-radius:9px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.scratchToolbar>button{display:flex;align-items:center;justify-content:center;gap:5px;padding:6px 10px;min-height:34px;border-radius:22px;white-space:nowrap}
+.scratchToolbar>button.active{color:#2D4CC8;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.scratchToolbar img,.scratchFooter img,.scratchToolLinks img{display:block;width:18px;height:18px;object-fit:contain}
+.scratchToolbar .scratchInlineIcon{display:block;width:18px;height:18px;flex-shrink:0}
+.scratchColors{display:flex;align-items:center;gap:7px}
+.scratchColors button{width:25px;height:25px;min-height:25px;padding:0;border:2px solid #DFE6E9;border-radius:50%;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;cursor:pointer}
+.scratchColors button.chosen{outline:2px solid #2D4CC8;outline-offset:2px}
+.scratchPaper{position:relative;flex:0 1 auto;height:clamp(220px,39dvh,380px);min-height:180px;max-height:380px;margin-top:2px;overflow:hidden;border-radius:9px;border:4px solid #DFE6E9;background:#fff;box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4}
+.scratchPaper canvas{display:block;width:100%;height:100%;cursor:crosshair}
+.scratchPaper.grid{background-image:linear-gradient(#e5e9ef 1px,transparent 1px),linear-gradient(90deg,#e5e9ef 1px,transparent 1px);background-size:25px 25px}
+.scratchPaper.ruled{background:repeating-linear-gradient(to bottom,#fff 0,#fff 30px,#d7e1eb 31px,#fff 32px)}
+.scratchPaper.is-notes{background:#DFE6E9;border:0;box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4}
+.scratchPaper textarea{position:absolute;inset:0;display:block;width:100%;height:100%;padding:18px 20px;background:transparent;border:0;outline:0;resize:none;color:#2F3547;font:16px/1.65 'Segoe UI',Arial,sans-serif}
+.scratchPaper textarea::placeholder{color:#8793a1}
+.scratchPaper.is-notes canvas{visibility:hidden}
+.scratchFooter{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-shrink:0}
+.scratchFooter>div{display:flex;gap:12px}
+.scratchFooter button{display:flex;align-items:center;justify-content:center;gap:7px;min-height:40px;border-radius:25px;padding:9px 16px;white-space:nowrap}
+.scratchFooter .scratchSave{border:1px solid #2A7308;color:#2A7308;font-weight:600}
+.scratchAside{display:flex;flex-direction:column;gap:13px;padding:20px;align-self:start;min-height:460px;max-height:100%;overflow:hidden}
+.scratchAside h2{margin:0;color:#2D4CC8;font-size:18px}
+.scratchAside .scratchMenuField{width:100%}
+.scratchSavedList{min-height:100px;max-height:255px;overflow:auto;scrollbar-width:thin;scrollbar-color:#B6C0C5 #DFE6E9}
+.scratchSavedList button{display:flex;justify-content:space-between;gap:8px;width:100%;padding:10px 8px;margin:4px 0 9px;border-radius:7px;text-align:left}
+.scratchSavedList button strong{color:#2D4CC8}
+.scratchSavedList button span{color:#657183}
+.scratchEmpty{text-align:center;font-size:14px;color:#808d9c;margin:20px 0;line-height:22px}
+.scratchAside .scratchToolsTitle{margin-top:auto;padding-top:15px}
+.scratchToolLinks{display:grid;gap:12px}
+.scratchToolLinks button{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:8px 11px;border-radius:6px;font-weight:600}
+.scratchToolLinks button img:last-child{margin-left:auto;flex:none}
+.scratchToolLinks .teal{color:#12575B}
+.scratchToolLinks .purple{color:#760078}
+.scratchToolLinks .green{color:#2A7308}
+@media(max-height:760px) and (min-width:781px){.scratchScroll{padding:12px}.scratchWorkspace{gap:8px;padding:12px}.scratchPaper{height:clamp(170px,34dvh,290px);min-height:160px}.scratchToolbar{padding:7px 10px}.scratchAside{padding:12px;gap:9px}.scratchGrid{gap:14px}}
+@media(max-width:1020px){.scratchGrid{grid-template-columns:minmax(0,1fr) 235px;gap:14px}.scratchWorkspace,.scratchAside{padding:15px}}
+@media(max-width:780px){.scratchScroll{padding:12px;overflow-y:auto}.scratchGrid{grid-template-columns:minmax(0,1fr);height:auto;min-height:0}.scratchWorkspace{min-height:0;overflow:visible}.scratchPaper{height:clamp(240px,42dvh,380px);min-height:240px;flex:none}.scratchAside{min-height:290px;max-height:none;overflow:visible}.scratchAside .scratchToolsTitle{margin-top:10px}}
+@media(max-width:520px){.scratchWorkspace,.scratchAside{padding:12px}.scratchTop{flex-wrap:wrap}.scratchTop h1{font-size:20px}.scratchQuestion{flex-wrap:wrap}.scratchControls{gap:10px}.scratchControls .scratchMenuField{flex:1 1 135px;min-width:0}.scratchToolbar{gap:8px}.scratchToolbar>button{padding:7px}.scratchColors{flex-wrap:wrap}.scratchPaper{height:280px;min-height:240px}.scratchFooter{align-items:stretch;flex-direction:column}.scratchFooter>button{width:100%}.scratchFooter>div{width:100%}.scratchFooter>div button{flex:1}.scratchStatus{white-space:normal}}
+/* Show the selected paper pattern above the white drawing canvas without blocking pen input. */
+.scratchPaper.grid:not(.is-notes)::after,.scratchPaper.ruled:not(.is-notes)::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.42}
+.scratchPaper.grid:not(.is-notes)::after{background-image:linear-gradient(#aebfd0 1px,transparent 1px),linear-gradient(90deg,#aebfd0 1px,transparent 1px);background-size:25px 25px}
+.scratchPaper.ruled:not(.is-notes)::after{background:repeating-linear-gradient(to bottom,transparent 0,transparent 30px,#aebfd0 31px,transparent 32px)}
+
+
+/* A resize line is positioned at the bottom edge of the drawing sheet.
+   Default height remains compact; dragging downward extends the sheet and
+   enables scrolling only when the extra content exceeds the viewport. */
+.scratchScroll{overflow-x:hidden;overflow-y:auto}
+.scratchGrid{height:auto;min-height:calc(100dvh - 40px);align-items:start}
+.scratchWorkspace{overflow:visible}
+.scratchPaper{flex:0 0 auto;max-height:none;overflow:visible}
+.scratchPaper canvas{border-radius:5px}
+.scratchResizeHandle{position:absolute;z-index:12;bottom:-13px;left:50%;transform:translateX(-50%);width:120px;height:25px;padding:0;display:flex;align-items:center;justify-content:center;cursor:ns-resize;touch-action:none;background:transparent;border:0;box-shadow:none;user-select:none}
+.scratchResizeLine{display:block;width:86px;height:5px;border-radius:8px;background:#9DAEBB;border:1px solid #7F92A3;box-shadow:0 1px 2px #fff,0 -1px 2px #AAB7C0;pointer-events:none}
+.scratchResizeHandle:hover .scratchResizeLine,.scratchResizeHandle:focus-visible .scratchResizeLine{background:#2D4CC8;border-color:#2D4CC8}
+.scratchResizeHandle:focus-visible{outline:2px solid #2D4CC8;outline-offset:1px;border-radius:12px}
+.scratchFooter{margin-top:13px}
+@media(max-width:780px){.scratchGrid{height:auto;min-height:0}}
+@media(max-width:520px){.scratchResizeHandle{width:110px}}

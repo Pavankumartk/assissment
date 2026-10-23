@@ -1,0 +1,323 @@
+/* Neuro LXP Sidebar — Figma dimensions, existing JSX class names. */
+.sidebar {
+  width: 240px;
+  min-width: 240px;
+  max-width: 240px;
+  flex: 0 0 240px;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  padding: 24px 18px 20px;
+  box-sizing: border-box;
+  background: #DFE6E9;
+  box-shadow: -8px -8px 16px #FFFFFF, 8px 8px 16px #C4C4C4;
+  z-index: 100;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.logoArea {
+  width: 204px;
+  max-width: 100%;
+  min-height: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 32px;
+  padding: 0;
+  flex-shrink: 0;
+}
+.mainLogo {
+  width: 204px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  flex: 0 0 auto;
+}
+.sidebarItem,
+.logoutButton {
+  width: 100%;
+  height: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 14px;
+  flex: 0 0 44px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 8px;
+  color: #374151;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 8px #FFFFFF, 4px 4px 8px #C4C4C4;
+  text-decoration: none;
+  cursor: pointer;
+  transition: box-shadow 0.18s ease;
+}
+.sidebarItem span,
+.logoutButton span {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: inherit;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.sidebarIcon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  object-fit: contain;
+}
+.sidebarItemActive,
+.sidebarItemActive:hover {
+  color: #2D4CC8 !important;
+  background: #DFE6E9;
+  box-shadow: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4 !important;
+}
+/* Preserve the blue active item and inset neumorphic state on nested routes. */
+.sidebarItemActive span {
+  color: #2D4CC8 !important;
+  font-weight: 700;
+}
+.sidebarItemActive .sidebarIcon {
+  filter: brightness(0) saturate(100%) invert(24%) sepia(75%) saturate(2039%) hue-rotate(222deg) brightness(91%) contrast(96%) !important;
+}
+.sidebarItem:hover:not(.sidebarItemActive),
+.logoutButton:hover {
+  box-shadow: inset -4px -4px 8px #FFFFFF, inset 4px 4px 8px #C4C4C4;
+}
+.sidebarItem:focus-visible,
+.logoutButton:focus-visible {
+  outline: 2px solid #2D4CC8;
+  outline-offset: 2px;
+}
+.sidebarBottom {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 32px;
+  flex-shrink: 0;
+}
+.logoutButton span { font-size: 14px; font-weight: 700; line-height: 20px; }
+
+@media (min-width: 701px) and (max-height: 760px) {
+  .sidebar { padding-top: 14px; padding-bottom: 14px; }
+  .logoArea { height: 62px; min-height: 62px; margin-bottom: 18px; }
+  .sidebarNav { gap: 10px; }
+  .sidebarBottom { padding-top: 18px; }
+}
+
+/* Mobile: sidebar stays beside the LEFT edge, below the existing header.
+   The header is NOT placed in the scrolling menu. */
+@media (max-width: 700px) {
+  .sidebar {
+    position: fixed !important;
+    top: var(--mobile-sidebar-top, 86px) !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: 0 !important;
+    width: min(240px, 82vw) !important;
+    min-width: 0 !important;
+    max-width: min(240px, 82vw) !important;
+    flex: none !important;
+    height: calc(100dvh - var(--mobile-sidebar-top, 86px)) !important;
+    max-height: calc(100dvh - var(--mobile-sidebar-top, 86px)) !important;
+    padding: 18px 14px 18px !important;
+    margin: 0 !important;
+    border-radius: 0 10px 10px 0;
+    background: #DFE6E9;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    z-index: 2000 !important;
+    transform: translateX(-105%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.2s ease, visibility 0.2s ease;
+  }
+  body.mobileSidebarOpen .sidebar {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+  /* The header already contains the mobile logo; do not show a broken duplicate. */
+  .sidebar .logoArea { display: none !important; }
+  .sidebarNav { gap: 12px; width: 100%; }
+  .sidebarItem,
+  .logoutButton {
+    width: 100%;
+    height: 44px;
+    min-height: 44px;
+    flex: 0 0 44px;
+    padding: 0 12px;
+    gap: 10px;
+  }
+  .sidebarIcon { width: 20px; height: 20px; flex-basis: 20px; }
+  .sidebarItem span, .logoutButton span {
+    display: inline;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .sidebarBottom { margin-top: 28px; padding-top: 0; }
+}
+@media (max-width: 360px) {
+  .sidebar { width: min(225px, 82vw) !important; max-width: min(225px, 82vw) !important; }
+  .sidebarItem span { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .sidebarItem, .logoutButton { transition: none; }
+}
+
+/* Desktop: coordinated, eased collapse / expand without abrupt label hiding. */
+@media (min-width: 701px) {
+  .sidebar {
+    transition:
+      width 420ms cubic-bezier(.22, 1, .36, 1),
+      min-width 420ms cubic-bezier(.22, 1, .36, 1),
+      max-width 420ms cubic-bezier(.22, 1, .36, 1),
+      flex-basis 420ms cubic-bezier(.22, 1, .36, 1),
+      padding-left 420ms cubic-bezier(.22, 1, .36, 1),
+      padding-right 420ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .sidebar .logoArea,
+  .sidebar .mainLogo {
+    transition: width 420ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .sidebar .sidebarItem,
+  .sidebar .logoutButton {
+    overflow: hidden;
+    transition:
+      gap 420ms cubic-bezier(.22, 1, .36, 1),
+      padding-left 420ms cubic-bezier(.22, 1, .36, 1),
+      padding-right 420ms cubic-bezier(.22, 1, .36, 1),
+      box-shadow 180ms ease;
+  }
+
+  .sidebar .sidebarItem span,
+  .sidebar .logoutButton span {
+    display: block;
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 172px;
+    overflow: hidden;
+    opacity: 1;
+    white-space: nowrap;
+    transform: translateX(0);
+    transition:
+      max-width 420ms cubic-bezier(.22, 1, .36, 1),
+      opacity 220ms ease,
+      transform 420ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .sidebar.sidebarCollapsed {
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
+    flex: 0 0 76px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .sidebar.sidebarCollapsed .logoArea { width: 52px; }
+  .sidebar.sidebarCollapsed .mainLogo { width: 45px; }
+
+  .sidebar.sidebarCollapsed .sidebarItem,
+  .sidebar.sidebarCollapsed .logoutButton {
+    gap: 0;
+    padding-left: 16px;
+    padding-right: 0;
+  }
+
+  .sidebar.sidebarCollapsed .sidebarItem span,
+  .sidebar.sidebarCollapsed .logoutButton span {
+    max-width: 0;
+    opacity: 0;
+    transform: translateX(-8px);
+    pointer-events: none;
+  }
+
+  .sidebarCollapseToggle {
+    position: fixed;
+    left: 224px;
+    top: 18px;
+    z-index: 1600;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    border: 0;
+    border-radius: 4px;
+    background: #DFE6E9;
+    box-shadow: -2px -2px 2px #FFFFFF, 2px 2px 2px #C4C4C4;
+    cursor: pointer;
+    transition:
+      left 420ms cubic-bezier(.22, 1, .36, 1),
+      box-shadow 180ms ease;
+  }
+
+  .sidebarCollapseToggle:hover,
+  .sidebarCollapseToggle:focus-visible {
+    box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+  }
+
+  .sidebarCollapseToggle svg {
+    width: 21px;
+    height: 21px;
+    transition: transform 420ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .sidebarCollapseToggleCollapsed { left: 60px; }
+  .sidebarCollapseToggleCollapsed svg { transform: rotate(180deg); }
+}
+
+/* Keep the original mobile menu exactly as supplied — no desktop toggle on mobile. */
+@media (max-width: 700px) {
+  .sidebarCollapseToggle {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .sidebar .sidebarItem,
+  .sidebar .logoutButton,
+  .sidebar .sidebarItem span,
+  .sidebar .logoutButton span,
+  .sidebarCollapseToggle,
+  .sidebarCollapseToggle svg {
+    width: 21px;
+    height: 21px;
+    transition: none !important;
+  }
+}
