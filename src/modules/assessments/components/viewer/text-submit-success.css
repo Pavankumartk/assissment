@@ -1,0 +1,67 @@
+/* Reused MCQ submission confirmation Figma styling; unchanged original type CSS. */
+.viewerAppShell .viewerSuccessOverlay{position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(47,53,71,.25)}
+.viewerAppShell .viewerSuccessDialog{position:relative;box-sizing:border-box;width:min(564px,100%);height:430px;max-height:calc(100dvh - 32px);overflow-y:auto;display:flex;flex-direction:column;align-items:center;text-align:center;padding:22px 28px 24px;border-radius:22px;background:#DFE6E9;box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4;color:#2F3547;font-family:'Segoe UI',Arial,sans-serif}
+.viewerAppShell .viewerSuccessClose{position:absolute;right:15px;top:13px;border:0;border-radius:5px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;color:#374151;width:25px;height:25px;cursor:pointer}
+.viewerAppShell .viewerSuccessArt{height:106px;width:170px;position:relative;display:grid;place-items:center;flex-shrink:0}
+.viewerAppShell .viewerSuccessArt>img{position:absolute;inset:0;width:50%;height:50%;transform: translate(15px, 15px);object-fit:contain}
+.viewerAppShell .viewerSuccessCheck{position:relative;z-index:1;display:grid;place-items:center;width:49px;height:49px;border-radius:50%;background:#2A7308;color:white;font-size:30px;box-shadow:0 2px 5px #C4C4C4}
+.viewerAppShell .viewerSuccessDialog h2{margin:0 0 8px;color:#2A7308;font-size:21px;line-height:28px;font-weight:700}
+.viewerAppShell .viewerSuccessDialog h3{margin:0 0 9px;font-size:16px;line-height:24px;font-weight:500}
+.viewerAppShell .viewerSuccessDialog>p{margin:0 0 20px;font-size:13px;line-height:20px;max-width:390px}
+.viewerAppShell .viewerSuccessStats{display:grid;grid-template-columns:1fr 1fr;width:100%;min-height:72px;border:1px solid #9dbb83;border-radius:8px;margin-bottom:20px}
+.viewerAppShell .viewerSuccessStats>div{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px}
+.viewerAppShell .viewerSuccessStats>div+div{border-left:1px solid #C4C4C4}
+.viewerAppShell .viewerSuccessStatIcon{font-size:28px;color:#2A7308}
+.viewerAppShell .viewerSuccessStats>div>span:last-child{display:flex;flex-direction:column;text-align:left;gap:3px;font-size:13px}
+.viewerAppShell .viewerSuccessStats strong{font-size:17px;color:#2A7308}
+.viewerAppShell .viewerSuccessActions{display:flex;justify-content:space-between;gap:16px;width:100%;margin-top:auto}
+.viewerAppShell .viewerSuccessActions button{border:1px solid #C4C4C4;border-radius:25px;min-height:45px;padding:10px 20px;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4;font:600 14px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.viewerAppShell .viewerSuccessActions button:last-child{border-color:#2D4CC8;color:#2D4CC8}
+@media(max-width:600px){.viewerAppShell .viewerSuccessDialog{height:auto;min-height:0;padding:20px 16px}.viewerAppShell .viewerSuccessActions{flex-wrap:wrap}.viewerAppShell .viewerSuccessActions button{flex:1 1 150px}.viewerAppShell .viewerSubmitActions{flex-wrap:wrap}}
+
+/* Figma Assessment Submitted popup only; all existing page styles retained. */
+.viewerAppShell .viewerSuccessDialog{width:min(564px,calc(100vw - 32px));height:430px;max-height:calc(100dvh - 32px);padding:0 24px 31px;border-radius:24px;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;overflow-y:auto}
+.viewerAppShell .viewerSuccessClose{top:24px;right:24px;width:24px;height:24px;padding:4px;display:grid;place-items:center;border-radius:4px;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4}
+.viewerAppShell .viewerSuccessClose img{display:block;width:16px;height:16px;object-fit:contain}
+.viewerAppShell .viewerSuccessArt{width:152px;height:102px;flex:0 0 102px;margin:0 auto}
+.viewerAppShell .viewerSuccessArt>img:first-child{position:absolute;top:-8px;left:0;width:152px;height:102px;object-fit:contain}
+.viewerAppShell .viewerSuccessCheck{position:absolute;top:30px;left:46px;width:60px;height:55px;border-radius:0;background:transparent;box-shadow:none;object-fit:contain}
+.viewerAppShell .viewerSuccessDialog h2{margin:0 0 8px;font-size:22px;line-height:32px;font-weight:700;letter-spacing:.02em}
+.viewerAppShell .viewerSuccessDialog h3{margin:0 0 8px;font-size:18px;line-height:24px;font-weight:600;letter-spacing:.03em}
+.viewerAppShell .viewerSuccessDialog>p{width:360px;max-width:100%;margin:0 0 15px;font-size:14px;line-height:24px;font-weight:400;letter-spacing:.03em}
+.viewerAppShell .viewerSuccessStats{flex:none;width:100%;height:74px;min-height:74px;margin:0 0 40px;background:#E4E7E3;border:.5px solid #2A7308;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;border-radius:8px}
+.viewerAppShell .viewerSuccessStats>div{justify-content:flex-start;gap:24px;padding:12px 24px}
+.viewerAppShell .viewerSuccessStats>div+div{border-left:1px solid #B8D4AB}
+.viewerAppShell .viewerSuccessStatIcon{display:block;flex:none;width:40px;height:40px;object-fit:contain}
+.viewerAppShell .viewerSuccessStats>div>span:last-child{gap:0;font-size:16px;line-height:24px;font-weight:600;letter-spacing:.03em}
+.viewerAppShell .viewerSuccessStats strong{font-size:20px;line-height:28px;font-weight:700;letter-spacing:.03em}
+.viewerAppShell .viewerSuccessActions{flex:none;width:100%;margin-top:auto;align-items:center;justify-content:space-between;gap:16px}
+.viewerAppShell .viewerSuccessActions button{min-height:48px;height:48px;padding:9px 16px;border:0;border-radius:32px;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;font:600 18px/26px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em;white-space:nowrap}
+.viewerAppShell .viewerSuccessActions button:first-child{width:227px;color:#374151}
+.viewerAppShell .viewerSuccessActions button:last-child{width:174px;border:1px solid #2D4CC8;color:#2D4CC8}
+@media(max-width:600px){.viewerAppShell .viewerSuccessDialog{height:auto;min-height:0;padding:8px 16px 20px}.viewerAppShell .viewerSuccessClose{top:12px;right:12px}.viewerAppShell .viewerSuccessStats{height:auto;min-height:74px;margin-bottom:20px}.viewerAppShell .viewerSuccessStats>div{padding:10px;gap:8px}.viewerAppShell .viewerSuccessStatIcon{width:30px;height:30px}.viewerAppShell .viewerSuccessStats>div>span:last-child{font-size:13px}.viewerAppShell .viewerSuccessStats strong{font-size:17px}.viewerAppShell .viewerSuccessActions{flex-wrap:wrap;gap:12px}.viewerAppShell .viewerSuccessActions button:first-child,.viewerAppShell .viewerSuccessActions button:last-child{width:auto;flex:1 1 170px;font-size:15px}}
+
+/* Success popup artwork only: match the first reference image. */
+.viewerAppShell .viewerSuccessArt{position:relative;width:152px;height:102px;flex:0 0 102px;margin:0 auto;overflow:visible}
+.viewerAppShell .viewerSuccessArt>img:first-child{position:absolute;inset:auto;top:-8px;left:0;width:152px;height:102px;max-width:none;object-fit:contain;transform:none;z-index:0}
+.viewerAppShell .viewerSuccessArt>img.viewerSuccessCheck{position:absolute;inset:auto;top:30px;left:46px;width:60px;height:55px;max-width:none;object-fit:contain;transform:none;z-index:1;background:transparent;border:0;border-radius:0;box-shadow:none}
+
+/* Move only Return to instructions button down */
+.viewerAppShell .viewerExamFinished .viewerExamButton {
+  margin-top: 20px;
+}
+
+
+/* The four Creator-controlled release states match the MCQ Viewer. */
+.viewerAppShell .viewerSuccessReleaseCard{width:100%;min-height:74px;display:flex;align-items:center;gap:24px;padding:12px 20px;margin:0 0 40px;border:.5px solid #9A76AB;border-radius:8px;background:#EBE6ED;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;text-align:left;flex:none}
+.viewerAppShell .viewerSuccessReleaseCard>img{display:block;flex:0 0 40px;width:40px;height:40px;object-fit:contain}
+.viewerAppShell .viewerSuccessReleaseInfo{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;min-width:0}
+.viewerAppShell .viewerSuccessReleaseInfo strong{font:700 20px/26px 'Segoe UI',Arial,sans-serif;color:#780A87}
+.viewerAppShell .viewerSuccessReleaseInfo small{font:400 14px/20px 'Segoe UI',Arial,sans-serif;color:#2F3547;overflow-wrap:anywhere}
+.viewerAppShell .viewerSuccessReleaseCard--manual{background:#EAE8E6;border-color:#BE9378}
+.viewerAppShell .viewerSuccessReleaseCard--manual .viewerSuccessReleaseInfo strong{color:#C75A0B}
+.viewerAppShell .viewerSuccessReleaseCard--never{background:#DFE6E9;border-color:#8B969C}
+.viewerAppShell .viewerSuccessReleaseCard--never .viewerSuccessReleaseInfo strong{color:#2F3547}
+.viewerAppShell .viewerSuccessActions button:disabled{opacity:.42;cursor:not-allowed}
+.viewerAppShell .viewerSuccessDialog--scheduled,.viewerAppShell .viewerSuccessDialog--manual,.viewerAppShell .viewerSuccessDialog--never{height:auto;min-height:0;max-height:calc(100dvh - 32px);padding-bottom:20px}
+@media(max-width:600px){.viewerAppShell .viewerSuccessReleaseCard{min-height:74px;padding:12px 14px;gap:14px;margin-bottom:18px}.viewerAppShell .viewerSuccessReleaseCard>img{flex-basis:32px;width:32px;height:32px}.viewerAppShell .viewerSuccessReleaseInfo strong{font-size:17px;line-height:24px}.viewerAppShell .viewerSuccessReleaseInfo small{font-size:12px;line-height:18px}}

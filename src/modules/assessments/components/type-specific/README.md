@@ -1,0 +1,1 @@
+MCQ, Short Answer and One-Word implementations live here. Each is a component only, not a Next.js route. Common Creator steps and Viewer URLs choose the type using the assessment record stored in localStorage.

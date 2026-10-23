@@ -1,0 +1,1337 @@
+/* Original declarations retained; selectors scoped to one-word to prevent cross-type CSS collisions. */
+/* MCQ Content — standalone Step 3; uses existing Header and Sidebar components. */
+.assessment-variant--one-word .mcqcAppShell{ width: 100%; min-width: 0; height: 100dvh; background: #DFE6E9; color: #374151; font-family: "Segoe UI", Arial, sans-serif; }
+.assessment-variant--one-word .mcqcAppShell *, .assessment-variant--one-word .mcqcAppShell *::before, .assessment-variant--one-word .mcqcAppShell *::after{ box-sizing: border-box; }
+.assessment-variant--one-word .mcqcLayout{ display: flex; height: 100dvh; min-width: 0; overflow: hidden; }
+.assessment-variant--one-word .mcqcMainContent{ flex: 1 1 auto; display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
+.assessment-variant--one-word .mcqcHeader{ flex: 0 0 auto; }
+.assessment-variant--one-word .mcqcScrollArea{ flex: 1 1 auto; min-height: 0; min-width: 0; overflow-x: hidden; overflow-y: auto; }
+.assessment-variant--one-word .mcqcPageContent{ width: 100%; min-width: 0; padding: 22px 24px 32px; }
+.assessment-variant--one-word .mcqcIcon{ display: block; flex: 0 0 auto; object-fit: contain; }
+.assessment-variant--one-word .mcqcBreadcrumb{ min-height: 30px; display: flex; align-items: center; gap: 14px; margin-bottom: 24px; font-size: 16px; line-height: 24px; letter-spacing: .02em; }
+.assessment-variant--one-word .mcqcBreadcrumb a{ text-decoration: none; color: #2F3547; }
+.assessment-variant--one-word .mcqcBreadcrumb .mcqcBreadcrumbCurrent{ color: #2D4CC8; font-weight: 700; }
+.assessment-variant--one-word .mcqcWizard{ display: flex; width: min(100%, 900px); height: 50px; margin: 0 0 36px; padding: 0; list-style: none; isolation: isolate; }
+.assessment-variant--one-word .mcqcWizardStep{ --tip: 23px; position: relative; flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-width: 0; height: 50px; gap: 10px; margin-left: calc(-1 * var(--tip)); padding: 0 10px 0 26px; clip-path: polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%,var(--tip) 50%); background: #c5cdd1; color: #374151; font-size: 14px; font-weight: 600; letter-spacing: .03em; white-space: nowrap; }
+.assessment-variant--one-word .mcqcWizardStep::before{ content: ""; position: absolute; inset: 1px; background: #DFE6E9; box-shadow: inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; clip-path: inherit; z-index: 0; }
+.assessment-variant--one-word .mcqcWizardStep > span{ z-index: 1; position: relative; }
+.assessment-variant--one-word .mcqcWizardStep:first-child{ margin-left: 0; padding-left: 8px; clip-path: polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%); }
+.assessment-variant--one-word .mcqcWizardStep:nth-child(1){ z-index: 5; }.assessment-variant--one-word .mcqcWizardStep:nth-child(2){ z-index: 4; }.assessment-variant--one-word .mcqcWizardStep:nth-child(3){ z-index: 3; }.assessment-variant--one-word .mcqcWizardStep:nth-child(4){ z-index: 2; }.assessment-variant--one-word .mcqcWizardStep:nth-child(5){ z-index: 1; }
+.assessment-variant--one-word .mcqcWizardDone{ background: #2A7308; color: #2A7308; }.assessment-variant--one-word .mcqcWizardActive{ background: #2D4CC8; color: #2D4CC8; font-weight: 700; }
+.assessment-variant--one-word .mcqcWizardNumber{ display: grid; place-items: center; width: 21px; height: 21px; flex: 0 0 21px; border-radius: 50%; background: #DFE6E9; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px rgba(196,196,196,.8); }
+.assessment-variant--one-word .mcqcWizardNumber > span{ display: grid; place-items: center; width: 13px; height: 13px; border-radius: 50%; background: #DFE6E9; box-shadow: 2px 2px 2px #C6C6C9,-2px -2px 2px #fff; font-size: 12px; color: #374151; }
+.assessment-variant--one-word .mcqcWizardDone .mcqcWizardNumber > span{ color: #2A7308; }.assessment-variant--one-word .mcqcWizardActive .mcqcWizardNumber > span{ color: #2D4CC8; }
+.assessment-variant--one-word .mcqcPageTitle{ margin: 0 0 34px; }.assessment-variant--one-word .mcqcPageTitle h1{ margin: 0 0 8px; font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: .02em; }.assessment-variant--one-word .mcqcPageTitle p{ margin: 0; font-size: 16px; line-height: 24px; letter-spacing: .03em; }
+.assessment-variant--one-word .mcqcColumns{ display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,304px); align-items: stretch; gap: 24px; min-width: 0; }.assessment-variant--one-word .mcqcLeftColumn{ display: flex; flex-direction: column; gap: 32px; min-width: 0; }
+.assessment-variant--one-word .mcqcQuestionsPanel{ min-height: 656px; min-width: 0; padding: 24px; border-radius: 16px; background: #DFE6E9; box-shadow: -4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.assessment-variant--one-word .mcqcQuestionsPanel h2{ margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; }
+.assessment-variant--one-word .mcqcEmptyState{ display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 555px; width: 100%; text-align: center; }.assessment-variant--one-word .mcqcEmptyIcon{ margin: 5px 0 30px; width: min(129px,30vw); height: auto; aspect-ratio: 1; filter: drop-shadow(0 4px 14px rgba(0,0,0,.2)); }
+.assessment-variant--one-word .mcqcEmptyState h3{ margin: 0 0 14px; font-size: clamp(23px,2.5vw,32px); font-weight: 700; line-height: 1.25; color: #2D4CC8; letter-spacing: .02em; }.assessment-variant--one-word .mcqcEmptyState p{ margin: 0 0 42px; font-size: clamp(17px,1.8vw,24px); line-height: 32px; }
+.assessment-variant--one-word .mcqcActions{ display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; width: 100%; margin-bottom: 32px; }.assessment-variant--one-word .mcqcActions button, .assessment-variant--one-word .mcqcCreateButton, .assessment-variant--one-word .mcqcBack, .assessment-variant--one-word .mcqcConfigure{ display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 50px; padding: 10px 20px; border: 0; border-radius: 36px; background: #DFE6E9; box-shadow: -4px -4px 8px #fff,4px 4px 8px rgba(196,196,196,.8); color: #374151; font: 600 16px/24px "Segoe UI",Arial,sans-serif; white-space: nowrap; cursor: pointer; transition: box-shadow .18s ease; }.assessment-variant--one-word .mcqcActions button:active, .assessment-variant--one-word .mcqcCreateButton:active, .assessment-variant--one-word .mcqcBack:active, .assessment-variant--one-word .mcqcConfigure:active{ box-shadow: inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcBack{ width: 150px; min-height: 48px; border-radius: 24px; font-size: 18px; font-weight: 700; }
+.assessment-variant--one-word .mcqcSummaryPanel{ display: flex; flex-direction: column; align-self: stretch; gap: 22px; min-width: 0; padding: 16px 14px; border-radius: 16px; background: #DFE6E9; box-shadow: -4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.assessment-variant--one-word .mcqcSummarySection, .assessment-variant--one-word .mcqcSettingsSection{ border: 1px solid #ced4d8; border-radius: 5px; padding: 16px 12px; }.assessment-variant--one-word .mcqcSummaryPanel h2{ margin: 0 0 18px; font-size: 16px; line-height: 24px; font-weight: 600; }
+.assessment-variant--one-word .mcqcSummaryRow, .assessment-variant--one-word .mcqcSettingRow{ display: flex; gap: 12px; min-width: 0; align-items: center; min-height: 42px; color: #374151; font-size: 14px; line-height: 20px; }.assessment-variant--one-word .mcqcSummaryRow span, .assessment-variant--one-word .mcqcSettingRow > span{ flex: 1 1 auto; min-width: 0; }.assessment-variant--one-word .mcqcSummaryRow strong{ font-size: 14px; font-weight: 600; white-space: nowrap; }
+.assessment-variant--one-word .mcqcSettingsSection{ display: flex; flex-direction: column; gap: 8px; }.assessment-variant--one-word .mcqcSettingsSection h2{ margin-bottom: 8px; }.assessment-variant--one-word .mcqcSettingRow{ min-height: 44px; gap: 10px; }
+.assessment-variant--one-word .mcqcSwitch{ position: relative; width: 61px; height: 28px; flex: 0 0 61px; border: 0; border-radius: 32px; padding: 0; background: #DFE6E9; box-shadow: -4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4; cursor: pointer; }.assessment-variant--one-word .mcqcSwitch::before{ content: ""; position: absolute; left: 4px; top: 4px; width: 53px; height: 20px; border-radius: 32px; background: #DFE6E9; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; }.assessment-variant--one-word .mcqcSwitchOn::before{ background: linear-gradient(113.24deg,#2D4CC8 21.1%,#E01E5A 65.02%); box-shadow: none; }
+.assessment-variant--one-word .mcqcSwitchText{ position: absolute; top: 4px; right: 9px; z-index: 1; color: #2F3547; font: 400 12px/20px "Segoe UI",Arial,sans-serif; letter-spacing: .03em; }.assessment-variant--one-word .mcqcSwitchOn .mcqcSwitchText{ right: auto; left: 11px; color: #fff; }.assessment-variant--one-word .mcqcSwitchKnob{ position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; z-index: 2; background: #606162; border-radius: 50%; }.assessment-variant--one-word .mcqcSwitchOn .mcqcSwitchKnob{ left: 37px; background: #DFE6E9; box-shadow: 0 -2px 4px rgba(0,0,0,.1),0 4px 4px rgba(0,0,0,.25); }
+.assessment-variant--one-word .mcqcConfigure{ width: 170px; max-width: 100%; margin: 20px auto 4px; font-weight: 700; }.assessment-variant--one-word .mcqcMessage{ margin: 14px 0 0; font-size: 14px; color: #2D4CC8; }
+@media (max-width: 1200px) { .assessment-variant--one-word .mcqcPageContent{ padding: 20px 18px 28px; }.assessment-variant--one-word .mcqcColumns{ grid-template-columns: minmax(0,1fr) minmax(235px,275px); gap: 18px; }.assessment-variant--one-word .mcqcQuestionsPanel{ padding: 20px; }.assessment-variant--one-word .mcqcActions{ gap: 12px; }.assessment-variant--one-word .mcqcActions button{ font-size: 14px; padding-inline: 14px; } }
+@media (max-width: 950px) { .assessment-variant--one-word .mcqcColumns{ grid-template-columns: minmax(0,1fr); }.assessment-variant--one-word .mcqcSummaryPanel{ display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }.assessment-variant--one-word .mcqcEmptyState{ min-height: 470px; }.assessment-variant--one-word .mcqcQuestionsPanel{ min-height: 570px; }.assessment-variant--one-word .mcqcWizardStep{ --tip: 15px; gap: 6px; padding-left: 17px; font-size: 12px; } }
+@media (max-width: 700px) { .assessment-variant--one-word .mcqcPageContent{ padding: 18px 14px 25px; }.assessment-variant--one-word .mcqcBreadcrumb{ gap: 8px; font-size: 14px; margin-bottom: 20px; }.assessment-variant--one-word .mcqcWizard{ width: 100%; height: 44px; margin-bottom: 30px; }.assessment-variant--one-word .mcqcWizardStep{ --tip: 10px; height: 44px; gap: 3px; padding: 0 2px 0 11px; font-size: clamp(9px,2.2vw,11px); letter-spacing: 0; }.assessment-variant--one-word .mcqcWizardStep:first-child{ padding-left: 3px; }.assessment-variant--one-word .mcqcWizardNumber{ width: 18px; height: 18px; flex-basis: 18px; }.assessment-variant--one-word .mcqcWizardNumber > span{ width: 12px; height: 12px; font-size: 10px; }.assessment-variant--one-word .mcqcPageTitle h1{ font-size: 19px; }.assessment-variant--one-word .mcqcPageTitle p{ font-size: 14px; }.assessment-variant--one-word .mcqcQuestionsPanel{ min-height: 460px; padding: 16px; }.assessment-variant--one-word .mcqcQuestionsPanel h2{ font-size: 18px; }.assessment-variant--one-word .mcqcEmptyState{ min-height: 395px; }.assessment-variant--one-word .mcqcEmptyIcon{ width: 86px; }.assessment-variant--one-word .mcqcEmptyState h3{ font-size: 22px; }.assessment-variant--one-word .mcqcEmptyState p{ margin-bottom: 22px; font-size: 16px; line-height: 22px; }.assessment-variant--one-word .mcqcActions{ display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }.assessment-variant--one-word .mcqcActions button{ min-width: 0; min-height: 44px; padding: 8px; white-space: normal; font-size: 12px; gap: 5px; }.assessment-variant--one-word .mcqcCreateButton{ min-height: 44px; font-size: 14px; }.assessment-variant--one-word .mcqcSummaryPanel{ grid-template-columns: minmax(0,1fr); }.assessment-variant--one-word .mcqcBack{ width: 140px; min-height: 46px; }.assessment-variant--one-word .mcqcLeftColumn{ gap: 22px; } }
+@media (max-width: 380px) { .assessment-variant--one-word .mcqcWizardStep{ --tip: 8px; gap: 2px; padding-left: 9px; font-size: 8px; }.assessment-variant--one-word .mcqcWizardNumber{ width: 15px; height: 15px; flex-basis: 15px; }.assessment-variant--one-word .mcqcWizardNumber > span{ width: 10px; height: 10px; font-size: 9px; } }
+@media (prefers-reduced-motion: reduce) { .assessment-variant--one-word .mcqcActions button, .assessment-variant--one-word .mcqcCreateButton, .assessment-variant--one-word .mcqcBack, .assessment-variant--one-word .mcqcConfigure{ transition: none; } }
+/* Create Questions extension — the existing Content screen rules above are unchanged. */
+.assessment-variant--one-word .mcqcBuilder{ min-width: 0; }.assessment-variant--one-word .mcqcBuilderTop{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; margin-bottom:24px; }.assessment-variant--one-word .mcqcBuilderCrumb{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; min-height:32px; font-size:16px; }.assessment-variant--one-word .mcqcBuilderCrumb a, .assessment-variant--one-word .mcqcBuilderCrumb button{ color:#2F3547; text-decoration:none; background:none; border:0; padding:0; font:inherit; cursor:pointer; }.assessment-variant--one-word .mcqcBuilderCrumb strong{ color:#2D4CC8; }.assessment-variant--one-word .mcqcBuilderWelcome{ display:flex; align-items:center; justify-content:center; gap:12px; min-width:0; padding:16px 18px; background:#DFE6E9; border-radius:10px; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; text-align:center; }.assessment-variant--one-word .mcqcBuilderWelcome h2{ margin:0 0 6px; font-size:22px; line-height:28px; font-weight:700; background:linear-gradient(90deg,#2D4CC8,#E01E5A); color:transparent; background-clip:text; }.assessment-variant--one-word .mcqcBuilderWelcome p{ margin:0; font-size:16px; line-height:24px; }
+.assessment-variant--one-word .mcqcBuilderGrid{ display:grid; grid-template-columns:minmax(0,1fr) 304px; gap:24px; align-items:start; }.assessment-variant--one-word .mcqcBuilderMain, .assessment-variant--one-word .mcqcBuilderAside{ min-width:0; background:#DFE6E9; border-radius:16px; padding:24px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.assessment-variant--one-word .mcqcBuilderMain{ display:flex; flex-direction:column; gap:24px; }.assessment-variant--one-word .mcqcQuestionNumbers{ display:flex; align-items:center; gap:12px; overflow-x:auto; overscroll-behavior-x:contain; max-width:100%; padding:7px 4px 12px; scrollbar-width:thin; scrollbar-color:#b0bfc7 #dfe6e9; }.assessment-variant--one-word .mcqcQuestionNumber{ width:42px; height:42px; flex:0 0 42px; border:0; border-radius:9px; color:#374151; background:#D5DADC; box-shadow:inset 2px 2px 3px #bfc5c8,inset -2px -2px 3px #fff; font:700 15px "Segoe UI",Arial,sans-serif; cursor:pointer; }.assessment-variant--one-word .mcqcQuestionNumber.is-partial{ background:#F1B566; color:#604019; }.assessment-variant--one-word .mcqcQuestionNumber.is-complete{ background:#2A7308; color:#fff; }.assessment-variant--one-word .mcqcQuestionNumber.is-active{ background:#2D4CC8; color:#fff; box-shadow:-3px -3px 4px #fff,3px 3px 5px #b0b6bb; }
+.assessment-variant--one-word .mcqcQuestionForm{ display:flex; flex-direction:column; gap:24px; border:1px solid #AEAEAE; padding:18px; border-radius:16px; min-width:0; }.assessment-variant--one-word .mcqcBuilderField{ display:flex; flex-direction:column; gap:12px; min-width:0; position:relative; }.assessment-variant--one-word .mcqcBuilderField > label, .assessment-variant--one-word .mcqcFormHeading > label{ font-size:16px; line-height:24px; font-weight:600; letter-spacing:.02em; }.assessment-variant--one-word .mcqcBuilderField small{ font-size:12px; font-weight:400; margin-left:8px; }.assessment-variant--one-word .mcqcBuilderField textarea, .assessment-variant--one-word .mcqcBuilderField input, .assessment-variant--one-word .mcqcSelectTrigger{ width:100%; min-width:0; background:#DFE6E9; border:0; border-radius:8px; color:#374151; font:400 16px/24px "Segoe UI",Arial,sans-serif; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; outline:0; }.assessment-variant--one-word .mcqcBuilderField textarea{ display:block; resize:vertical; min-height:150px; padding:18px 20px; }.assessment-variant--one-word .mcqcBuilderField input{ min-height:50px; padding:12px 16px; }.assessment-variant--one-word .mcqcBuilderField textarea:focus-visible, .assessment-variant--one-word .mcqcBuilderField input:focus-visible, .assessment-variant--one-word .mcqcSelectTrigger:focus-visible{ outline:2px solid #2D4CC8; outline-offset:2px; }
+.assessment-variant--one-word .mcqcSelectRoot{ position:relative; min-width:0; }.assessment-variant--one-word .mcqcSelectTrigger{ min-height:58px; padding:12px 18px 12px 24px; display:flex; align-items:center; justify-content:space-between; gap:12px; text-align:left; cursor:pointer; }.assessment-variant--one-word .mcqcSelectTrigger > span{ min-width:0; overflow-wrap:anywhere; }.assessment-variant--one-word .mcqcSelectList{ position:absolute; top:calc(100% + 8px); left:0; width:100%; max-height:260px; overflow-y:auto; z-index:50; padding:10px; border-radius:12px; background:#DFE6E9; box-shadow:-4px -4px 8px #fff,5px 5px 12px #b8c1c6; scrollbar-width:thin; }.assessment-variant--one-word .mcqcSelectItem{ display:flex; align-items:center; width:100%; min-height:42px; gap:12px; padding:9px 11px; border:0; border-radius:7px; background:transparent; text-align:left; color:#374151; font:400 14px/20px "Segoe UI",Arial,sans-serif; cursor:pointer; }.assessment-variant--one-word .mcqcSelectItem:hover{ box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }.assessment-variant--one-word .mcqcOptionRadio{ width:24px; height:24px; flex:0 0 24px; display:grid; place-items:center; border-radius:50%; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }.assessment-variant--one-word .mcqcOptionRadio::after{ content:""; width:12px; height:12px; border:1px solid #C6C6C9; border-radius:50%; }.assessment-variant--one-word .mcqcOptionSelected{ box-shadow:-3px -3px 3px #fff,3px 3px 4px #C4C4C4; }.assessment-variant--one-word .mcqcOptionSelected::after{ background:#2D4CC8; border-color:#2D4CC8; }
+.assessment-variant--one-word .mcqcRichToolbar{ display:flex; flex-wrap:nowrap; gap:7px; overflow-x:auto; padding:8px; border-radius:6px; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; scrollbar-width:thin; }.assessment-variant--one-word .mcqcRichToolbar button{ width:36px; height:36px; flex:0 0 36px; display:grid; place-items:center; padding:4px; border:0; border-radius:5px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 3px #C4C4C4; cursor:pointer; }.assessment-variant--one-word .mcqcFormHeading{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; }.assessment-variant--one-word .mcqcFormHeading span{ font-size:13px; font-weight:400; }.assessment-variant--one-word .mcqcAnswerOptions{ display:flex; flex-direction:column; gap:12px; }.assessment-variant--one-word .mcqcAnswerRow{ display:flex; align-items:center; gap:12px; min-width:0; }.assessment-variant--one-word .mcqcAnswerRow input{ flex:1; width:0; }.assessment-variant--one-word .mcqcAnswerRadio{ flex:0 0 24px; width:24px; height:24px; border:0; border-radius:50%; display:grid; place-items:center; background:#DFE6E9; box-shadow:inset 2px 2px 2px #C4C4C4,inset -2px -2px 2px #fff; cursor:pointer; }.assessment-variant--one-word .mcqcAnswerRadio span{ width:12px; height:12px; border:1px solid #C6C6C9; border-radius:50%; }.assessment-variant--one-word .mcqcAnswerRadio.selected span{ background:#2D4CC8; border-color:#2D4CC8; }.assessment-variant--one-word .mcqcIconButton{ flex:0 0 32px; width:32px; height:32px; display:grid; place-items:center; border:0; border-radius:7px; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; cursor:pointer; }.assessment-variant--one-word .mcqcIconButton:disabled{ opacity:.4; cursor:not-allowed; }.assessment-variant--one-word .mcqcBuilderAction{ display:inline-flex; justify-content:center; align-items:center; gap:8px; border:0; border-radius:28px; background:#DFE6E9; min-height:46px; padding:10px 18px; font:600 15px "Segoe UI",Arial,sans-serif; color:#374151; box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4; cursor:pointer; white-space:nowrap; }.assessment-variant--one-word .mcqcBuilderFooter{ display:flex; flex-wrap:wrap; justify-content:flex-end; gap:14px; }.assessment-variant--one-word .mcqcBuilderFooter > button:first-child{ margin-right:auto; }.assessment-variant--one-word .mcqcAddMenu{ position:relative; }.assessment-variant--one-word .mcqcAddMenuList{ position:absolute; bottom:calc(100% + 8px); right:0; min-width:220px; max-width:calc(100vw - 32px); padding:8px; z-index:20; background:#DFE6E9; border-radius:10px; box-shadow:-4px -4px 8px #fff,5px 5px 10px #B8C1C6; }.assessment-variant--one-word .mcqcAddMenuList button{ display:block; width:100%; border:0; border-radius:6px; padding:12px; background:transparent; color:#374151; font:400 14px "Segoe UI",Arial,sans-serif; text-align:left; cursor:pointer; }.assessment-variant--one-word .mcqcAddMenuList button:hover{ box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }
+.assessment-variant--one-word .mcqcBuilderAside{ display:flex; flex-direction:column; gap:24px; }.assessment-variant--one-word .mcqcBuilderAside h3{ margin:0; font-size:20px; line-height:28px; }.assessment-variant--one-word .mcqcDifficulty{ display:flex; flex-wrap:wrap; gap:9px; }.assessment-variant--one-word .mcqcDifficulty button{ flex:1 1 auto; padding:10px; min-height:42px; border:0; border-radius:8px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; font:600 14px "Segoe UI",Arial,sans-serif; cursor:pointer; }.assessment-variant--one-word .mcqcDifficulty button.chosen{ color:#2D4CC8; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 4px #C4C4C4; }.assessment-variant--one-word .mcqcTagRow{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:8px; border-radius:8px; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; }.assessment-variant--one-word .mcqcTagRow button{ border:0; border-radius:5px; padding:5px 7px; background:#DFE6E9; color:#2D4CC8; cursor:pointer; }.assessment-variant--one-word .mcqcTagRow input{ flex:1 1 80px; width:85px; min-height:32px; padding:5px; box-shadow:none; }.assessment-variant--one-word .mcqcMandatory{ display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:15px; font-weight:600; }
+@media (max-width:1100px) { .assessment-variant--one-word .mcqcBuilderGrid{ grid-template-columns:minmax(0,1fr) 255px; gap:15px; }.assessment-variant--one-word .mcqcBuilderMain, .assessment-variant--one-word .mcqcBuilderAside{ padding:17px; }.assessment-variant--one-word .mcqcBuilderWelcome{ width:100%; } }
+@media (max-width:850px) { .assessment-variant--one-word .mcqcBuilderGrid{ grid-template-columns:minmax(0,1fr); }.assessment-variant--one-word .mcqcBuilderAside{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }.assessment-variant--one-word .mcqcBuilderAside h3{ grid-column:1/-1; }.assessment-variant--one-word .mcqcBuilderTop{ flex-direction:column; }.assessment-variant--one-word .mcqcBuilderWelcome{ order:2; } }
+@media (max-width:600px) { .assessment-variant--one-word .mcqcBuilderCrumb{ font-size:12px; gap:5px; }.assessment-variant--one-word .mcqcBuilderCrumb .mcqcIcon{ width:15px; height:15px; }.assessment-variant--one-word .mcqcBuilderWelcome{ padding:12px; }.assessment-variant--one-word .mcqcBuilderWelcome h2{ font-size:18px; line-height:24px; }.assessment-variant--one-word .mcqcBuilderWelcome p{ font-size:13px; }.assessment-variant--one-word .mcqcBuilderMain, .assessment-variant--one-word .mcqcBuilderAside{ padding:13px; border-radius:12px; }.assessment-variant--one-word .mcqcQuestionForm{ padding:12px; gap:20px; }.assessment-variant--one-word .mcqcBuilderAside{ grid-template-columns:minmax(0,1fr); gap:20px; }.assessment-variant--one-word .mcqcBuilderField > label, .assessment-variant--one-word .mcqcFormHeading > label{ font-size:14px; }.assessment-variant--one-word .mcqcSelectTrigger{ min-height:50px; padding:9px 13px; font-size:14px; }.assessment-variant--one-word .mcqcBuilderField textarea{ font-size:14px; }.assessment-variant--one-word .mcqcQuestionNumbers{ gap:8px; }.assessment-variant--one-word .mcqcQuestionNumber{ width:38px; height:38px; flex-basis:38px; }.assessment-variant--one-word .mcqcBuilderFooter{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }.assessment-variant--one-word .mcqcBuilderFooter > button:first-child{ margin:0; }.assessment-variant--one-word .mcqcBuilderAction{ min-width:0; width:100%; padding:9px; font-size:13px; }.assessment-variant--one-word .mcqcAnswerRow{ gap:7px; }.assessment-variant--one-word .mcqcAnswerRow input{ min-height:44px; padding:8px; font-size:13px; } }
+
+/* Question builder: Figma-proportioned additions, original Content CSS above retained. */
+.assessment-variant--one-word .mcqcBuilderTop{ margin-bottom:20px; }.assessment-variant--one-word .mcqcBuilderCrumb{ flex:1 1 400px; }.assessment-variant--one-word .mcqcBuilderWelcome{ width:min(372px,100%); min-height:104px; border:1px solid #2D4CC8; border-right-color:#E01E5A; padding:13px; }.assessment-variant--one-word .mcqcBuilderWelcome h2{ background:linear-gradient(90deg,#2D4CC8,#E01E5A); background-clip:text; -webkit-background-clip:text; color:transparent; font-size:21px; white-space:normal; }.assessment-variant--one-word .mcqcBuilderWelcome p{ font-size:14px; }.assessment-variant--one-word .mcqcBuilderGrid{ grid-template-columns:minmax(0,1fr) 304px; align-items:start; }.assessment-variant--one-word .mcqcBuilderMain{ gap:22px; }.assessment-variant--one-word .mcqcQuestionsHeading{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }.assessment-variant--one-word .mcqcQuestionsHeading h2{ margin:0 0 6px; font-size:20px; line-height:28px; }.assessment-variant--one-word .mcqcQuestionsHeading p{ margin:0; font-size:16px; }.assessment-variant--one-word .mcqcTopAdd{ display:flex; align-items:center; justify-content:center; gap:9px; min-width:120px; height:48px; border:1px solid #2D4CC8; border-radius:30px; background:#DFE6E9; color:#2D4CC8; box-shadow:-3px -3px 6px #fff,3px 3px 5px #C4C4C4; font:600 18px "Segoe UI",Arial,sans-serif; cursor:pointer; }.assessment-variant--one-word .mcqcNumberNavigation{ min-width:0; display:flex; align-items:center; gap:14px; }.assessment-variant--one-word .mcqcNumberScroller{ flex:1; min-width:0; overflow:hidden; }.assessment-variant--one-word .mcqcQuestionNumbers{ padding:5px 3px 11px; gap:12px; }.assessment-variant--one-word .mcqcQuestionNumber{ position:relative; width:67px; height:54px; flex:0 0 67px; border:1px solid #939da4; border-radius:4px; background:#DFE6E9; color:#606162; font-size:20px; box-shadow:-2px -2px 3px #fff,2px 2px 4px #aeb5b9; }.assessment-variant--one-word .mcqcQuestionNumber .mcqcNumberValue{ display:block; }.assessment-variant--one-word .mcqcQuestionNumber small{ display:block; font-size:11px; line-height:14px; color:inherit; }.assessment-variant--one-word .mcqcQuestionNumber.is-complete{ border-color:#2A7308; color:#2A7308; }.assessment-variant--one-word .mcqcQuestionNumber.is-partial{ border-color:#cf560e; color:#cf560e; }.assessment-variant--one-word .mcqcQuestionNumber.is-active{ border-color:#2D4CC8; color:#2D4CC8; background:#d7e0fc; }.assessment-variant--one-word .mcqcNumberStatus{ position:absolute; right:3px; top:2px; display:grid; place-items:center; width:13px; height:13px; color:#fff; border-radius:50%; background:#2A7308; font-size:10px; line-height:1; }.assessment-variant--one-word .is-partial .mcqcNumberStatus{ background:#c9560e; }.assessment-variant--one-word .mcqcRoundNav{ display:grid; place-items:center; flex:0 0 42px; width:42px; height:42px; border:0; border-radius:50%; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4; cursor:pointer; }.assessment-variant--one-word .mcqcQuestionProgress{ height:16px; padding:3px 7px; margin-top:-10px; border-radius:20px; box-shadow:inset 2px 2px 3px #c4c4c4,inset -2px -2px 3px #fff; }.assessment-variant--one-word .mcqcQuestionProgress span{ display:block; height:100%; border-radius:20px; background:#2A7308; }.assessment-variant--one-word .mcqcQuestionForm{ padding:16px; gap:28px; }.assessment-variant--one-word .mcqcBuilderField > label{ font-size:16px; }.assessment-variant--one-word .mcqcEditorSurface{ padding:10px; border-radius:8px; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 5px #C4C4C4; }.assessment-variant--one-word .mcqcEditorSurface textarea{ margin-top:14px; padding:12px 4px; box-shadow:none; min-height:60px; height:75px; resize:vertical; }.assessment-variant--one-word .mcqcRichToolbar{ padding:7px; }.assessment-variant--one-word .mcqcBuilderField > label small{ float:right; }.assessment-variant--one-word .mcqcAnswerOptions{ gap:14px; }.assessment-variant--one-word .mcqcAnswerSection{ min-width:0; }.assessment-variant--one-word .mcqcAnswerExpand, .assessment-variant--one-word .mcqcAddOptions{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:12px 20px; border:0; border-radius:7px; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4; color:#374151; font:600 16px "Segoe UI",Arial,sans-serif; cursor:pointer; }.assessment-variant--one-word .mcqcRotated{ transform:rotate(180deg); }.assessment-variant--one-word .mcqcAnswerContent{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:10px 0 5px; padding:13px; border-radius:8px; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }.assessment-variant--one-word .mcqcAnswerContent input:not([type=radio]){ flex:1 1 150px; padding:9px 12px; min-height:42px; }.assessment-variant--one-word .mcqcCorrectOption{ display:flex; align-items:center; gap:7px; font-size:13px; cursor:pointer; }.assessment-variant--one-word .mcqcCorrectOption input{ accent-color:#2D4CC8; }.assessment-variant--one-word .mcqcRemoveOption{ border:0; color:#c9560e; background:transparent; cursor:pointer; }.assessment-variant--one-word .mcqcAddOptions{ justify-content:center; min-height:48px; margin-top:24px; }.assessment-variant--one-word .mcqcBuilderBottom{ display:flex; justify-content:center; align-items:center; position:relative; min-height:52px; }.assessment-variant--one-word .mcqcBuilderArrows{ position:absolute; right:0; display:flex; gap:12px; }.assessment-variant--one-word .mcqcSubmitQuestion{ min-width:204px; color:#2D4CC8; border:1px solid #2D4CC8!important; font-size:18px; }.assessment-variant--one-word .mcqcBuilderAside{ display:flex; flex-direction:column; gap:14px; padding:16px; }.assessment-variant--one-word .mcqcAsideSection{ padding:14px 12px; border:1px solid #cbd3d8; border-radius:5px; display:flex; flex-direction:column; gap:12px; }.assessment-variant--one-word .mcqcAsideSection h3{ margin:0; font-size:16px; line-height:24px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcBuilderField{ gap:6px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcBuilderField > label{ font-size:14px; line-height:20px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectTrigger, .assessment-variant--one-word .mcqcBuilderAside input{ min-height:38px; padding:7px 12px; font-size:14px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectItem{ font-size:14px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectList{ max-height:325px; padding:9px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcOptionRadio{ width:24px; height:24px; flex:0 0 24px; }.assessment-variant--one-word .mcqcTagHolder{ display:flex; flex-wrap:wrap; gap:8px; }.assessment-variant--one-word .mcqcAddTag{ display:flex; align-items:center; gap:5px; border:0; padding:7px; border-radius:5px; color:#2A7308; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #c4c4c4; cursor:pointer; }.assessment-variant--one-word .mcqcTagInput{ width:100%; }.assessment-variant--one-word .mcqcTagRow{ display:flex; flex-wrap:wrap; gap:7px; }.assessment-variant--one-word .mcqcTagRow button{ font-size:11px; padding:4px 8px; color:#2A7308; border:1px solid #91b67f; border-radius:4px; background:#e1ecd8; }.assessment-variant--one-word .mcqcMandatory{ margin-top:3px; font-size:14px; font-weight:600; }.assessment-variant--one-word .mcqcAsideHint{ margin:-10px 0 0; font-size:11px; }.assessment-variant--one-word .mcqcBuilderSummary{ margin-top:0; }.assessment-variant--one-word .mcqcStatGrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }.assessment-variant--one-word .mcqcStatGrid div{ min-width:0; text-align:center; }.assessment-variant--one-word .mcqcStatGrid strong{ display:grid; place-items:center; height:48px; box-shadow:-2px -2px 3px #fff,2px 2px 3px #c4c4c4; border-radius:7px; color:#2D4CC8; font-size:24px; }.assessment-variant--one-word .mcqcStatGrid div:first-child strong{ color:#67096E; }.assessment-variant--one-word .mcqcStatGrid div:last-child strong{ color:#2A7308; }.assessment-variant--one-word .mcqcStatGrid span{ display:block; margin-top:6px; font-size:12px; color:#2D4CC8; }.assessment-variant--one-word .mcqcSummaryProgress{ height:4px; background:#b8c0c5; }.assessment-variant--one-word .mcqcSummaryProgress span{ display:block; height:100%; background:linear-gradient(90deg,#2D4CC8,#E01E5A); }.assessment-variant--one-word .mcqcBuilderSummary > p{ margin:0; font-size:11px; line-height:17px; }.assessment-variant--one-word .mcqcBuilderPageFooter{ display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:36px; }.assessment-variant--one-word .mcqcBuilderPageFooter > div{ display:flex; gap:24px; }.assessment-variant--one-word .mcqcFooterPill{ min-width:135px; height:48px; border:0; border-radius:28px; background:#DFE6E9; box-shadow:-4px -4px 5px #fff,4px 4px 6px #c4c4c4; font:600 16px "Segoe UI",Arial,sans-serif; color:#374151; cursor:pointer; }.assessment-variant--one-word .mcqcFooterContinue{ color:#2A7308; }.assessment-variant--one-word .mcqcBuilderNotice{ margin:12px 0; font-size:14px; color:#2D4CC8; }.assessment-variant--one-word .mcqcAddMenuList{ min-width:230px; }.assessment-variant--one-word .mcqcAddMenuList button{ display:flex; align-items:center; gap:10px; }.assessment-variant--one-word .mcqcAddMenuList .mcqcOptionRadio{ flex:0 0 24px; }
+@media (max-width:1100px) { .assessment-variant--one-word .mcqcBuilderGrid{ grid-template-columns:minmax(0,1fr) 270px; gap:17px; }.assessment-variant--one-word .mcqcBuilderMain{ padding:16px; }.assessment-variant--one-word .mcqcBuilderAside{ padding:12px; } }
+@media (max-width:850px) { .assessment-variant--one-word .mcqcBuilderGrid{ grid-template-columns:minmax(0,1fr); }.assessment-variant--one-word .mcqcBuilderAside{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }.assessment-variant--one-word .mcqcBuilderWelcome{ margin-left:auto; }.assessment-variant--one-word .mcqcBuilderPageFooter{ margin-top:24px; } }
+@media (max-width:600px) { .assessment-variant--one-word .mcqcBuilderTop{ gap:14px; }.assessment-variant--one-word .mcqcBuilderWelcome{ min-height:84px; }.assessment-variant--one-word .mcqcBuilderWelcome h2{ font-size:18px; line-height:24px; }.assessment-variant--one-word .mcqcBuilderCrumb{ flex-basis:100%; font-size:12px; gap:7px; }.assessment-variant--one-word .mcqcBuilderMain{ padding:12px; gap:16px; }.assessment-variant--one-word .mcqcBuilderAside{ display:flex; padding:12px; }.assessment-variant--one-word .mcqcQuestionsHeading h2{ font-size:17px; line-height:24px; }.assessment-variant--one-word .mcqcQuestionsHeading p{ font-size:12px; }.assessment-variant--one-word .mcqcTopAdd{ min-width:88px; height:42px; font-size:15px; }.assessment-variant--one-word .mcqcNumberNavigation{ gap:6px; }.assessment-variant--one-word .mcqcRoundNav{ width:32px; height:32px; flex-basis:32px; }.assessment-variant--one-word .mcqcQuestionNumber{ width:55px; height:53px; flex-basis:55px; }.assessment-variant--one-word .mcqcQuestionNumbers{ gap:8px; }.assessment-variant--one-word .mcqcQuestionForm{ padding:12px; gap:22px; }.assessment-variant--one-word .mcqcBuilderField > label{ font-size:14px; }.assessment-variant--one-word .mcqcBuilderBottom{ justify-content:flex-start; padding-bottom:56px; }.assessment-variant--one-word .mcqcBuilderArrows{ right:0; bottom:0; }.assessment-variant--one-word .mcqcSubmitQuestion{ min-width:0; padding:10px 14px; font-size:15px; }.assessment-variant--one-word .mcqcBuilderPageFooter{ flex-direction:column; align-items:stretch; }.assessment-variant--one-word .mcqcBuilderPageFooter > div{ gap:10px; }.assessment-variant--one-word .mcqcFooterPill{ flex:1; min-width:0; padding:0 12px; font-size:14px; }.assessment-variant--one-word .mcqcAnswerExpand, .assessment-variant--one-word .mcqcAddOptions{ min-height:46px; font-size:14px; padding:8px 12px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectList{ max-height:245px; } }
+
+/* Reference refinements: preserve all existing MCQ Content markup, assets and layout. */
+.assessment-variant--one-word .mcqcBuilder .mcqcPointsControl{ position:relative; display:flex; align-items:center; width:100%; min-width:0; height:44px; border-radius:7px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcBuilder .mcqcPointsControl input{ flex:1; width:100%; height:100%; min-height:0; padding:7px 39px 7px 13px; border:0; border-radius:7px; box-shadow:none; background:transparent; outline:0; }
+.assessment-variant--one-word .mcqcBuilder .mcqcPointsControl:focus-within{ outline:2px solid #2D4CC8; outline-offset:2px; }
+.assessment-variant--one-word .mcqcPointsControl input::-webkit-inner-spin-button, .assessment-variant--one-word .mcqcPointsControl input::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
+.assessment-variant--one-word .mcqcPointsControl input[type=number]{ -moz-appearance:textfield; appearance:textfield; }
+.assessment-variant--one-word .mcqcPointsSteppers{ position:absolute; right:8px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center; width:24px; height:34px; gap:0; border-radius:3px; background:#DFE6E9; box-shadow:-1px -1px 2px #fff,1px 1px 2px #C4C4C4; }
+.assessment-variant--one-word .mcqcPointsSteppers button{ display:grid; place-items:center; flex:1; width:100%; min-height:0; padding:0; border:0; background:transparent; cursor:pointer; }
+.assessment-variant--one-word .mcqcPointsSteppers .mcqcArrowUp{ transform:rotate(180deg); }
+.assessment-variant--one-word .mcqcPointsSteppers button:active{ box-shadow:inset 1px 1px 2px #C4C4C4,inset -1px -1px 2px #fff; }
+/* Tag chips: no outside border; inset tag area and pale green chip fill. */
+.assessment-variant--one-word .mcqcBuilder .mcqcTagRow{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-height:44px; padding:7px 9px; border:0; outline:0; border-radius:8px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcBuilder .mcqcTagRow button{ display:inline-flex; gap:6px; align-items:center; min-height:26px; padding:4px 10px; border:1px solid #8cb66c; border-radius:5px; background:#E2EED9; color:#2A7308; font:400 13px/18px "Segoe UI",Arial,sans-serif; box-shadow:none; }
+.assessment-variant--one-word .mcqcBuilder .mcqcTagRow button span{ color:#2A7308; font-size:16px; line-height:14px; }
+/* Summary figures and labels share the same purple, blue and green. */
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid > div{ min-width:0; text-align:center; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid strong{ display:grid; place-items:center; height:52px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; border-radius:7px; font-size:25px; font-weight:700; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid span{ display:block; margin-top:9px; font:500 14px/20px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid > div:nth-child(1) strong, .assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid > div:nth-child(1) span{ color:#67096E; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid > div:nth-child(2) strong, .assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid > div:nth-child(2) span{ color:#2D4CC8; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid > div:nth-child(3) strong, .assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid > div:nth-child(3) span{ color:#2A7308; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcSummaryProgress{ position:relative; height:4px; margin-top:10px; background:linear-gradient(90deg,#67096E 0%,#2D4CC8 51%,#E01E5A 100%); border-radius:8px; overflow:hidden; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcSummaryProgress > span{ position:absolute; left:0; top:0; height:100%; background:#2A7308; border-radius:8px; }
+/* Raised circular arrows stay legible on navigation and become subdued only when disabled. */
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav{ display:grid; place-items:center; border:1px solid rgba(255,255,255,.6); border-radius:50%; background:#DFE6E9; color:#2F3547; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; cursor:pointer; opacity:1; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav .mcqcIcon{ opacity:1; visibility:visible; filter:contrast(1.4); }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:disabled{ opacity:.48; cursor:not-allowed; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:not(:disabled):hover{ box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+/* Neumorphic scroll tracks for all editor scrollable areas. */
+.assessment-variant--one-word .mcqcBuilder .mcqcQuestionNumbers, .assessment-variant--one-word .mcqcBuilder .mcqcNumberScroller, .assessment-variant--one-word .mcqcBuilder .mcqcRichToolbar, .assessment-variant--one-word .mcqcBuilder .mcqcSelectList{ scrollbar-width:thin; scrollbar-color:#a3b2bc #DFE6E9; }
+.assessment-variant--one-word .mcqcBuilder .mcqcQuestionNumbers::-webkit-scrollbar, .assessment-variant--one-word .mcqcBuilder .mcqcNumberScroller::-webkit-scrollbar, .assessment-variant--one-word .mcqcBuilder .mcqcRichToolbar::-webkit-scrollbar{ height:9px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcSelectList::-webkit-scrollbar{ width:8px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcQuestionNumbers::-webkit-scrollbar-track, .assessment-variant--one-word .mcqcBuilder .mcqcNumberScroller::-webkit-scrollbar-track, .assessment-variant--one-word .mcqcBuilder .mcqcRichToolbar::-webkit-scrollbar-track, .assessment-variant--one-word .mcqcBuilder .mcqcSelectList::-webkit-scrollbar-track{ background:#DFE6E9; border-radius:12px; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }
+.assessment-variant--one-word .mcqcBuilder .mcqcQuestionNumbers::-webkit-scrollbar-thumb, .assessment-variant--one-word .mcqcBuilder .mcqcNumberScroller::-webkit-scrollbar-thumb, .assessment-variant--one-word .mcqcBuilder .mcqcRichToolbar::-webkit-scrollbar-thumb, .assessment-variant--one-word .mcqcBuilder .mcqcSelectList::-webkit-scrollbar-thumb{ border:1px solid #DFE6E9; border-radius:12px; background:#a3b2bc; box-shadow:inset -1px -1px 2px #8c9ca6,inset 1px 1px 2px #fff; }
+@media (max-width:600px) { .assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid{ gap:8px; }.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid strong{ height:46px; font-size:21px; }.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid span{ font-size:12px; }.assessment-variant--one-word .mcqcBuilder .mcqcTagRow{ padding:7px; }.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav{ flex-shrink:0; } }
+/* Create Questions: reference screenshot proportions (scaled naturally with the available width). */
+.assessment-variant--one-word .mcqcBuilder{ font:400 14px/20px "Segoe UI",Arial,sans-serif; color:#374151; }
+.assessment-variant--one-word .mcqcBuilderTop{ gap:16px; margin-bottom:16px; align-items:flex-start; }
+.assessment-variant--one-word .mcqcBuilderCrumb{ gap:8px; min-height:32px; font-size:14px; line-height:20px; letter-spacing:.02em; }
+.assessment-variant--one-word .mcqcBuilderWelcome{ width:min(320px,100%); min-height:90px; padding:12px 15px; gap:9px; border:1px solid #2D4CC8; border-right-color:#E01E5A; border-radius:9px; }
+.assessment-variant--one-word .mcqcBuilderWelcome h2{ font-size:18px; line-height:25px; letter-spacing:.02em; }
+.assessment-variant--one-word .mcqcBuilderWelcome p{ font-size:13px; line-height:20px; }
+.assessment-variant--one-word .mcqcBuilderGrid{ grid-template-columns:minmax(0,1fr) minmax(230px,264px); align-items:start; gap:16px; }
+.assessment-variant--one-word .mcqcBuilderMain{ padding:20px 21px; gap:18px; border-radius:15px; }
+.assessment-variant--one-word .mcqcBuilderAside{ padding:12px; gap:12px; border-radius:12px; }
+.assessment-variant--one-word .mcqcQuestionsHeading{ align-items:center; }
+.assessment-variant--one-word .mcqcQuestionsHeading h2{ font-size:17px; line-height:23px; margin-bottom:6px; }
+.assessment-variant--one-word .mcqcQuestionsHeading p{ font-size:13px; line-height:19px; }
+.assessment-variant--one-word .mcqcTopAdd{ min-width:112px; height:44px; font-size:16px; }
+.assessment-variant--one-word .mcqcNumberNavigation{ gap:10px; }
+.assessment-variant--one-word .mcqcQuestionNumbers{ gap:12px; padding:5px 3px 11px; }
+.assessment-variant--one-word .mcqcQuestionNumber{ flex:0 0 66px; width:66px; height:48px; background:#DFE6E9; color:#606162; border:1px solid #A6AFB5; border-radius:4px; font-size:17px; box-shadow:-2px -2px 3px #fff,2px 2px 4px #AEB5B9; }
+.assessment-variant--one-word .mcqcQuestionNumber.is-complete{ background:#DFE6E9; border-color:#2A7308; color:#2A7308; }
+.assessment-variant--one-word .mcqcQuestionNumber.is-partial{ background:#DFE6E9; border-color:#CE580B; color:#CE580B; }
+.assessment-variant--one-word .mcqcQuestionNumber.is-active{ background:#D9E2FB; border-color:#2D4CC8; color:#2D4CC8; }
+.assessment-variant--one-word .mcqcQuestionNumber small{ font-size:10px; line-height:13px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav{ width:38px; height:38px; flex:0 0 38px; background:#DFE6E9; border:1px solid #fff; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:disabled{ opacity:.46; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:not(:disabled) .mcqcIcon{ filter:contrast(1.7); opacity:1; }
+.assessment-variant--one-word .mcqcQuestionProgress{ height:15px; margin-top:-8px; }
+.assessment-variant--one-word .mcqcQuestionForm{ padding:18px 14px 22px; gap:24px; border:1px solid #AEAEAE; border-radius:15px; }
+.assessment-variant--one-word .mcqcBuilderField{ gap:12px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcBuilderField > label, .assessment-variant--one-word .mcqcBuilder .mcqcFormHeading > label{ font:600 14px/20px "Segoe UI",Arial,sans-serif; letter-spacing:.02em; }
+.assessment-variant--one-word .mcqcBuilder .mcqcSelectTrigger{ min-height:50px; padding:9px 15px 9px 20px; font:400 14px/22px "Segoe UI",Arial,sans-serif; border-radius:7px; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcEditorSurface{ padding:9px; border-radius:7px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRichToolbar{ gap:6px; padding:6px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRichToolbar button{ width:32px; height:32px; flex-basis:32px; }
+.assessment-variant--one-word .mcqcEditorSurface textarea{ min-height:58px; height:62px; margin-top:9px; padding:10px 4px; font-size:13px; line-height:20px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAnswerExpand{ min-height:51px; padding:10px 18px; font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcAnswerOptions{ gap:11px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAddOptions{ min-height:44px; margin-top:18px; font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilderBottom{ min-height:48px; }
+.assessment-variant--one-word .mcqcSubmitQuestion{ min-width:180px; height:44px; min-height:44px; font-size:15px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAsideSection{ padding:13px 11px; gap:11px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAsideSection h3{ font:600 16px/23px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilderAside .mcqcBuilderField{ gap:6px; }
+.assessment-variant--one-word .mcqcBuilderAside .mcqcBuilderField > label{ font:600 13px/19px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectTrigger{ min-height:33px; height:33px; padding:4px 11px; font-size:13px; line-height:19px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcPointsControl{ min-height:33px; height:33px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcPointsControl input{ min-height:0; height:100%; font-size:13px; padding:4px 35px 4px 10px; }
+.assessment-variant--one-word .mcqcPointsSteppers{ height:27px; right:5px; width:22px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcSelectItem{ min-height:38px; font-size:13px; line-height:20px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcSelectList{ max-height:245px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcTagRow{ min-height:34px; padding:5px 7px; gap:6px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcTagRow button{ font-size:11px; min-height:22px; padding:2px 7px; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid{ gap:12px; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid strong{ height:48px; font-size:23px; }
+.assessment-variant--one-word .mcqcBuilderSummary .mcqcStatGrid span{ margin-top:7px; font:500 12px/18px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilderPageFooter{ margin-top:36px; }
+.assessment-variant--one-word .mcqcBuilderPageFooter .mcqcFooterPill{ min-width:135px; height:44px; padding:8px 17px; border-radius:25px; font:700 15px/22px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcQuestionNumbers, .assessment-variant--one-word .mcqcBuilder .mcqcNumberScroller, .assessment-variant--one-word .mcqcBuilder .mcqcRichToolbar, .assessment-variant--one-word .mcqcBuilder .mcqcSelectList{ scrollbar-width:thin; scrollbar-color:#A3B2BC #DFE6E9; }
+@media (max-width:1100px) { .assessment-variant--one-word .mcqcBuilderGrid{ grid-template-columns:minmax(0,1fr) 244px; gap:14px; }.assessment-variant--one-word .mcqcBuilderMain{ padding:16px; }.assessment-variant--one-word .mcqcBuilderAside{ padding:11px; } }
+@media (max-width:850px) { .assessment-variant--one-word .mcqcBuilderGrid{ grid-template-columns:minmax(0,1fr); }.assessment-variant--one-word .mcqcBuilderAside{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }.assessment-variant--one-word .mcqcBuilderTop{ flex-direction:column; }.assessment-variant--one-word .mcqcBuilderWelcome{ margin-left:0; }.assessment-variant--one-word .mcqcBuilderPageFooter{ margin-top:24px; } }
+@media (max-width:600px) { .assessment-variant--one-word .mcqcBuilderTop{ gap:12px; }.assessment-variant--one-word .mcqcBuilderCrumb{ flex-basis:auto; font-size:12px; gap:5px; }.assessment-variant--one-word .mcqcBuilderWelcome{ min-height:75px; padding:11px; width:100%; }.assessment-variant--one-word .mcqcBuilderWelcome h2{ font-size:17px; line-height:22px; }.assessment-variant--one-word .mcqcBuilderWelcome p{ font-size:12px; line-height:18px; }.assessment-variant--one-word .mcqcBuilderMain, .assessment-variant--one-word .mcqcBuilderAside{ padding:12px; gap:14px; }.assessment-variant--one-word .mcqcQuestionsHeading h2{ font-size:16px; }.assessment-variant--one-word .mcqcTopAdd{ min-width:85px; height:39px; font-size:14px; }.assessment-variant--one-word .mcqcNumberNavigation{ gap:6px; }.assessment-variant--one-word .mcqcQuestionNumber{ width:54px; height:47px; flex-basis:54px; }.assessment-variant--one-word .mcqcQuestionNumbers{ gap:8px; }.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav{ width:33px; height:33px; flex-basis:33px; }.assessment-variant--one-word .mcqcQuestionForm{ padding:12px; gap:20px; }.assessment-variant--one-word .mcqcBuilderAside{ display:flex; }.assessment-variant--one-word .mcqcBuilderPageFooter{ margin-top:22px; }.assessment-variant--one-word .mcqcBuilderPageFooter .mcqcFooterPill{ min-width:0; height:42px; font-size:13px; padding:7px 11px; }.assessment-variant--one-word .mcqcBuilder .mcqcAnswerExpand{ min-height:46px; }.assessment-variant--one-word .mcqcBuilder .mcqcSelectTrigger{ min-height:46px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectTrigger{ min-height:36px; height:36px; }.assessment-variant--one-word .mcqcBuilderBottom{ padding-bottom:48px; } }
+
+/* Targeted corrections: dropdown direction, responsive settings and options. */
+.assessment-variant--one-word .mcqcBuilder .mcqcAddMenu{ position:relative; z-index:30; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAddMenuList{ top:calc(100% + 8px); bottom:auto; right:0; left:auto; width:max-content; min-width:228px; max-width:min(310px,calc(100vw - 28px)); max-height:min(280px,50dvh); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#aab8c1 #dfe6e9; box-sizing:border-box; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAddMenuList button{ min-height:43px; white-space:normal; overflow-wrap:break-word; }
+.assessment-variant--one-word .mcqcBuilder .mcqcBuilderAside{ min-width:0; width:100%; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAsideSection{ min-width:0; width:100%; box-sizing:border-box; }
+.assessment-variant--one-word .mcqcBuilderAside .mcqcBuilderField, .assessment-variant--one-word .mcqcBuilderAside .mcqcSelectRoot, .assessment-variant--one-word .mcqcBuilderAside .mcqcSelectTrigger, .assessment-variant--one-word .mcqcBuilderAside .mcqcPointsControl{ min-width:0; width:100%; max-width:100%; box-sizing:border-box; }
+.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectTrigger{ display:flex; gap:8px; justify-content:space-between; }
+.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectTrigger > span{ min-width:0; flex:1; overflow-wrap:anywhere; }
+.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectTrigger > .mcqcIcon{ flex:0 0 auto; }
+@media (max-width:850px) { .assessment-variant--one-word .mcqcBuilder .mcqcBuilderAside{ display:flex; flex-direction:column; gap:14px; }.assessment-variant--one-word .mcqcBuilder .mcqcAsideSection{ width:100%; }.assessment-variant--one-word .mcqcBuilderGrid{ grid-template-columns:minmax(0,1fr); }.assessment-variant--one-word .mcqcBuilder .mcqcAddMenuList{ right:0; } }
+@media (max-width:600px) { .assessment-variant--one-word .mcqcBuilder .mcqcBuilderAside{ padding:12px; gap:13px; }.assessment-variant--one-word .mcqcBuilder .mcqcAsideSection{ padding:14px 12px; gap:12px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcBuilderField{ gap:7px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcBuilderField > label{ font-size:14px; line-height:20px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcSelectTrigger{ min-height:42px; height:auto; padding:9px 12px; font-size:14px; line-height:20px; }.assessment-variant--one-word .mcqcBuilderAside .mcqcPointsControl{ min-height:42px; height:42px; }.assessment-variant--one-word .mcqcBuilder .mcqcAddMenuList{ right:0; left:auto; max-width:min(260px,calc(100vw - 36px)); } }
+
+/* Bottom Add Questions: same dropdown as the upper Add button, positioned below. */
+.assessment-variant--one-word .mcqcBuilder .mcqcBottomAddMenu{ position:relative; z-index:35; display:inline-flex; justify-content:center; }
+.assessment-variant--one-word .mcqcBuilder .mcqcBottomAddMenu .mcqcAddMenuList{ top:calc(100% + 8px); bottom:auto; left:50%; right:auto; transform:translateX(-50%); }
+@media (max-width:600px) { .assessment-variant--one-word .mcqcBuilder .mcqcBottomAddMenu .mcqcAddMenuList{ left:0; right:auto; transform:none; } }
+
+/* Expanded answer sections: Figma reference, scoped to question builder only. */
+.assessment-variant--one-word .mcqcBuilder .mcqcAnswerSection{ min-width:0; border-radius:8px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAnswerContent{ display:flex; flex-direction:column; gap:11px; min-width:0; padding:12px 11px 14px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; border-radius:0 0 8px 8px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionSubLabel{ display:flex; align-items:center; justify-content:space-between; gap:10px; font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionSubLabel small{ font-size:12px; font-weight:400; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor{ min-width:0; padding:8px; border-radius:7px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ padding:5px; gap:7px; min-height:45px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button{ width:32px; height:32px; flex:0 0 32px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea{ display:block; width:100%; height:70px; min-height:70px; resize:vertical; margin:8px 0 0; padding:10px 7px; background:transparent; color:#374151; border:0; border-radius:4px; box-shadow:none; outline:0; font:400 13px/20px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption{ display:flex; align-items:center; gap:8px; font:600 13px/19px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption input, .assessment-variant--one-word .mcqcBuilder .mcqcHintChecks input{ width:16px; height:16px; min-height:0; margin:0; accent-color:#2A7308; box-shadow:none; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetail{ min-width:0; border-radius:6px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead{ display:flex; align-items:center; gap:10px; width:100%; min-height:41px; padding:8px 12px; background:transparent; border:0; border-radius:6px; color:#374151; font:600 13px/19px "Segoe UI",Arial,sans-serif; cursor:pointer; text-align:left; }
+.assessment-variant--one-word .mcqcBuilder .mcqcDetailHeading{ display:flex; align-items:center; flex:1; gap:8px; min-width:0; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead small{ margin-left:auto; font:400 11px/16px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailBody{ padding:6px 10px 12px; min-width:0; }
+.assessment-variant--one-word .mcqcBuilder .mcqcHintChecks{ display:grid; gap:8px; margin-top:10px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcHintChecks label{ display:flex; align-items:center; gap:8px; font:400 12px/18px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAnswerExpand[aria-expanded="true"]{ border-radius:7px 7px 0 0; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionToolbar, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea{ scrollbar-width:thin; scrollbar-color:#a3b2bc #dfe6e9; }
+@media (max-width:600px) { .assessment-variant--one-word .mcqcBuilder .mcqcAnswerContent{ padding:10px 8px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead{ padding:8px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ overflow-x:auto; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea{ font-size:13px; } }
+
+/* Option accordion: full-width vertical sections, matching the supplied reference. */
+.assessment-variant--one-word .mcqcBuilder .mcqcAnswerContent{ display:flex; flex-direction:column; flex-wrap:nowrap; align-items:stretch; justify-content:flex-start; width:100%; margin:0; padding:14px 12px 16px; gap:14px; border-radius:0 0 8px 8px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAnswerContent > *{ width:100%; max-width:100%; min-width:0; flex:0 0 auto; align-self:stretch; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionSubLabel{ justify-content:space-between; font-size:14px; line-height:22px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionSubLabel small{ margin-left:auto; font-size:12px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor{ display:flex; flex-direction:column; width:100%; padding:8px 10px 10px; box-sizing:border-box; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ width:100%; max-width:100%; min-width:0; min-height:46px; overflow-x:auto; overflow-y:hidden; flex-wrap:nowrap; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea{ box-sizing:border-box; width:100%; max-width:100%; min-width:0; height:95px; min-height:95px; margin:8px 0 0; padding:12px 8px; font-size:14px; line-height:21px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption{ display:flex; align-items:center; justify-content:flex-start; width:100%; gap:10px; white-space:normal; font-size:14px; line-height:22px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption input{ display:block; flex:0 0 18px; width:18px; height:18px; min-width:18px; min-height:18px; margin:0; padding:0; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetail{ display:block; width:100%; min-width:0; margin:0; border-radius:7px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead{ width:100%; min-height:44px; padding:10px 14px; justify-content:space-between; font-size:14px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcDetailHeading{ flex:1 1 auto; min-width:0; justify-content:flex-start; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead small{ margin-left:auto; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailBody{ width:100%; padding:10px 12px 14px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcHintChecks{ width:100%; }
+@media (max-width:600px) { .assessment-variant--one-word .mcqcBuilder .mcqcAnswerContent{ padding:10px 8px 12px; gap:12px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor{ padding:7px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead{ padding:9px 10px; gap:7px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead small{ font-size:11px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea{ min-height:85px; height:85px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ gap:5px; } }
+
+/* Option editors: Figma typography, compact toolbar and square selection controls. */
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ display:flex; align-items:center; gap:7px; padding:6px 8px; min-height:48px; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button{ flex:0 0 34px; width:34px; height:34px; min-width:34px; padding:5px; font:600 16px/22px "Segoe UI",Arial,sans-serif; border-radius:4px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button.mcqcToolbarSelect{ display:inline-flex; align-items:center; justify-content:space-between; flex:0 0 auto; width:auto; gap:9px; padding:5px 9px; font:400 14px/22px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar .mcqcToolbarFont{ min-width:84px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar .mcqcToolbarSize{ min-width:53px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar .mcqcIcon{ width:18px; height:18px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea{ resize:none; font:400 16px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionSubLabel{ font:600 16px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionSubLabel small{ font:400 12px/20px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption, .assessment-variant--one-word .mcqcBuilder .mcqcHintChecks label{ font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption input[type="checkbox"], .assessment-variant--one-word .mcqcBuilder .mcqcHintChecks input[type="checkbox"]{ appearance:none; -webkit-appearance:none; display:grid; place-items:center; flex:0 0 24px; width:24px; height:24px; min-width:24px; min-height:24px; padding:0; margin:0; border:0; border-radius:4px; background:#DFE6E9; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px rgba(196,196,196,.8); cursor:pointer; }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption input[type="checkbox"]:checked, .assessment-variant--one-word .mcqcBuilder .mcqcHintChecks input[type="checkbox"]:checked{ box-shadow:-4px -4px 4px #fff,4px 4px 4px rgba(196,196,196,.8); }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption input[type="checkbox"]:checked::after, .assessment-variant--one-word .mcqcBuilder .mcqcHintChecks input[type="checkbox"]:checked::after{ content:""; display:block; width:16px; height:16px; border-radius:3px; background:#2D4CC8; clip-path:polygon(0 0,100% 0,100% 100%,0 100%); }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption input[type="checkbox"]:checked::after{ background:#2A7308; }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption input[type="checkbox"]:checked, .assessment-variant--one-word .mcqcBuilder .mcqcHintChecks input[type="checkbox"]:checked{ position:relative; }
+.assessment-variant--one-word .mcqcBuilder .mcqcCorrectOption input[type="checkbox"]:checked::before, .assessment-variant--one-word .mcqcBuilder .mcqcHintChecks input[type="checkbox"]:checked::before{ content:""; position:absolute; left:8px; top:6px; width:6px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); z-index:1; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead{ font:600 16px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead small{ font:400 12px/20px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead .mcqcIcon{ flex-shrink:0; }
+@media (max-width:700px) { .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ gap:5px; padding:5px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button{ flex-basis:30px; width:30px; min-width:30px; height:30px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button.mcqcToolbarSelect{ padding-inline:7px; font-size:12px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar .mcqcToolbarFont{ min-width:74px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar .mcqcToolbarSize{ min-width:46px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea{ font-size:14px; line-height:22px; }.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead{ font-size:14px; } }
+
+/* Main question editor: same Segoe UI, family and size controls as option editors. */
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar{ display:flex; align-items:center; gap:6px; min-width:0; min-height:45px; padding:5px 7px; overflow-x:auto; overflow-y:hidden; flex-wrap:nowrap; scrollbar-width:thin; scrollbar-color:#aab8c1 #DFE6E9; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar button{ flex:0 0 32px; width:32px; height:32px; min-width:32px; padding:5px; border:0; border-radius:3px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:600 16px/22px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar button.mcqcToolbarSelect{ flex:0 0 auto; width:auto; display:inline-flex; align-items:center; justify-content:space-between; gap:8px; padding:4px 9px; font:400 14px/22px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcToolbarFont{ min-width:83px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcToolbarSize{ min-width:52px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar .mcqcIcon{ width:18px; height:18px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface textarea{ font:400 16px/24px "Segoe UI",Arial,sans-serif; resize:none; }
+.assessment-variant--one-word .mcqcBuilder .mcqcDetailHeading{ gap:9px; font:600 16px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcOptionDetailHead{ gap:12px; }
+/* Uniform rich-text editors: question, option text, feedback, explanation and hint. */
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor{ width:100%; min-width:0; padding:8px; border-radius:8px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ display:flex; align-items:center; flex-wrap:wrap; gap:7px; width:100%; min-width:0; min-height:46px; padding:6px 8px; overflow:visible; border-radius:5px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar button, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button{ display:inline-flex; align-items:center; justify-content:center; flex:0 0 32px; width:32px; min-width:32px; height:32px; padding:5px; border:0; border-radius:4px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:600 16px/22px "Segoe UI",Arial,sans-serif; cursor:pointer; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar button.mcqcToolbarSelect, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button.mcqcToolbarSelect{ display:inline-flex; justify-content:space-between; align-items:center; flex:0 0 auto; width:auto; gap:8px; padding:4px 9px; font:400 14px/22px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcToolbarFont, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcToolbarFont{ min-width:84px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcToolbarSize, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcToolbarSize{ min-width:52px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar .mcqcIcon, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar .mcqcIcon{ width:18px; height:18px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface textarea, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea{ display:block; box-sizing:border-box; width:100%; max-width:100%; min-width:0; height:95px; min-height:95px; margin:8px 0 0; padding:12px 8px; border:0; border-radius:4px; background:transparent; box-shadow:none; outline:0; resize:none; color:#374151; font:400 16px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface textarea:focus-visible, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea:focus-visible{ outline:2px solid #2D4CC8; outline-offset:-2px; }
+@media (max-width:700px) { .assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor{ padding:6px; } .assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ gap:5px; padding:5px; } .assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar button, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button{ width:30px; min-width:30px; height:30px; flex-basis:30px; } .assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar button.mcqcToolbarSelect, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button.mcqcToolbarSelect{ padding:4px 7px; font-size:12px; flex-basis:auto; } .assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface textarea, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor textarea{ min-height:90px; height:90px; font-size:14px; line-height:22px; } }
+/* Keep every rich-text toolbar on exactly one row, including Hint. */
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ display:flex; flex-direction:row; flex-wrap:nowrap; align-items:center; justify-content:flex-start; gap:10px; min-width:0; width:100%; min-height:44px; padding:5px 6px; overflow-x:auto; overflow-y:hidden; white-space:nowrap; scrollbar-width:thin; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar button, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button{ flex:0 0 31px; width:31px; min-width:31px; height:32px; padding:4px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar button.mcqcToolbarSelect, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button.mcqcToolbarSelect{ flex:0 0 auto; width:auto; white-space:nowrap; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcToolbarFont, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcToolbarFont{ min-width:80px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcToolbarSize, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcToolbarSize{ min-width:50px; }
+@media (max-width:700px) { .assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar{ flex-wrap:nowrap; gap:4px; padding:5px; } .assessment-variant--one-word .mcqcBuilder .mcqcEditorSurface .mcqcOptionToolbar button, .assessment-variant--one-word .mcqcBuilder .mcqcOptionEditor .mcqcOptionToolbar button{ flex:0 0 30px; min-width:30px; width:30px; } }
+/* Remove Option: raised action aligned to the right edge of the expanded answer. */
+.assessment-variant--one-word .mcqcBuilder .mcqcAnswerContent .mcqcRemoveOption{ display:inline-flex; align-items:center; justify-content:center; align-self:flex-end; width:max-content; max-width:100%; min-height:36px; margin:6px 0 0 auto; padding:7px 16px; border:1px solid #d95e23; border-radius:8px; background:#DFE6E9; color:#c9560e; box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4; font:600 14px/20px "Segoe UI",Arial,sans-serif; white-space:nowrap; cursor:pointer; }
+.assessment-variant--one-word .mcqcBuilder .mcqcAnswerContent .mcqcRemoveOption:active{ box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+/* Available previous/next arrows must be dark and visible; only disabled arrows are faded. */
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:not(:disabled){ opacity:1; color:#141B34; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:not(:disabled) .mcqcIcon{ opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(1258%) hue-rotate(190deg) brightness(95%) contrast(93%)!important; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:disabled{ opacity:.43; cursor:not-allowed; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:disabled .mcqcIcon{ opacity:.5; filter:grayscale(1); }
+@media(max-width:600px) { .assessment-variant--one-word .mcqcBuilder .mcqcAnswerContent .mcqcRemoveOption{ min-height:34px; padding:6px 12px; font-size:13px; } }
+/* Question navigation: first question has a softly dimmed Previous arrow;
+   from question 2 onward Previous and Next have identical enabled contrast. */
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:disabled{ opacity:1; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; cursor:not-allowed; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:disabled .mcqcIcon{ opacity:.58!important; visibility:visible!important; filter:grayscale(1) brightness(0) saturate(100%) invert(65%) sepia(6%) saturate(320%) hue-rotate(165deg)!important; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:not(:disabled){ opacity:1; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:not(:disabled) .mcqcIcon{ opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(1258%) hue-rotate(190deg) brightness(95%) contrast(93%)!important; }
+/* Previous arrow on Question 1: same clearly visible dark icon as the Next arrow; button stays disabled. */
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:disabled .mcqcIcon{ opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+/* Once Previous is enabled it gets the same dark arrow treatment as Next. */
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:not(:disabled) .mcqcIcon{ opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+
+/* Both navigation arrows always use the same visible appearance. */
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav, .assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:not(:disabled){ opacity:1!important; color:#141B34; cursor:pointer; }
+.assessment-variant--one-word .mcqcBuilder .mcqcRoundNav .mcqcIcon, .assessment-variant--one-word .mcqcBuilder .mcqcRoundNav:not(:disabled) .mcqcIcon{ opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+
+/* Create Questions breadcrumb: no preceding back-icon button; links remain responsive. */
+.assessment-variant--one-word .mcqcAppShell .mcqcBuilderCrumb > .mcqcBreadcrumbReturn, .assessment-variant--one-word .mcqcAppShell .mcqcBreadcrumb > .mcqcBreadcrumbReturn{ display:none!important; }
+.assessment-variant--one-word .mcqcBuilderCrumb{ min-width:0; flex-wrap:wrap; }
+@media (max-width:600px) { .assessment-variant--one-word .mcqcBuilderCrumb{ column-gap:6px; row-gap:8px; } }
+
+/* Connected Preview Questions — scoped so the original builder remains unchanged. */
+.assessment-variant--one-word .mcqcPreview{ color:#374151; font:400 14px/1.5 "Segoe UI",Arial,sans-serif; min-width:0; }
+.assessment-variant--one-word .mcqcPreviewCrumb{ display:flex; align-items:center; flex-wrap:wrap; gap:9px; margin:0 0 18px; font-size:14px; }
+.assessment-variant--one-word .mcqcPreviewCrumb a, .assessment-variant--one-word .mcqcPreviewCrumb button{ border:0; padding:0; background:transparent; color:#374151; text-decoration:none; font:inherit; cursor:pointer; }
+.assessment-variant--one-word .mcqcPreviewCrumb strong{ color:#2D4CC8; }
+.assessment-variant--one-word .mcqcPreviewCard{ padding:20px; border-radius:16px; background:#DFE6E9; box-shadow:-4px -4px 5px #fff,4px 4px 5px #C4C4C4; min-width:0; }
+.assessment-variant--one-word .mcqcPreviewCard>header h2{ font-size:18px; margin:0 0 4px; }.assessment-variant--one-word .mcqcPreviewCard>header p{ margin:0 0 14px; }
+.assessment-variant--one-word .mcqcPreviewControls{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; margin-bottom:16px; }
+.assessment-variant--one-word .mcqcPreviewTotals{ display:flex; flex-wrap:wrap; gap:10px; padding:10px; border-radius:9px; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewTotals>div{ min-width:100px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:1px solid #D0D7DB; border-radius:5px; padding:6px 10px; }
+.assessment-variant--one-word .mcqcPreviewTotals strong{ font-size:14px; }.assessment-variant--one-word .mcqcPreviewTotals span{ font-size:12px; }.assessment-variant--one-word .mcqcPreviewTotals .mcqcPreviewReady{ min-width:155px; flex-direction:row; gap:8px; justify-content:flex-start; }
+.assessment-variant--one-word .mcqcPreviewReady strong, .assessment-variant--one-word .mcqcGreen{ color:#2A7308; }.assessment-variant--one-word .mcqcPreviewReady small{ display:block; }.assessment-variant--one-word .mcqcOrange{ color:#CC670D; }
+.assessment-variant--one-word .mcqcPreviewTools{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }.assessment-variant--one-word .mcqcPreviewFilter{ position:relative; }.assessment-variant--one-word .mcqcPreviewFilter>button, .assessment-variant--one-word .mcqcPreviewLearner{ display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:38px; padding:7px 14px; border:0; border-radius:6px; background:#DFE6E9; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font:inherit; color:#374151; cursor:pointer; }
+.assessment-variant--one-word .mcqcPreviewLearner{ box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; color:#2D4CC8; font-weight:600; }.assessment-variant--one-word .mcqcPreviewFilter>div:not(.saCustomSelect){ position:absolute; top:100%; left:0; z-index:20; min-width:160px; padding:6px; border-radius:8px; background:#DFE6E9; box-shadow:3px 3px 7px #C4C4C4,-3px -3px 7px #fff; }.assessment-variant--one-word .mcqcPreviewFilter>div:not(.saCustomSelect) button{ display:block; width:100%; border:0; padding:9px; text-align:left; background:transparent; cursor:pointer; }
+.assessment-variant--one-word .mcqcPreviewQuestion{ padding:16px; border:1px solid #B4BDC2; border-radius:16px; min-width:0; }.assessment-variant--one-word .mcqcPreviewMeta{ display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px; }.assessment-variant--one-word .mcqcPreviewMeta>span, .assessment-variant--one-word .mcqcPreviewMeta>button{ min-height:31px; padding:6px 12px; border:1px solid #C6CFD4; border-radius:22px; background:#DFE6E9; font-size:12px; }.assessment-variant--one-word .mcqcPreviewMeta>button{ display:flex; align-items:center; gap:6px; cursor:pointer; color:#374151; }
+.assessment-variant--one-word .mcqcPreviewPanel{ margin-bottom:17px; border-radius:6px; overflow:hidden; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }.assessment-variant--one-word .mcqcPreviewPanel>h3, .assessment-variant--one-word .mcqcPreviewSectionHead{ width:100%; margin:0; padding:12px 16px; text-align:left; font:600 14px/21px "Segoe UI",Arial,sans-serif; background:#DFE6E9; border:0; box-shadow:0 2px 4px #C4C4C4; color:#374151; }.assessment-variant--one-word .mcqcPreviewPanel>p{ margin:0; min-height:58px; padding:18px 16px; font-size:14px; }.assessment-variant--one-word .mcqcPreviewSectionHead{ display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+.assessment-variant--one-word .mcqcPreviewAnswers, .assessment-variant--one-word .mcqcPreviewLearning{ padding:12px; display:grid; gap:8px; }.assessment-variant--one-word .mcqcPreviewAnswer{ display:flex; gap:9px; align-items:center; min-width:0; padding:8px 12px; border:1px solid #D3DBD9; border-radius:5px; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; }.assessment-variant--one-word .mcqcPreviewAnswer.correct{ border-color:#6C9C58; color:#28750B; }.assessment-variant--one-word .mcqcPreviewAnswer.incorrect{ color:#A4333D; }.assessment-variant--one-word .mcqcAnswerLetter{ padding:1px 6px; box-shadow:inset 1px 1px 2px #C4C4C4,inset -1px -1px 2px #fff; }.assessment-variant--one-word .mcqcPreviewAnswerText{ flex:1; min-width:0; overflow-wrap:anywhere; }.assessment-variant--one-word .mcqcPreviewAnswer small{ padding:3px 8px; border:1px solid currentColor; border-radius:15px; white-space:nowrap; }
+.assessment-variant--one-word .mcqcPreviewLearning section{ padding:12px; border-radius:6px; box-shadow:-2px -2px 4px #fff,2px 2px 4px #C4C4C4; }.assessment-variant--one-word .mcqcPreviewLearning h4{ display:flex; align-items:center; gap:8px; margin:0 0 12px; font-size:14px; }.assessment-variant--one-word .mcqcPreviewLearning section>p{ margin:8px 0; padding:0 24px; white-space:pre-wrap; }.assessment-variant--one-word .mcqcPreviewFeedbackItem{ margin:7px 0 7px 26px; border:1px solid #D0D7DB; }.assessment-variant--one-word .mcqcPreviewFeedbackItem>button{ width:100%; display:flex; align-items:center; gap:9px; border:0; padding:8px 10px; background:#DFE6E9; color:#374151; font:inherit; text-align:left; cursor:pointer; }.assessment-variant--one-word .mcqcPreviewFeedbackItem>button .mcqcIcon:last-child{ margin-left:auto; }.assessment-variant--one-word .mcqcPreviewFeedbackItem p{ padding:12px 14px; margin:0; white-space:pre-wrap; }
+.assessment-variant--one-word .mcqcPreviewSettings{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; padding:14px; }.assessment-variant--one-word .mcqcPreviewSettings>div{ min-width:0; }.assessment-variant--one-word .mcqcPreviewSettings>div>span{ display:block; margin-bottom:7px; font-size:13px; }.assessment-variant--one-word .mcqcPreviewSettings strong{ display:flex; align-items:center; gap:8px; min-height:38px; padding:7px 9px; border-radius:5px; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font-size:13px; font-weight:600; overflow-wrap:anywhere; }.assessment-variant--one-word .mcqcPreviewSettings .mcqcIcon{ flex-shrink:0; }
+.assessment-variant--one-word .mcqcPreviewBottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-top:20px; }.assessment-variant--one-word .mcqcPreviewBottom button, .assessment-variant--one-word .mcqcPreviewEmpty button{ min-height:40px; border:0; border-radius:25px; padding:9px 18px; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; color:#374151; font:600 14px "Segoe UI",Arial,sans-serif; cursor:pointer; }.assessment-variant--one-word .mcqcPreviewBottom .mcqcPreviewSave{ color:#2D4CC8; }.assessment-variant--one-word .mcqcPreviewPager{ display:flex; align-items:center; gap:10px; }.assessment-variant--one-word .mcqcPreviewPager button:disabled{ opacity:.45; cursor:default; }.assessment-variant--one-word .mcqcPreviewEmpty{ text-align:center; padding:25px; }
+@media(max-width:850px) { .assessment-variant--one-word .mcqcPreviewSettings{ grid-template-columns:repeat(2,minmax(0,1fr)); }.assessment-variant--one-word .mcqcPreviewControls{ align-items:flex-start; } }
+@media(max-width:600px) { .assessment-variant--one-word .mcqcPreviewCard{ padding:12px; }.assessment-variant--one-word .mcqcPreviewQuestion{ padding:10px; }.assessment-variant--one-word .mcqcPreviewCrumb{ font-size:12px; gap:5px; }.assessment-variant--one-word .mcqcPreviewControls{ gap:12px; }.assessment-variant--one-word .mcqcPreviewTotals{ width:100%; }.assessment-variant--one-word .mcqcPreviewTotals>div{ flex:1 1 75px; min-width:0; }.assessment-variant--one-word .mcqcPreviewTotals .mcqcPreviewReady{ flex:1 1 135px; }.assessment-variant--one-word .mcqcPreviewTools{ width:100%; gap:9px; }.assessment-variant--one-word .mcqcPreviewSettings{ gap:10px; }.assessment-variant--one-word .mcqcPreviewAnswer small{ font-size:10px; white-space:normal; }.assessment-variant--one-word .mcqcPreviewAnswer{ padding:8px 6px; gap:5px; }.assessment-variant--one-word .mcqcPreviewBottom{ justify-content:center; }.assessment-variant--one-word .mcqcPreviewFeedbackItem{ margin-left:0; }.assessment-variant--one-word .mcqcPreviewLearning, .assessment-variant--one-word .mcqcPreviewAnswers{ padding:8px; }.assessment-variant--one-word .mcqcPreviewLearning section{ padding:9px; } }
+
+/* Figma Preview Questions corrections — scoped to preview; builder and shared layout untouched. */
+.assessment-variant--one-word .mcqcPreview{ font-family:"Segoe UI",Arial,sans-serif; font-size:16px; line-height:1.5; color:#374151; }
+.assessment-variant--one-word .mcqcPreviewCrumb{ font-size:16px; line-height:24px; gap:8px; margin-bottom:20px; letter-spacing:.02em; }
+.assessment-variant--one-word .mcqcPreviewCard{ border-radius:16px; padding:24px; box-shadow:-8px -8px 16px #FFFFFF,8px 8px 16px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewCard>header h2{ font-size:20px; line-height:28px; font-weight:700; margin-bottom:7px; }
+.assessment-variant--one-word .mcqcPreviewCard>header p{ font-size:16px; line-height:24px; margin-bottom:18px; }
+.assessment-variant--one-word .mcqcPreviewControls{ margin-bottom:20px; gap:20px; }
+.assessment-variant--one-word .mcqcPreviewTotals{ padding:8px 12px; gap:12px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewTotals>div{ min-height:55px; }.assessment-variant--one-word .mcqcPreviewTotals strong{ font-size:16px; }.assessment-variant--one-word .mcqcPreviewTotals span{ font-size:14px; }
+.assessment-variant--one-word .mcqcPreviewQuestion{ padding:18px; border:1px solid #B7C1C5; border-radius:16px; }
+.assessment-variant--one-word .mcqcPreviewMeta{ gap:16px; margin-bottom:20px; }.assessment-variant--one-word .mcqcPreviewMeta>span, .assessment-variant--one-word .mcqcPreviewMeta>button{ font-size:14px; }
+.assessment-variant--one-word .mcqcPreviewPanel{ margin-bottom:20px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewPanel>h3, .assessment-variant--one-word .mcqcPreviewSectionHead{ font:600 18px/26px "Segoe UI",Arial,sans-serif; padding:13px 16px; box-shadow:0 3px 5px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewPanel>p{ font-size:16px; line-height:24px; padding:18px 16px; }
+.assessment-variant--one-word .mcqcPreviewAnswers, .assessment-variant--one-word .mcqcPreviewLearning{ padding:14px; gap:12px; }
+.assessment-variant--one-word .mcqcPreviewAnswer{ min-height:45px; padding:9px 13px; font-size:16px; gap:12px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewAnswer.correct{ border-color:#6A994E; color:#267208; }.assessment-variant--one-word .mcqcPreviewAnswer.incorrect{ color:#B62B38; }
+.assessment-variant--one-word .mcqcPreviewAnswer small{ font-size:12px; line-height:18px; }
+.assessment-variant--one-word .mcqcPreviewLearning section{ padding:15px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewLearning h4{ font-size:18px; font-weight:600; line-height:26px; gap:10px; }
+.assessment-variant--one-word .mcqcPreviewFeedbackItem{ margin:9px 0 9px 26px; border:1px solid #D1D6D9; }
+.assessment-variant--one-word .mcqcPreviewFeedbackItem>button{ padding:12px; gap:11px; font:400 16px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcPreviewFeedbackItem p, .assessment-variant--one-word .mcqcPreviewLearning section>p{ font-size:16px; line-height:24px; }
+.assessment-variant--one-word .mcqcPreviewSettings{ gap:16px; padding:16px; }.assessment-variant--one-word .mcqcPreviewSettings>div>span{ font-size:16px; margin-bottom:9px; }
+.assessment-variant--one-word .mcqcPreviewSettings strong{ min-height:48px; font:600 16px/24px "Segoe UI",Arial,sans-serif; padding:9px 12px; box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewBottom{ justify-content:space-between; margin-top:22px; }.assessment-variant--one-word .mcqcPreviewBottom button{ min-height:48px; padding:10px 22px; font-size:18px; box-shadow:-4px -4px 4px #FFFFFF,4px 4px 8px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewStatusIcon{ display:inline-grid; place-items:center; flex:0 0 auto; border:2px solid currentColor; border-radius:50%; font-family:"Segoe UI",Arial,sans-serif; font-weight:800; line-height:1; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; }
+.assessment-variant--one-word .mcqcPreviewStatusIcon.is-correct{ color:#287B10; }.assessment-variant--one-word .mcqcPreviewStatusIcon.is-wrong{ color:#C12A3A; }
+.assessment-variant--one-word .mcqcPreviewFeedbackItem .mcqcPreviewStatusIcon, .assessment-variant--one-word .mcqcPreviewLearning h4 .mcqcPreviewStatusIcon{ opacity:1; }
+@media(max-width:850px) { .assessment-variant--one-word .mcqcPreviewSettings{ grid-template-columns:repeat(2,minmax(0,1fr)); }.assessment-variant--one-word .mcqcPreviewCard{ padding:18px; } }
+@media(max-width:600px) { .assessment-variant--one-word .mcqcPreviewCard{ padding:12px; }.assessment-variant--one-word .mcqcPreviewQuestion{ padding:10px; }.assessment-variant--one-word .mcqcPreviewCrumb{ font-size:12px; line-height:20px; }.assessment-variant--one-word .mcqcPreviewPanel>h3, .assessment-variant--one-word .mcqcPreviewSectionHead{ font-size:15px; line-height:22px; padding:11px 12px; }.assessment-variant--one-word .mcqcPreviewLearning h4{ font-size:15px; line-height:22px; }.assessment-variant--one-word .mcqcPreviewAnswer, .assessment-variant--one-word .mcqcPreviewFeedbackItem>button, .assessment-variant--one-word .mcqcPreviewFeedbackItem p, .assessment-variant--one-word .mcqcPreviewLearning section>p{ font-size:13px; line-height:19px; }.assessment-variant--one-word .mcqcPreviewAnswer{ gap:6px; padding:7px; }.assessment-variant--one-word .mcqcPreviewAnswer small{ font-size:10px; }.assessment-variant--one-word .mcqcPreviewSettings{ grid-template-columns:minmax(0,1fr); gap:10px; }.assessment-variant--one-word .mcqcPreviewSettings>div>span, .assessment-variant--one-word .mcqcPreviewSettings strong{ font-size:14px; }.assessment-variant--one-word .mcqcPreviewBottom button{ font-size:14px; min-height:44px; }.assessment-variant--one-word .mcqcPreviewMeta{ gap:7px; }.assessment-variant--one-word .mcqcPreviewMeta>span, .assessment-variant--one-word .mcqcPreviewMeta>button{ font-size:11px; }.assessment-variant--one-word .mcqcPreviewTotals>div{ min-width:0; }.assessment-variant--one-word .mcqcPreviewLearning section{ padding:10px; } }
+
+/* Preview-only Figma measurements: compact settings, pills, status glyphs. */
+.assessment-variant--one-word .mcqcPreview, .assessment-variant--one-word .mcqcPreview button{font-family:"Segoe UI",Arial,sans-serif;}
+.assessment-variant--one-word .mcqcPreviewReadyCheck{display:grid;place-items:center;flex:0 0 18px;width:18px;height:18px;border-radius:2px;color:#fff;background:#2A7308;font:700 13px/18px "Segoe UI",Arial,sans-serif;box-shadow:-2px -2px 2px #fff,2px 2px 2px rgba(196,196,196,.8);}
+.assessment-variant--one-word .mcqcPreviewReady{display:flex;align-items:center;gap:8px;}
+.assessment-variant--one-word .mcqcPreviewReady strong{font-weight:600;color:#2A7308;}
+.assessment-variant--one-word .mcqcPreviewMeta{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:24px;}
+.assessment-variant--one-word .mcqcPreviewMeta > span, .assessment-variant--one-word .mcqcPreviewMeta > button{display:inline-flex;align-items:center;justify-content:center;min-height:40px;height:40px;padding:0 14px;border:0;border-radius:32px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;color:#2F3547;font:400 14px/20px "Segoe UI",Arial,sans-serif;letter-spacing:.03em;white-space:nowrap;}
+.assessment-variant--one-word .mcqcPreviewMeta > span:first-child{min-width:142px;}.assessment-variant--one-word .mcqcPreviewMeta > span:nth-child(2){min-width:165px;gap:4px;}.assessment-variant--one-word .mcqcPreviewMeta > button{min-width:81px;gap:8px;cursor:pointer;}
+.assessment-variant--one-word .mcqcPreviewMeta b.mcqcGreen{color:#2A7308;font-weight:600;}.assessment-variant--one-word .mcqcPreviewMeta b.mcqcOrange{font-weight:600;}
+.assessment-variant--one-word .mcqcPreviewStatusIcon{width:24px!important;height:24px!important;border:0!important;border-radius:50%;background:#DFE6E9;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #fff;font:800 15px/24px "Segoe UI",Arial,sans-serif!important;text-align:center;opacity:1!important;}
+.assessment-variant--one-word .mcqcPreviewStatusIcon.is-correct{color:#fff;background:radial-gradient(circle at center,#2A7308 0 49%,#DFE6E9 53% 100%);}
+.assessment-variant--one-word .mcqcPreviewStatusIcon.is-wrong{color:#fff;background:radial-gradient(circle at center,#A91E2C 0 49%,#DFE6E9 53% 100%);}
+.assessment-variant--one-word .mcqcPreviewAnswer.incorrect .mcqcPreviewStatusIcon{background:#DFE6E9;color:#C6C6C9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:0!important;}
+.assessment-variant--one-word .mcqcPreviewAnswer.incorrect .mcqcPreviewStatusIcon::after{content:"";width:12px;height:12px;border:1.5px solid #C6C6C9;border-radius:50%;display:block;margin:6px auto;}
+.assessment-variant--one-word .mcqcPreviewFeedbackItem{margin:8px 0 8px 26px;border:0;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;overflow:hidden;}
+.assessment-variant--one-word .mcqcPreviewFeedbackItem > button{display:flex;align-items:center;min-height:44px;width:100%;padding:8px 14px;gap:12px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font:600 16px/24px "Segoe UI",Arial,sans-serif;}
+.assessment-variant--one-word .mcqcPreviewFeedbackItem > button .mcqcIcon{margin-left:auto;opacity:1;}
+.assessment-variant--one-word .mcqcPreviewFeedbackItem > p{margin:0;padding:15px 30px;font:400 14px/22px "Segoe UI",Arial,sans-serif;letter-spacing:.02em;}
+.assessment-variant--one-word .mcqcPreviewSettings{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding:14px 16px;align-items:start;}
+.assessment-variant--one-word .mcqcPreviewSettings > div{min-width:0;}.assessment-variant--one-word .mcqcPreviewSettings > div > span{font:400 14px/20px "Segoe UI",Arial,sans-serif;margin-bottom:7px;letter-spacing:.02em;}
+.assessment-variant--one-word .mcqcPreviewSettings strong{min-height:40px;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font:600 14px/20px "Segoe UI",Arial,sans-serif;overflow-wrap:anywhere;}
+.assessment-variant--one-word .mcqcPreviewSettings strong .mcqcIcon{width:18px;height:18px;flex:0 0 18px;visibility:visible;opacity:1;}
+@media(max-width:900px) {.assessment-variant--one-word .mcqcPreviewSettings{grid-template-columns:repeat(3,minmax(0,1fr));}.assessment-variant--one-word .mcqcPreviewMeta{gap:10px;}}
+@media(max-width:600px) {.assessment-variant--one-word .mcqcPreviewSettings{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px;}.assessment-variant--one-word .mcqcPreviewSettings > div > span{font-size:12px;}.assessment-variant--one-word .mcqcPreviewSettings strong{font-size:12px;min-height:40px;padding:7px;}.assessment-variant--one-word .mcqcPreviewMeta{justify-content:flex-start;gap:8px;}.assessment-variant--one-word .mcqcPreviewMeta > span, .assessment-variant--one-word .mcqcPreviewMeta > button{font-size:12px;min-height:36px;height:36px;padding:0 10px;min-width:0!important;}.assessment-variant--one-word .mcqcPreviewFeedbackItem{margin-left:0;}.assessment-variant--one-word .mcqcPreviewFeedbackItem > button{font-size:13px;padding:8px;}.assessment-variant--one-word .mcqcPreviewFeedbackItem > p{padding:12px;font-size:13px;}}
+@media(max-width:370px) {.assessment-variant--one-word .mcqcPreviewSettings{grid-template-columns:minmax(0,1fr);}}
+
+/* Figma status marks: raised 24px circle, green tick / red cross; 18px Ready square. */
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewStatusIcon{position:relative;display:inline-grid;place-items:center;width:24px!important;height:24px!important;flex:0 0 24px;border:0!important;border-radius:50%;background:#DFE6E9!important;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF!important;opacity:1!important;font-size:0!important;}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewStatusIcon::before{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#2A7308;}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewStatusIcon.is-correct::after{content:"";position:absolute;width:7px;height:4px;border-left:1.8px solid #fff;border-bottom:1.8px solid #fff;transform:translateY(-1px) rotate(-45deg);}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewStatusIcon.is-wrong::before{background:#A91E2C;}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewStatusIcon.is-wrong::after{content:"×";position:absolute;inset:0;display:grid;place-items:center;color:#FFFFFF;font:700 14px/24px "Segoe UI",Arial,sans-serif;}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewAnswer.incorrect .mcqcPreviewStatusIcon{background:#DFE6E9!important;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4!important;}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewAnswer.incorrect .mcqcPreviewStatusIcon::before{width:12px;height:12px;background:transparent;border:1.5px solid #C6C6C9;}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewAnswer.incorrect .mcqcPreviewStatusIcon::after{content:none;}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewReadyCheck{position:relative;display:inline-grid;place-items:center;width:18px;height:18px;flex:0 0 18px;border-radius:2px;background:#DFE6E9;box-shadow:-2px -2px 2px #fff,2px 2px 2px rgba(196,196,196,.8);font-size:0;}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewReadyCheck::before{content:"";width:14px;height:14px;background:#2A7308;border-radius:2px;}
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewReadyCheck::after{content:"";position:absolute;width:7px;height:4px;border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;transform:translateY(-1px) rotate(-45deg);}
+
+/* Preview Question Settings: four fields on row one; Tags on row two. */
+.assessment-variant--one-word .mcqcPreviewSettings{ grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.assessment-variant--one-word .mcqcPreviewSettings > div:nth-child(4){ grid-column:1 / span 2; grid-row:2; } /* Tags */
+.assessment-variant--one-word .mcqcPreviewSettings > div:nth-child(5){ grid-column:4; grid-row:1; } /* Mandatory */
+@media (max-width:900px) {
+  .assessment-variant--one-word .mcqcPreviewSettings{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .assessment-variant--one-word .mcqcPreviewSettings > div:nth-child(4){ grid-column:1 / -1; grid-row:3; }
+  .assessment-variant--one-word .mcqcPreviewSettings > div:nth-child(5){ grid-column:2; grid-row:2; }
+}
+@media (max-width:480px) {
+  .assessment-variant--one-word .mcqcPreviewSettings{ grid-template-columns:minmax(0,1fr); }
+  .assessment-variant--one-word .mcqcPreviewSettings > div:nth-child(4){ grid-column:1; grid-row:5; }
+  .assessment-variant--one-word .mcqcPreviewSettings > div:nth-child(5){ grid-column:1; grid-row:4; }
+}
+
+/* Center the wrong-feedback cross geometrically inside its raised circle. */
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewStatusIcon.is-wrong::after{content:"";inset:auto;left:50%;top:50%;display:block;width:10px;height:10px;transform:translate(-50%,calc(-30% - 2px));background:linear-gradient(45deg,transparent calc(50% - 1px),#fff calc(50% - 1px),#fff calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(-45deg,transparent calc(50% - 1px),#fff calc(50% - 1px),#fff calc(50% + 1px),transparent calc(50% + 1px));}
+
+/* Smaller wrong-answer X only; circle and shadow remain unchanged. */
+.assessment-variant--one-word .mcqcPreview .mcqcPreviewStatusIcon.is-wrong::after{width:9px;height:9px;}
+
+/* Question-number scrollbar only: fixed short thumb, while the numbers remain horizontally scrollable. */
+.assessment-variant--one-word .mcqcBuilder .mcqcQuestionNumbers{ scrollbar-width:none; padding-bottom:5px; }
+.assessment-variant--one-word .mcqcBuilder .mcqcQuestionNumbers::-webkit-scrollbar{ display:none; height:0; }
+.assessment-variant--one-word .mcqcNumberShortTrack{ position:relative; width:100%; height:9px; margin-top:9px; border-radius:12px; background:#DFE6E9; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #FFFFFF; }
+.assessment-variant--one-word .mcqcNumberShortThumb{ position:absolute; top:0; width:var(--mcqc-scroll-thumb, min(67px,26%)); height:9px; border-radius:12px; background:#7C878D; transition:left .08s linear; }
+@media(max-width:600px) { .assessment-variant--one-word .mcqcNumberScroller{ --mcqc-scroll-thumb:min(38px,26%); } }
+
+/* Question Type dropdown: matching field width, expandable reference groups. */
+.assessment-variant--one-word .mcqcTypeRoot{ width:100%; min-width:0; }
+.assessment-variant--one-word .mcqcTypeDropdown{ position:absolute; z-index:100; left:0; right:0; top:calc(100% + 7px); width:100%; min-width:0; max-height:min(490px,65vh); overflow-y:auto; overscroll-behavior:contain; padding:12px 14px; border-radius:12px; background:#DFE6E9; box-shadow:-4px -4px 8px #FFFFFF,5px 5px 10px #B8C1C6; scrollbar-width:thin; scrollbar-color:#ABB7BF #DFE6E9; }
+.assessment-variant--one-word .mcqcTypeSearch{ display:flex; align-items:center; gap:12px; min-width:0; min-height:52px; padding:8px 13px; border-radius:8px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #FFFFFF,inset 3px 3px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcTypeSearch input{ flex:1 1 0; min-width:0; width:100%; height:34px; padding:0; border:0; outline:0; background:transparent; box-shadow:none!important; font:400 16px/24px "Segoe UI",Arial,sans-serif; color:#374151; }
+.assessment-variant--one-word .mcqcTypeSearch input::-webkit-search-cancel-button{ cursor:pointer; }
+.assessment-variant--one-word .mcqcTypeGroups{ margin-top:12px; }
+.assessment-variant--one-word .mcqcTypeGroup{ border-top:1px solid #C8D2D7; }
+.assessment-variant--one-word .mcqcTypeHeading{ display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%; min-height:61px; padding:12px 10px; border:0; background:transparent; text-align:left; color:#2D4CC8; font:700 17px/24px "Segoe UI",Arial,sans-serif; cursor:pointer; }
+.assessment-variant--one-word .mcqcTypeHeading > span{ min-width:0; overflow-wrap:anywhere; }
+.assessment-variant--one-word .mcqcTypeHeading > .mcqcIcon{ margin-left:auto; }
+.assessment-variant--one-word .mcqcTypeOptions{ padding:0 0 12px; }
+.assessment-variant--one-word .mcqcTypeOption{ display:flex; align-items:center; gap:14px; min-height:49px; width:100%; padding:9px 10px; border:0; border-radius:6px; background:transparent; text-align:left; color:#2F3547; font:400 16px/24px "Segoe UI",Arial,sans-serif; cursor:pointer; }
+.assessment-variant--one-word .mcqcTypeOption:hover, .assessment-variant--one-word .mcqcTypeOption:focus-visible{ background:rgba(255,255,255,.3); outline:0; }
+.assessment-variant--one-word .mcqcTypeOption > span:last-child{ min-width:0; overflow-wrap:anywhere; }
+.assessment-variant--one-word .mcqcTypeOption .mcqcOptionRadio{ flex:0 0 26px; width:26px; height:26px; border-radius:50%; }
+.assessment-variant--one-word .mcqcTypeOption .mcqcOptionSelected::after{ width:13px; height:13px; background:#2D4CC8; border-color:#2D4CC8; }
+.assessment-variant--one-word .mcqcTypeEmpty{ padding:12px; margin:0; font-size:14px; }
+@media(max-width:600px) { .assessment-variant--one-word .mcqcTypeDropdown{ max-height:min(440px,60vh); padding:10px; }.assessment-variant--one-word .mcqcTypeSearch{ min-height:45px; }.assessment-variant--one-word .mcqcTypeSearch input{ font-size:14px; }.assessment-variant--one-word .mcqcTypeHeading{ font-size:15px; min-height:52px; }.assessment-variant--one-word .mcqcTypeOption{ font-size:14px; line-height:21px; gap:10px; padding:8px; }.assessment-variant--one-word .mcqcTypeOption .mcqcOptionRadio{ flex-basis:24px; width:24px; height:24px; } }
+
+/* Question Type only: slightly shorter search input and visible selected tick. */
+.assessment-variant--one-word .mcqcTypeSearch{ min-height:44px; padding:5px 13px; }
+.assessment-variant--one-word .mcqcTypeSearch input{ height:30px; min-height:0; }
+.assessment-variant--one-word .mcqcTypeOption .mcqcOptionSelected{ position:relative; }
+.assessment-variant--one-word .mcqcTypeOption .mcqcOptionSelected::after{ width:17px; height:17px; border:0; background:#2D4CC8; border-radius:50%; }
+.assessment-variant--one-word .mcqcTypeOption .mcqcOptionSelected::before{ content:""; position:absolute; z-index:1; top:9px; left:10px; width:7px; height:5px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg); pointer-events:none; }
+@media(max-width:600px) { .assessment-variant--one-word .mcqcTypeSearch{ min-height:42px; padding:5px 11px; }.assessment-variant--one-word .mcqcTypeSearch input{ height:28px; }.assessment-variant--one-word .mcqcTypeOption .mcqcOptionSelected::before{ top:8px; left:9px; } }
+
+/* Combined Content save and continue, compact inline success popup. */
+.assessment-variant--one-word .mcqcBuilderPageFooter .mcqcSaveContinueGroup{display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap;}
+.assessment-variant--one-word .mcqcSaveSuccessToast{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:7px 18px;border:1.5px solid #C05512;border-radius:24px;color:#C05512;background:#DFE6E9;font:600 14px/20px "Segoe UI",Arial,sans-serif;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;white-space:nowrap;}
+.assessment-variant--one-word .mcqcBuilderPageFooter .mcqcSaveContinueGroup .mcqcFooterContinue{min-width:190px;color:#2A7308;}
+.assessment-variant--one-word .mcqcBuilderPageFooter .mcqcSaveContinueGroup .mcqcFooterContinue:disabled{opacity:.75;cursor:default;}
+@media(max-width:600px){.assessment-variant--one-word .mcqcBuilderPageFooter .mcqcSaveContinueGroup{justify-content:stretch;gap:9px;}.assessment-variant--one-word .mcqcSaveSuccessToast{font-size:12px;min-height:36px;padding:7px 12px;}.assessment-variant--one-word .mcqcBuilderPageFooter .mcqcSaveContinueGroup .mcqcFooterContinue{min-width:0;flex:1 1 170px;}}
+
+/* Short Answer screenshot layout; existing MCQ styles above are preserved. */
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderTop{min-height:160px;align-items:flex-start;position:relative;margin-bottom:18px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderWelcome{position:absolute;left:50%;top:42px;transform:translateX(-50%);min-width:370px;min-height:104px;border:1px solid #2D4CC8;box-shadow:none;border-radius:11px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr) 304px;gap:24px;align-items:start}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderMain{min-height:590px;padding:24px;gap:28px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcQuestionForm{padding:16px;gap:24px;border-color:#aeb6b9}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderField{gap:12px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderField>label, .assessment-variant--one-word .mcqcShortBuilder .mcqcFormHeading label{font-weight:600;font-size:16px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcEditorSurface{box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 5px #C4C4C4;border-radius:8px;padding:12px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcEditorSurface textarea{min-height:72px;padding:16px 4px;box-shadow:none;resize:vertical}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar{margin:0 0 8px;gap:8px;max-width:100%;background:#DFE6E9}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerTrigger{min-height:58px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerFields{display:grid;gap:12px;padding:14px;border-radius:8px;box-shadow:inset 2px 2px 4px #C4C4C4,inset -2px -2px 4px #fff}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerFields label{display:grid;gap:8px;font-size:14px;font-weight:600}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerFields textarea{width:100%;min-height:80px;padding:12px;border:0;border-radius:8px;background:#DFE6E9;color:#374151;box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAdd{display:flex;align-items:center;justify-content:center;gap:12px;align-self:center;min-height:54px;padding:10px 28px;border:1px solid #2D4CC8;border-radius:40px;background:#DFE6E9;color:#2D4CC8;font-size:20px;font-weight:600;box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4;cursor:pointer}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside{min-height:618px;padding:16px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcAsideSection{min-height:580px;display:flex;flex-direction:column;gap:14px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcAsideSection h3{margin:0 0 4px;font-size:18px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside .mcqcBuilderField input[type=number]{min-height:38px;padding:6px 14px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside .mcqcSelectTrigger{min-height:38px;padding:7px 14px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside .mcqcBuilderField{gap:6px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:20px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooterRight{display:flex;gap:28px;align-items:center;margin-right:24%}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter .mcqcFooterPill{min-width:150px;min-height:50px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter .mcqcFooterContinue{color:#207600}
+@media(max-width:1000px){.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr) 265px;gap:16px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooterRight{margin-right:0}}
+@media(max-width:760px){.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderTop{min-height:190px}.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderWelcome{top:65px;min-width:0;width:min(100%,370px)}.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderGrid{grid-template-columns:1fr}.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderMain, .assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside{min-height:0}.assessment-variant--one-word .mcqcShortBuilder .mcqcAsideSection{min-height:0}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter{flex-wrap:wrap}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooterRight{gap:12px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter .mcqcFooterPill{min-width:120px}}
+
+/* Figma Short Answer alignment refinements — scoped to Short Answer only. */
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderTop{height:178px;min-height:178px;margin-bottom:0}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderWelcome{top:52px;width:372px;min-width:0;height:104px;min-height:104px;padding:16px 18px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;border:1px solid #2D4CC8}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderWelcome h2{font-size:22px;white-space:nowrap}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr) 304px;gap:24px;align-items:start}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderMain{min-height:594px;padding:24px;gap:32px;border-radius:16px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcQuestionForm{min-height:458px;padding:16px;gap:28px;border:1px solid #AEAEAE;border-radius:16px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderField{gap:16px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcSelectTrigger{min-height:58px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcWriteField .mcqcFormHeading{width:100%;align-items:center}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcWriteField .mcqcFormHeading span{margin-left:auto}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcEditorSurface{min-height:150px;padding:14px 16px 10px;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcEditorSurface textarea{min-height:58px;padding:16px 0 6px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar{height:54px;align-items:center;margin:0;gap:8px;padding:6px 8px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAddMenu{align-self:center;display:flex;justify-content:center;position:relative}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAddMenu .mcqcAddMenuList{top:calc(100% + 8px);left:50%;transform:translateX(-50%);width:max-content;min-width:250px;z-index:30}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAdd{min-width:230px;height:54px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside{min-height:618px;padding:16px;border-radius:12px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcAsideSection{min-height:582px;padding:16px 12px;gap:12px;border:1px solid #D0D5D8;border-radius:5px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcAsideSection h3{font-size:18px;margin:0 0 4px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside .mcqcBuilderField{gap:6px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside .mcqcSelectTrigger{min-height:36px;height:36px;padding:5px 14px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside .mcqcBuilderField input[type=number]{height:36px;min-height:36px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter{margin-top:18px;min-height:52px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooterRight{gap:28px;margin-right:24%}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter .mcqcFooterPill{min-height:50px}
+@media(max-width:1000px){.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr) 265px;gap:16px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooterRight{margin-right:0}}
+@media(max-width:760px){.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderTop{height:190px;min-height:190px}.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderWelcome{top:65px;width:min(100%,372px)}.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderGrid{grid-template-columns:1fr}.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderMain, .assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderAside, .assessment-variant--one-word .mcqcShortBuilder .mcqcAsideSection{min-height:0}.assessment-variant--one-word .mcqcShortBuilder .mcqcQuestionForm{min-height:0}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter{flex-wrap:wrap}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooterRight{gap:12px}}
+
+/* Short Answer Figma corrections: toolbar, Answer Settings, Preview button only. */
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar{display:flex;align-items:center;justify-content:flex-start;flex-wrap:nowrap;gap:8px;width:100%;height:54px;padding:6px 12px;overflow-x:auto;overflow-y:hidden;box-sizing:border-box;white-space:nowrap;border-radius:6px;box-shadow:-3px -3px 4px #fff,3px 3px 4px #c4c4c4}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar>button{flex:0 0 36px;width:36px;min-width:36px;height:36px;padding:5px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar>button.mcqcToolbarSelect{flex:0 0 auto;width:auto;display:inline-flex;flex-direction:row;align-items:center;justify-content:space-between;gap:12px;padding:5px 12px;font:400 14px/20px "Segoe UI",Arial,sans-serif;white-space:nowrap}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar>button.mcqcToolbarFont{min-width:134px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar>button.mcqcToolbarSize{min-width:80px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar>button.mcqcToolbarSelect .mcqcIcon{flex-shrink:0}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerTrigger{display:flex;align-items:center;justify-content:space-between;width:100%;height:58px;min-height:58px;padding:0 24px;text-align:left;font:400 16px/24px "Segoe UI",Arial,sans-serif;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #c4c4c4;border-radius:8px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerTrigger>span{min-width:0}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerTrigger>.mcqcIcon{flex-shrink:0;margin-left:16px}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter>.mcqcFooterPill{flex:0 0 auto;min-width:210px;width:210px;height:50px;min-height:50px;padding:0 16px;white-space:nowrap;border-radius:28px;font:600 16px/24px "Segoe UI",Arial,sans-serif;box-shadow:-4px -4px 6px #fff,4px 4px 6px #c4c4c4}
+@media(max-width:600px){.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar{gap:6px;padding:6px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar>button.mcqcToolbarFont{min-width:100px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortToolbar>button.mcqcToolbarSize{min-width:64px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortFooter>.mcqcFooterPill{width:auto;min-width:170px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerTrigger{padding:0 14px;font-size:14px}}
+
+/* Answer Settings only: measurements from the supplied Figma export.
+   Outer surface 918px; section 886px; inner content 854px at design width.
+   Icon slots remain empty until SA_ICON_PATHS is filled in page.tsx. */
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerSettings{ width:100%; max-width:918px; }
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerSettings > .mcqcFormHeading{ display:flex; align-items:center; justify-content:space-between; }
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerSettings .mcqcFormHeading > span{ font:400 14px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerSettings > .mcqcShortAnswerTrigger{ height:57px; min-height:57px; padding:0 24px; border:0; border-radius:4px; font:600 18px/28px "Segoe UI",Arial,sans-serif; letter-spacing:.02em; color:#2F3547; background:#DFE6E9; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderField > .saExpanded{ display:flex; flex-direction:column; gap:24px; width:100%; min-width:0; margin-top:-16px; padding:19px 16px 22px; border:0; border-radius:0 0 8px 8px; background:#DFE6E9; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .saExpanded, .assessment-variant--one-word .mcqcShortBuilder .saExpanded *{ box-sizing:border-box; }
+.assessment-variant--one-word .mcqcShortBuilder .saExpanded{ font:400 16px/24px "Segoe UI",Arial,sans-serif; letter-spacing:.02em; color:#374151; }
+.assessment-variant--one-word .mcqcShortBuilder .saExpanded button, .assessment-variant--one-word .mcqcShortBuilder .saExpanded select, .assessment-variant--one-word .mcqcShortBuilder .saExpanded textarea{ font-family:inherit; letter-spacing:inherit; }
+.assessment-variant--one-word .mcqcShortBuilder .saExpanded button{ cursor:pointer; }
+.assessment-variant--one-word .mcqcShortBuilder .saExpanded :is(button, .assessment-variant--one-word select, .assessment-variant--one-word textarea, .assessment-variant--one-word input):focus-visible{ outline:2px solid #2D4CC8; outline-offset:3px; }
+.assessment-variant--one-word .mcqcShortBuilder .saPathIcon{ display:inline-flex; flex:none; align-items:center; justify-content:center; vertical-align:middle; }
+.assessment-variant--one-word .mcqcShortBuilder .saPathIcon img{ display:block; width:100%; height:100%; object-fit:contain; }
+.assessment-variant--one-word .mcqcShortBuilder .saArrowOpen{ transform:rotate(180deg); }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordion{ width:100%; min-width:0; margin:0; padding:0; border:0; border-radius:8px; background:#DFE6E9; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordionTitle{ display:flex; align-items:center; justify-content:space-between; width:100%; height:46px; min-height:46px; gap:16px; padding:0 16px 0 24px; border:0; border-radius:4px; background:#DFE6E9; color:#374151; box-shadow:-4px -4px 4px #fff,4px 4px 8px #C4C4C4; text-align:left; font:600 18px/24px "Segoe UI",Arial,sans-serif; letter-spacing:.02em; }
+.assessment-variant--one-word .mcqcShortBuilder .saSectionHeading{ display:flex; align-items:center; gap:12px; min-width:0; }
+.assessment-variant--one-word .mcqcShortBuilder .saSectionIcon{ display:grid; place-items:center; flex:0 0 28px; width:28px; height:28px; border-radius:50%; background:#DFE6E9; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .saSectionMeta{ display:flex; align-items:center; gap:16px; flex:none; font-size:14px; font-weight:400; line-height:24px; white-space:nowrap; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordionBody{ display:flex; flex-direction:column; align-items:stretch; gap:16px; min-width:0; padding:24px 16px 16px; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordionBody[hidden]{ display:none; }
+.assessment-variant--one-word .mcqcShortBuilder .saLabeledField{ display:flex; flex-direction:column; gap:16px; min-width:0; }
+.assessment-variant--one-word .mcqcShortBuilder .saSmallLabel{ margin:0; font-size:16px; line-height:24px; font-weight:600; color:inherit; }
+.assessment-variant--one-word .mcqcShortBuilder .saLabelStrong{ font-weight:700; }
+.assessment-variant--one-word .mcqcShortBuilder .saRich{ display:flex; flex-direction:column; width:100%; height:138px; min-width:0; padding:0; border:0; border-radius:8px; background:#DFE6E9; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .saRichTall{ height:153px; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar{ display:flex; align-items:center; flex:none; gap:20px; width:100%; height:66px; padding:16px; overflow-x:auto; overflow-y:hidden; white-space:nowrap; border-radius:4px; background:#DFE6E9; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; scrollbar-width:thin; scrollbar-color:#C4C4C4 #DFE6E9; }
+.assessment-variant--one-word .mcqcShortBuilder .saToolGroup{ display:flex; align-items:center; gap:10px; flex:none; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar button{ display:inline-flex; align-items:center; justify-content:center; flex:0 0 37px; width:37px; height:34px; min-height:34px; margin:0; padding:0; border:0; border-radius:2px; background:#DFE6E9; color:#000; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:400 20px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar .saToolFont{ width:120px; flex-basis:120px; padding:0 10px; justify-content:space-between; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar .saToolSize{ width:77px; flex-basis:77px; padding:0 10px; justify-content:space-between; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar .saToolColor{ width:67px; flex-basis:67px; gap:10px; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar .saToolBullet{ width:46px; flex-basis:46px; gap:6px; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar .saToolMore{ width:20px; flex-basis:20px; background:transparent; box-shadow:none; }
+.assessment-variant--one-word .mcqcShortBuilder .saRich textarea{ display:block; width:100%; height:100%; min-height:0; flex:1 1 auto; margin:0; padding:18px 24px 12px; border:0; border-radius:0; resize:none; overflow:auto; color:inherit; background:transparent; box-shadow:none; font:400 16px/26px "Segoe UI",Arial,sans-serif; letter-spacing:.02em; }
+.assessment-variant--one-word .mcqcShortBuilder .saRich textarea::placeholder{ color:inherit; opacity:1; }
+.assessment-variant--one-word .mcqcShortBuilder .saRichPlain{ height:102px; box-shadow:none; background:transparent; }
+.assessment-variant--one-word .mcqcShortBuilder .saRichPlain .saMiniToolbar{ height:54px; padding:10px 16px; }
+.assessment-variant--one-word .mcqcShortBuilder .saRichPlain textarea{ padding:24px 0 0; line-height:24px; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordion-answer .saAccordionBody{ padding-bottom:21px; }
+.assessment-variant--one-word .mcqcShortBuilder .saSettingsGrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); column-gap:29px; row-gap:24px; margin-top:34px; }
+.assessment-variant--one-word .mcqcShortBuilder .saSettingsGrid label{ display:flex; flex-direction:column; min-width:0; gap:16px; margin:0; font-size:16px; line-height:24px; font-weight:600; }
+.assessment-variant--one-word .mcqcShortBuilder .saSettingsGrid label:nth-child(n/**/+4){ max-width:260px; }
+.assessment-variant--one-word .mcqcShortBuilder .saSelect{ position:relative; display:block; width:100%; min-width:0; height:58px; flex:none; }
+.assessment-variant--one-word .mcqcShortBuilder .saSelect select{ display:block; appearance:none; -webkit-appearance:none; width:100%; min-width:0; height:100%; margin:0; border:0; border-radius:8px; padding:0 48px 0 24px; background:#DFE6E9; color:#374151; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; font:400 16px/24px "Segoe UI",Arial,sans-serif; cursor:pointer; }
+.assessment-variant--one-word .mcqcShortBuilder .saSelect > .saPathIcon{ position:absolute; right:24px; top:50%; transform:translateY(-50%); pointer-events:none; }
+.assessment-variant--one-word .mcqcShortBuilder .saSwitchLine{ display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:58px; height:58px; padding:0 16px 0 24px; border-radius:4px; background:#DFE6E9; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; font-size:16px; line-height:24px; font-weight:400; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordion-answer .saSwitchLine{ margin-right:16px; border-radius:8px; }
+.assessment-variant--one-word .mcqcShortBuilder .saToggle{ position:relative; width:72px; height:36px; min-height:36px; flex:0 0 72px; padding:0; border:0; border-radius:32px; background:#DFE6E9; box-shadow:-4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .saToggleTrack{ position:absolute; inset:4px 5px; border-radius:32px; background:#DFE6E9; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .saToggleTrack > span{ position:absolute; right:5px; top:4px; font:600 12px/20px "Segoe UI",Arial,sans-serif; color:#6b7280; }
+.assessment-variant--one-word .mcqcShortBuilder .saToggleOn .saToggleTrack{ background:linear-gradient(113.36deg,#2D4CC8 30.17%,#E01E5A 65.23%); box-shadow:none; }
+.assessment-variant--one-word .mcqcShortBuilder .saToggleOn .saToggleTrack > span{ left:10px; right:auto; color:#fff; }
+.assessment-variant--one-word .mcqcShortBuilder .saToggleKnob{ position:absolute; top:4px; left:5px; width:28px; height:28px; border-radius:50%; background:#666; }
+.assessment-variant--one-word .mcqcShortBuilder .saToggleOn .saToggleKnob{ left:39px; background:#DFE6E9; box-shadow:0 -2px 4px rgba(0,0,0,.1),0 4px 4px rgba(0,0,0,.25); }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordion-rubric .saAccordionBody{ gap:0; }
+.assessment-variant--one-word .mcqcShortBuilder .saCriteria{ display:flex; flex-direction:column; gap:24px; }
+.assessment-variant--one-word .mcqcShortBuilder .saCriterion{ position:relative; display:flex; flex-direction:column; gap:16px; padding-bottom:26px; }
+.assessment-variant--one-word .mcqcShortBuilder .saCriterion::after{ content:""; position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg,#2D4CC8,#E01E5A); }
+.assessment-variant--one-word .mcqcShortBuilder .saCriterion .saRich{ height:137px; }
+.assessment-variant--one-word .mcqcShortBuilder .saLevelGrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin-top:8px; }
+.assessment-variant--one-word .mcqcShortBuilder .saLevel{ display:flex; flex-direction:column; gap:16px; min-width:0; min-height:322px; padding:16px; background:#DFE6E9; border:0; border-radius:8px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .saLevelTitle{ position:relative; height:24px; text-align:center; color:#2D4CC8; font-size:16px; font-weight:700; line-height:24px; }
+.assessment-variant--one-word .mcqcShortBuilder .saLevel:nth-child(3n/**/+2) .saLevelTitle{ color:#C05512; }
+.assessment-variant--one-word .mcqcShortBuilder .saLevel:nth-child(3n) .saLevelTitle{ color:#A91E2C; }
+.assessment-variant--one-word .mcqcShortBuilder .saRemoveLevel{ position:absolute; top:0; right:0; display:grid; place-items:center; width:22px; height:22px; padding:0; border:0; border-radius:50%; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .saLevelFields{ display:flex; flex-direction:column; gap:8px; }
+.assessment-variant--one-word .mcqcShortBuilder .saLevel label{ display:flex; flex-direction:column; gap:10px; min-width:0; margin:0; font-size:14px; line-height:22px; font-weight:600; }
+.assessment-variant--one-word .mcqcShortBuilder .saSelectCompact{ height:32px; }
+.assessment-variant--one-word .mcqcShortBuilder .saSelectCompact select{ border-radius:4px; padding:0 32px 0 12px; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; font-size:14px; line-height:22px; }
+.assessment-variant--one-word .mcqcShortBuilder .saSelectCompact > .saPathIcon{ right:12px; }
+.assessment-variant--one-word .mcqcShortBuilder .saLevel textarea{ display:block; width:100%; min-width:0; height:74px; min-height:74px; padding:4px 12px; margin:0; resize:none; border:0; border-radius:4px; color:#374151; background:#DFE6E9; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; font:400 14px/22px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcShortBuilder .saCriterionActions{ display:flex; align-items:center; gap:24px; margin-top:16px; }
+.assessment-variant--one-word .mcqcShortBuilder .saCriterionActions button{ display:inline-flex; align-items:center; justify-content:center; gap:8px; height:46px; width:130px; padding:0 10px; border:1px solid #2D4CC8; border-radius:36px; background:#DFE6E9; color:#2D4CC8; box-shadow:-4px -4px 8px #fff,4px 4px 8px rgba(196,196,196,.8); font:600 14px/24px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.assessment-variant--one-word .mcqcShortBuilder .saCriterionActions button + button{ width:144px; border:0; color:#374151; font-weight:400; }
+.assessment-variant--one-word .mcqcShortBuilder .saAddCriterion{ display:inline-flex; align-items:center; justify-content:center; gap:8px; width:230px; height:54px; align-self:center; margin:24px 0 0; padding:0 24px; border:1px solid transparent; border-radius:32px; background:linear-gradient(#DFE6E9,#DFE6E9) padding-box,linear-gradient(110deg,#2D4CC8,#E01E5A) border-box; box-shadow:-4px -4px 4px #fff,4px 4px 8px #C4C4C4; font:600 20px/24px "Segoe UI",Arial,sans-serif; color:#800080; }
+.assessment-variant--one-word .mcqcShortBuilder .saTotal{ display:flex; align-items:center; justify-content:space-between; height:58px; margin-top:32px; padding:0 24px; border-radius:4px; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; font-size:16px; line-height:24px; }
+.assessment-variant--one-word .mcqcShortBuilder .saTotal strong{ font-weight:600; }
+.assessment-variant--one-word .mcqcShortBuilder .saRubricOptions{ display:flex; flex-direction:column; gap:24px; margin-top:36px; }
+.assessment-variant--one-word .mcqcShortBuilder .saRubricSwitches{ display:flex; flex-direction:column; gap:16px; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordion-feedback .saAccordionBody{ gap:24px; padding-bottom:23px; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordion-feedback .saRich{ height:137px; }
+.assessment-variant--one-word .mcqcShortBuilder .saFeedback-0{ color:#2A7308; }
+.assessment-variant--one-word .mcqcShortBuilder .saFeedback-1{ color:#C05512; }
+.assessment-variant--one-word .mcqcShortBuilder .saFeedback-2{ color:#A91E2C; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordion-explanation .saAccordionBody{ min-height:176px; padding-top:20px; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordion-hint .saAccordionBody{ padding-top:20px; padding-bottom:18px; gap:20px; }
+.assessment-variant--one-word .mcqcShortBuilder .saHintChecks{ display:flex; flex-direction:column; gap:14px; }
+.assessment-variant--one-word .mcqcShortBuilder .saCheck{ position:relative; display:flex !important; flex-direction:row; align-items:center; gap:12px !important; margin:0; font-size:14px !important; line-height:24px; font-weight:400 !important; cursor:pointer; }
+.assessment-variant--one-word .mcqcShortBuilder .saCheckOn{ color:#2D4CC8; font-weight:600 !important; }
+.assessment-variant--one-word .mcqcShortBuilder .saCheck input{ position:absolute; left:0; top:0; opacity:0; width:24px; height:24px; margin:0; }
+.assessment-variant--one-word .mcqcShortBuilder .saCheckBox{ display:grid; place-items:center; width:24px; height:24px; flex:0 0 24px; border-radius:4px; background:#DFE6E9; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px rgba(196,196,196,.8); }
+.assessment-variant--one-word .mcqcShortBuilder .saCheckOn .saCheckBox{ box-shadow:-4px -4px 4px #fff,4px 4px 4px rgba(196,196,196,.8); }
+.assessment-variant--one-word .mcqcShortBuilder .saCheck input:focus-visible + .saCheckBox{ outline:2px solid #2D4CC8; outline-offset:3px; }
+/* On narrower host layouts keep the design's sizes; scroll only toolbar controls. */
+@media (max-width:1100px) {
+  .assessment-variant--one-word .mcqcShortBuilder .saAccordionTitle{ height:auto; min-height:46px; padding-top:8px; padding-bottom:8px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSectionMeta{ gap:8px; font-size:12px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSettingsGrid{ column-gap:16px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saLevelGrid{ gap:16px; }
+}
+@media (max-width:650px) {
+  .assessment-variant--one-word .mcqcShortBuilder .mcqcShortAnswerSettings > .mcqcShortAnswerTrigger{ height:auto; min-height:57px; padding:12px 16px; font-size:16px; }
+  .assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderField > .saExpanded{ padding:19px 12px 22px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saAccordionTitle{ padding-left:12px; padding-right:12px; gap:8px; font-size:15px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSectionHeading{ gap:8px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSectionMeta{ white-space:normal; max-width:100px; font-size:11px; line-height:16px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saAccordionBody{ padding-left:12px; padding-right:12px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSettingsGrid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .assessment-variant--one-word .mcqcShortBuilder .saSettingsGrid label{ font-size:14px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSelect select{ padding-left:12px; padding-right:32px; font-size:14px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSelect > .saPathIcon{ right:10px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saLevelGrid{ grid-template-columns:1fr; gap:24px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSwitchLine{ height:auto; min-height:58px; padding:10px 12px; font-size:14px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saCriterionActions{ gap:12px; flex-wrap:wrap; }
+  .assessment-variant--one-word .mcqcShortBuilder .saRich textarea{ padding-left:12px; padding-right:12px; font-size:14px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saRichPlain textarea{ padding-left:0; padding-right:0; }
+  .assessment-variant--one-word .mcqcShortBuilder .saTotal{ padding:0 12px; font-size:14px; }
+}
+
+/* Toolbar containment and Figma typography; only Short Answer editors. */
+.assessment-variant--one-word .mcqcShortBuilder .mcqcEditorSurface, .assessment-variant--one-word .mcqcShortBuilder .saRich{ container-type:inline-size; container-name:sa-editor; min-width:0; max-width:100%; }
+.assessment-variant--one-word .mcqcShortBuilder .saExpanded{ container-type:inline-size; container-name:sa-answer; }
+.assessment-variant--one-word .mcqcShortBuilder .mcqcWriteField .mcqcFormHeading > label{ font:600 16px/24px "Segoe UI",Arial,sans-serif; letter-spacing:.02em; }
+.assessment-variant--one-word .mcqcShortBuilder .mcqcWriteField .mcqcFormHeading > span{ font:400 14px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcShortBuilder .mcqcEditorSurface{ padding:16px; min-height:150px; height:auto; }
+.assessment-variant--one-word .mcqcShortBuilder .mcqcEditorSurface > textarea{ display:block; width:100%; max-width:100%; min-width:0; height:48px; min-height:48px; margin:0; padding:24px 0 0; font:400 16px/24px "Segoe UI",Arial,sans-serif; letter-spacing:.02em; overflow-wrap:anywhere; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar{ max-width:100%; min-width:0; overflow:visible; white-space:normal; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar.mcqcShortToolbar{ display:flex; justify-content:flex-start; gap:20px; height:54px; min-height:54px; margin:0; padding:10px 16px; border-radius:4px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar.mcqcShortToolbar button{ display:inline-flex; justify-content:center; align-items:center; flex:0 0 37px; width:37px; min-width:0; height:34px; min-height:34px; padding:0; border:0; border-radius:2px; background:#DFE6E9; color:#000; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:400 20px/24px "Segoe UI",Arial,sans-serif; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar.mcqcShortToolbar .saToolFont{ width:120px; flex-basis:120px; padding:0 10px; justify-content:space-between; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar.mcqcShortToolbar .saToolSize{ width:77px; flex-basis:77px; padding:0 10px; justify-content:space-between; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar.mcqcShortToolbar .saToolColor{ width:67px; flex-basis:67px; gap:10px; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar.mcqcShortToolbar .saToolBullet{ width:46px; flex-basis:46px; gap:6px; }
+.assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar.mcqcShortToolbar .saToolMore{ width:20px; flex-basis:20px; background:transparent; box-shadow:none; }
+.assessment-variant--one-word .mcqcShortBuilder .saToolGroup{ max-width:100%; flex-wrap:wrap; }
+.assessment-variant--one-word .mcqcShortBuilder .saSectionHeading{ flex:1 1 auto; overflow-wrap:anywhere; }
+.assessment-variant--one-word .mcqcShortBuilder .saAccordionTitle{ font-size:18px; font-weight:600; line-height:24px; }
+@container sa-editor (max-width:827px) {
+  .assessment-variant--one-word .mcqcShortBuilder .saRich .saMiniToolbar, .assessment-variant--one-word .mcqcShortBuilder .saMiniToolbar.mcqcShortToolbar{ flex-wrap:wrap; gap:12px 20px; height:auto; min-height:54px; padding:10px 16px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saRich textarea{ flex:0 0 auto; height:78px; min-height:78px; font-size:16px; line-height:26px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saRichPlain textarea{ height:72px; min-height:72px; line-height:24px; }
+}
+/* The parent must grow along with wrapped controls instead of clipping its text. */
+.assessment-variant--one-word .mcqcShortBuilder .saRich:has(.saMiniToolbar){ height:auto; min-height:138px; }
+.assessment-variant--one-word .mcqcShortBuilder .saRichTall:has(.saMiniToolbar){ min-height:153px; }
+.assessment-variant--one-word .mcqcShortBuilder .saRichPlain:has(.saMiniToolbar){ min-height:102px; }
+.assessment-variant--one-word .mcqcShortBuilder .saRich:not(.saRichPlain) > textarea{ flex:0 0 auto; height:72px; }
+.assessment-variant--one-word .mcqcShortBuilder .saRichTall:not(.saRichPlain) > textarea{ height:87px; }
+.assessment-variant--one-word .mcqcShortBuilder .saRichPlain > textarea{ flex:0 0 auto; height:48px; }
+.assessment-variant--one-word .mcqcShortBuilder .saCriterion .saRich:has(.saMiniToolbar), .assessment-variant--one-word .mcqcShortBuilder .saAccordion-feedback .saRich:has(.saMiniToolbar){ min-height:137px; }
+.assessment-variant--one-word .mcqcShortBuilder .saCriterion .saRich > textarea, .assessment-variant--one-word .mcqcShortBuilder .saAccordion-feedback .saRich > textarea{ height:71px; }
+@container sa-answer (max-width:620px) {
+  .assessment-variant--one-word .mcqcShortBuilder .saAccordionTitle{ height:auto; min-height:46px; padding-top:10px; padding-bottom:10px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSectionMeta{ max-width:116px; white-space:normal; font-size:14px; line-height:24px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSettingsGrid{ grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:16px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saLevelGrid{ grid-template-columns:1fr; gap:24px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSwitchLine{ height:auto; min-height:58px; padding-top:10px; padding-bottom:10px; }
+}
+@container sa-answer (max-width:360px) {
+  .assessment-variant--one-word .mcqcShortBuilder .saAccordionTitle{ flex-wrap:wrap; gap:8px; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSectionHeading{ flex-basis:100%; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSectionMeta{ margin-left:auto; max-width:none; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSettingsGrid{ grid-template-columns:1fr; }
+  .assessment-variant--one-word .mcqcShortBuilder .saSettingsGrid label:nth-child(n/**/+4){ max-width:none; }
+  .assessment-variant--one-word .mcqcShortBuilder .saCriterionActions{ flex-wrap:wrap; }
+}
+
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderWelcome > div{ min-width:0; }
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderWelcome h2{ white-space:normal; overflow-wrap:anywhere; }
+
+/* Screenshot typography, applied consistently to the complete Short Answer page.
+   Editor text: Arial 16/24, normal. Toolbar captions: Arial 14/20, normal. */
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder{ font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:24px; font-weight:400; letter-spacing:0; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder :is(button, .assessment-variant--one-word input, .assessment-variant--one-word select, .assessment-variant--one-word textarea, .assessment-variant--one-word label, .assessment-variant--one-word h1, .assessment-variant--one-word h2, .assessment-variant--one-word h3, .assessment-variant--one-word p, .assessment-variant--one-word span, .assessment-variant--one-word div, .assessment-variant--one-word a){ font-family:Arial,Helvetica,sans-serif; letter-spacing:0; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .mcqcBuilderField > label, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .mcqcFormHeading > label, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saSmallLabel, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saSettingsGrid label{ font-size:16px; font-weight:600; line-height:24px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .mcqcBuilderAside .mcqcBuilderField > label{ font-size:14px; font-weight:600; line-height:22px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .mcqcAsideSection h3{ font-size:18px; font-weight:600; line-height:24px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saAccordionTitle, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saSectionHeading{ font-size:18px; font-weight:600; line-height:24px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saSectionMeta, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .mcqcFormHeading > span{ font-size:14px; font-weight:400; line-height:24px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saLabelStrong, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saLevelTitle{ font-size:16px; font-weight:700; line-height:24px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saLevel label{ font-size:14px; font-weight:600; line-height:22px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saLevel textarea, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saSelectCompact select{ font-size:14px; font-weight:400; line-height:22px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saSwitchLine, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saTotal{ font-size:16px; font-weight:400; line-height:24px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saSelect:not(.saSelectCompact) select, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .mcqcQuestionForm > .mcqcBuilderField > .mcqcSelectRoot > .mcqcSelectTrigger{ font-size:16px; font-weight:400; line-height:24px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .mcqcShortAnswerTrigger{ font-size:18px; font-weight:600; line-height:28px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .mcqcEditorSurface > textarea, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saRich > textarea{ font-family:Arial,Helvetica,sans-serif; font-size:16px; font-weight:400; line-height:24px; letter-spacing:0; font-style:normal; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .mcqcEditorSurface > textarea::placeholder, .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saRich > textarea::placeholder{ font:inherit; letter-spacing:0; opacity:1; }
+/* One shared compact toolbar for the question and every expanded editor. */
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saMiniToolbar{ display:flex; flex-direction:row; align-items:center; justify-content:flex-start; flex-wrap:nowrap; gap:8px; height:54px; min-height:54px; padding:9px 12px; max-width:100%; overflow:visible; border-radius:4px; background:#DFE6E9; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saMiniToolbar button{ display:inline-flex; align-items:center; justify-content:center; flex:0 0 36px; width:36px; min-width:0; height:36px; min-height:36px; margin:0; padding:0; border:0; border-radius:4px; color:#141B34; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font-family:Arial,Helvetica,sans-serif; font-size:14px; font-weight:400; line-height:20px; letter-spacing:0; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saMiniToolbar .saToolFont{ width:134px; flex-basis:134px; justify-content:space-between; padding:0 14px; }
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saMiniToolbar .saToolSize{ width:80px; flex-basis:80px; justify-content:space-between; padding:0 14px; }
+@container sa-editor (max-width:641px) {
+  .assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saMiniToolbar{ flex-wrap:wrap; height:auto; min-height:54px; gap:8px; }
+}
+
+/* SHORT ANSWER PREVIEW — Figma desktop dimensions, fluid within the shared page.
+   Icon files: public/assets/assessmenticons/; filenames are in SA_ICON_PATHS.
+   Segoe UI is the supplied Figma font. Install it locally for identical metrics. */
+.assessment-variant--one-word .sapPreview{
+  --sap-bg: #DFE6E9;
+  --sap-text: #374151;
+  --sap-blue: #2D4CC8;
+  --sap-raised: -4px -4px 4px #FFFFFF, 4px 4px 8px #C4C4C4;
+  --sap-inset: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+  width: 100%; max-width: 1328px; min-width: 0; margin: 0 auto;
+  color: var(--sap-text); background: var(--sap-bg);
+  font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: .02em;
+}
+.assessment-variant--one-word .sapPreview *, .assessment-variant--one-word .sapPreview *::before, .assessment-variant--one-word .sapPreview *::after{ box-sizing: border-box; }
+.assessment-variant--one-word .sapPreview h1, .assessment-variant--one-word .sapPreview h2, .assessment-variant--one-word .sapPreview h3, .assessment-variant--one-word .sapPreview p, .assessment-variant--one-word .sapPreview dl, .assessment-variant--one-word .sapPreview dd{ margin: 0; }
+.assessment-variant--one-word .sapPreview button, .assessment-variant--one-word .sapPreview select, .assessment-variant--one-word .sapPreview textarea{ font: inherit; letter-spacing: inherit; color: inherit; }
+.assessment-variant--one-word .sapPreview button{ cursor: pointer; border: 0; }
+.assessment-variant--one-word .sapPreview button:focus-visible, .assessment-variant--one-word .sapPreview select:focus-visible, .assessment-variant--one-word .sapPreview textarea:focus-visible{ outline: 2px solid var(--sap-blue); outline-offset: 4px; }
+.assessment-variant--one-word .sapPreview h1:focus{ outline: none; }
+.assessment-variant--one-word .sapPreview [hidden]{ display: none !important; }
+.assessment-variant--one-word .sapPreview .saPathIcon{ display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; vertical-align: middle; }
+.assessment-variant--one-word .sapPreview .saPathIcon img{ display: block; object-fit: contain; width: 100%; height: 100%; }
+.assessment-variant--one-word .sapBreadcrumb{ display: flex; align-items: center; flex-wrap: wrap; gap: 12px; min-height: 32px; margin-bottom: 40px; font-size: 16px; line-height: 24px; }
+.assessment-variant--one-word .sapBreadcrumb a, .assessment-variant--one-word .sapBreadcrumb button{ text-decoration: none; color: inherit; background: none; padding: 0; }
+.assessment-variant--one-word .sapBreadcrumb [aria-current]{ color: var(--sap-blue); font-weight: 700; }
+.assessment-variant--one-word .sapPageTitle{ margin-bottom: 24px; }
+.assessment-variant--one-word .sapPageTitle h1{ font-size: 20px; font-weight: 700; line-height: 28px; }
+.assessment-variant--one-word .sapPageTitle p{ margin-top: 8px; font-size: 14px; font-weight: 400; line-height: 22px; }
+.assessment-variant--one-word .sapOverview{ display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.assessment-variant--one-word .sapSummary{ display: grid; grid-template-columns: 166fr 149fr 227fr; gap: 36px; width: 655px; min-height: 78px; padding: 12px 16px; border-radius: 8px; box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4; }
+.assessment-variant--one-word .sapCount, .assessment-variant--one-word .sapReady{ min-width: 0; border: 1px solid #D1D5DB; border-radius: 8px; min-height: 54px; }
+.assessment-variant--one-word .sapCount{ display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; line-height: 20px; }
+.assessment-variant--one-word .sapCount strong{ font-size: 16px; font-weight: 600; }
+.assessment-variant--one-word .sapReady{ display: flex; align-items: flex-start; padding: 6px 8px; gap: 8px; font-size: 14px; line-height: 20px; }
+.assessment-variant--one-word .sapReady strong{ display: block; font-weight: 600; }
+.assessment-variant--one-word .sapReadyComplete strong{ color: #2A7308; }
+.assessment-variant--one-word .sapReady span:not(.saPathIcon){ display: block; line-height: 24px; }
+.assessment-variant--one-word .sapPreviewActions{ display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
+.assessment-variant--one-word .sapFilter{ position: relative; width: 186px; height: 48px; box-shadow: var(--sap-inset); border-radius: 8px; }
+.assessment-variant--one-word .sapFilter select{ width: 100%; height: 100%; appearance: none; background: transparent; border: 0; padding: 12px 44px 12px 24px; border-radius: inherit; cursor: pointer; font-size: 16px; line-height: 24px; }
+.assessment-variant--one-word .sapFilter > .saPathIcon{ position: absolute; right: 14px; top: 14px; pointer-events: none; }
+.assessment-variant--one-word .sapLearnerButton{ white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; gap: 14px; width: 223px; min-height: 48px; padding: 10px 12px; border-radius: 8px; background: var(--sap-bg); box-shadow: var(--sap-raised); color: var(--sap-blue) !important; font-size: 18px !important; font-weight: 700 !important; line-height: 26px !important; }
+.assessment-variant--one-word .sapQuestionList{ display: flex; flex-direction: column; gap: 24px; }
+.assessment-variant--one-word .sapQuestion{ display: flex; flex-direction: column; gap: 24px; min-width: 0; padding: 24px; border: 1px solid #AAA8A8; border-radius: 24px; }
+.assessment-variant--one-word .sapMetadata{ display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 24px; min-height: 40px; }
+.assessment-variant--one-word .sapPill{ display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 40px; padding: 10px 14px; background: var(--sap-bg); box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4; border-radius: 32px; font-size: 14px !important; line-height: 20px !important; font-weight: 400; }
+.assessment-variant--one-word .sapPill:first-child{ min-width: 205px; }
+.assessment-variant--one-word .sapPill strong{ font-weight: 600; }
+.assessment-variant--one-word .sapStatus{ min-width: 164px; }
+.assessment-variant--one-word .sapStatusComplete strong{ color: #2A7308; }
+.assessment-variant--one-word .sapEdit{ min-width: 81px; gap: 8px; }
+.assessment-variant--one-word .sapQuestionText{ box-shadow: var(--sap-inset); border-radius: 8px; overflow: hidden; min-height: 137px; }
+.assessment-variant--one-word .sapQuestionText h2{ min-height: 56px; display: flex; align-items: center; padding: 16px 24px; box-shadow: -4px -4px 8px #FFFFFF, 4px 4px 8px #C4C4C4; font-size: 18px; line-height: 22px; font-weight: 700; color: #31344B; }
+.assessment-variant--one-word .sapQuestionText p{ padding: 28px 16px; font-size: 18px; font-weight: 400; line-height: 26px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.assessment-variant--one-word .sapAnswerPlaceholder{ display: flex; align-items: center; padding: 16px 24px; min-height: 57px; box-shadow: var(--sap-inset); border-radius: 4px; font-size: 16px; font-weight: 600; line-height: 24px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.assessment-variant--one-word .sapSection{ min-width: 0; box-shadow: var(--sap-inset); border-radius: 8px; }
+.assessment-variant--one-word .sapSectionToggle{ border-radius: 4px; display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 70px; padding: 24px; text-align: left; background: var(--sap-bg); box-shadow: -4px -4px 8px #FFFFFF, 4px 4px 8px #C4C4C4; font-size: 18px !important; font-weight: 700 !important; line-height: 22px !important; color: #31344B !important; }
+.assessment-variant--one-word .sapArrowClosed{ transform: rotate(-90deg); }
+.assessment-variant--one-word .sapSectionBody{ display: flex; flex-direction: column; gap: 24px; padding: 24px; min-width: 0; }
+.assessment-variant--one-word .sapAnswerGrid{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.assessment-variant--one-word .sapAnswerGrid > div, .assessment-variant--one-word .sapQuestionSettings > div{ min-width: 0; }
+.assessment-variant--one-word .sapAnswerGrid dt{ margin-bottom: 16px; font-size: 16px; font-weight: 600; line-height: 24px; }
+.assessment-variant--one-word .sapAnswerGrid dd{ display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 58px; padding: 16px 20px; border-radius: 8px; box-shadow: var(--sap-inset); font-size: 16px; line-height: 24px; overflow-wrap: anywhere; }
+.assessment-variant--one-word .sapCard{ padding: 24px; border-radius: 4px; box-shadow: -4px -4px 8px #FFFFFF, 4px 4px 8px #C4C4C4; min-width: 0; }
+.assessment-variant--one-word .sapCard h3{ display: flex; align-items: center; gap: 14px; font-size: 18px; font-weight: 600; line-height: 24px; }
+.assessment-variant--one-word .sapRoundIcon{ display: inline-flex; align-items: center; justify-content: center; flex: 0 0 28px; width: 28px; height: 28px; border-radius: 50%; box-shadow: -2px -2px 4px #FFFFFF, 2px 2px 4px #C4C4C4; }
+.assessment-variant--one-word .sapCardText{ margin-top: 12px; margin-left: 42px; font-size: 16px; line-height: 24px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.assessment-variant--one-word .sapRubric h3{ margin-bottom: 36px; }
+.assessment-variant--one-word .sapRubricRows{ border-top: 1px solid #AAA8A8; border-left: 1px solid #AAA8A8; }
+.assessment-variant--one-word .sapRubricRow{ display: grid; }
+.assessment-variant--one-word .sapRubricRow > div{ min-width: 0; min-height: 76px; padding: 12px 16px; border-bottom: 1px solid #AAA8A8; border-right: 1px solid #AAA8A8; overflow-wrap: anywhere; }
+.assessment-variant--one-word .sapRubricRow strong{ font-size: 16px; font-weight: 600; line-height: 22px; }
+.assessment-variant--one-word .sapRubricRow p{ margin-top: 4px; font-size: 14px; line-height: 22px; }
+.assessment-variant--one-word .sapLevel-excellent strong{ color: var(--sap-blue); }
+.assessment-variant--one-word .sapLevel-fair strong{ color: #C05512; }
+.assessment-variant--one-word .sapLevel-poor strong{ color: #A91E2C; }
+.assessment-variant--one-word .sapEmptyRubric{ padding: 16px; }
+.assessment-variant--one-word .sapFeedbackCard{ min-height: 146px; }
+.assessment-variant--one-word .sapFeedbackText{ display: flex; align-items: center; min-height: 50px; margin-top: 20px; padding: 12px 16px; border-radius: 4px; box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4; font-size: 14px; line-height: 22px; }
+.assessment-variant--one-word .sapCard-full h3{ color: #2A7308; }
+.assessment-variant--one-word .sapCard-partial h3{ color: #C05512; }
+.assessment-variant--one-word .sapCard-zero h3{ color: #A91E2C; }
+.assessment-variant--one-word .sapCard-explanation{ min-height: 136px; }
+.assessment-variant--one-word .sapCard-explanation .sapCardText{ line-height: 26px; }
+.assessment-variant--one-word .sapSectionCompact .sapSectionToggle{ min-height: 56px; padding-block: 16px; }
+.assessment-variant--one-word .sapSectionCompact .sapSectionBody{ padding: 24px 48px; }
+.assessment-variant--one-word .sapQuestionSettings{ display: grid; grid-template-columns: 233fr 192fr 216fr 227fr 187fr; gap: 24px; }
+.assessment-variant--one-word .sapQuestionSettings dt{ margin-bottom: 8px; font-size: 16px; font-weight: 400; line-height: 24px; }
+.assessment-variant--one-word .sapQuestionSettings dd{ display: flex; align-items: center; gap: 12px; height: 58px; min-height: 58px; min-width: 0; padding: 14px; border-radius: 8px; box-shadow: var(--sap-inset); font-size: 18px; font-weight: 600; line-height: 26px; overflow-wrap: anywhere; }
+/* Keep long settings values inside the same 58px Figma box; full text is available on hover. */
+.assessment-variant--one-word .sapQuestionSettings dd > span:not(.saPathIcon){ display: block; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.assessment-variant--one-word .sapFooter{ display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-right: 56px; }
+.assessment-variant--one-word .sapFooter button{ min-height: 48px; width: 210px; padding: 10px 14px; border-radius: 24px; background: var(--sap-bg); box-shadow: var(--sap-raised); font-size: 18px; font-weight: 600; line-height: 26px; letter-spacing: .03em; }
+.assessment-variant--one-word .sapFooter .sapContinue{ width: 233px; color: var(--sap-blue); font-weight: 700; }
+.assessment-variant--one-word .sapLearnerAnswer{ display: flex; flex-direction: column; gap: 16px; }
+.assessment-variant--one-word .sapLearnerAnswer textarea{ width: 100%; min-width: 0; padding: 16px; background: var(--sap-bg); border: 0; border-radius: 8px; box-shadow: var(--sap-inset); resize: vertical; }
+.assessment-variant--one-word .sapLearnerAnswer small{ font-size: 14px; }
+.assessment-variant--one-word .sapNoQuestions{ display: flex; align-items: center; flex-wrap: wrap; gap: 24px; padding: 24px; }
+.assessment-variant--one-word .sapNotice{ padding: 16px 0; }
+@media (max-width: 1200px) {
+  .assessment-variant--one-word .sapOverview{ flex-wrap: wrap; }
+  .assessment-variant--one-word .sapSummary{ flex: 1 1 500px; }
+  .assessment-variant--one-word .sapPreviewActions{ margin-left: auto; }
+  .assessment-variant--one-word .sapQuestionSettings{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .assessment-variant--one-word .sapSectionCompact .sapSectionBody{ padding: 24px; }
+}
+@media (max-width: 700px) {
+  .assessment-variant--one-word .sapBreadcrumb{ gap: 8px; margin-bottom: 24px; font-size: 14px; }
+  .assessment-variant--one-word .sapSummary{ width: 100%; gap: 12px; padding: 12px; grid-template-columns: 1fr 1fr 1.8fr; }
+  .assessment-variant--one-word .sapReady{ gap: 4px; padding-inline: 4px; }
+  .assessment-variant--one-word .sapReady span:not(.saPathIcon){ font-size: 12px; line-height: 18px; }
+  .assessment-variant--one-word .sapPreviewActions{ width: 100%; gap: 16px; }
+  .assessment-variant--one-word .sapFilter, .assessment-variant--one-word .sapLearnerButton{ flex: 1 1 0; min-width: 0; width: auto; }
+  .assessment-variant--one-word .sapLearnerButton{ font-size: 16px !important; gap: 8px; }
+  .assessment-variant--one-word .sapFilter select{ padding-left: 12px; }
+  .assessment-variant--one-word .sapQuestion{ padding: 16px; gap: 24px; }
+  .assessment-variant--one-word .sapMetadata{ gap: 12px; }
+  .assessment-variant--one-word .sapPill:first-child{ min-width: 0; }
+  .assessment-variant--one-word .sapStatus{ min-width: 0; }
+  .assessment-variant--one-word .sapSectionBody, .assessment-variant--one-word .sapSectionCompact .sapSectionBody{ padding: 16px; }
+  .assessment-variant--one-word .sapSectionToggle{ padding: 16px; }
+  .assessment-variant--one-word .sapAnswerGrid, .assessment-variant--one-word .sapQuestionSettings{ grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .assessment-variant--one-word .sapCard{ padding: 16px; }
+  .assessment-variant--one-word .sapCardText{ margin-left: 0; }
+  .assessment-variant--one-word .sapRubricRow{ grid-template-columns: minmax(0, 1fr) !important; }
+  .assessment-variant--one-word .sapRubric h3{ margin-bottom: 24px; }
+  .assessment-variant--one-word .sapFooter{ padding-right: 0; flex-wrap: wrap; }
+  .assessment-variant--one-word .sapFooter button, .assessment-variant--one-word .sapFooter .sapContinue{ width: 100%; }
+}
+
+/* ==========================================================================
+   RESTORED TOP QUESTION NAVIGATOR
+   Reference: large raised numbered cards, green completed state, blue active
+   state, circular arrows and a recessed green completion rail.
+   Scoped to .mcqcTopQuestionNavigator so the rest of Content stays unchanged.
+   ========================================================================== */
+.assessment-variant--one-word .mcqcTopQuestionNavigator{
+  width: 100%;
+  min-width: 0;
+  margin: 4px 0 28px;
+  padding: 6px 2px 0;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcNumberNavigation{
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 72px;
+  align-items: center;
+  gap: 26px;
+  width: 100%;
+  min-width: 0;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcNumberScroller{
+  min-width: 0;
+  overflow: hidden;
+  padding: 5px 0 10px;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumbers{
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+  max-width: none;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 5px 9px 12px;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumbers::-webkit-scrollbar{
+  display: none;
+  height: 0;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber{
+  position: relative;
+  display: flex;
+  flex: 0 0 136px;
+  width: 136px;
+  height: 104px;
+  min-width: 136px;
+  padding: 12px 10px 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow: visible;
+  border: 2px solid #A6AFB5;
+  border-radius: 8px;
+  background: #DFE6E9;
+  color: #606162;
+  box-shadow:
+    -4px -4px 5px #FFFFFF,
+    8px 8px 0 rgba(196, 196, 196, .88);
+  font-family: "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber .mcqcNumberValue{
+  display: block;
+  font-size: 31px;
+  line-height: 34px;
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber small{
+  display: block;
+  min-height: 25px;
+  color: inherit;
+  font: 500 22px/25px "Segoe UI", Arial, sans-serif;
+  letter-spacing: .01em;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber.is-complete{
+  border-color: #21770F;
+  background: #DFE6E9;
+  color: #21770F;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber.is-partial{
+  border-color: #C75A13;
+  background: #DFE6E9;
+  color: #C75A13;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber.is-active{
+  border-color: #2D5AC8;
+  background: #DFE6E9;
+  color: #2D5AC8;
+  box-shadow:
+    -4px -4px 5px #FFFFFF,
+    8px 8px 0 rgba(196, 196, 196, .88);
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcNumberStatus{
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #21770F;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber.is-partial .mcqcNumberStatus{
+  background: #C75A13;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcNumberStatus.is-active-dot{
+  background: #2D5AC8;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcRoundNav{
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  flex: 0 0 72px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #DFE6E9;
+  color: #141B34;
+  box-shadow:
+    -5px -5px 7px #FFFFFF,
+    5px 5px 7px #C4C4C4;
+  cursor: pointer;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcRoundNav:active{
+  box-shadow:
+    inset -4px -4px 5px #FFFFFF,
+    inset 4px 4px 5px #C4C4C4;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcRoundNav .mcqcIcon{
+  width: 30px !important;
+  height: 30px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%) !important;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionProgress{
+  width: calc(100% - 190px);
+  height: 34px;
+  margin: 13px auto 0;
+  padding: 8px 30px;
+  border-radius: 22px;
+  background: #DFE6E9;
+  box-shadow:
+    inset 4px 4px 6px #C4C4C4,
+    inset -4px -4px 6px #FFFFFF;
+}
+
+.assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionProgress span{
+  display: block;
+  height: 100%;
+  min-width: 10px;
+  border-radius: 20px;
+  background: #21770F;
+  transition: width .18s ease;
+}
+
+@media (max-width: 1250px) {
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcNumberNavigation{
+    grid-template-columns: 62px minmax(0, 1fr) 62px;
+    gap: 18px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcRoundNav{
+    width: 62px;
+    height: 62px;
+    min-width: 62px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber{
+    flex-basis: 116px;
+    width: 116px;
+    min-width: 116px;
+    height: 92px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber .mcqcNumberValue{
+    font-size: 27px;
+    line-height: 30px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber small{
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionProgress{
+    width: calc(100% - 156px);
+  }
+}
+
+@media (max-width: 700px) {
+  .assessment-variant--one-word .mcqcTopQuestionNavigator{
+    margin-bottom: 20px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcNumberNavigation{
+    grid-template-columns: 46px minmax(0, 1fr) 46px;
+    gap: 9px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcRoundNav{
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcRoundNav .mcqcIcon{
+    width: 23px !important;
+    height: 23px !important;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumbers{
+    gap: 12px;
+    padding: 4px 6px 10px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber{
+    flex-basis: 88px;
+    width: 88px;
+    min-width: 88px;
+    height: 76px;
+    gap: 5px;
+    box-shadow:
+      -3px -3px 4px #FFFFFF,
+      5px 5px 0 rgba(196, 196, 196, .88);
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber .mcqcNumberValue{
+    font-size: 22px;
+    line-height: 25px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionNumber small{
+    min-height: 18px;
+    font-size: 15px;
+    line-height: 18px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcNumberStatus{
+    width: 11px;
+    height: 11px;
+    min-width: 11px;
+    top: 7px;
+    right: 8px;
+  }
+  .assessment-variant--one-word .mcqcTopQuestionNavigator .mcqcQuestionProgress{
+    width: calc(100% - 112px);
+    height: 24px;
+    margin-top: 8px;
+    padding: 6px 14px;
+  }
+}
+
+
+
+/* ===============================================================
+   NEUMORPHIC DROPDOWNS — all MCQ, Short Answer and Preview controls
+   Existing selectors/markup preserved; CSS-only enhancement.
+   =============================================================== */
+.assessment-variant--one-word .mcqcAppShell :is(.mcqcSelectTrigger, .assessment-variant--one-word .saSelect select, .assessment-variant--one-word .sapFilter select, .assessment-variant--one-word select), .assessment-variant--one-word .sapPreview select{
+  color: #374151;
+  background-color: #DFE6E9;
+  border: 0;
+  border-radius: 8px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  box-shadow: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+  outline: none;
+  transition: box-shadow .15s ease;
+}
+.assessment-variant--one-word .mcqcAppShell select, .assessment-variant--one-word .sapPreview select{
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.assessment-variant--one-word .mcqcAppShell :is(.mcqcSelectTrigger, .assessment-variant--one-word .saSelect select, .assessment-variant--one-word .sapFilter select, .assessment-variant--one-word select):focus-visible, .assessment-variant--one-word .sapPreview select:focus-visible{
+  outline: 2px solid #2D4CC8;
+  outline-offset: 2px;
+}
+/* Custom React menus: matching raised menu and inset active rows. */
+.assessment-variant--one-word .mcqcAppShell :is(.mcqcSelectList, .assessment-variant--one-word .mcqcAddMenuList, .assessment-variant--one-word .mcqcTypeDropdown), .assessment-variant--one-word .sapPreview :is([role="listbox"], .assessment-variant--one-word .sapDropdownMenu){
+  background: #DFE6E9;
+  color: #374151;
+  border: 0;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: -5px -5px 10px #FFFFFF, 5px 5px 10px #C4C4C4;
+  scrollbar-width: thin;
+  scrollbar-color: #a3b2bc #DFE6E9;
+}
+.assessment-variant--one-word .mcqcAppShell :is(.mcqcSelectItem, .assessment-variant--one-word .mcqcTypeOption, .assessment-variant--one-word .mcqcAddMenuList button), .assessment-variant--one-word .sapPreview [role="option"]{
+  background: transparent;
+  color: #374151;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.assessment-variant--one-word .mcqcAppShell :is(.mcqcSelectItem, .assessment-variant--one-word .mcqcTypeOption, .assessment-variant--one-word .mcqcAddMenuList button):is(:hover, .assessment-variant--one-word :focus-visible), .assessment-variant--one-word .sapPreview [role="option"]:is(:hover, .assessment-variant--one-word :focus-visible){
+  background: #DFE6E9;
+  box-shadow: inset -3px -3px 4px #FFFFFF, inset 3px 3px 4px #C4C4C4;
+  outline: none;
+}
+.assessment-variant--one-word .mcqcAppShell :is(.mcqcSelectItem, .assessment-variant--one-word .mcqcTypeOption)[aria-selected="true"], .assessment-variant--one-word .sapPreview [role="option"][aria-selected="true"]{
+  color: #2D4CC8;
+  font-weight: 600;
+  background: #DFE6E9;
+  box-shadow: inset -3px -3px 4px #FFFFFF, inset 3px 3px 4px #C4C4C4;
+}
+/* Keep existing compact dropdown heights and mobile rules intact. */
+.assessment-variant--one-word .mcqcAppShell .mcqcShortBuilder .saSelectCompact select{
+  border-radius: 4px;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+}
+.assessment-variant--one-word .mcqcAppShell .sapFilter select{ box-shadow: none; background: transparent; }
+@media (max-width: 600px) {
+  .assessment-variant--one-word .mcqcAppShell :is(.mcqcSelectList, .assessment-variant--one-word .mcqcAddMenuList, .assessment-variant--one-word .mcqcTypeDropdown){
+    max-width: min(100%, calc(100vw - 24px));
+    overflow-y: auto;
+  }
+}
+
+/* Question navigator: placed directly beneath Question 8 of 20, inside the left card. */
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator{
+  width:100%; min-width:0; max-width:100%; margin:0 0 2px;
+  padding:0; background:transparent; border:0; box-shadow:none;
+}
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcNumberNavigation{
+  display:grid; grid-template-columns:42px minmax(0,1fr) 42px;
+  align-items:center; gap:13px;
+}
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcNumberScroller{
+  overflow:hidden; padding:2px 0 4px;
+}
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcQuestionNumbers{
+  gap:12px; padding:4px 4px 9px;
+}
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcQuestionNumber{
+  flex:0 0 67px; width:67px; min-width:67px; height:49px;
+  padding:3px 5px; gap:2px; border-width:1px; border-radius:4px;
+  box-shadow:-2px -2px 3px #fff,2px 2px 4px #adb6ba;
+}
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcQuestionNumber .mcqcNumberValue{
+  font-size:17px; line-height:22px; filter:none!important;
+}
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcQuestionNumber small{
+  font-size:10px; line-height:13px;
+}
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcNumberStatus{
+  width:8px; height:8px; top:3px; right:4px;
+}
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcRoundNav{
+  width:34px; height:34px; min-width:34px; border-radius:50%;
+  box-shadow:-2px -2px 4px #fff,2px 2px 4px #c4c4c4;
+}
+.assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcQuestionProgress{
+  width:calc(100% - 110px); height:17px; margin:8px auto 0;
+  padding:3px 12px; border-radius:20px;
+  box-shadow:inset 3px 3px 4px #c4c4c4,inset -3px -3px 4px #fff;
+}
+@media(max-width:600px) {
+  .assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcNumberNavigation{
+    grid-template-columns:30px minmax(0,1fr) 30px; gap:5px;
+  }
+  .assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcQuestionNumbers{gap:8px;}
+  .assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcQuestionNumber{flex-basis:55px;width:55px;min-width:55px;height:46px;}
+  .assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcRoundNav{width:29px;height:29px;min-width:29px;}
+  .assessment-variant--one-word .mcqcBuilderMain > .mcqcTopQuestionNavigator .mcqcQuestionProgress{width:calc(100% - 70px);}
+}
+
+/* Short Answer: navigator inside the left question card, matching the supplied Figma. */
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderMain > .mcqcShortQuestionsHeading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:0;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcBuilderMain > .mcqcShortQuestionNavigator{display:block;width:100%;min-width:0;margin:0;padding:0;border:0;background:transparent;box-shadow:none;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcNumberNavigation{display:grid;grid-template-columns:38px minmax(0,1fr) 38px;align-items:center;gap:12px;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcNumberScroller{min-width:0;overflow-x:auto;scrollbar-width:none;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcNumberScroller::-webkit-scrollbar{display:none;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumbers{display:flex;gap:12px;overflow:visible;padding:4px 3px 9px;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumber{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;flex:0 0 67px;width:67px;min-width:67px;height:54px;border:1px solid #2a7308;border-radius:4px;background:#dfe6e9;color:#2a7308;box-shadow:-2px -2px 3px #fff,2px 2px 4px #aeb5b9;padding:3px 5px;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumber .mcqcNumberValue{font:700 23px/28px "Segoe UI",Arial,sans-serif;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumber small{font:500 11px/15px "Segoe UI",Arial,sans-serif;color:inherit;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumber.is-active{color:#2d4cc8;border-color:#2d4cc8;background:#dce4f0;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumber.is-empty{color:#2a7308;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumber:disabled{opacity:.55;cursor:default;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcNumberStatus{position:absolute;top:5px;right:6px;width:10px;height:10px;border-radius:50%;background:#2a7308;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumber.is-active .mcqcNumberStatus{background:#2d4cc8;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcRoundNav{width:34px;height:34px;min-width:34px;border-radius:50%;background:#dfe6e9;box-shadow:-2px -2px 4px #fff,2px 2px 4px #c4c4c4;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionProgress{width:calc(100% - 100px);height:18px;margin:8px auto 0;padding:3px 10px;border-radius:20px;box-shadow:inset 3px 3px 4px #c4c4c4,inset -3px -3px 4px #fff;}
+.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionProgress span{display:block;height:100%;border-radius:20px;background:#2a7308;}
+@media(max-width:600px){.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcNumberNavigation{grid-template-columns:30px minmax(0,1fr) 30px;gap:5px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumbers{gap:8px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionNumber{flex-basis:55px;width:55px;min-width:55px;height:50px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcRoundNav{width:29px;height:29px;min-width:29px}.assessment-variant--one-word .mcqcShortBuilder .mcqcShortQuestionNavigator .mcqcQuestionProgress{width:calc(100% - 70px)}}
+
+/* Custom neumorphic dropdown menus: opened options no longer use macOS native select UI. */
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect{ position:relative; display:block; min-width:0; width:100%; height:58px; overflow:visible; isolation:isolate; }
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect.saSelectCompact{height:32px}
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect.saPreviewSelect{height:48px}
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saSelectButton{ display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%; height:100%; border:0; border-radius:8px; padding:0 24px; text-align:left; background:#DFE6E9; color:#374151; box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4; font:400 16px/24px "Segoe UI",Arial,sans-serif; cursor:pointer; }
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect.saSelectCompact .saSelectButton{font-size:14px;padding:0 12px;border-radius:4px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect.saPreviewSelect .saSelectButton{font-size:16px;padding:0 14px;box-shadow:none;background:transparent}
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saSelectButton > .saPathIcon{position:static; flex-shrink:0; transform:none; pointer-events:none}
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saDropdownArrowOpen img{transform:rotate(180deg)}
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saSelectPopup{position:absolute; z-index:1000; top:calc(100% + 8px); left:0; width:100%; min-width:185px; max-height:250px; overflow-y:auto; overscroll-behavior:contain; padding:8px; border-radius:12px; background:#DFE6E9; border:1px solid #d1dadd; box-shadow:-5px -5px 10px #FFFFFF,5px 5px 10px #C4C4C4; }
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saSelectOption{position:relative; display:flex; align-items:center; width:100%; min-height:39px; padding:9px 12px 9px 28px; border:0; border-radius:7px; background:transparent; color:#374151; font:400 14px/20px "Segoe UI",Arial,sans-serif; text-align:left; cursor:pointer; white-space:normal;}
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saSelectOption:hover, .assessment-variant--one-word .mcqcAppShell .saCustomSelect .saSelectOption:focus-visible{background:#d6e0e5; box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #c4c4c4;outline:none}
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saSelectOption.saOptionActive{color:#2D4CC8; font-weight:600; background:#d8e2e8; box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #c4c4c4}
+.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saOptionTick{position:absolute;left:9px;font-size:13px;color:#2D4CC8}
+.assessment-variant--one-word .mcqcAppShell .sapFilter{overflow:visible; isolation:visible}
+.assessment-variant--one-word .mcqcAppShell .sapFilter .saCustomSelect{height:100%}
+.assessment-variant--one-word .mcqcAppShell .sapFilter .saSelectPopup{min-width:210px}
+@media(max-width:600px){.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saSelectButton{padding:0 12px;font-size:14px}.assessment-variant--one-word .mcqcAppShell .saCustomSelect .saSelectPopup{max-height:210px}}
+
+
+/* One-Word Answer: screenshot-matched adjustments, scoped to existing builder and preview. */
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderTop{height:178px;min-height:178px;margin-bottom:0}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderWelcome{top:52px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr) 304px;gap:20px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderMain{min-height:560px;padding:24px;gap:30px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcQuestionForm{gap:28px;min-height:430px;padding:16px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderField{gap:12px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderField>label, .assessment-variant--one-word .mcqcOneWordBuilder .mcqcFormHeading label{font:600 16px/24px "Segoe UI",Arial,sans-serif}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcSelectTrigger{min-height:57px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcEditorSurface{padding:14px 16px 10px;min-height:148px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcEditorSurface textarea{height:59px;min-height:59px;margin:0;padding:24px 0 0;font:400 16px/24px "Segoe UI",Arial,sans-serif}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcShortToolbar{height:54px;gap:8px;padding:6px 12px;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcShortToolbar button{flex-shrink:0}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWAnswerArea{min-width:0}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWAnswerTrigger{display:flex;justify-content:space-between;align-items:center;width:100%;height:57px;padding:0 24px;border:0;border-radius:5px;background:#DFE6E9;color:#374151;box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4;font:600 16px/24px "Segoe UI",Arial,sans-serif;cursor:pointer}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWAnswerTrigger .mcqcIcon{opacity:0}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWAnswerTrigger[aria-expanded=true] .mcqcIcon{opacity:1}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWExpanded{display:flex;flex-direction:column;gap:15px;padding:17px 12px 13px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 5px #C4C4C4}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWMaximum{display:flex;justify-content:space-between;font:600 14px/20px "Segoe UI",Arial,sans-serif}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWMaximum small{font-weight:400}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWEditor{min-width:0;padding:9px;border-radius:7px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWEditor textarea{width:100%;height:67px;min-height:67px;margin:7px 0 0;padding:10px 3px;border:0;outline:0;resize:vertical;background:transparent;color:#374151;box-shadow:none;font:400 14px/22px "Segoe UI",Arial,sans-serif}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWAccordion{border-radius:6px;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4;overflow:hidden}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWAccordionHead{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:41px;padding:8px 11px;border:0;background:#DFE6E9;color:#374151;box-shadow:0 2px 4px #C4C4C4;font:600 14px/21px "Segoe UI",Arial,sans-serif;text-align:left;cursor:pointer}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWAccordionLabel, .assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWHeadRight{display:flex;align-items:center;gap:9px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWHeadRight small{font-size:11px;font-weight:400}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWAccordionBody{padding:10px;display:flex;flex-direction:column;gap:14px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWCorrectTags{display:flex;gap:12px;flex-wrap:wrap}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWCorrectTags span{padding:4px 11px;border:1px solid #90BA7D;border-radius:3px;background:#E4EEDC;color:#287308;font-size:12px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWToggles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWOptionSwitch{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;padding:7px 11px;min-height:42px;border-radius:5px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;font-size:12px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWChecks{display:flex;flex-direction:column;gap:10px;font-size:12px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWChecks label{display:flex;align-items:center;gap:9px;cursor:pointer}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWChecks input{width:16px;height:16px;min-height:16px;accent-color:#2D4CC8}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcShortAdd{align-self:center;margin:0;min-width:230px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderAside{min-height:618px;padding:15px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcAsideSection{min-height:580px;gap:13px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcShortFooter{margin-top:20px}
+.assessment-variant--one-word .mcqcOneWordBuilder .mcqcShortFooterRight{margin-right:24%}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewCrumb{margin-bottom:35px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWPreviewTitle{margin:0 0 20px 20px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWPreviewTitle h2{margin:0 0 5px;font-size:19px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWPreviewTitle p{margin:0;font-size:14px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewControls{margin:0 18px 24px;align-items:center}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewTotals{min-width:490px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewFilter{width:185px;height:44px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;border-radius:6px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewFilter .saCustomSelect{height:44px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewFilter .saSelectButton{height:44px;box-shadow:none}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWPreviewQuestion{padding:18px 20px;border:1px solid #AAA8A8;border-radius:22px;min-width:0}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewPanel{margin-bottom:20px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewMeta{margin-bottom:22px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWPreviewPlaceholder{display:flex;align-items:center;min-height:56px;margin-bottom:20px;padding:0 20px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;font-weight:600;font-size:14px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWLearning{display:grid;gap:15px;padding:16px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWLearning section{padding:16px;border-radius:5px;box-shadow:-4px -4px 6px #fff,4px 4px 7px #C4C4C4}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWLearning h4{display:flex;gap:11px;align-items:center;margin:0 0 15px;font-size:16px;font-weight:600}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWLearning p{margin:0 0 4px 35px;font-size:14px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWFeedbackInset{margin-left:35px;border:1px solid #CDD6DB}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWFeedbackInset p{margin:0;padding:22px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWAnswerGreen{padding:9px 12px;border-bottom:1px solid #CDD6DB;color:#2A7308;font-size:14px;font-weight:600}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewSettings{grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;padding:16px 30px}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewSettings>div:nth-child(4), .assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewSettings>div:nth-child(5){grid-column:auto;grid-row:auto}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewBottom{margin:20px 0 0}
+.assessment-variant--one-word .mcqcOneWordPreview .mcqcOWLearnerInput{width:100%;padding:12px;border:0;background:#DFE6E9;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+@media(max-width:1000px){.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr) 265px;gap:15px}.assessment-variant--one-word .mcqcOneWordBuilder .mcqcShortFooterRight{margin-right:0}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewTotals{min-width:0}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewSettings{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr)}.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderMain, .assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderAside, .assessment-variant--one-word .mcqcOneWordBuilder .mcqcAsideSection{min-height:0}.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderTop{height:190px;min-height:190px}.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWToggles{grid-template-columns:1fr}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewSettings{grid-template-columns:repeat(2,minmax(0,1fr))}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewControls{margin-inline:0}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewTotals{width:100%}}

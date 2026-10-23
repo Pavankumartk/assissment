@@ -1,0 +1,13 @@
+/* Only the shared dashboard and learner listing use these styles. Existing Creator CSS stays unchanged. */
+.portalScreen{width:100%;padding:28px 24px 35px;color:#374151;font-family:"Segoe UI",Arial,sans-serif;background:#DFE6E9;min-height:100%;}
+.portalPageHeading{margin-bottom:28px}.portalPageHeading h1{margin:0 0 8px;font-size:26px;line-height:32px;font-weight:700;color:#2F3547}.portalPageHeading p{margin:0;font-size:15px;line-height:22px}
+.portalStats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:700px;margin-bottom:24px}
+.portalStat,.portalWelcome,.portalAssessmentCard{background:#DFE6E9;border-radius:14px;box-shadow:-4px -4px 7px #FFFFFF,4px 4px 8px #C4C4C4}
+.portalStat{display:flex;flex-direction:column;gap:11px;padding:22px}.portalStat span{font-size:16px;font-weight:600}.portalStat strong{color:#2D4CC8;font-size:30px}
+.portalWelcome{padding:28px;max-width:740px}.portalWelcome h2{font-size:21px;margin:0 0 11px}.portalWelcome p{font-size:15px;line-height:25px;margin:0}
+.portalAssessmentGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px}
+.portalAssessmentCard{padding:22px;min-height:190px}.portalTypePill{display:inline-block;padding:7px 11px;border-radius:20px;background:#d4e0ec;color:#2D4CC8;font-size:12px}
+.portalAssessmentCard h2{font-size:19px;line-height:25px;margin:13px 0 6px;overflow-wrap:anywhere}.portalAssessmentCard p{font-size:13px;line-height:20px;margin:0 0 22px}
+.portalAssessmentCard button{border:0;border-radius:22px;background:#2D4CC8;padding:12px 23px;font:700 14px "Segoe UI",Arial,sans-serif;color:white;cursor:pointer}.portalAssessmentCard button:hover{filter:brightness(1.07)}
+.portalGlobalFooter{flex:0 0 auto;padding:11px 22px;text-align:right;color:#65707f;font:12px "Segoe UI",Arial,sans-serif;background:#DFE6E9;box-shadow:0 -2px 6px #C4C4C4}
+@media(max-width:700px){.portalScreen{padding:20px 15px 32px}.portalStats{grid-template-columns:1fr;gap:14px}.portalWelcome{padding:21px}.portalGlobalFooter{text-align:center}.portalAssessmentGrid{grid-template-columns:minmax(0,1fr)}}

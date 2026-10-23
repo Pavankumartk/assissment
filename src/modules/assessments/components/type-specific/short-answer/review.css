@@ -1,0 +1,216 @@
+/* Original declarations retained; selectors scoped to short-answer to prevent cross-type CSS collisions. */
+/* MCQ Review: scoped to this page. Shared Header and Sidebar are untouched. */
+.assessment-variant--short-answer .reviewAppShell{--rv-bg:#DFE6E9;--rv-ink:#374151;--rv-blue:#2D4CC8;--rv-green:#2A7308;background:var(--rv-bg);color:var(--rv-ink);font:400 16px/1.5 "Segoe UI",Arial,sans-serif;min-width:0}.assessment-variant--short-answer .reviewAppShell *, .assessment-variant--short-answer .reviewAppShell *:before, .assessment-variant--short-answer .reviewAppShell *:after{box-sizing:border-box}.assessment-variant--short-answer .reviewDashboardLayout{display:flex;width:100%;height:100dvh;min-width:0;overflow:hidden}.assessment-variant--short-answer .reviewMainContent{flex:1 1 auto;min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden}.assessment-variant--short-answer .reviewHeaderSlot{flex:none}.assessment-variant--short-answer .reviewScrollArea{flex:1 1 auto;min-height:0;min-width:0;overflow-y:auto;overflow-x:hidden}.assessment-variant--short-answer .reviewPageContent{padding:22px 24px 36px;min-width:0;width:100%}.assessment-variant--short-answer .reviewAsset{display:inline-block;flex:none;object-fit:contain;vertical-align:middle}.assessment-variant--short-answer .reviewBreadcrumb{display:flex;gap:12px;align-items:center;min-height:32px;margin:0 0 24px;font-size:16px;letter-spacing:.02em}.assessment-variant--short-answer .reviewBreadcrumb a{color:#2F3547;text-decoration:none}.assessment-variant--short-answer .reviewBreadcrumb strong{color:var(--rv-blue);font-weight:700}.assessment-variant--short-answer .reviewWizard{display:flex;width:min(100%,946px);height:50px;list-style:none;margin:0 0 36px;padding:0;isolation:isolate}.assessment-variant--short-answer .reviewWizardStep{--tip:22px;position:relative;min-width:0;flex:1;display:flex;align-items:center;justify-content:center;gap:10px;margin-left:calc(-1 * var(--tip));padding:0 12px 0 30px;height:50px;white-space:nowrap;background:#C5CDD1;clip-path:polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%,var(--tip) 50%);font:600 14px/22px "Segoe UI",Arial,sans-serif;letter-spacing:.03em}.assessment-variant--short-answer .reviewWizardStep:first-child{margin-left:0;padding-left:10px;clip-path:polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%)}.assessment-variant--short-answer .reviewWizardStep::before{content:"";position:absolute;z-index:-1;inset:1px;background:var(--rv-bg);box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4;clip-path:inherit}.assessment-variant--short-answer .reviewWizardStep:nth-child(1){z-index:5}.assessment-variant--short-answer .reviewWizardStep:nth-child(2){z-index:4}.assessment-variant--short-answer .reviewWizardStep:nth-child(3){z-index:3}.assessment-variant--short-answer .reviewWizardStep:nth-child(4){z-index:2}.assessment-variant--short-answer .reviewWizardStep:nth-child(5){z-index:1}.assessment-variant--short-answer .reviewWizardStep.isDone{background:var(--rv-green);color:var(--rv-green)}.assessment-variant--short-answer .reviewWizardStep.isCurrent{background:var(--rv-blue);color:var(--rv-blue);font-weight:700}.assessment-variant--short-answer .reviewWizardNumber{width:21px;height:21px;flex:0 0 21px;display:grid;place-items:center;border-radius:50%;background:var(--rv-bg);box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}.assessment-variant--short-answer .reviewWizardNumber>span{width:13px;height:13px;display:grid;place-items:center;border-radius:50%;background:var(--rv-bg);box-shadow:2px 2px 2px #C6C6C9,-2px -2px 2px #fff;font-size:11px}.assessment-variant--short-answer .reviewPageHeading{margin:0 0 28px}.assessment-variant--short-answer .reviewPageHeading h1{font-size:21px;line-height:30px;font-weight:700;margin:0 0 6px}.assessment-variant--short-answer .reviewPageHeading p{font-size:16px;margin:0}.assessment-variant--short-answer .reviewSections{display:flex;flex-direction:column;gap:20px}.assessment-variant--short-answer .reviewSection{background:var(--rv-bg);border-radius:15px;min-width:0;padding:9px 12px 12px;box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4}.assessment-variant--short-answer .reviewSectionHead{min-height:52px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-radius:9px;border-bottom:1px solid #C4C4C4;box-shadow:0 3px 5px -3px #9aa4a8}.assessment-variant--short-answer .reviewSectionTitle{display:flex;align-items:center;gap:10px;min-width:0}.assessment-variant--short-answer .reviewSectionTitle strong{font-size:16px;font-weight:700}.assessment-variant--short-answer .reviewNumber{display:grid;place-items:center;width:27px;height:27px;flex:0 0 27px;border-radius:50%;background:var(--rv-bg);box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4}.assessment-variant--short-answer .reviewNumber span{font-size:12px;color:var(--rv-blue);font-weight:700}.assessment-variant--short-answer .reviewEdit{display:flex;align-items:center;gap:5px;flex:none;padding:5px 9px;min-height:27px;border-radius:6px;text-decoration:none;color:var(--rv-blue);font-size:13px;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4}.assessment-variant--short-answer .reviewSectionBody{padding:18px 15px 12px}.assessment-variant--short-answer .reviewFieldGrid{display:grid;gap:16px 20px;min-width:0}.assessment-variant--short-answer .reviewFieldGrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.assessment-variant--short-answer .reviewFieldGrid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.assessment-variant--short-answer .reviewField{min-width:0;display:flex;flex-direction:column;gap:8px}.assessment-variant--short-answer .reviewField.reviewWide{grid-column:1/-1}.assessment-variant--short-answer .reviewLabel{font-size:14px;line-height:20px;font-weight:600;color:#374151}.assessment-variant--short-answer .reviewValue{min-height:43px;padding:10px 13px;border-radius:5px;background:var(--rv-bg);box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;color:#374151;font-size:14px;line-height:22px;min-width:0;overflow-wrap:anywhere}.assessment-variant--short-answer .reviewAccent{color:var(--rv-blue);font-weight:600}.assessment-variant--short-answer .reviewInlineSwitch{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}.assessment-variant--short-answer .reviewMarking{display:inline-flex;align-items:center;gap:12px;min-height:44px;width:min(100%,265px);padding:8px 12px;border-radius:5px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;font-size:14px}.assessment-variant--short-answer .reviewSwitch{display:inline-flex;align-items:center;position:relative;flex:0 0 58px;width:58px;height:28px;border-radius:30px;background:var(--rv-bg);box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;vertical-align:middle;pointer-events:none}.assessment-variant--short-answer .reviewSwitch:before{content:"";position:absolute;inset:4px;border-radius:30px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}.assessment-variant--short-answer .reviewSwitch.isOn:before{background:linear-gradient(110deg,#2D4CC8 18%,#E01E5A 90%);box-shadow:none}.assessment-variant--short-answer .reviewSwitch span{position:absolute;z-index:1;font-size:10px;right:8px;line-height:20px}.assessment-variant--short-answer .reviewSwitch.isOn span{left:8px;right:auto;color:#fff}.assessment-variant--short-answer .reviewSwitch i{position:absolute;z-index:1;width:20px;height:20px;top:4px;left:4px;background:#606162;border-radius:50%}.assessment-variant--short-answer .reviewSwitch.isOn i{left:34px;background:var(--rv-bg);box-shadow:0 2px 4px #999}.assessment-variant--short-answer .reviewTick{display:inline-grid;place-items:center;flex:0 0 24px;width:24px;height:24px;border-radius:50%;background:var(--rv-bg);box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #fff}.assessment-variant--short-answer .reviewTick>span{display:block;position:relative;width:17px;height:17px;border-radius:50%;background:#2A7308}.assessment-variant--short-answer .reviewTick>span:after{content:"";position:absolute;left:5px;top:4px;width:7px;height:5px;border-bottom:1.5px solid #fff;border-left:1.5px solid #fff;transform:rotate(-45deg)}.assessment-variant--short-answer .reviewTickBlue>span{background:var(--rv-blue)}.assessment-variant--short-answer .reviewStatus{display:flex;align-items:center;gap:10px;color:#2A7308;font-weight:600}.assessment-variant--short-answer .reviewPillGroup{display:flex;gap:10px;flex-wrap:wrap}.assessment-variant--short-answer .reviewValuePill{display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:3px 9px;border-radius:5px;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;white-space:nowrap}.assessment-variant--short-answer .reviewValuePill .reviewTick{transform:scale(.7);margin:-3px}.assessment-variant--short-answer .reviewLearnerArea{margin-top:24px}.assessment-variant--short-answer .reviewLearnerArea h3{margin:0 0 10px;font-size:15px;font-weight:600}.assessment-variant--short-answer .reviewTableWrap{max-width:100%;overflow-x:auto;scrollbar-color:#a9b5bc var(--rv-bg);scrollbar-width:thin}.assessment-variant--short-answer .reviewTableWrap table{width:100%;border-collapse:collapse;min-width:520px;text-align:left;font-size:14px}.assessment-variant--short-answer .reviewTableWrap th, .assessment-variant--short-answer .reviewTableWrap td{padding:12px 16px;border:1px solid #C4CDD2;font-weight:400}.assessment-variant--short-answer .reviewTableWrap th{font-weight:600;background:#D5DEE2}.assessment-variant--short-answer .reviewLinkText{color:var(--rv-blue);text-decoration:underline;font-weight:600}.assessment-variant--short-answer .reviewInnerGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}.assessment-variant--short-answer .reviewInnerCard{min-width:0;border:1px solid #bdc7cd;border-radius:15px;padding:15px 17px 17px}.assessment-variant--short-answer .reviewInnerCard h3{display:flex;align-items:center;gap:10px;font-size:13px;line-height:22px;letter-spacing:.02em;font-weight:600;margin:0 0 17px}.assessment-variant--short-answer .reviewSmallIcon{display:grid;place-items:center;width:30px;height:30px;flex:0 0 30px;border-radius:50%;box-shadow:-3px -3px 3px #fff,3px 3px 3px #C4C4C4}.assessment-variant--short-answer .reviewInnerRows{display:flex;flex-direction:column;gap:10px}.assessment-variant--short-answer .reviewSetting{display:flex;justify-content:space-between;align-items:center;gap:12px;min-width:0;min-height:41px;padding:7px 11px;border-radius:5px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;font-size:13px}.assessment-variant--short-answer .reviewSetting>span{min-width:0;overflow-wrap:anywhere}.assessment-variant--short-answer .reviewSettingValue{display:flex;justify-content:flex-end;align-items:center;min-width:0;flex:0 1 auto;text-align:right}.assessment-variant--short-answer .reviewCheckStack{display:grid;gap:11px;padding:12px 2px}.assessment-variant--short-answer .reviewCheckStack>span{display:flex;align-items:center;gap:10px;font-size:13px}.assessment-variant--short-answer .reviewCheckStack .reviewTick{transform:scale(.8);margin:-2px}.assessment-variant--short-answer .reviewFooter{display:flex;justify-content:space-between;gap:18px;margin:28px 0}.assessment-variant--short-answer .reviewFooter button{min-width:140px;min-height:46px;padding:9px 23px;border:0;border-radius:28px;background:var(--rv-bg);color:var(--rv-ink);font:700 16px "Segoe UI",Arial,sans-serif;box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4;cursor:pointer}.assessment-variant--short-answer .reviewFooter .reviewPublish{color:var(--rv-green)}.assessment-variant--short-answer .reviewEdit:focus-visible, .assessment-variant--short-answer .reviewFooter button:focus-visible{outline:2px solid var(--rv-blue);outline-offset:3px}
+@media(max-width:1050px){.assessment-variant--short-answer .reviewPageContent{padding:20px 17px 28px}.assessment-variant--short-answer .reviewFieldGrid.three{grid-template-columns:repeat(2,minmax(0,1fr))}.assessment-variant--short-answer .reviewInnerGrid{gap:14px}.assessment-variant--short-answer .reviewSectionBody{padding:15px 11px}.assessment-variant--short-answer .reviewWizardStep{--tip:16px;font-size:12px;gap:6px;padding-left:20px}}
+@media(max-width:720px){.assessment-variant--short-answer .reviewPageContent{padding:16px 12px 22px}.assessment-variant--short-answer .reviewBreadcrumb{font-size:13px;gap:8px;margin-bottom:20px}.assessment-variant--short-answer .reviewWizard{height:43px;margin-bottom:25px}.assessment-variant--short-answer .reviewWizardStep{--tip:11px;height:43px;font-size:10px;padding:0 2px 0 13px;gap:3px;letter-spacing:0}.assessment-variant--short-answer .reviewWizardStep:first-child{padding-left:2px}.assessment-variant--short-answer .reviewWizardNumber{width:16px;height:16px;flex-basis:16px}.assessment-variant--short-answer .reviewWizardNumber>span{width:11px;height:11px;font-size:9px}.assessment-variant--short-answer .reviewPageHeading h1{font-size:20px}.assessment-variant--short-answer .reviewPageHeading p{font-size:14px}.assessment-variant--short-answer .reviewSection{padding:6px 7px 9px;border-radius:11px}.assessment-variant--short-answer .reviewSectionHead{min-height:45px;padding:8px 9px}.assessment-variant--short-answer .reviewSectionTitle{gap:7px}.assessment-variant--short-answer .reviewSectionTitle strong{font-size:14px}.assessment-variant--short-answer .reviewEdit{font-size:12px}.assessment-variant--short-answer .reviewSectionBody{padding:12px 8px}.assessment-variant--short-answer .reviewFieldGrid.two, .assessment-variant--short-answer .reviewFieldGrid.three{grid-template-columns:minmax(0,1fr)}.assessment-variant--short-answer .reviewFieldGrid{gap:12px}.assessment-variant--short-answer .reviewLabel{font-size:13px}.assessment-variant--short-answer .reviewValue{font-size:13px}.assessment-variant--short-answer .reviewInnerGrid{grid-template-columns:minmax(0,1fr);gap:13px}.assessment-variant--short-answer .reviewInnerCard{padding:12px}.assessment-variant--short-answer .reviewFooter button{min-width:110px;font-size:14px}.assessment-variant--short-answer .reviewPillGroup{gap:7px}}
+@media(max-width:390px){.assessment-variant--short-answer .reviewWizardStep{--tip:8px;font-size:8px;padding-left:10px}.assessment-variant--short-answer .reviewWizardNumber{width:14px;height:14px;flex-basis:14px}.assessment-variant--short-answer .reviewWizardNumber>span{font-size:8px;width:10px;height:10px}.assessment-variant--short-answer .reviewSectionTitle strong{font-size:12px}.assessment-variant--short-answer .reviewEdit{padding:5px;gap:2px}.assessment-variant--short-answer .reviewEdit .reviewAsset{width:14px;height:14px}}
+
+/* Review refinements: section icon and header, Figma marking scheme, progress circles. */
+.assessment-variant--short-answer .reviewWizardStep{align-items:center;line-height:22px;}
+.assessment-variant--short-answer .reviewWizardNumber{position:relative;align-self:center;display:flex;align-items:center;justify-content:center;line-height:1;transform:none;}
+.assessment-variant--short-answer .reviewWizardNumber>span{display:flex;align-items:center;justify-content:center;line-height:13px;padding:0;margin:0;vertical-align:middle;font-family:"Segoe UI",Arial,sans-serif;}
+.assessment-variant--short-answer .reviewSection{overflow:visible;}
+.assessment-variant--short-answer .reviewSectionHead{position:relative;display:flex;align-items:center;min-height:56px;padding:10px 14px;border-radius:10px;background:#DFE6E9;border:0;box-shadow:-3px -3px 4px #fff,3px 3px 5px #c4c4c4;}
+.assessment-variant--short-answer .reviewSectionTitle{display:flex;align-items:center;min-height:36px;gap:13px;}
+.assessment-variant--short-answer .reviewNumber{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:50%;background:#DFE6E9;box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4;}
+.assessment-variant--short-answer .reviewNumber .reviewAsset{display:block;width:20px;height:20px;}
+.assessment-variant--short-answer .reviewSectionTitle strong{font-size:18px;line-height:26px;font-weight:700;}
+.assessment-variant--short-answer .reviewEdit{min-height:36px;padding:7px 12px;gap:8px;font-size:18px;box-shadow:-3px -3px 4px #fff,3px 3px 5px #c4c4c4;}
+.assessment-variant--short-answer .reviewMarkingField{align-items:flex-start;}
+.assessment-variant--short-answer .reviewMarkingFrame{width:min(100%,405px);padding:12px 14px;background:#DFE6E9;border-radius:5px;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #c4c4c4;}
+.assessment-variant--short-answer .reviewMarking{width:100%;min-height:54px;padding:10px 16px;gap:16px;border-radius:7px;background:#DFE6E9;box-shadow:-4px -4px 5px #fff,4px 4px 5px #C4C4C4;font-size:16px;line-height:24px;}
+.assessment-variant--short-answer .reviewMarking .reviewTick{width:28px;height:28px;flex-basis:28px;}
+.assessment-variant--short-answer .reviewMarking .reviewTick>span{width:20px;height:20px;}
+.assessment-variant--short-answer .reviewMarking .reviewTick>span:after{top:5px;left:6px;width:8px;height:5px;}
+.assessment-variant--short-answer .reviewFieldGrid.two, .assessment-variant--short-answer .reviewFieldGrid.three, .assessment-variant--short-answer .reviewInnerGrid{min-width:0;}
+.assessment-variant--short-answer .reviewSectionBody{min-width:0;}
+.assessment-variant--short-answer .reviewSwitch{flex-basis:66px;width:66px;height:36px;border-radius:32px;box-shadow:-4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4;}
+.assessment-variant--short-answer .reviewSwitch:before{inset:4px 5px;border-radius:32px;}
+.assessment-variant--short-answer .reviewSwitch span{right:9px;font-size:12px;font-weight:600;line-height:20px;}
+.assessment-variant--short-answer .reviewSwitch.isOn span{left:11px;}
+.assessment-variant--short-answer .reviewSwitch i{width:28px;height:28px;left:5px;top:4px;}
+.assessment-variant--short-answer .reviewSwitch.isOn i{left:33px;}
+@media(max-width:720px){.assessment-variant--short-answer .reviewSectionHead{padding:8px 10px;min-height:52px}.assessment-variant--short-answer .reviewNumber{width:30px;height:30px;flex-basis:30px}.assessment-variant--short-answer .reviewNumber .reviewAsset{width:18px;height:18px}.assessment-variant--short-answer .reviewSectionTitle{gap:9px}.assessment-variant--short-answer .reviewSectionTitle strong{font-size:15px;line-height:22px}.assessment-variant--short-answer .reviewMarkingFrame{max-width:100%;padding:8px}.assessment-variant--short-answer .reviewMarking{font-size:13px;min-height:46px;padding:8px 10px}.assessment-variant--short-answer .reviewEdit{font-size:14px;min-height:32px;padding:5px 8px}}
+@media(max-width:390px){.assessment-variant--short-answer .reviewSectionTitle strong{font-size:13px}.assessment-variant--short-answer .reviewSectionTitle{gap:6px}.assessment-variant--short-answer .reviewNumber{width:26px;height:26px;flex-basis:26px}.assessment-variant--short-answer .reviewNumber .reviewAsset{width:16px;height:16px}}
+
+/* Review-only Figma switch: quiet recessed ON/OFF indicator, never a sliding toggle. */
+.assessment-variant--short-answer .reviewAppShell .reviewSwitch, .assessment-variant--short-answer .reviewAppShell .reviewSwitch.isOn{
+  display:inline-grid;
+  place-items:center;
+  position:relative;
+  flex:0 0 66px;
+  width:66px;
+  height:36px;
+  min-width:66px;
+  padding:0;
+  border:0;
+  border-radius:32px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4;
+  pointer-events:none;
+  vertical-align:middle;
+}
+.assessment-variant--short-answer .reviewAppShell .reviewSwitch::before, .assessment-variant--short-answer .reviewAppShell .reviewSwitch.isOn::before{
+  content:"";
+  position:absolute;
+  inset:4px 5px;
+  width:56px;
+  height:28px;
+  border-radius:32px;
+  background:#DFE6E9;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;
+}
+.assessment-variant--short-answer .reviewAppShell .reviewSwitch > span, .assessment-variant--short-answer .reviewAppShell .reviewSwitch.isOn > span{
+  position:relative;
+  z-index:1;
+  inset:auto;
+  display:block;
+  width:auto;
+  height:20px;
+  margin:0;
+  font:600 12px/20px "Segoe UI",Arial,sans-serif;
+  letter-spacing:.03em;
+  text-align:center;
+  text-transform:uppercase;
+  color:#2F3547;
+  background:none;
+  -webkit-text-fill-color:currentColor;
+}
+.assessment-variant--short-answer .reviewAppShell .reviewSwitch.isOn > span{
+  background:linear-gradient(180deg,#2D4CC8 0%,#E01E5A 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+}
+.assessment-variant--short-answer .reviewAppShell .reviewSwitch > i{display:none;}
+
+
+/* Right Question panel only. Preserve original Review cards, section widths, shadows and routes. */
+.assessment-variant--short-answer .reviewAppShell .reviewBodyLayout{
+  display:grid;grid-template-columns:minmax(0,1fr) 286px;
+  align-items:start;gap:22px;min-width:0;width:100%;
+}
+.assessment-variant--short-answer .reviewAppShell .reviewBodyPrimary{min-width:0;}
+.assessment-variant--short-answer .reviewAppShell .ev-question-rail{position:sticky;top:15px;}
+.assessment-variant--short-answer .ev-question-rail, .assessment-variant--short-answer .ev-question-rail *{ box-sizing: border-box; }
+.assessment-variant--short-answer .ev-question-rail{
+  width: 100%;
+  height: 710px;
+  min-width: 0;
+  padding: 15px;
+  border-radius: 12px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 6px #C4C4C4;
+  font: 400 14px/20px "Segoe UI", Arial, sans-serif;
+  color: #374151;
+}
+.assessment-variant--short-answer .ev-question-rail-inner{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 13px 10px 14px;
+  border: 1px solid #D0D6DA;
+  border-radius: 5px;
+}
+.assessment-variant--short-answer .ev-question-overview{ padding: 0 1px; flex: 0 0 auto; }
+.assessment-variant--short-answer .ev-question-overview h2{ margin: 0 0 1px; font: 600 18px/26px "Segoe UI", Arial, sans-serif; }
+.assessment-variant--short-answer .ev-question-overview p{ margin: 0 0 10px; font-size: 13px; line-height: 18px; }
+.assessment-variant--short-answer .ev-question-progress{
+  height: 19px;
+  width: 100%;
+  padding: 4px 5px;
+  border-radius: 15px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  overflow: hidden;
+}
+.assessment-variant--short-answer .ev-question-progress > span{
+  display: block;
+  height: 100%;
+  border-radius: 15px;
+  background: #2A7308;
+  box-shadow: -1px -1px 2px #FFFFFF, 1px 1px 2px #BFC6CB;
+  transition: width .15s ease;
+}
+.assessment-variant--short-answer .ev-question-pills{ display: flex; gap: 14px; align-items: center; margin: 14px 0 20px; }
+.assessment-variant--short-answer .ev-question-pills button{
+  flex: 0 0 auto;
+  min-width: 64px;
+  min-height: 29px;
+  padding: 4px 12px;
+  border: 0;
+  border-radius: 20px;
+  background: #DFE6E9;
+  color: #374151;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+  font: 400 13px/19px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.assessment-variant--short-answer .ev-question-pills .ev-question-pill-active{ color: #2D4CC8; }
+.assessment-variant--short-answer .ev-question-type-select{ display: block; position: relative; min-height: 34px; margin-bottom: 20px; flex: 0 0 auto; }
+.assessment-variant--short-answer .ev-question-type-select select{
+  appearance: none;
+  -webkit-appearance: none;
+  height: 34px;
+  width: 100%;
+  padding: 4px 35px 4px 14px;
+  border: 0;
+  border-radius: 5px;
+  background: #DFE6E9;
+  color: #374151;
+  box-shadow: inset -3px -3px 3px #FFFFFF, inset 3px 3px 3px #C4C4C4;
+  font: 400 14px/23px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+.assessment-variant--short-answer .ev-question-type-select > .reviewAsset, .assessment-variant--short-answer .ev-question-type-select > .ev-dropdown-svg{ position: absolute; right: 13px; top: 8px; pointer-events: none; }
+.assessment-variant--short-answer .ev-question-visually-hidden{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.assessment-variant--short-answer .ev-question-scroll{ flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 2px 9px 2px 1px; scrollbar-color: #AAA #DFE6E9; scrollbar-width: thin; }
+.assessment-variant--short-answer .ev-question-scroll::-webkit-scrollbar{ width: 9px; }
+.assessment-variant--short-answer .ev-question-scroll::-webkit-scrollbar-track{ background: #DFE6E9; border-radius: 20px; box-shadow: inset 2px 2px 3px #C4C4C4, inset -2px -2px 3px #FFFFFF; }
+.assessment-variant--short-answer .ev-question-scroll::-webkit-scrollbar-thumb{ border: 2px solid #DFE6E9; border-radius: 20px; background: #A8A8A8; }
+.assessment-variant--short-answer .ev-question-item{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 100%;
+  min-height: 41px;
+  margin: 0 0 5px;
+  padding: 6px 8px;
+  border: 0;
+  border-left: 2px solid #FFFFFF;
+  border-radius: 4px;
+  background: #DFE6E9;
+  color: #374151;
+  box-shadow: -2px -2px 2px #FFFFFF, 2px 2px 3px #C4C4C4;
+  cursor: pointer;
+  font: 400 12px/18px "Segoe UI", Arial, sans-serif;
+  text-align: left;
+}
+.assessment-variant--short-answer .ev-question-item:hover, .assessment-variant--short-answer .ev-question-item-selected{ box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4; }
+.assessment-variant--short-answer .ev-question-status-dot{ flex: 0 0 9px; width: 9px; height: 9px; background: #2A7308; border-radius: 50%; }
+.assessment-variant--short-answer .ev-question-status-attention{ background: #C76A23; }
+.assessment-variant--short-answer .ev-question-number{ flex: 0 0 auto; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.assessment-variant--short-answer .ev-question-type{ flex: 0 0 auto; max-width: 43px; min-width: 32px; padding: 0 5px; border-radius: 14px; background: #CCD2E9; color: #2D4CC8; font-size: 11px; font-weight: 600; text-align: center; white-space: nowrap; }
+.assessment-variant--short-answer .ev-question-snippet{ flex: 1 1 auto; min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; }
+.assessment-variant--short-answer .ev-question-points{ flex: 0 0 auto; margin-left: auto; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.assessment-variant--short-answer .ev-question-empty{ margin: 12px 2px; font-size: 12px; }
+.assessment-variant--short-answer .ev-question-rail button:focus-visible, .assessment-variant--short-answer .ev-question-rail select:focus-visible{ outline: 2px solid #2D4CC8; outline-offset: 2px; }
+
+
+@media(max-width:1240px) {
+  .assessment-variant--short-answer .reviewAppShell .reviewBodyLayout{grid-template-columns:minmax(0,1fr) 260px;gap:18px;}
+  .assessment-variant--short-answer .reviewAppShell .ev-question-rail{padding:11px;}
+  .assessment-variant--short-answer .reviewAppShell .ev-question-rail-inner{padding:11px 8px;}
+}
+@media(max-width:920px) {
+  .assessment-variant--short-answer .reviewAppShell .reviewBodyLayout{grid-template-columns:minmax(0,1fr);}
+  .assessment-variant--short-answer .reviewAppShell .ev-question-rail{position:static;height:450px;}
+}
+@media(max-width:600px) {
+  .assessment-variant--short-answer .reviewAppShell .ev-question-rail{height:400px;}
+  .assessment-variant--short-answer .reviewAppShell .ev-question-pills{gap:8px;}
+}

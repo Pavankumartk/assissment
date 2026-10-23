@@ -1,0 +1,97 @@
+"use client";
+import WizardStepLink from "@/modules/assessments/components/common/WizardStepLink";
+import { assessmentStorage, updateAssessment, publishAssessment, viewerPath, resultPath } from "@/modules/assessments/storage/assessment-storage";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import Sidebar from "@/modules/assessments/components/common/sidebar/page";
+import Header from "@/modules/assessments/components/common/header/Header";
+
+import "./review.css";
+type Dict = Record<string, unknown>;
+type ReviewQuestion = { text?: string; points?: string | number; correct?: number; options?: string[]; difficulty?: string; bloom?: string; mandatory?: boolean };
+const ROOT = "/assets/assessmenticons/";
+const STEPS = ["Type", "Details", "Content", "Evaluation", "Review"];
+const DEFAULT_LEARNERS = [
+  { learner: "Ananya Sharma", id: "S001", extraTime: "+50%", accommodation: "Extended Time" },
+  { learner: "Rahul Kumar", id: "S002", extraTime: "+25%", accommodation: "Extra Breaks" },
+  { learner: "Priya Nair", id: "S003", extraTime: "+60%", accommodation: "Extended Time" },
+];
+const get = (data: Dict, keys: string[], fallback = "—"): string => {
+  for (const key of keys) { const value = data[key]; if (value !== null && value !== undefined && String(value).trim()) return String(value); }
+  return fallback;
+};
+const boolText = (value: unknown, fallback = true) => value === undefined || value === null ? fallback : value === true || ["true", "on", "yes", "1"].includes(String(value).trim().toLowerCase());
+function Asset({ name, size = 18 }: { name: string; size?: number }) { return <img src={`${ROOT}${name}`} alt="" width={size} height={size} className="reviewAsset" onError={event => { const image = event.currentTarget; if (name === "editbig.svg" && image.dataset.fallback !== "tried") { image.dataset.fallback = "tried"; image.src = `${ROOT}edit.svg`; } else { image.style.visibility = "hidden"; } }} />; }
+function ReviewTick({ blue = false }: { blue?: boolean }) { return <span className={`reviewTick ${blue ? "reviewTickBlue" : ""}`} aria-hidden="true"><span /></span>; }
+function ReviewSwitch({ enabled }: { enabled: boolean }) { return <span className={`reviewSwitch ${enabled ? "isOn" : ""}`} aria-label={enabled ? "On" : "Off"}><span>{enabled ? "ON" : "OFF"}</span><i /></span>; }
+function ReadField({ label, value, wide = false, accent = false }: { label: string; value: React.ReactNode; wide?: boolean; accent?: boolean }) { return <div className={`reviewField ${wide ? "reviewWide" : ""}`}><span className="reviewLabel">{label}</span><div className={`reviewValue ${accent ? "reviewAccent" : ""}`}>{value}</div></div>; }
+function ReadSetting({ label, value, select = false }: { label: string; value: React.ReactNode; select?: boolean }) { return <div className="reviewSetting"><span>{label}</span><div className={`reviewSettingValue ${select ? "reviewSelectValue" : ""}`}>{value}</div></div>; }
+function ReadSwitch({ label, on }: { label: string; on: boolean }) { return <ReadSetting label={label} value={<ReviewSwitch enabled={on} />} />; }
+function InnerCard({ heading, icon, children }: { heading: string; icon: string; children: React.ReactNode }) { return <section className="reviewInnerCard"><h3><span className="reviewSmallIcon"><Asset name={icon} size={18}/></span>{heading}</h3><div className="reviewInnerRows">{children}</div></section>; }
+function ReviewSection({ number, title, icon, editRoute, children }: { number: number; title: string; icon: string; editRoute: string; children: React.ReactNode }) { return <section className="reviewSection"><div className="reviewSectionHead"><div className="reviewSectionTitle"><span className="reviewNumber"><Asset name={icon} size={20}/></span><strong>{number}. {title}</strong></div><button type="button" className="reviewEdit" onClick={() => window.dispatchEvent(new CustomEvent("one-word-step", { detail: editRoute }))}><Asset name="editbig.svg" size={24}/>Edit</button></div><div className="reviewSectionBody">{children}</div></section>; }
+export default function MCQReviewPage() {
+  const router = useRouter();
+  const [publishError,setPublishError] = useState("");
+  const publish = () => { try { publishAssessment("one-word"); router.push("/assessments"); } catch (error) { setPublishError(error instanceof Error ? error.message : "Unable to publish"); } };
+  const [details, setDetails] = useState<Dict>({});
+  const [evaluation, setEvaluation] = useState<Dict>({});
+  const [questions, setQuestions] = useState<ReviewQuestion[]>([]);
+  const [content, setContent] = useState<Dict>({});
+  useEffect(() => {
+    const read = (key: string): Dict => { try { return JSON.parse(assessmentStorage.getItem(key) || "{}") as Dict; } catch { return {}; } };
+    const a = read("oneWordAssessmentDraft"); const c = read("oneWordContentDraft");
+    setDetails(a); setEvaluation(JSON.parse(assessmentStorage.getItem("neurolxp-one-word-evaluation") || "{}") as Dict); setContent(c);
+    if (Array.isArray(c.questions)) setQuestions(c.questions as ReviewQuestion[]);
+  }, []);
+  const total = get(details, ["totalMarks"], "40");
+  const count = get(details, ["questionCount"], "20");
+  const mark = get(details, ["marksPerQuestion"], "1");
+  const pass = get(details, ["passingScore", "gradeToPass"], get(evaluation, ["passingScore"], "60"));
+  const passNumber = Number(pass.replace(/[^0-9.]/g, ""));
+  const passingMarks = Number.isFinite(passNumber) ? `${Math.round(Number(total) * passNumber / 100)}/${total}` : "—";
+  const duration = get(details, ["duration", "timeLimit"], "30 Minutes");
+  const title = get(details, ["assessmentTitle", "title", "assessmentName"], "Introduction to Artificial Intelligence");
+  const course = get(details, ["course", "courseName"], "Introduction to AI");
+  const learnerRecords = Array.isArray(details.accommodationRows) ? details.accommodationRows as { learner: string; id?: string; extraTime?: string; accommodation?: string }[] : DEFAULT_LEARNERS;
+  const totalQuestionMarks = questions.reduce((sum, q) => sum + Number(q.points || 0), 0);
+  const allCorrect = questions.length > 0 && questions.every(q => (q.correct ?? -1) >= 0 && !!q.text?.trim() && (q.options || []).filter(Boolean).length >= 2);
+  const setting = (key: string, fallback = "on") => get(evaluation, [key], fallback);
+  const isOn = (key: string, fallback = "on") => boolText(setting(key, fallback));
+  return <main className="superAdminPage institutionAdminPage reviewAppShell"><div className="dashboardLayout reviewDashboardLayout"><Sidebar/><section className="mainContent reviewMainContent"><div className="reviewHeaderSlot"><Header/></div><div className="institutionScrollArea reviewScrollArea"><div className="pageContent institutionPageContent reviewPageContent">
+    <nav className="reviewBreadcrumb"><Link href="/assessments">Assessment</Link><Asset name="arrowrightdouble.svg" size={18}/><strong>Create Assessment</strong></nav>
+    <ol className="reviewWizard" aria-label="Assessment creation progress">{STEPS.map((label, index) => <li key={label} className={`reviewWizardStep ${index < 4 ? "isDone" : "isCurrent"}`} aria-current={index === 4 ? "step" : undefined}><span className="reviewWizardNumber"><span>{index + 1}</span></span><span>{label}</span><WizardStepLink index={index} current={4}/></li>)}</ol>
+    <header className="reviewPageHeading"><h1>Review And Publish</h1><p>Everything Looks Ready ?</p></header>
+    <div className="reviewSections">
+      <ReviewSection number={1} title="Basic Information" icon="google-doc.svg" editRoute="/assessments/create/details"><div className="reviewFieldGrid two">
+        <ReadField label="Assessment Name" value={title}/><ReadField label="Assessment Type" value={get(details,["assessmentType"],"True / False")}/>
+        <ReadField label="Course" value={course}/><ReadField label="Module/ Unit" value={get(details,["module", "moduleUnit"],"Module 3 - AI Fundamentals")}/>
+        <ReadField label="Category / Tags" value={Array.isArray(details.tags) ? details.tags.join(", ") : get(details,["category","tags"],"Artificial Intelligence, Fundamentals")} accent/><ReadField label="Language" value={get(details,["language"],"English")}/>
+        <ReadField label="Description / Instructions" value={get(details,["description", "instructions"],"Assess learner understanding of core AI concepts.")} wide/>
+      </div></ReviewSection>
+      <ReviewSection number={2} title="Scoring & Grading" icon="gtarget.svg" editRoute="/assessments/create/details"><div className="reviewFieldGrid three">
+        <ReadField label="Total Marks" value={total}/><ReadField label="Number of Question" value={count}/><ReadField label="Marks per Question" value={mark}/>
+        <ReadField label="Negative Marking" value={get(details,["negativeMarkingValue"],"-0.25")}/><ReadField label="Passing Score" value={pass.includes("%") ? pass : `${pass}%`}/><ReadField label="Grade to Pass" value={get(details,["gradeToPassScore"],"C")}/>
+        <ReadField label="Grade category" value={get(details,["gradeCategory"],"A - 91-100%")}/><ReadField label="Partial Credit" value={<span className="reviewInlineSwitch">{get(details,["partialCreditMethod"],"Award partial marks")}<ReviewSwitch enabled={boolText(details.partialCredit, false)}/></span>}/><ReadField label="Rounding Rule" value={get(details,["roundingRule"],"Round 2 Assessment")}/>
+        <div className="reviewField reviewWide reviewMarkingField"><span className="reviewLabel">Marking Scheme</span><div className="reviewMarkingFrame"><div className="reviewMarking"><ReviewTick blue/><span>{get(details,["markingScheme"],"Fixed marks per question")}</span></div></div></div>
+      </div></ReviewSection>
+      <ReviewSection number={3} title="Timing & Availability" icon="calendar.svg" editRoute="/assessments/create/details"><div className="reviewFieldGrid three reviewTimingGrid">
+        <ReadField label="Time Limit" value={<span className="reviewInlineSwitch">{duration}<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.timeLimit)}/></span>}/>
+        <ReadField label="Per question Timer" value={<span className="reviewInlineSwitch">{get(details,["perQuestionTimer"],"Set Time Per Question")}<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.perQuestionTimer, false)}/></span>}/>
+        <ReadField label="Time Zone" value={get(details,["timeZone"],"Asia/Kolkata")}/>
+        <ReadField label="Available From" value={<span className="reviewInlineSwitch">{get(details,["availableFrom"],"12-10-2026 11:30 AM")}<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.availableFrom)}/></span>}/><ReadField label="Available Until" value={<span className="reviewInlineSwitch">{get(details,["availableUntil"],"18-10-2026 11:30 AM")}<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.availableUntil)}/></span>}/>
+        <ReadField label="Late Submission" value={<span className="reviewInlineSwitch">{get(details,["lateSubmission"],"Grace Period - 10 Min")}<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.lateSubmission)}/></span>}/>
+      </div></ReviewSection>
+      <ReviewSection number={4} title="Attempts & Access" icon="orefresh.svg" editRoute="/assessments/create/details"><div className="reviewFieldGrid three"><ReadField label="Number of Attempts" value={get(details,["attempts","allowedAttempts"],"2")}/><ReadField label="Attempt Cooldown" value={get(details,["cooldown"],setting("attemptCooldown","15 min"))}/><ReadField label="Grading Method" value={get(details,["gradingMethod"],"Highest Score")}/><ReadField label="Access Code" value={<span className="reviewInlineSwitch">{get(details,["accessCode"],"A78X- K942")}<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.accessCode)}/></span>}/><ReadField label="Browser Lockdown" value={<span className="reviewInlineSwitch">Secure Exam Browser<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.browserLockdown)}/></span>}/><ReadField label="Webcam Proctoring" value={<span className="reviewInlineSwitch">Camera Check<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.webcamProctoring)}/></span>}/><ReadField label="Prerequisite" value={<span className="reviewInlineSwitch">Previous Assessment<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.prerequisite)}/></span>}/></div>
+        <div className="reviewLearnerArea"><h3>Extra Time / Accommodations</h3><div className="reviewTableWrap"><table><thead><tr><th>Learner</th><th>Extra Time</th><th>Accommodation</th></tr></thead><tbody>{learnerRecords.length ? learnerRecords.map((row,i)=><tr key={`${row.id || row.learner}-${i}`}><td><span className="reviewLinkText">{row.learner}</span></td><td>{row.extraTime || "—"}</td><td>{row.accommodation || "—"}</td></tr>) : <tr><td colSpan={3}>No learner accommodations added.</td></tr>}</tbody></table></div></div>
+      </ReviewSection>
+      <ReviewSection number={5} title="Audience" icon="user-multiple2.svg" editRoute="/assessments/create/details"><div className="reviewFieldGrid reviewAudienceGrid"><ReadField label="Who can take this assessment?" value={get(details,["audience", "assignTo", "whoCanTake"],"All enrolled learners")}/><ReadField label="Batch / Cohort" value={get(details,["batch", "batchCohort", "cohort"],"2026 — Batch A")}/><ReadField label="Academic Year" value={get(details,["academicYear"],"2026–2027")}/><ReadField label="Department" value={get(details,["department"],"Computer Science")}/><ReadField label="Program" value={get(details,["program", "programme"],"B.Tech Computer Science")}/><ReadField label="Section / Class" value={get(details,["section"],"Section A")}/><ReadField label="Excluded Learners" value={get(details,["excludedLearners", "exclusions"],"None")}/><ReadField label="Notify learners when published" value={<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.notifyLearners)}/>}/></div></ReviewSection>
+      <ReviewSection number={6} title="Questions" icon="circle-question-mark.svg" editRoute="/assessments/create/content"><div className="reviewFieldGrid two"><ReadField label="Total Questions" value={`${questions.length || Number(count)}/${count}`}/><ReadField label="Marks" value={questions.length ? totalQuestionMarks : get(details,["questionMarks", "contentMarks"],"20")}/><ReadField label="All Answers Verified" value={<span className="reviewStatus"><ReviewTick/>{questions.length ? (allCorrect ? "All Questions Completed" : "Review incomplete questions") : "All Questions Completed"}</span>}/><ReadField label="Feedback" value={<span className="reviewStatus"><ReviewTick/> {Object.keys(content).length ? "Added" : "Added"}</span>}/><ReadField label="Explanation" value={<span className="reviewStatus"><ReviewTick/> {Object.keys(content).length ? "Added" : "Added"}</span>}/><ReadField label="Mandatory" value={questions.length ? `${questions.filter(q=>q.mandatory).length}/${questions.length}` : `${count}/${count}`}/><ReadField label="Difficulty" value={<div className="reviewPillGroup">{["Easy","Medium","Hard"].map((level,i)=><span key={level} className="reviewValuePill"><ReviewTick blue/>{questions.filter(q=>q.difficulty===level).length || (questions.length ? "0" : [3,5,3][i])} {level}</span>)}</div>}/><ReadField label="Bloom's" value={<span className="reviewValuePill reviewBloomPill"><ReviewTick blue/>{questions[0]?.bloom || "Analyze"}</span>}/></div></ReviewSection>
+      <ReviewSection number={7} title="Results" icon="chart.svg" editRoute="/assessments/create/evaluation"><div className="reviewFieldGrid two"><ReadField label="Show Result After Submission" value={<ReviewSwitch enabled={isOn("showResult")}/>}/><ReadField label="Show Score" value={<ReviewSwitch enabled={isOn("showScore")}/>}/><ReadField label="Show Pass/ Fail" value={<ReviewSwitch enabled={isOn("showPassFail")}/>}/><ReadField label="Show Correct Answers" value={<ReviewSwitch enabled={isOn("showCorrectAnswers")}/>}/><ReadField label="Result Available" value={setting("resultAvailable", "Immediately")}/></div></ReviewSection>
+      <ReviewSection number={8} title="Feedback" icon="message-circle-more.svg" editRoute="/assessments/create/evaluation"><div className="reviewInnerGrid"><InnerCard heading="ANSWER FEEDBACK" icon="message-circle-more.svg"><ReadSwitch label="Show Answer Feedback" on={isOn("showAnswerFeedback")}/><ReadSwitch label="Show Explanation" on={isOn("showExplanation")}/><ReadSetting label="Feedback Timing" value={<ReviewSwitch enabled={setting("feedbackTiming", "After") !== "Never"}/>}/><div className="reviewCheckStack">{["Correct Answer Feedback","Wrong Answer Feedback","Question Explanation"].map(label=><span key={label}><ReviewTick/>{label}</span>)}</div></InnerCard><InnerCard heading="COGNITIVE & BEHAVIORAL INSIGHTS" icon="blueview.svg"><ReadSwitch label="Answer Switching Behavioral" on={isOn("answerSwitching")}/><ReadSwitch label="Review Wrong Answers" on={isOn("reviewWrongAnswers")}/><ReadSwitch label="View Weakness Map" on={isOn("weaknessMap")}/></InnerCard></div></ReviewSection>
+      <ReviewSection number={9} title="Security & Integrity" icon="shield-check.svg" editRoute="/assessments/create/evaluation"><div className="reviewInnerGrid"><InnerCard heading="ASSESSMENT ACCESS" icon="lock.svg"><ReadSetting label="Access Control" value={setting("accessControl","Open")} select/><ReadSwitch label="Require Secure Browser" on={isOn("secureBrowser")}/><ReadSwitch label="Prevent Copy / Paste" on={isOn("preventCopyPaste")}/><ReadSwitch label="Prevent Printing" on={isOn("preventPrinting")}/></InnerCard><InnerCard heading="PROCTORING" icon="video.svg"><ReadSwitch label="Webcam Monitoring" on={isOn("webcamMonitoring")}/><ReadSwitch label="Screen Monitoring" on={isOn("screenMonitoring")}/><ReadSwitch label="Full-Screen Mode" on={isOn("fullScreenMode")}/><ReadSwitch label="Identity Verification" on={isOn("identityVerification")}/></InnerCard><InnerCard heading="MONITORING" icon="blueview.svg"><ReadSwitch label="Detect Tab Switching" on={isOn("detectTabSwitching")}/><ReadSwitch label="Detect Multiple Screens" on={isOn("detectMultipleScreens")}/><ReadSwitch label="Detect Browser Exit" on={isOn("detectBrowserExit")}/><ReadSwitch label="Record Violations" on={isOn("recordViolations")}/><ReadSetting label="Violation Threshold" value={setting("violationThreshold","3")} select/><ReadSetting label="Action" value={setting("violationAction","Warn")} select/></InnerCard></div></ReviewSection>
+    </div><footer className="reviewFooter"><button type="button" onClick={()=>window.dispatchEvent(new CustomEvent("one-word-step", { detail: "evaluation" }))}>Back</button>{publishError && <span role="alert">{publishError}</span>}<button type="button" className="reviewPublish" onClick={publish}>Publish</button></footer>
+  </div></div></section></div></main>;
+}

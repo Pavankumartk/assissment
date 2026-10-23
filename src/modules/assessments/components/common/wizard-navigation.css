@@ -1,0 +1,4 @@
+/* Transparent hit target; does not alter existing progress-step Figma styling. */
+.asm-wizard-step,.mcqWizardStep,.mcqcWizardStep,.evaluationWizardStep,.reviewWizardStep,.sa-step{position:relative}
+.assessment-wizard-step-hit{position:absolute!important;inset:0!important;z-index:8!important;display:block!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;cursor:pointer!important;appearance:none!important}
+.assessment-wizard-step-hit:focus-visible{outline:2px solid #2D4CC8!important;outline-offset:-3px!important}

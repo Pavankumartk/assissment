@@ -1,0 +1,253 @@
+/* Original declarations retained; selectors scoped to one-word to prevent cross-type CSS collisions. */
+/* MCQ Review: scoped to this page. Shared Header and Sidebar are untouched. */
+.assessment-variant--one-word .reviewAppShell{--rv-bg:#DFE6E9;--rv-ink:#374151;--rv-blue:#2D4CC8;--rv-green:#2A7308;background:var(--rv-bg);color:var(--rv-ink);font:400 16px/1.5 "Segoe UI",Arial,sans-serif;min-width:0}.assessment-variant--one-word .reviewAppShell *, .assessment-variant--one-word .reviewAppShell *:before, .assessment-variant--one-word .reviewAppShell *:after{box-sizing:border-box}.assessment-variant--one-word .reviewDashboardLayout{display:flex;width:100%;height:100dvh;min-width:0;overflow:hidden}.assessment-variant--one-word .reviewMainContent{flex:1 1 auto;min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden}.assessment-variant--one-word .reviewHeaderSlot{flex:none}.assessment-variant--one-word .reviewScrollArea{flex:1 1 auto;min-height:0;min-width:0;overflow-y:auto;overflow-x:hidden}.assessment-variant--one-word .reviewPageContent{padding:22px 24px 36px;min-width:0;width:100%}.assessment-variant--one-word .reviewAsset{display:inline-block;flex:none;object-fit:contain;vertical-align:middle}.assessment-variant--one-word .reviewBreadcrumb{display:flex;gap:12px;align-items:center;min-height:32px;margin:0 0 24px;font-size:16px;letter-spacing:.02em}.assessment-variant--one-word .reviewBreadcrumb a{color:#2F3547;text-decoration:none}.assessment-variant--one-word .reviewBreadcrumb strong{color:var(--rv-blue);font-weight:700}.assessment-variant--one-word .reviewWizard{display:flex;width:min(100%,946px);height:50px;list-style:none;margin:0 0 36px;padding:0;isolation:isolate}.assessment-variant--one-word .reviewWizardStep{--tip:22px;position:relative;min-width:0;flex:1;display:flex;align-items:center;justify-content:center;gap:10px;margin-left:calc(-1 * var(--tip));padding:0 12px 0 30px;height:50px;white-space:nowrap;background:#C5CDD1;clip-path:polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%,var(--tip) 50%);font:600 14px/22px "Segoe UI",Arial,sans-serif;letter-spacing:.03em}.assessment-variant--one-word .reviewWizardStep:first-child{margin-left:0;padding-left:10px;clip-path:polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%)}.assessment-variant--one-word .reviewWizardStep::before{content:"";position:absolute;z-index:-1;inset:1px;background:var(--rv-bg);box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4;clip-path:inherit}.assessment-variant--one-word .reviewWizardStep:nth-child(1){z-index:5}.assessment-variant--one-word .reviewWizardStep:nth-child(2){z-index:4}.assessment-variant--one-word .reviewWizardStep:nth-child(3){z-index:3}.assessment-variant--one-word .reviewWizardStep:nth-child(4){z-index:2}.assessment-variant--one-word .reviewWizardStep:nth-child(5){z-index:1}.assessment-variant--one-word .reviewWizardStep.isDone{background:var(--rv-green);color:var(--rv-green)}.assessment-variant--one-word .reviewWizardStep.isCurrent{background:var(--rv-blue);color:var(--rv-blue);font-weight:700}.assessment-variant--one-word .reviewWizardNumber{width:21px;height:21px;flex:0 0 21px;display:grid;place-items:center;border-radius:50%;background:var(--rv-bg);box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}.assessment-variant--one-word .reviewWizardNumber>span{width:13px;height:13px;display:grid;place-items:center;border-radius:50%;background:var(--rv-bg);box-shadow:2px 2px 2px #C6C6C9,-2px -2px 2px #fff;font-size:11px}.assessment-variant--one-word .reviewPageHeading{margin:0 0 28px}.assessment-variant--one-word .reviewPageHeading h1{font-size:21px;line-height:30px;font-weight:700;margin:0 0 6px}.assessment-variant--one-word .reviewPageHeading p{font-size:16px;margin:0}.assessment-variant--one-word .reviewSections{display:flex;flex-direction:column;gap:20px}.assessment-variant--one-word .reviewSection{background:var(--rv-bg);border-radius:15px;min-width:0;padding:9px 12px 12px;box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4}.assessment-variant--one-word .reviewSectionHead{min-height:52px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-radius:9px;border-bottom:1px solid #C4C4C4;box-shadow:0 3px 5px -3px #9aa4a8}.assessment-variant--one-word .reviewSectionTitle{display:flex;align-items:center;gap:10px;min-width:0}.assessment-variant--one-word .reviewSectionTitle strong{font-size:16px;font-weight:700}.assessment-variant--one-word .reviewNumber{display:grid;place-items:center;width:27px;height:27px;flex:0 0 27px;border-radius:50%;background:var(--rv-bg);box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4}.assessment-variant--one-word .reviewNumber span{font-size:12px;color:var(--rv-blue);font-weight:700}.assessment-variant--one-word .reviewEdit{display:flex;align-items:center;gap:5px;flex:none;padding:5px 9px;min-height:27px;border-radius:6px;text-decoration:none;color:var(--rv-blue);font-size:13px;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4}.assessment-variant--one-word .reviewSectionBody{padding:18px 15px 12px}.assessment-variant--one-word .reviewFieldGrid{display:grid;gap:16px 20px;min-width:0}.assessment-variant--one-word .reviewFieldGrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.assessment-variant--one-word .reviewFieldGrid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.assessment-variant--one-word .reviewField{min-width:0;display:flex;flex-direction:column;gap:8px}.assessment-variant--one-word .reviewField.reviewWide{grid-column:1/-1}.assessment-variant--one-word .reviewLabel{font-size:14px;line-height:20px;font-weight:600;color:#374151}.assessment-variant--one-word .reviewValue{min-height:43px;padding:10px 13px;border-radius:5px;background:var(--rv-bg);box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;color:#374151;font-size:14px;line-height:22px;min-width:0;overflow-wrap:anywhere}.assessment-variant--one-word .reviewAccent{color:var(--rv-blue);font-weight:600}.assessment-variant--one-word .reviewInlineSwitch{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}.assessment-variant--one-word .reviewMarking{display:inline-flex;align-items:center;gap:12px;min-height:44px;width:min(100%,265px);padding:8px 12px;border-radius:5px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;font-size:14px}.assessment-variant--one-word .reviewSwitch{display:inline-flex;align-items:center;position:relative;flex:0 0 58px;width:58px;height:28px;border-radius:30px;background:var(--rv-bg);box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;vertical-align:middle;pointer-events:none}.assessment-variant--one-word .reviewSwitch:before{content:"";position:absolute;inset:4px;border-radius:30px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}.assessment-variant--one-word .reviewSwitch.isOn:before{background:linear-gradient(110deg,#2D4CC8 18%,#E01E5A 90%);box-shadow:none}.assessment-variant--one-word .reviewSwitch span{position:absolute;z-index:1;font-size:10px;right:8px;line-height:20px}.assessment-variant--one-word .reviewSwitch.isOn span{left:8px;right:auto;color:#fff}.assessment-variant--one-word .reviewSwitch i{position:absolute;z-index:1;width:20px;height:20px;top:4px;left:4px;background:#606162;border-radius:50%}.assessment-variant--one-word .reviewSwitch.isOn i{left:34px;background:var(--rv-bg);box-shadow:0 2px 4px #999}.assessment-variant--one-word .reviewTick{display:inline-grid;place-items:center;flex:0 0 24px;width:24px;height:24px;border-radius:50%;background:var(--rv-bg);box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #fff}.assessment-variant--one-word .reviewTick>span{display:block;position:relative;width:17px;height:17px;border-radius:50%;background:#2A7308}.assessment-variant--one-word .reviewTick>span:after{content:"";position:absolute;left:5px;top:4px;width:7px;height:5px;border-bottom:1.5px solid #fff;border-left:1.5px solid #fff;transform:rotate(-45deg)}.assessment-variant--one-word .reviewTickBlue>span{background:var(--rv-blue)}.assessment-variant--one-word .reviewStatus{display:flex;align-items:center;gap:10px;color:#2A7308;font-weight:600}.assessment-variant--one-word .reviewPillGroup{display:flex;gap:10px;flex-wrap:wrap}.assessment-variant--one-word .reviewValuePill{display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:3px 9px;border-radius:5px;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;white-space:nowrap}.assessment-variant--one-word .reviewValuePill .reviewTick{transform:scale(.7);margin:-3px}.assessment-variant--one-word .reviewLearnerArea{margin-top:24px}.assessment-variant--one-word .reviewLearnerArea h3{margin:0 0 10px;font-size:15px;font-weight:600}.assessment-variant--one-word .reviewTableWrap{max-width:100%;overflow-x:auto;scrollbar-color:#a9b5bc var(--rv-bg);scrollbar-width:thin}.assessment-variant--one-word .reviewTableWrap table{width:100%;border-collapse:collapse;min-width:520px;text-align:left;font-size:14px}.assessment-variant--one-word .reviewTableWrap th, .assessment-variant--one-word .reviewTableWrap td{padding:12px 16px;border:1px solid #C4CDD2;font-weight:400}.assessment-variant--one-word .reviewTableWrap th{font-weight:600;background:#D5DEE2}.assessment-variant--one-word .reviewLinkText{color:var(--rv-blue);text-decoration:underline;font-weight:600}.assessment-variant--one-word .reviewInnerGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}.assessment-variant--one-word .reviewInnerCard{min-width:0;border:1px solid #bdc7cd;border-radius:15px;padding:15px 17px 17px}.assessment-variant--one-word .reviewInnerCard h3{display:flex;align-items:center;gap:10px;font-size:13px;line-height:22px;letter-spacing:.02em;font-weight:600;margin:0 0 17px}.assessment-variant--one-word .reviewSmallIcon{display:grid;place-items:center;width:30px;height:30px;flex:0 0 30px;border-radius:50%;box-shadow:-3px -3px 3px #fff,3px 3px 3px #C4C4C4}.assessment-variant--one-word .reviewInnerRows{display:flex;flex-direction:column;gap:10px}.assessment-variant--one-word .reviewSetting{display:flex;justify-content:space-between;align-items:center;gap:12px;min-width:0;min-height:41px;padding:7px 11px;border-radius:5px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;font-size:13px}.assessment-variant--one-word .reviewSetting>span{min-width:0;overflow-wrap:anywhere}.assessment-variant--one-word .reviewSettingValue{display:flex;justify-content:flex-end;align-items:center;min-width:0;flex:0 1 auto;text-align:right}.assessment-variant--one-word .reviewCheckStack{display:grid;gap:11px;padding:12px 2px}.assessment-variant--one-word .reviewCheckStack>span{display:flex;align-items:center;gap:10px;font-size:13px}.assessment-variant--one-word .reviewCheckStack .reviewTick{transform:scale(.8);margin:-2px}.assessment-variant--one-word .reviewFooter{display:flex;justify-content:space-between;gap:18px;margin:28px 0}.assessment-variant--one-word .reviewFooter button{min-width:140px;min-height:46px;padding:9px 23px;border:0;border-radius:28px;background:var(--rv-bg);color:var(--rv-ink);font:700 16px "Segoe UI",Arial,sans-serif;box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4;cursor:pointer}.assessment-variant--one-word .reviewFooter .reviewPublish{color:var(--rv-green)}.assessment-variant--one-word .reviewEdit:focus-visible, .assessment-variant--one-word .reviewFooter button:focus-visible{outline:2px solid var(--rv-blue);outline-offset:3px}
+@media(max-width:1050px){.assessment-variant--one-word .reviewPageContent{padding:20px 17px 28px}.assessment-variant--one-word .reviewFieldGrid.three{grid-template-columns:repeat(2,minmax(0,1fr))}.assessment-variant--one-word .reviewInnerGrid{gap:14px}.assessment-variant--one-word .reviewSectionBody{padding:15px 11px}.assessment-variant--one-word .reviewWizardStep{--tip:16px;font-size:12px;gap:6px;padding-left:20px}}
+@media(max-width:720px){.assessment-variant--one-word .reviewPageContent{padding:16px 12px 22px}.assessment-variant--one-word .reviewBreadcrumb{font-size:13px;gap:8px;margin-bottom:20px}.assessment-variant--one-word .reviewWizard{height:43px;margin-bottom:25px}.assessment-variant--one-word .reviewWizardStep{--tip:11px;height:43px;font-size:10px;padding:0 2px 0 13px;gap:3px;letter-spacing:0}.assessment-variant--one-word .reviewWizardStep:first-child{padding-left:2px}.assessment-variant--one-word .reviewWizardNumber{width:16px;height:16px;flex-basis:16px}.assessment-variant--one-word .reviewWizardNumber>span{width:11px;height:11px;font-size:9px}.assessment-variant--one-word .reviewPageHeading h1{font-size:20px}.assessment-variant--one-word .reviewPageHeading p{font-size:14px}.assessment-variant--one-word .reviewSection{padding:6px 7px 9px;border-radius:11px}.assessment-variant--one-word .reviewSectionHead{min-height:45px;padding:8px 9px}.assessment-variant--one-word .reviewSectionTitle{gap:7px}.assessment-variant--one-word .reviewSectionTitle strong{font-size:14px}.assessment-variant--one-word .reviewEdit{font-size:12px}.assessment-variant--one-word .reviewSectionBody{padding:12px 8px}.assessment-variant--one-word .reviewFieldGrid.two, .assessment-variant--one-word .reviewFieldGrid.three{grid-template-columns:minmax(0,1fr)}.assessment-variant--one-word .reviewFieldGrid{gap:12px}.assessment-variant--one-word .reviewLabel{font-size:13px}.assessment-variant--one-word .reviewValue{font-size:13px}.assessment-variant--one-word .reviewInnerGrid{grid-template-columns:minmax(0,1fr);gap:13px}.assessment-variant--one-word .reviewInnerCard{padding:12px}.assessment-variant--one-word .reviewFooter button{min-width:110px;font-size:14px}.assessment-variant--one-word .reviewPillGroup{gap:7px}}
+@media(max-width:390px){.assessment-variant--one-word .reviewWizardStep{--tip:8px;font-size:8px;padding-left:10px}.assessment-variant--one-word .reviewWizardNumber{width:14px;height:14px;flex-basis:14px}.assessment-variant--one-word .reviewWizardNumber>span{font-size:8px;width:10px;height:10px}.assessment-variant--one-word .reviewSectionTitle strong{font-size:12px}.assessment-variant--one-word .reviewEdit{padding:5px;gap:2px}.assessment-variant--one-word .reviewEdit .reviewAsset{width:14px;height:14px}}
+
+/* Review refinements: section icon and header, Figma marking scheme, progress circles. */
+.assessment-variant--one-word .reviewWizardStep{align-items:center;line-height:22px;}
+.assessment-variant--one-word .reviewWizardNumber{position:relative;align-self:center;display:flex;align-items:center;justify-content:center;line-height:1;transform:none;}
+.assessment-variant--one-word .reviewWizardNumber>span{display:flex;align-items:center;justify-content:center;line-height:13px;padding:0;margin:0;vertical-align:middle;font-family:"Segoe UI",Arial,sans-serif;}
+.assessment-variant--one-word .reviewSection{overflow:visible;}
+.assessment-variant--one-word .reviewSectionHead{position:relative;display:flex;align-items:center;min-height:56px;padding:10px 14px;border-radius:10px 10px 0 0;background:#DFE6E9;border:0;border-bottom:1px solid #C4C4C4;box-shadow:0 2px 3px -2px #9aa4a8;}
+.assessment-variant--one-word .reviewSectionTitle{display:flex;align-items:center;min-height:36px;gap:13px;}
+.assessment-variant--one-word .reviewNumber{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:50%;background:#DFE6E9;box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4;}
+.assessment-variant--one-word .reviewNumber .reviewAsset{display:block;width:20px;height:20px;}
+.assessment-variant--one-word .reviewSectionTitle strong{font-size:18px;line-height:26px;font-weight:700;}
+.assessment-variant--one-word .reviewEdit{min-height:36px;padding:7px 12px;gap:8px;font-size:18px;box-shadow:-3px -3px 4px #fff,3px 3px 5px #c4c4c4;}
+.assessment-variant--one-word .reviewAppShell button.reviewEdit{border:0;background:var(--rv-bg);color:var(--rv-blue);}
+.assessment-variant--one-word .reviewMarkingField{align-items:flex-start;}
+.assessment-variant--one-word .reviewMarkingFrame{width:min(100%,405px);padding:12px 14px;background:#DFE6E9;border-radius:5px;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #c4c4c4;}
+.assessment-variant--one-word .reviewMarking{width:100%;min-height:54px;padding:10px 16px;gap:16px;border-radius:7px;background:#DFE6E9;box-shadow:-4px -4px 5px #fff,4px 4px 5px #C4C4C4;font-size:16px;line-height:24px;}
+.assessment-variant--one-word .reviewMarking .reviewTick{width:28px;height:28px;flex-basis:28px;}
+.assessment-variant--one-word .reviewMarking .reviewTick>span{width:20px;height:20px;}
+.assessment-variant--one-word .reviewMarking .reviewTick>span:after{top:5px;left:6px;width:8px;height:5px;}
+.assessment-variant--one-word .reviewFieldGrid.two, .assessment-variant--one-word .reviewFieldGrid.three, .assessment-variant--one-word .reviewInnerGrid{min-width:0;}
+.assessment-variant--one-word .reviewSectionBody{min-width:0;}
+.assessment-variant--one-word .reviewSwitch{flex-basis:66px;width:66px;height:36px;border-radius:32px;box-shadow:-4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4;}
+.assessment-variant--one-word .reviewSwitch:before{inset:4px 5px;border-radius:32px;}
+.assessment-variant--one-word .reviewSwitch span{right:9px;font-size:12px;font-weight:600;line-height:20px;}
+.assessment-variant--one-word .reviewSwitch.isOn span{left:11px;}
+.assessment-variant--one-word .reviewSwitch i{width:28px;height:28px;left:5px;top:4px;}
+.assessment-variant--one-word .reviewSwitch.isOn i{left:33px;}
+@media(max-width:720px){.assessment-variant--one-word .reviewSectionHead{padding:8px 10px;min-height:52px}.assessment-variant--one-word .reviewNumber{width:30px;height:30px;flex-basis:30px}.assessment-variant--one-word .reviewNumber .reviewAsset{width:18px;height:18px}.assessment-variant--one-word .reviewSectionTitle{gap:9px}.assessment-variant--one-word .reviewSectionTitle strong{font-size:15px;line-height:22px}.assessment-variant--one-word .reviewMarkingFrame{max-width:100%;padding:8px}.assessment-variant--one-word .reviewMarking{font-size:13px;min-height:46px;padding:8px 10px}.assessment-variant--one-word .reviewEdit{font-size:14px;min-height:32px;padding:5px 8px}}
+@media(max-width:390px){.assessment-variant--one-word .reviewSectionTitle strong{font-size:13px}.assessment-variant--one-word .reviewSectionTitle{gap:6px}.assessment-variant--one-word .reviewNumber{width:26px;height:26px;flex-basis:26px}.assessment-variant--one-word .reviewNumber .reviewAsset{width:16px;height:16px}}
+
+/* Review-only Figma switch: quiet recessed ON/OFF indicator, never a sliding toggle. */
+.assessment-variant--one-word .reviewAppShell .reviewSwitch, .assessment-variant--one-word .reviewAppShell .reviewSwitch.isOn{
+  display:inline-grid;
+  place-items:center;
+  position:relative;
+  flex:0 0 66px;
+  width:66px;
+  height:36px;
+  min-width:66px;
+  padding:0;
+  border:0;
+  border-radius:32px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4;
+  pointer-events:none;
+  vertical-align:middle;
+}
+.assessment-variant--one-word .reviewAppShell .reviewSwitch::before, .assessment-variant--one-word .reviewAppShell .reviewSwitch.isOn::before{
+  content:"";
+  position:absolute;
+  inset:4px 5px;
+  width:56px;
+  height:28px;
+  border-radius:32px;
+  background:#DFE6E9;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;
+}
+.assessment-variant--one-word .reviewAppShell .reviewSwitch > span, .assessment-variant--one-word .reviewAppShell .reviewSwitch.isOn > span{
+  position:relative;
+  z-index:1;
+  inset:auto;
+  display:block;
+  width:auto;
+  height:20px;
+  margin:0;
+  font:600 12px/20px "Segoe UI",Arial,sans-serif;
+  letter-spacing:.03em;
+  text-align:center;
+  text-transform:uppercase;
+  color:#2F3547;
+  background:none;
+  -webkit-text-fill-color:currentColor;
+}
+.assessment-variant--one-word .reviewAppShell .reviewSwitch.isOn > span{
+  background:linear-gradient(180deg,#2D4CC8 0%,#E01E5A 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+}
+.assessment-variant--one-word .reviewAppShell .reviewSwitch > i{display:none;}
+
+/* Review screenshot alignment only — existing header, sidebar, icons and shadows stay unchanged. */
+.assessment-variant--one-word .reviewAppShell .reviewFieldGrid.three.reviewTimingGrid{grid-template-columns:repeat(6,minmax(0,1fr));}
+.assessment-variant--one-word .reviewAppShell .reviewTimingGrid>.reviewField:nth-child(-n/**/+3){grid-column:span 2;}
+.assessment-variant--one-word .reviewAppShell .reviewTimingGrid>.reviewField:nth-child(4), .assessment-variant--one-word .reviewAppShell .reviewTimingGrid>.reviewField:nth-child(5){grid-column:span 3;}
+.assessment-variant--one-word .reviewAppShell .reviewTimingGrid>.reviewField:nth-child(6){grid-column:span 2;}
+.assessment-variant--one-word .reviewAppShell .reviewAudienceGrid{grid-template-columns:repeat(6,minmax(0,1fr));}
+.assessment-variant--one-word .reviewAppShell .reviewAudienceGrid>.reviewField:nth-child(-n/**/+2){grid-column:span 3;}
+.assessment-variant--one-word .reviewAppShell .reviewAudienceGrid>.reviewField:nth-child(n/**/+3){grid-column:span 2;}
+.assessment-variant--one-word .reviewAppShell .reviewAccent{text-decoration:underline;text-underline-offset:2px;}
+.assessment-variant--one-word .reviewAppShell .reviewTableWrap{padding:10px 12px;border-radius:5px;background:var(--rv-bg);box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;}
+.assessment-variant--one-word .reviewAppShell .reviewInnerGrid{align-items:stretch;}
+.assessment-variant--one-word .reviewAppShell .reviewSelectValue{display:inline-flex;align-items:center;justify-content:space-between;gap:14px;min-width:102px;min-height:30px;padding:4px 9px;border-radius:4px;border:1px solid #CBD3D7;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;text-align:left;}
+.assessment-variant--one-word .reviewAppShell .reviewSelectValue::after{content:"";width:7px;height:7px;flex:0 0 7px;border-right:1px solid #374151;border-bottom:1px solid #374151;transform:rotate(45deg) translateY(-2px);margin-right:4px;}
+.assessment-variant--one-word .reviewAppShell .reviewMarking .reviewTickBlue>span, .assessment-variant--one-word .reviewAppShell .reviewValuePill .reviewTickBlue>span{width:16px;height:16px;background:radial-gradient(circle,#fff 0 2px,#2D4CC8 2.5px 7px,transparent 7.5px);}
+.assessment-variant--one-word .reviewAppShell .reviewMarking .reviewTickBlue>span::after, .assessment-variant--one-word .reviewAppShell .reviewValuePill .reviewTickBlue>span::after{content:none;}
+.assessment-variant--one-word .reviewAppShell .reviewFooter .reviewPublish{color:var(--rv-blue);}
+@media(max-width:1050px){
+.assessment-variant--one-word .reviewAppShell .reviewFieldGrid.three.reviewTimingGrid{grid-template-columns:repeat(2,minmax(0,1fr));}
+.assessment-variant--one-word .reviewAppShell .reviewTimingGrid>.reviewField:nth-child(n){grid-column:auto;}
+.assessment-variant--one-word .reviewAppShell .reviewAudienceGrid{grid-template-columns:repeat(2,minmax(0,1fr));}
+.assessment-variant--one-word .reviewAppShell .reviewAudienceGrid>.reviewField:nth-child(n){grid-column:auto;}
+}
+@media(max-width:720px){
+.assessment-variant--one-word .reviewAppShell .reviewFieldGrid.three.reviewTimingGrid, .assessment-variant--one-word .reviewAppShell .reviewAudienceGrid{grid-template-columns:minmax(0,1fr);}
+.assessment-variant--one-word .reviewAppShell .reviewTimingGrid>.reviewField:nth-child(n), .assessment-variant--one-word .reviewAppShell .reviewAudienceGrid>.reviewField:nth-child(n){grid-column:1;}
+.assessment-variant--one-word .reviewAppShell .reviewTableWrap{padding:8px;}
+}
+
+.assessment-variant--one-word .reviewAppShell .reviewPillGroup .reviewValuePill{flex:1 1 0;min-width:0;justify-content:center;}
+.assessment-variant--one-word .reviewAppShell .reviewBloomPill{width:min(100%,210px);}
+
+
+/* Added ONLY the right-side Question panel used on the Evaluation page.
+   Existing Review cards, icons, colors and shadows are preserved. */
+.assessment-variant--one-word .reviewAppShell .reviewBodyLayout{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 286px;
+  align-items: start;
+  gap: 22px;
+  min-width: 0;
+  width: 100%;
+}
+.assessment-variant--one-word .reviewAppShell .reviewBodyPrimary{ min-width: 0; }
+.assessment-variant--one-word .reviewAppShell .reviewQuestionRail{ position: sticky; top: 15px; }
+.assessment-variant--one-word .ev-question-rail, .assessment-variant--one-word .ev-question-rail *{ box-sizing: border-box; }
+.assessment-variant--one-word .ev-question-rail{
+  width: 100%;
+  height: 710px;
+  min-width: 0;
+  padding: 15px;
+  border-radius: 12px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 6px #C4C4C4;
+  font: 400 14px/20px "Segoe UI", Arial, sans-serif;
+  color: #374151;
+}
+.assessment-variant--one-word .ev-question-rail-inner{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 13px 10px 14px;
+  border: 1px solid #D0D6DA;
+  border-radius: 5px;
+}
+.assessment-variant--one-word .ev-question-overview{ padding: 0 1px; flex: 0 0 auto; }
+.assessment-variant--one-word .ev-question-overview h2{ margin: 0 0 1px; font: 600 18px/26px "Segoe UI", Arial, sans-serif; }
+.assessment-variant--one-word .ev-question-overview p{ margin: 0 0 10px; font-size: 13px; line-height: 18px; }
+.assessment-variant--one-word .ev-question-progress{
+  height: 19px;
+  width: 100%;
+  padding: 4px 5px;
+  border-radius: 15px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  overflow: hidden;
+}
+.assessment-variant--one-word .ev-question-progress > span{
+  display: block;
+  height: 100%;
+  border-radius: 15px;
+  background: #2A7308;
+  box-shadow: -1px -1px 2px #FFFFFF, 1px 1px 2px #BFC6CB;
+  transition: width .15s ease;
+}
+.assessment-variant--one-word .ev-question-pills{ display: flex; gap: 14px; align-items: center; margin: 14px 0 20px; }
+.assessment-variant--one-word .ev-question-pills button{
+  flex: 0 0 auto;
+  min-width: 64px;
+  min-height: 29px;
+  padding: 4px 12px;
+  border: 0;
+  border-radius: 20px;
+  background: #DFE6E9;
+  color: #374151;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+  font: 400 13px/19px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.assessment-variant--one-word .ev-question-pills .ev-question-pill-active{ color: #2D4CC8; }
+.assessment-variant--one-word .ev-question-type-select{ display: block; position: relative; min-height: 34px; margin-bottom: 20px; flex: 0 0 auto; }
+.assessment-variant--one-word .ev-question-type-select select{
+  appearance: none;
+  -webkit-appearance: none;
+  height: 34px;
+  width: 100%;
+  padding: 4px 35px 4px 14px;
+  border: 0;
+  border-radius: 5px;
+  background: #DFE6E9;
+  color: #374151;
+  box-shadow: inset -3px -3px 3px #FFFFFF, inset 3px 3px 3px #C4C4C4;
+  font: 400 14px/23px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+.assessment-variant--one-word .ev-question-type-select > svg, .assessment-variant--one-word .ev-question-type-select > .reviewAsset{ position: absolute; right: 13px; top: 8px; pointer-events: none; }
+.assessment-variant--one-word .ev-question-visually-hidden{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.assessment-variant--one-word .ev-question-scroll{ flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 2px 9px 2px 1px; scrollbar-color: #AAA #DFE6E9; scrollbar-width: thin; }
+.assessment-variant--one-word .ev-question-scroll::-webkit-scrollbar{ width: 9px; }
+.assessment-variant--one-word .ev-question-scroll::-webkit-scrollbar-track{ background: #DFE6E9; border-radius: 20px; box-shadow: inset 2px 2px 3px #C4C4C4, inset -2px -2px 3px #FFFFFF; }
+.assessment-variant--one-word .ev-question-scroll::-webkit-scrollbar-thumb{ border: 2px solid #DFE6E9; border-radius: 20px; background: #A8A8A8; }
+.assessment-variant--one-word .ev-question-item{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 100%;
+  min-height: 41px;
+  margin: 0 0 5px;
+  padding: 6px 8px;
+  border: 0;
+  border-left: 2px solid #FFFFFF;
+  border-radius: 4px;
+  background: #DFE6E9;
+  color: #374151;
+  box-shadow: -2px -2px 2px #FFFFFF, 2px 2px 3px #C4C4C4;
+  cursor: pointer;
+  font: 400 12px/18px "Segoe UI", Arial, sans-serif;
+  text-align: left;
+}
+.assessment-variant--one-word .ev-question-item:hover, .assessment-variant--one-word .ev-question-item-selected{ box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4; }
+.assessment-variant--one-word .ev-question-status-dot{ flex: 0 0 9px; width: 9px; height: 9px; background: #2A7308; border-radius: 50%; }
+.assessment-variant--one-word .ev-question-status-attention{ background: #C76A23; }
+.assessment-variant--one-word .ev-question-number{ flex: 0 0 auto; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.assessment-variant--one-word .ev-question-type{ flex: 0 0 auto; max-width: 43px; min-width: 32px; padding: 0 5px; border-radius: 14px; background: #CCD2E9; color: #2D4CC8; font-size: 11px; font-weight: 600; text-align: center; white-space: nowrap; }
+.assessment-variant--one-word .ev-question-snippet{ flex: 1 1 auto; min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; }
+.assessment-variant--one-word .ev-question-points{ flex: 0 0 auto; margin-left: auto; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.assessment-variant--one-word .ev-question-empty{ margin: 12px 2px; font-size: 12px; }
+.assessment-variant--one-word .ev-question-rail button:focus-visible, .assessment-variant--one-word .ev-question-rail select:focus-visible{ outline: 2px solid #2D4CC8; outline-offset: 2px; }
+
+/* Avoid squeezing the review's existing multi-column fields beyond legibility. */
+@media (max-width: 1240px) {
+  .assessment-variant--one-word .reviewAppShell .reviewBodyLayout{ grid-template-columns: minmax(0, 1fr) 260px; gap: 18px; }
+  .assessment-variant--one-word .reviewAppShell .reviewQuestionRail{ padding: 11px; }
+  .assessment-variant--one-word .reviewAppShell .reviewQuestionRail .ev-question-rail-inner{ padding: 11px 8px; }
+}
+@media (max-width: 920px) {
+  .assessment-variant--one-word .reviewAppShell .reviewBodyLayout{ grid-template-columns: minmax(0,1fr); }
+  .assessment-variant--one-word .reviewAppShell .reviewQuestionRail{ position: static; height: 450px; }
+}
+@media (max-width: 600px) {
+  .assessment-variant--one-word .reviewAppShell .reviewQuestionRail{ height: 400px; }
+  .assessment-variant--one-word .reviewAppShell .ev-question-pills{ gap: 8px; }
+}

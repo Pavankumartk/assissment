@@ -1,0 +1,90 @@
+.topHeader {
+  min-height: 55px;
+  width: 100%;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #DFE6E9;
+  box-shadow: -8px -8px 16px #FFFFFF, 8px 8px 16px #C4C4C4;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+.breadcrumb { display: flex; align-items: center; gap: 6px; color: #2F3547; font-size: 14px; font-weight: 400; }
+.breadcrumbParent { color: #2F3547; font-size: 14px; font-weight: 400; }
+.breadcrumbCurrent { color: #2D4CC8; font-size: 14px; font-weight: 700; }
+.breadcrumbSegment { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+.headerRight { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.notificationButton {
+  position: relative; width: 35px; height: 33px; display: flex;
+  align-items: center; justify-content: center; padding: 0;
+  background: #DFE6E9; border: none; border-radius: 8px;
+  box-shadow: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+  cursor: pointer;
+}
+.notificationDot { position: absolute; top: 5px; right: 6px; width: 7px; height: 7px; background: #E01E5A; border-radius: 50%; }
+.headerDivider { width: 1px; height: 30px; background: rgba(120,130,137,.35); }
+.topUserProfile { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.smallAvatar {
+  position: relative; width: 44px; height: 44px; flex: 0 0 44px;
+  background: #DFE6E9; border: 0; border-radius: 50%;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+  overflow: hidden;
+}
+.avatarImage {
+  position: absolute !important;
+  width: 36px !important; height: 36px !important;
+  left: 4px !important; top: 4px !important;
+  right: auto !important; bottom: auto !important;
+  object-fit: cover; object-position: center; border-radius: 50%;
+}
+/* Uploaded images show normally; the avatar remains an empty raised circle until uploaded. */
+.topUserDetails { min-width: 0; }
+.topUserName { margin: 0; color: #2F3547; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.topUserRole { margin-top: 2px; color: #2F3547; font-size: 9px; white-space: nowrap; }
+.mobileBreadcrumb, .mobileMenuButton { display: none; }
+/* Assessment: screenshot shows an empty left header area; breadcrumb belongs to page content. */
+.topHeaderAssessment { justify-content: flex-end; width: 100%; }
+.topHeaderAssessment .headerRight { margin-left: auto; }
+@media (max-width: 700px) {
+  .topHeader {
+    width: 100%; min-height: 80px; height: 80px; padding: 0 14px;
+    display: flex; align-items: center; justify-content: flex-end;
+    position: sticky; top: 0; background: #DFE6E9; z-index: 1500;
+  }
+  .desktopBreadcrumb { display: none; }
+  .mobileBreadcrumb {
+    position: static; width: 100%; min-width: 0; min-height: 44px;
+    margin: 0; padding: 0 16px; display: flex; flex-wrap: nowrap;
+    align-items: center; gap: 6px; color: #2F3547; background: #DFE6E9;
+    font-size: 14px; font-weight: 400; line-height: 1; white-space: nowrap;
+    overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; touch-action: pan-x;
+    overscroll-behavior-x: contain; z-index: auto;
+  }
+  .mobileBreadcrumb::-webkit-scrollbar { display: none; }
+  .mobileBreadcrumb > span, .mobileBreadcrumb > img,
+  .mobileBreadcrumb .breadcrumbSegment, .mobileBreadcrumb .breadcrumbSegment span,
+  .mobileBreadcrumb .breadcrumbSegment img {
+    display: inline-flex; align-items: center; flex: 0 0 auto; white-space: nowrap;
+  }
+  .mobileBreadcrumb .breadcrumbParent { color: #2F3547; font-size: 14px; font-weight: 400; }
+  .mobileBreadcrumb .breadcrumbCurrent { color: #2D4CC8; font-size: 14px; font-weight: 700; }
+  .headerRight { display: flex; align-items: center; gap: 10px; }
+  .headerDivider, .topUserDetails { display: none; }
+  .mobileMenuButton {
+    width: 36px; height: 36px; padding: 6px; display: flex;
+    flex-direction: column; justify-content: center; gap: 5px;
+    background: transparent; border: none; cursor: pointer;
+  }
+  .mobileMenuButton span { display: block; width: 24px; height: 2px; background: #374151; border-radius: 2px; }
+  .topHeaderAssessment { min-width: 0; }
+}
+
+/* Visible on assessment Creator steps and the learner's Start Assessment page. */
+.assessmentHeaderLogout{flex:none;min-height:36px;padding:6px 18px;border:0;border-radius:22px;background:#DFE6E9;color:#2D4CC8;box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4;font:600 13px 'Segoe UI',Arial,sans-serif;cursor:pointer;white-space:nowrap}
+.assessmentHeaderLogout:hover,.assessmentHeaderLogout:active{box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4}
+.assessmentHeaderLogout:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+@media(max-width:520px){.assessmentHeaderLogout{padding:6px 11px;font-size:12px;min-height:32px}}
