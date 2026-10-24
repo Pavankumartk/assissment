@@ -41,7 +41,7 @@ export default function MCQReviewPage() {
     const validQuestions=validateMcqQuestions(questions,Number(details.questionCount??20),Number(details.totalMarks??20));
     if(validQuestions.ok===false){setPublishError(validQuestions.message);return;}
     updateAssessment({title,course,questions:questions.length,marks:Number(total)||0,status:"Published"});
-    router.push("/assessments");
+    router.push("/assessments/create");
   };
   const [details, setDetails] = useState<Dict>({});
   const [evaluation, setEvaluation] = useState<Dict>({});

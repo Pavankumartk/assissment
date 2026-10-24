@@ -25,16 +25,16 @@ const categories = [
 ];
 // Add your provided icon asset paths here. Empty paths show no icons.
 const EVALUATION_ICON_PATHS = {
-  scorings: "/assets/assessmenticons/target-01.svg",
-  attempts: "/assets/assessmenticons/refresh-04.svg",
-  results: "/assets/assessmenticons/chart-up.svg",
-  answerFeedback: "/assets/assessmenticons/message-02.svg",
+  scorings: "/assets/assessmenticons/target.svg",
+  attempts: "/assets/assessmenticons/refresh.svg",
+  results: "/assets/assessmenticons/chart-up2.svg",
+  answerFeedback: "/assets/assessmenticons/message-circle-more.svg",
   manualGrading: "/assets/assessmenticons/checkmark-circle-02.svg",
-  cognitiveInsights: "/assets/assessmenticons/view.svg",
-  assessmentAccess: "/assets/assessmenticons/circle-lock-01.svg",
-  proctoring: "/assets/assessmenticons/video-01.svg",
-  monitoring: "/assets/assessmenticons/notification-01.svg",
-  restriction: "/assets/assessmenticons/alert-01.svg",
+  cognitiveInsights: "/assets/assessmenticons/view2.svg",
+  assessmentAccess: "/assets/assessmenticons/lock.svg",
+  proctoring: "/assets/assessmenticons/video.svg",
+  monitoring: "/assets/assessmenticons/view2.svg",
+  restriction: "/assets/assessmenticons/alert.svg",
   dropdown: "/assets/assessmenticons/arrow-down-01-2.svg",
   check: "/assets/assessmenticons/checkmark-circle-02.svg",
 } as const;
@@ -107,6 +107,28 @@ function SettingSwitch({ checked, onChange, label }: { checked: boolean; onChang
   );
 }
 
+function MatchingMcqDropdown({label,value,options,onSelect}:{label:string;value:string;options:string[];onSelect?:(next:string)=>void}) {
+  const [open,setOpen]=useState(false);
+  const root=useRef<HTMLDivElement>(null);
+  useEffect(()=>{
+    if(!open)return;
+    const outside=(event:PointerEvent)=>{if(!root.current?.contains(event.target as Node))setOpen(false);};
+    const escape=(event:KeyboardEvent)=>{if(event.key==="Escape")setOpen(false);};
+    document.addEventListener("pointerdown",outside);
+    document.addEventListener("keydown",escape);
+    return()=>{document.removeEventListener("pointerdown",outside);document.removeEventListener("keydown",escape);};
+  },[open]);
+  return <div className="evaluationMiniSelectWrap" ref={root}>
+    <button type="button" className="evaluationMiniSelectTrigger" aria-label={label} aria-haspopup="listbox" aria-expanded={open} onClick={()=>setOpen(v=>!v)}>
+      <span>{value || `Select ${label.toLowerCase()}`}</span>
+      <img src="/assets/assessmenticons/arrow-down-01.svg" alt="" width={17} height={17}/>
+    </button>
+    {open&&<div className="evaluationMiniSelectMenu" role="listbox" aria-label={label}>
+      {options.map(option=><button type="button" key={option} role="option" aria-selected={value===option} className={`evaluationMiniSelectOption ${value===option ? "is-selected" : ""}`} onClick={()=>{onSelect?.(option);setOpen(false);}}>{option}</button>)}
+    </div>}
+  </div>;
+}
+
 function SettingRow({ label, value, options, checked, onSelect, onToggle }: {
   label: string;
   value?: string;
@@ -119,12 +141,7 @@ function SettingRow({ label, value, options, checked, onSelect, onToggle }: {
     <div className="ev-setting-row">
       <span className="ev-setting-name">{label}</span>
       {onToggle ? <SettingSwitch label={label} checked={Boolean(checked)} onChange={onToggle} /> : options ? (
-        <span className="ev-select-wrap">
-          <select aria-label={label} value={value} onChange={(e) => onSelect?.(e.target.value)}>
-            {options.map((option) => <option key={option}>{option}</option>)}
-          </select>
-          <EvaluationIcon name="dropdown" className="ev-dropdown-svg" />
-        </span>
+        <MatchingMcqDropdown label={label} value={value || ""} options={options} onSelect={onSelect}/>
       ) : <span className="ev-setting-value">{value || "—"}</span>}
     </div>
   );
@@ -370,6 +387,9 @@ export default function EvaluationPage() {
   const updateDropdown = (change: (previous: DropdownSettings) => DropdownSettings) => { setDropdownSettings(change); setMessage(""); };
   const togglePanel = (panel: PanelId) => setOpenPanels(previous => previous.includes(panel) ? previous.filter(item => item !== panel) : [...previous, panel]);
   const saveAndContinue = () => {
+    const passingScore=Number(settings.passingScore);
+    if(!Number.isFinite(passingScore)||passingScore<=0||passingScore>100){setMessage("Passing score must be between 1% and 100%.");return;}
+    if(!Number.isFinite(totalMarks)||totalMarks<=0){setMessage("Total marks must be greater than zero.");return;}
     try {
       assessmentStorage.setItem("shortAnswerEvaluationDraft", JSON.stringify({ ...settings, maxAttempts: dropdownSettings.maximumAttempts,
         showResults: dropdownSettings.showResult ? "Yes" : "No",
@@ -387,11 +407,11 @@ export default function EvaluationPage() {
       <div className="evaluationTitleGroup"><h1>Assessment Evaluation (Short Answers)</h1><p>Set Evaluation, Feedback, Results, And Security.</p></div>
        <div className="evaluationBodyLayout"><div className="evaluationBodyPrimary">
       <div className="evaluationPanels">{categories.map(category => { const isOpen = openPanels.includes(category.id); return <section key={category.id} className={`evaluationPanel evaluationPanel--${category.id} ${isOpen ? "is-open" : ""}`}>
-        <div className="evaluationPanelHeader"><div className="evaluationPanelIcon" aria-hidden="true"><img src={category.iconSrc} alt="" width={37} height={37} onError={event => { event.currentTarget.style.visibility = "hidden"; }} /></div><div className="evaluationPanelText"><h2>{category.heading}</h2><p>{category.subtitle}</p></div><button type="button" className="evaluationExpandButton" aria-label={`${isOpen ? "Collapse" : "Expand"} ${category.heading}`} aria-expanded={isOpen} aria-controls={`evaluation-content-${category.id}`} onClick={() => togglePanel(category.id)}><span className="evaluationChevron" aria-hidden="true" /></button></div>
+        <div className="evaluationPanelHeader"><div className="evaluationPanelIcon" aria-hidden="true"><img src={category.iconSrc} alt="" width={37} height={37} onError={event => { event.currentTarget.style.visibility = "hidden"; }} /></div><div className="evaluationPanelText"><h2>{category.heading}</h2><p>{category.subtitle}</p></div><button type="button" className="evaluationExpandButton" aria-label={`${isOpen ? "Collapse" : "Expand"} ${category.heading}`} aria-expanded={isOpen} aria-controls={`evaluation-content-${category.id}`} onClick={() => togglePanel(category.id)}><img className="evaluationChevronAsset" src="/assets/assessmenticons/arrow-down-01.svg" width={20} height={20} alt=""/></button></div>
         <div className="evaluationPills" aria-label={`${category.heading} sections`}>{category.tabs.map(tab => <span key={tab} className={`evaluationPill ${isOpen && activeTabs[category.id] === tab ? "is-selected" : ""}`}>{tab}</span>)}</div>
         {isOpen && <div className="evaluationPanelBody evaluationDropdownBody" id={`evaluation-content-${category.id}`}><EvaluationPanelContents panel={category.id} settings={dropdownSettings} onChange={updateDropdown} totalMarks={totalMarks} passingScore={settings.passingScore}/></div>}
       </section>; })}</div>
-      <div className="evaluationFooter"><button type="button" className="evaluationFooterButton" onClick={() => router.push("/assessments/create/content")}>Back</button><div className="evaluationFooterRight">{message && <span role="status" className={`evaluationSaveMessage ${message === "Successfully saved" ? "" : "evaluationSaveError"}`}>{message}</span>}<button type="button" className="evaluationFooterButton evaluationContinue" disabled={saving} onClick={saveAndContinue}>Save &amp; Continue</button></div></div>
-       </div><AssessmentQuestionRail kind="short" /></div>
+      <div className="evaluationFooter"><button type="button" className="evaluationFooterButton" onClick={() => router.push("/assessments/create/content")}>Back</button><div className="evaluationFooterRight">{message && <span role={message === "Successfully saved" ? "status" : "alert"} className={`evaluationSaveMessage ${message === "Successfully saved" ? "" : "evaluationSaveError"}`}>{message}</span>}<button type="button" className="evaluationFooterButton evaluationContinue" disabled={saving} onClick={saveAndContinue}>Save &amp; Continue</button></div></div>
+       </div></div>
     </div></div></section></div></main>;
 }

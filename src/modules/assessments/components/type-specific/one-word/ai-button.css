@@ -1,0 +1,4 @@
+/* AI entry alongside Add: no changes to existing form/button styles. */
+.mcqcAIBuilderActions{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;min-width:0}
+.mcqcAIBuilderActions .mcqcTopAdd{white-space:nowrap}
+@media(max-width:700px){.mcqcAIBuilderActions{gap:8px}.mcqcAIBuilderActions .mcqcTopAdd{font-size:13px}}

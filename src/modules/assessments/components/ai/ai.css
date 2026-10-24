@@ -1,0 +1,776 @@
+/* Generate With AI — styles scoped to this page. Shared Sidebar/Header CSS is untouched. */
+.aiAppShell{--ai-bg:#DFE6E9;--ai-fg:#374151;--ai-blue:#2D4CC8;--ai-raised:-4px -4px 4px #FFF,4px 4px 4px #C4C4C4;--ai-inset:inset -4px -4px 4px #FFF,inset 4px 4px 4px #C4C4C4;--ai-small-inset:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4;width:100%;height:100dvh;min-height:0;overflow:hidden;background:var(--ai-bg)}
+.aiWorkspace{display:flex;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden}
+.aiMainContent{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
+/* The Header owns its height, shadow and menu. Do not add another header strip. */
+.aiHeaderSlot{flex:0 0 auto;min-height:0;min-width:0;height:auto;margin:0;padding:0;border:0;box-shadow:none;background:transparent;position:static}
+.aiScrollArea{min-height:0;min-width:0;flex:1 1 auto;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain}
+.aiPageContent{width:100%;min-width:0;margin:0;padding:24px 24px 36px!important;background:var(--ai-bg);color:var(--ai-fg);font:400 16px/24px 'Segoe UI',Arial,sans-serif}
+.aiPageContent,.aiPageContent *,.aiPageContent *::before,.aiPageContent *::after{box-sizing:border-box}
+.aiPageContent button,.aiPageContent input,.aiPageContent select,.aiPageContent textarea{font-family:'Segoe UI',Arial,sans-serif}
+.aiPageContent button:focus-visible,.aiPageContent :is(input,select,textarea):focus-visible,.aiEditable:focus-visible{outline:2px solid var(--ai-blue);outline-offset:2px}
+.aiTop{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;min-width:0;margin:0 0 28px}
+.aiTopLeft{display:flex;flex-direction:column;gap:22px;min-width:0}
+.aiBreadcrumb{display:flex;align-items:center;gap:8px;min-height:26px;flex-wrap:wrap;color:#2F3547;font:400 16px/24px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em}
+.aiBreadcrumb a{color:inherit;text-decoration:none}.aiBreadcrumb strong{color:var(--ai-blue);font-weight:700}.aiBreadcrumb img{display:block;flex:0 0 auto;object-fit:contain}
+.aiIntro h2{margin:0 0 5px;font:700 20px/28px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em}.aiIntro p{margin:0;font:400 16px/24px 'Segoe UI',Arial,sans-serif}
+.aiIdentity{display:flex;align-items:center;flex:0 0 auto;gap:12px;width:268px;min-height:82px;padding:12px 14px;border:1px solid transparent;border-radius:10px;background:linear-gradient(var(--ai-bg),var(--ai-bg)) padding-box,linear-gradient(110deg,#2D4CC8,#E01E5A) border-box;box-shadow:var(--ai-small-inset)}
+.aiIdentity>img{flex:0 0 36px;width:36px;object-fit:contain}.aiIdentity>div{min-width:0}
+.aiIdentity h1{margin:0;font:700 22px/26px 'Segoe UI',Arial,sans-serif;white-space:nowrap;color:transparent;background:linear-gradient(90deg,#2D4CC8,#E01E5A);background-clip:text;-webkit-background-clip:text}
+.aiIdentity p{margin:4px 0 0;font:400 16px/22px 'Segoe UI',Arial,sans-serif;white-space:nowrap}
+.aiPanel{display:flex;flex-direction:column;gap:0;width:100%;min-width:0;min-height:0;padding:28px 24px 30px;border:0;border-radius:16px;background:var(--ai-bg);box-shadow:var(--ai-inset)}
+.aiWarning{display:inline-flex;align-items:center;align-self:flex-start;gap:16px;min-height:52px;max-width:100%;padding:9px 14px;margin:0 0 30px;border:1px solid #C05512;border-radius:6px;color:#C05512}
+.aiWarningCircle{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border-radius:50%;box-shadow:-2px -2px 2px #FFF,2px 2px 2px #C4C4C4}
+.aiWarning p{margin:0;font:400 15px/24px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em;overflow-wrap:anywhere}
+.aiAccordionList{display:flex;flex-direction:column;gap:24px;min-width:0}
+.aiAccordion{min-width:0;border:0;border-radius:5px;background:var(--ai-bg);box-shadow:var(--ai-raised)}
+.aiAccordion.open{box-shadow:var(--ai-inset)}
+.aiAccordion h2{font:inherit;margin:0}
+.aiAccordionToggle{display:flex;align-items:center;gap:16px;width:100%;min-height:76px;margin:0;padding:10px 24px 10px 18px;border:0;border-radius:4px;background:var(--ai-bg);color:#111;text-align:left;cursor:pointer}
+.aiAccordion.open .aiAccordionToggle{position:relative;z-index:1;box-shadow:var(--ai-raised)}
+.aiAccordionNumber{align-self:flex-start;flex:0 0 12px;margin-top:1px;font:600 18px/28px 'Segoe UI',Arial,sans-serif}
+.aiAccordionText{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;gap:0}
+.aiAccordionText strong{font:600 18px/28px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em}.aiAccordionText small{font:400 14px/26px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em}
+.aiAccordionArrow{flex:0 0 28px;width:28px;height:28px;object-fit:contain;transition:transform .2s ease}.aiAccordion.open .aiAccordionArrow{transform:rotate(180deg)}
+.aiAccordionContent{padding:24px 22px 26px;min-width:0;box-shadow:var(--ai-inset);border-radius:0 0 4px 4px;background:var(--ai-bg)}
+.aiFlow{display:flex;flex-direction:column;align-items:stretch;gap:22px;min-width:0}
+.aiSourceTitle{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px;font:400 14px/22px 'Segoe UI',Arial,sans-serif}.aiSourceTitle strong{font-weight:700}.aiSourceTitle>span{color:#526171}
+.aiGroup{display:flex;flex-direction:column;gap:12px;min-width:0}
+.aiGroup h3{margin:0;font:600 16px/24px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em;color:#374151}
+/* Six source selectors on ONE row. On narrow devices the row scrolls; no wrapping. */
+.aiPills{display:flex;align-items:center;flex-wrap:wrap;gap:15px;min-width:0}
+.aiPill{display:inline-flex;align-items:center;justify-content:center;gap:10px;flex:0 0 auto;min-height:42px;max-width:100%;padding:7px 16px;border:0!important;border-radius:26px;background:var(--ai-bg);box-shadow:-3px -3px 4px #FFF,3px 3px 4px #C4C4C4;color:#374151;white-space:nowrap;cursor:pointer;font:500 15px/24px 'Segoe UI',Arial,sans-serif}
+.aiPill.selected{color:var(--ai-blue);box-shadow:var(--ai-small-inset)}
+.aiRadioCircle{position:relative;display:grid;place-items:center;flex:0 0 24px;width:24px;height:24px;border-radius:50%;background:var(--ai-bg);box-shadow:var(--ai-small-inset)}
+.aiRadioCircle::before{content:"";position:absolute;width:12px;height:12px;border:2px solid #B1BAC0;border-radius:50%}
+.aiPill.selected .aiRadioCircle{box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFF}
+.aiPill.selected .aiRadioCircle::before{background:#2D4CC8;border-color:#2D4CC8;box-shadow:inset 0 0 0 3px #FFF}
+.aiRadioCircle img{position:relative;z-index:1;display:block;object-fit:contain}
+.aiSourcePills{flex-wrap:nowrap;width:100%;gap:11px;overflow-x:auto;overflow-y:visible;scrollbar-width:thin;padding:6px 4px 10px;margin:-6px -4px -6px}
+.aiSourcePills .aiPill{flex:1 0 0;min-width:max-content;min-height:54px;padding:10px 12px;font-size:clamp(13px,1vw,17px)}
+.aiSourcePills .aiRadioCircle{flex-basis:24px}
+.aiField{display:flex;flex-direction:column;align-items:stretch;gap:11px;min-width:0;font:600 16px/24px 'Segoe UI',Arial,sans-serif}
+.aiField>span:first-child{min-width:0}
+.aiField>input:not([type=checkbox]):not([type=radio]):not([type=file]),.aiField textarea,.aiSelect select,.aiCustomRange{width:100%;min-width:0;min-height:56px;padding:12px 16px;background:var(--ai-bg);box-shadow:var(--ai-small-inset);border:0;border-radius:4px;appearance:none;-webkit-appearance:none;color:#374151;font:400 16px/27px 'Segoe UI',Arial,sans-serif}
+.aiField textarea{min-height:120px;resize:vertical}
+.aiField>small{font:400 13px/20px 'Segoe UI',Arial,sans-serif;color:#5F7180}
+.aiSelect{position:relative;display:block;min-width:0;width:100%}.aiSelect select{padding-right:46px;cursor:pointer}.aiSelect>img{position:absolute;right:16px;top:50%;transform:translateY(-50%);pointer-events:none}
+.aiTwo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start;min-width:0}
+.aiInset{display:flex;flex-wrap:wrap;align-items:center;gap:17px;min-height:72px;min-width:0;padding:16px 18px;border-radius:4px;background:var(--ai-bg);box-shadow:var(--ai-inset)}
+.aiInset .aiPill{min-height:40px;padding:6px 13px;font-size:14px}
+.aiVisuallyHidden{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0);white-space:nowrap;opacity:0;pointer-events:none}
+.aiDrop{display:flex;flex-direction:column;align-items:stretch;gap:15px;width:100%;min-width:0;padding:20px 16px 17px;border-radius:4px;background:var(--ai-bg);box-shadow:var(--ai-inset);outline:1px dashed #B5C3CA;outline-offset:-9px}
+.aiDrop.dragover{outline-color:var(--ai-blue);background:#E5EBF3}
+.aiDropDescription{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;min-height:48px;width:100%;border:0;background:transparent;color:#374151;text-align:center;cursor:pointer}
+.aiDropDescription strong{font:600 18px/26px 'Segoe UI',Arial,sans-serif}.aiDropDescription small{font:400 13px/20px 'Segoe UI',Arial,sans-serif;color:#637180}
+.aiUploadButton{display:inline-flex;align-items:center;align-self:center;justify-content:center;gap:8px;min-width:140px;min-height:39px;margin-top:2px;padding:7px 14px;border:0;border-radius:22px;background:var(--ai-bg);box-shadow:var(--ai-raised);color:var(--ai-blue);font:600 14px/22px 'Segoe UI',Arial,sans-serif;cursor:pointer}.aiUploadButton img{display:block;object-fit:contain}
+.aiFileCard{display:flex;align-items:center;gap:14px;min-width:0;padding:12px 15px;border:1px solid #C3CED4;border-radius:5px;box-shadow:-2px -2px 3px #FFF,2px 2px 3px #C4C4C4;background:var(--ai-bg)}
+.aiFileIcon{display:flex;flex:0 0 44px;align-items:center;justify-content:center;flex-direction:column;gap:0;width:44px;height:44px;border-radius:50%;background:var(--ai-bg);box-shadow:var(--ai-raised)}
+.aiFileIcon small{font:700 10px/12px 'Segoe UI',Arial,sans-serif;color:#C05512}
+.aiFileInfo{display:flex;flex:1 1 auto;flex-direction:column;gap:4px;min-width:0}.aiFileInfo strong{font:600 15px/22px 'Segoe UI',Arial,sans-serif;overflow-wrap:anywhere}.aiFileInfo small{font:400 12px/18px 'Segoe UI',Arial,sans-serif;color:#65717A}
+.aiRemoveFile{flex:0 0 auto;min-height:34px;padding:6px 13px;border:0;border-radius:7px;background:var(--ai-bg);box-shadow:var(--ai-raised);color:#2D4CC8;font:600 14px/20px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.aiPageRange{display:flex;align-items:center;gap:12px;min-height:72px}.aiPageRange .aiPills{gap:14px}
+.aiPageRangeSelect{display:inline-flex;position:relative;flex:0 0 auto;align-items:center;width:110px;height:33px;border-radius:18px;box-shadow:var(--ai-small-inset);background:var(--ai-bg)}
+.aiPageRangeSelect select{appearance:none;width:100%;min-width:0;height:100%;padding:4px 28px 4px 12px;background:transparent;border:0;color:#374151;cursor:pointer;font:400 13px/20px 'Segoe UI',Arial,sans-serif}
+.aiPageRangeSelect img{position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:none}.aiCustomRange{max-width:180px!important;min-height:36px!important;font-size:14px!important}
+.aiOutcomeHeading{display:flex;justify-content:flex-end;margin:-30px 0 0;color:#607080;font:400 13px/20px 'Segoe UI',Arial,sans-serif}
+.aiEditor{min-width:0;padding:13px;border-radius:5px;background:var(--ai-bg);box-shadow:var(--ai-raised)}
+.aiToolbar{display:flex;flex-wrap:wrap;align-items:center;gap:7px;min-width:0;padding:9px;border-radius:4px;background:var(--ai-bg);box-shadow:var(--ai-small-inset)}
+.aiToolbar button,.aiToolbar select{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;height:31px;min-width:31px;padding:5px;border:0;border-radius:4px;box-shadow:-2px -2px 3px #FFF,2px 2px 3px #C4C4C4;background:var(--ai-bg);color:#374151;cursor:pointer}
+.aiToolbar select{min-width:70px;max-width:115px;padding:3px 10px;font:400 14px/22px 'Segoe UI',Arial,sans-serif}.aiToolbar button img{display:block;margin:auto;object-fit:contain}
+.aiEditable{min-height:85px;padding:14px 4px 9px;border:0;outline:none;overflow-wrap:anywhere;font:400 15px/23px 'Segoe UI',Arial,sans-serif;color:#374151}.aiEditable:empty::before{content:attr(data-placeholder);color:#6A7783;pointer-events:none}
+/* 24px neumorphic checkbox, reference image / SVG from assessmenticons. */
+.aiCheckboxes{display:flex;flex-direction:column;align-items:stretch;gap:13px;min-width:0}.aiSourceChecks{gap:12px}
+.aiCheck{display:flex;align-items:flex-start;gap:12px;min-width:0;cursor:pointer;color:#374151;font:400 15px/23px 'Segoe UI',Arial,sans-serif}
+.aiCheckBlue{color:#2D4CC8;font-weight:600}
+.aiCheckMark{display:grid;place-items:center;position:relative;flex:0 0 24px;width:24px;height:24px;margin-top:1px;border-radius:4px;background:var(--ai-bg);box-shadow:-4px -4px 4px #FFF,4px 4px 4px rgba(196,196,196,.8)}
+.aiCheckMark input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;z-index:2;margin:0}
+.aiCheckMark img{display:none;position:relative;z-index:1;width:20px;height:20px;object-fit:contain}.aiCheckMark.is-checked img{display:block}
+.aiCheckMark.is-checked::before{content:"";position:absolute;z-index:0;width:15px;height:15px;border-radius:3px;background:#2D4CC8}
+.aiCheckMark.is-checked::after{content:"";position:absolute;z-index:0;top:7px;left:8px;width:8px;height:4px;border-left:2px solid #FFF;border-bottom:2px solid #FFF;transform:rotate(-45deg)}
+.aiCheckMark:focus-within{outline:2px solid var(--ai-blue);outline-offset:2px}
+.aiCheckText{display:flex;flex-direction:column;gap:3px;min-width:0;overflow-wrap:anywhere}.aiCheckText small{font:400 13px/19px 'Segoe UI',Arial,sans-serif;color:#607080}
+.aiStatusChoices{min-height:74px}.aiTotals{align-self:flex-end;color:var(--ai-blue);font:600 15px/24px 'Segoe UI',Arial,sans-serif}
+.aiQuantity{gap:18px}.aiTableScroll{width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain}
+.aiTypeTable{width:100%;min-width:720px;border-collapse:collapse;table-layout:fixed;color:#374151;font:400 14px/21px 'Segoe UI',Arial,sans-serif}
+.aiTypeTable th{height:54px;padding:12px 14px;text-align:left;font-weight:600;font-size:16px;background:#D3DEE3}.aiTypeTable th:first-child{width:42%}.aiTypeTable th:nth-child(2){width:20%}.aiTypeTable th:nth-child(3){width:19%}.aiTypeTable th:nth-child(4){width:19%}
+.aiTypeTable td{height:87px;padding:12px 14px;border-bottom:1px solid #CDD8DE;vertical-align:middle}.aiTypeTable tr:last-child td{border-bottom:none}
+.aiTypeItem{display:flex;align-items:center;gap:15px;min-width:0}.aiTypeItem>span:last-child{display:flex;flex-direction:column;gap:4px;min-width:0}
+.aiTypeItem strong{font:600 16px/22px 'Segoe UI',Arial,sans-serif}.aiTypeItem small{font:400 13px/20px 'Segoe UI',Arial,sans-serif;color:#647385}
+.aiTypeBadge{display:grid;place-items:center;flex:0 0 39px;width:39px;height:39px;border-radius:5px;color:#FFF;font:700 16px/20px 'Segoe UI',Arial,sans-serif}
+.aiTone-blue{background:#2D4CC8}.aiTone-orange{background:#CC5B0F}.aiTone-pink{background:#E01E5A}.aiTone-purple{background:#762183}.aiTone-green{background:#287508}.aiTone-teal{background:#147B7B}.aiTone-olive{background:#7D750B}
+.aiCounter{display:inline-flex;align-items:center;gap:4px;min-height:38px;white-space:nowrap}.aiCounter button{width:35px;height:38px;display:grid;place-items:center;padding:0;border:0;border-radius:4px;background:var(--ai-bg);box-shadow:var(--ai-raised);color:#374151;font:700 20px/20px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.aiCounter button:disabled{opacity:.55;cursor:not-allowed}.aiCounter output{display:grid;place-items:center;width:39px;height:38px;box-shadow:var(--ai-small-inset);font:400 17px/24px 'Segoe UI',Arial,sans-serif}
+.aiMarks{width:85px;min-height:44px;padding:8px 10px;border:0;border-radius:5px;box-shadow:var(--ai-small-inset);background:var(--ai-bg);color:#374151;font:400 16px/24px 'Segoe UI',Arial,sans-serif}
+.aiConfigure{display:inline-flex;align-items:center;justify-content:space-between;gap:8px;min-width:132px;height:35px;padding:4px 5px 4px 15px;border:0;border-radius:25px;background:var(--ai-bg);box-shadow:var(--ai-small-inset);color:var(--ai-blue);font:600 15px/24px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.aiConfigKnob{flex:0 0 27px;width:27px;height:27px;border-radius:50%;background:#FFF;box-shadow:1px 1px 3px #C4C4C4}.aiConfigure.configured{box-shadow:var(--ai-raised)}.aiConfigure.configured .aiConfigKnob{background:#D3E0FD;border:3px solid #2D4CC8}
+/* Sliders: inset track, filled segment and round colour thumb. */
+.aiRanges{display:flex;flex-direction:column;gap:11px;padding:16px 20px}.aiRangeRow{display:grid;grid-template-columns:75px minmax(0,1fr) 48px;gap:14px;align-items:center;width:100%;min-width:0}
+.aiRangeRow>span{font:400 15px/23px 'Segoe UI',Arial,sans-serif}.aiRangeRow>output{font:400 14px/23px 'Segoe UI',Arial,sans-serif;text-align:right}
+.aiSlider{display:block;appearance:none;-webkit-appearance:none;flex:1 1 auto;width:100%;min-width:0;height:9px;padding:0;border:0;border-radius:8px;cursor:pointer;background:linear-gradient(to right,var(--ai-track-color) 0%,var(--ai-track-color) var(--ai-percent),#E5EAEC var(--ai-percent),#E5EAEC 100%);box-shadow:inset -2px -2px 3px #FFF,inset 2px 2px 3px #B7BFC3}
+.aiSlider::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:19px;height:19px;border:0;border-radius:50%;background:var(--ai-track-color);box-shadow:2px 2px 3px #A6B1BA,-2px -2px 3px #FFF}
+.aiSlider::-moz-range-thumb{width:19px;height:19px;border:0;border-radius:50%;background:var(--ai-track-color);box-shadow:2px 2px 3px #A6B1BA,-2px -2px 3px #FFF}
+.aiSubHint{margin:0;color:#596976;font:400 13px/21px 'Segoe UI',Arial,sans-serif}.aiThinking{align-items:flex-start;padding:18px 17px}.aiThinking .aiCheckboxes{width:100%;gap:16px}
+.aiReadingStem{align-items:start}.aiReadingStem>.aiField,.aiReadingStem>.aiGroup{width:100%}.aiReadingStem>.aiField>.aiSelect,.aiReadingStem .aiStemBox{height:60px;min-height:60px}.aiReadingStem .aiStemBox{padding:9px 10px;flex-wrap:nowrap;overflow-x:auto;gap:9px}.aiReadingStem .aiPills{flex-wrap:nowrap;gap:8px}.aiReadingStem .aiPill{min-height:38px;padding:5px 11px;font-size:13px}
+.aiVariety{display:flex;align-items:center;gap:22px;min-height:60px;padding:12px 20px}.aiVariety>span{flex:0 0 78px}.aiMessage{margin:22px 0 0;text-align:right;color:#287508;font:600 14px/22px 'Segoe UI',Arial,sans-serif}.aiMessage.error{color:#C05512}
+.aiActions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:24px;margin:0;padding-top:42px}.aiAction{display:inline-flex;align-items:center;justify-content:center;min-width:152px;min-height:48px;padding:9px 18px;border:0;border-radius:25px;background:var(--ai-bg);box-shadow:var(--ai-raised);color:#374151;white-space:nowrap;cursor:pointer;font:700 17px/26px 'Segoe UI',Arial,sans-serif}.aiAction:active{box-shadow:var(--ai-inset)}.aiGenerate{min-width:220px;color:#287508}
+@media(max-width:1250px){.aiPageContent{padding:22px 18px 30px!important}.aiPanel{padding:24px 18px}.aiAccordionContent{padding:22px 17px}.aiSourcePills .aiPill{font-size:14px;padding:9px 11px}.aiSourcePills{gap:10px}}
+@media(max-width:980px){.aiTop{flex-wrap:wrap;gap:15px}.aiTopLeft{flex:1 1 100%;gap:10px}.aiIdentity{margin-left:auto;min-height:74px}.aiAccordionList{gap:18px}.aiAccordionContent{padding:20px 16px}.aiTwo{gap:15px}.aiSourcePills .aiPill{flex:0 0 auto}}
+@media(max-width:720px){.aiPageContent{padding:16px 12px 25px!important}.aiBreadcrumb{font-size:14px;line-height:21px;gap:6px}.aiIntro h2{font-size:18px;line-height:24px}.aiIntro p{font-size:14px;line-height:21px}.aiIdentity{width:230px;min-height:68px;padding:9px}.aiIdentity>img{width:30px;flex-basis:30px}.aiIdentity h1{font-size:18px;line-height:24px}.aiIdentity p{font-size:13px;line-height:19px}.aiPanel{padding:18px 12px 23px;border-radius:12px}.aiWarning{gap:10px;min-height:0;margin-bottom:23px;padding:8px 9px}.aiWarning p{font-size:13px;line-height:20px}.aiAccordionList{gap:15px}.aiAccordionToggle{min-height:66px;gap:10px;padding:9px 12px}.aiAccordionNumber{font-size:15px;line-height:23px;flex-basis:11px}.aiAccordionText strong{font-size:15px;line-height:23px}.aiAccordionText small{font-size:12px;line-height:20px}.aiAccordionArrow{width:22px;height:22px;flex-basis:22px}.aiAccordionContent{padding:15px 12px 20px}.aiFlow{gap:17px}.aiGroup{gap:9px}.aiGroup h3,.aiField{font-size:14px;line-height:22px}.aiPills{gap:10px}.aiPill{font-size:14px;min-height:40px;padding:7px 11px}.aiSourcePills{width:100%;overflow-x:auto;gap:10px;padding-bottom:12px}.aiSourcePills .aiPill{min-height:44px;flex:0 0 auto;font-size:14px}.aiRadioCircle{width:20px;height:20px;flex-basis:20px}.aiTwo{grid-template-columns:minmax(0,1fr)}.aiInset{min-height:57px;padding:12px 10px;gap:12px}.aiField>input:not([type=checkbox]):not([type=radio]):not([type=file]),.aiField textarea,.aiSelect select{min-height:47px;font-size:16px}.aiDrop{padding:14px 12px}.aiDropDescription strong{font-size:16px}.aiDropDescription small{font-size:12px}.aiToolbar{gap:6px;padding:7px}.aiToolbar button{min-width:30px;height:30px}.aiToolbar select{min-width:65px}.aiEditor{padding:9px}.aiCheck{font-size:14px;line-height:21px;gap:9px}.aiCheckMark{width:22px;height:22px;flex-basis:22px}.aiCheckboxes{gap:11px}.aiRangeRow{grid-template-columns:58px minmax(0,1fr) 39px;gap:9px}.aiRangeRow>span,.aiRangeRow>output{font-size:13px}.aiReadingStem>.aiField>.aiSelect,.aiReadingStem .aiStemBox{height:55px;min-height:55px}.aiActions{gap:12px;padding-top:27px}.aiAction{min-width:110px;min-height:44px;padding:8px 12px;font-size:14px}.aiGenerate{min-width:175px}}
+@media(max-width:435px){.aiPageContent{padding:12px 9px 20px!important}.aiBreadcrumb{font-size:12px;gap:5px}.aiIdentity{width:215px}.aiPanel{padding:14px 9px 19px}.aiWarning p{font-size:12px}.aiAccordionContent{padding:13px 10px 18px}.aiAccordionText strong{font-size:14px;line-height:21px}.aiAccordionText small{font-size:11px;line-height:18px}.aiPill{font-size:13px;padding:6px 9px}.aiSourcePills .aiPill{font-size:13px}.aiSourceTitle{font-size:13px}.aiFileCard{flex-wrap:wrap;padding:10px;gap:9px}.aiFileIcon{flex-basis:35px;width:35px;height:35px}.aiFileInfo{flex-basis:calc(100% - 48px)}.aiRemoveFile{margin-left:auto}.aiRangeRow{grid-template-columns:48px minmax(0,1fr) 36px;gap:7px}.aiRanges{padding:12px 9px}.aiAction{flex:1 1 calc(50% - 8px);min-width:0}.aiGenerate{flex:1 1 100%}}
+@media(prefers-reduced-motion:reduce){.aiAccordionArrow{transition:none}}
+
+/* === Screenshot-matched controls: scoped to AI only; do not affect Header or Sidebar. === */
+/* Source methods: one desktop row, no redundant radio/checkmark artwork, no horizontal scroller. */
+.aiSourcePills{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr));align-items:stretch;gap:clamp(5px,.75vw,12px);width:100%;max-width:100%;min-width:0;margin:0!important;padding:5px 3px 7px!important;overflow:visible!important;scrollbar-width:none}
+.aiSourcePills .aiPill{display:flex;flex:initial!important;width:100%;min-width:0!important;max-width:none;min-height:54px;padding:8px 5px!important;gap:0;white-space:nowrap;font:600 clamp(10px,.96vw,15px)/21px 'Segoe UI',Arial,sans-serif;box-shadow:-3px -3px 4px #FFF,3px 3px 4px #C4C4C4}
+.aiSourcePills .aiPill.selected{color:#2D4CC8;box-shadow:inset -2px -2px 2px #ffffff,inset 2px 2px 2px #c4c4c4}
+.aiPillsNoRadio .aiPill{gap:0}
+/* Other choices are also single-action buttons; keep true form checkboxes where the screenshot shows them. */
+.aiPillsNoRadio:not(.aiSourcePills) .aiPill{min-width:94px}
+/* The source's All Pages/Page Range row retains its circular radio buttons, with a noninteractive page dropdown until Page Range is active. */
+.aiPageRange{display:flex;flex-wrap:wrap;align-items:center;min-height:75px;gap:14px;padding:12px 16px}
+.aiPageRange .aiPills{flex-wrap:wrap;gap:12px}
+.aiPageRangeSelect{height:40px;min-width:110px;box-shadow:inset -2px -2px 3px #FFF,inset 2px 2px 3px #C4C4C4}
+.aiPageRangeSelect select{font-size:14px;padding:6px 28px 6px 12px}
+.aiPageRangeSelect:has(select:disabled){opacity:.67}
+/* Figma table: neat cell boundaries, same seven rows, two-digit marks, no extra toggle knob. */
+.aiQuantity{gap:12px}
+.aiTypeTable{border-collapse:collapse;min-width:0;width:100%;table-layout:fixed;font-size:14px}
+.aiTypeTable th{height:49px;background:#D4DFE4;padding:10px 14px;font-size:15px;border:1px solid #CCD7DD}
+.aiTypeTable th:first-child{width:43%}.aiTypeTable th:nth-child(2){width:19%}.aiTypeTable th:nth-child(3){width:17%}.aiTypeTable th:nth-child(4){width:21%}
+.aiTypeTable td{height:70px;border:1px solid #CCD7DD;padding:8px 14px}
+.aiTypeBadge{width:37px;height:37px;flex-basis:37px;border-radius:4px;font-size:15px}
+.aiTypeItem{gap:12px}.aiTypeItem strong{font-size:15px;line-height:22px}.aiTypeItem small{font-size:12px;line-height:18px}
+.aiCounter{gap:5px;min-height:34px;max-width:100%}
+.aiCounter button{width:28px;height:30px;font-size:18px;box-shadow:-2px -2px 2px #FFF,2px 2px 3px #C4C4C4}
+.aiCounter output{width:32px;height:30px;font-size:15px}
+.aiMarks{height:35px;min-height:35px;width:73px;max-width:100%;font-size:15px;box-shadow:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4}
+.aiConfigure{display:inline-flex;justify-content:center;align-items:center;width:108px;min-width:0;max-width:100%;height:34px;padding:5px 10px;border-radius:24px;box-shadow:-2px -2px 3px #FFF,2px 2px 3px #C4C4C4;font-size:14px}
+.aiConfigure.configured{background:#D7E0EB;color:#2D4CC8;box-shadow:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4}
+/* Green/blue/orange reliable track and native pointer-accessible range input. */
+.aiRangeControl{display:flex;align-items:center;position:relative;width:100%;min-width:0;height:36px;isolation:isolate}
+.aiRangeTrack{display:block;pointer-events:none;position:absolute;left:0;right:0;height:12px;top:calc(50% - 6px);border-radius:20px;background:#E3E9EB;box-shadow:inset -2px -2px 3px #FFF,inset 2px 2px 3px #B4BCC1;overflow:hidden;z-index:0}
+.aiRangeFill{display:block;width:var(--ai-percent);height:100%;border-radius:20px;background:var(--ai-track-color);box-shadow:inset 0 -2px 3px rgba(0,0,0,.12),inset 0 2px 2px rgba(255,255,255,.27)}
+.aiRangeControl .aiSlider{display:block!important;position:relative!important;z-index:1;appearance:none!important;-webkit-appearance:none!important;width:100%!important;height:36px!important;min-height:36px!important;margin:0!important;padding:0!important;border:0!important;outline-offset:2px;background:transparent!important;box-shadow:none!important;cursor:pointer}
+.aiRangeControl .aiSlider::-webkit-slider-runnable-track{height:12px;border:none;background:transparent!important;box-shadow:none!important}
+.aiRangeControl .aiSlider::-moz-range-track{height:12px;border:none;background:transparent!important;box-shadow:none!important}
+.aiRangeControl .aiSlider::-moz-range-progress{height:12px;background:transparent!important}
+.aiRangeControl .aiSlider::-webkit-slider-thumb{appearance:none!important;-webkit-appearance:none!important;width:28px;height:28px;margin-top:-8px;border:0;border-radius:50%;background:var(--ai-track-color);box-shadow:2px 2px 4px #9EAAAF,-2px -2px 4px #FFF}
+.aiRangeControl .aiSlider::-moz-range-thumb{width:28px;height:28px;border:0;border-radius:50%;background:var(--ai-track-color);box-shadow:2px 2px 4px #9EAAAF,-2px -2px 4px #FFF}
+.aiRanges{gap:9px;padding:14px 18px}
+.aiRangeRow{grid-template-columns:78px minmax(0,1fr) 44px;gap:12px}
+.aiVariety{align-items:center}
+/* Keep real checkbox lists only, not checkbox artwork inside Configure or selection buttons. */
+.aiCheckMark img{display:none!important}
+.aiCheckMark.is-checked::before{width:15px;height:15px;background:#2D4CC8}
+.aiCheckMark.is-checked::after{z-index:1}
+/* Compact layout while preserving all normal form controls. */
+@media(max-width:1050px){
+  .aiSourcePills{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+  .aiSourcePills .aiPill{min-height:44px;font-size:13px}
+  .aiTypeTable{min-width:630px}
+}
+@media(max-width:720px){
+  .aiSourcePills{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .aiSourcePills .aiPill{min-height:42px;font-size:12px;line-height:17px;white-space:normal;text-align:center;padding:5px 4px!important}
+  .aiPageRange{gap:9px;padding:10px}
+  .aiPageRange .aiPill{min-height:38px;font-size:12px}
+  .aiPageRangeSelect{height:38px}
+  .aiTypeTable{min-width:610px}
+  .aiRangeControl,.aiRangeControl .aiSlider{height:34px!important;min-height:34px!important}
+  .aiRangeRow{grid-template-columns:55px minmax(0,1fr) 36px;gap:9px}
+}
+@media(max-width:385px){
+  .aiSourcePills{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .aiSourcePills .aiPill{font-size:12px}
+  .aiPageRange .aiPills{gap:6px}
+}
+
+
+/* Targeted Figma control alignment fixes. Header/Sidebar and form logic are unchanged. */
+/* 1. Unchecked boxes are inset; checked boxes become raised, with the tick dead-centre. */
+.aiPageContent .aiCheckMark{
+  display:grid;place-items:center;position:relative;
+  width:24px;height:24px;flex:0 0 24px;margin-top:0;
+  border:0;border-radius:4px;background:#DFE6E9;
+  box-shadow:inset -2px -2px 3px #FFF,inset 2px 2px 3px #C4C4C4;
+}
+.aiPageContent .aiCheckMark.is-checked{
+  box-shadow:-4px -4px 4px #FFF,4px 4px 4px rgba(196,196,196,.8);
+}
+.aiPageContent .aiCheckMark.is-checked::before{
+  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:16px;height:16px;border-radius:3px;background:#2D4CC8;z-index:0;
+}
+.aiPageContent .aiCheckMark.is-checked::after{
+  content:"";position:absolute;left:50%;top:50%;width:8px;height:5px;
+  border-left:2px solid #FFF;border-bottom:2px solid #FFF;
+  transform:translate(-50%,-70%) rotate(-45deg);z-index:1;
+}
+.aiPageContent .aiCheckMark img{display:none!important}
+/* 2. Centre selected radio's checkmark rather than layering a dot and icon. */
+.aiPageContent .aiRadioCircle{width:24px;height:24px;flex-basis:24px;display:grid;place-items:center;position:relative;margin:0}
+.aiPageContent .aiRadioCircle img{display:none}
+.aiPageContent .aiRadioCircle::before{
+  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:13px;height:13px;border:2px solid #AEB8BE;border-radius:50%;
+  background:transparent;box-shadow:none;
+}
+.aiPageContent .aiPill.selected .aiRadioCircle::before{
+  width:15px;height:15px;border:0;background:#2D4CC8;box-shadow:none;
+}
+.aiPageContent .aiPill.selected .aiRadioCircle::after{
+  content:"";position:absolute;left:50%;top:50%;width:7px;height:4px;
+  border-left:2px solid white;border-bottom:2px solid white;
+  transform:translate(-50%,-70%) rotate(-45deg);
+}
+/* 3. Six source methods: exactly 48px high on desktop, medium-bold, without a scrollbar. */
+.aiPageContent .aiSourcePills{grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(5px,.8vw,12px);overflow:visible!important}
+.aiPageContent .aiSourcePills .aiPill{
+  height:48px;min-height:48px;max-height:48px;
+  padding:6px 5px!important;line-height:20px;
+  font-size:clamp(14px,1.1vw,16px);font-weight:600;
+}
+/* 4. File type stays vertically and horizontally centred in its round badge. */
+.aiPageContent .aiFileIcon{display:grid;place-items:center;position:relative;gap:0}
+.aiPageContent .aiFileIcon .aiPdfLabel{
+  display:grid;place-items:center;width:31px;height:31px;border-radius:50%;
+  background:#F3F4F5;color:#D44B5E;
+  font:700 10px/1 'Segoe UI',Arial,sans-serif;
+  box-shadow:inset -1px -1px 2px #FFF,inset 1px 1px 2px #CDD2D5;
+}
+.aiPageContent .aiFileIcon:has(.aiPdfLabel){display:grid;place-items:center}
+/* 5. Plus/count/minus share one clean inset rectangle instead of separate floating controls. */
+.aiPageContent .aiCounter{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:3px;min-height:39px;padding:4px;
+  border:1px solid #CFD8DC;border-radius:4px;
+  background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4;
+}
+.aiPageContent .aiCounter button{
+  display:grid;place-items:center;width:29px;height:30px;border-radius:3px;
+  box-shadow:-2px -2px 3px #FFF,2px 2px 3px #C4C4C4;
+}
+.aiPageContent .aiCounter output{
+  display:grid;place-items:center;width:32px;height:30px;
+  border:1px solid #D6DDE1;border-radius:2px;
+  background:#DFE6E9;box-shadow:inset -1px -1px 2px #FFF,inset 1px 1px 2px #BBC5CB;
+  font:400 16px/22px 'Segoe UI',Arial,sans-serif;
+}
+/* 6. Reduce slider thumbs from 28px to 20px and retain the colored filled tracks. */
+.aiPageContent .aiRangeTrack{height:10px;top:calc(50% - 5px)}
+.aiPageContent .aiRangeControl .aiSlider::-webkit-slider-runnable-track{height:10px}
+.aiPageContent .aiRangeControl .aiSlider::-moz-range-track{height:10px}
+.aiPageContent .aiRangeControl .aiSlider::-moz-range-progress{height:10px}
+.aiPageContent .aiRangeControl .aiSlider::-webkit-slider-thumb{
+  width:20px;height:20px;margin-top:-5px;
+  box-shadow:1px 2px 4px #99A9B1,-2px -2px 3px #FFF;
+}
+.aiPageContent .aiRangeControl .aiSlider::-moz-range-thumb{
+  width:20px;height:20px;
+  box-shadow:1px 2px 4px #99A9B1,-2px -2px 3px #FFF;
+}
+/* Only mobile/tablet scaling; other styles remain intact. */
+@media(max-width:900px){
+  .aiPageContent .aiSourcePills{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .aiPageContent .aiSourcePills .aiPill{height:46px;min-height:46px;max-height:none;font-size:14px}
+}
+@media(max-width:450px){
+  .aiPageContent .aiSourcePills{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .aiPageContent .aiSourcePills .aiPill{min-height:44px;height:44px;font-size:14px;white-space:normal}
+  .aiPageContent .aiCounter{gap:2px;padding:3px}
+  .aiPageContent .aiCounter button{width:27px;height:29px}
+  .aiPageContent .aiCounter output{width:29px;height:29px}
+}
+
+/* Small, targeted refinements: existing page design and shared Header/Sidebar untouched. */
+/* One connected counter frame, with visible breathing room around its three smaller controls. */
+.aiPageContent .aiCounter{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:max-content;min-height:38px;gap:5px;padding:5px;
+  border:1px solid #CDD5D9;border-radius:5px;
+  background:#DFE6E9;
+  box-shadow:inset -2px -2px 3px #C4C4C4,inset 2px 2px 3px #FFFFFF;
+}
+.aiPageContent .aiCounter button{
+  width:24px;height:26px;min-width:24px;min-height:26px;
+  padding:0;border:0;border-radius:3px;
+  font:700 17px/20px 'Segoe UI',Arial,sans-serif;
+  box-shadow:-2px -2px 3px #FFFFFF,2px 2px 3px #BFC7CB;
+}
+.aiPageContent .aiCounter output{
+  width:28px;height:26px;min-width:28px;min-height:26px;
+  border:1px solid #CED8DD;border-radius:2px;
+  font:400 15px/22px 'Segoe UI',Arial,sans-serif;
+  background:#DFE6E9;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #BCC6CB;
+}
+/* The real file extension is shown, centered in the round PDF-style badge. */
+.aiPageContent .aiFileIcon{
+  display:grid;place-items:center;flex:0 0 46px;
+  width:46px;height:46px;min-width:46px;min-height:46px;
+  border-radius:50%;background:#DFE6E9;
+  box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;
+}
+.aiPageContent .aiFileIcon .aiPdfLabel{
+  display:grid;place-items:center;
+  width:100%;height:100%;min-width:0;min-height:0;
+  margin:0;padding:0;border:0;border-radius:50%;
+  background:transparent;box-shadow:none;
+  color:#C62D38;font:700 12px/1 'Segoe UI',Arial,sans-serif;
+  letter-spacing:0;text-align:center;
+}
+/* If an assessmenticons SVG is not supplied, show an explicit, clickable
+   formatting symbol instead of an empty button. All actions remain wired. */
+.aiPageContent .aiToolbar button img{display:block;margin:auto;width:17px;height:17px;object-fit:contain}
+.aiPageContent .aiToolbar .aiToolbarFallback{
+  display:flex;align-items:center;justify-content:center;
+  min-width:18px;min-height:19px;color:#2F3547;
+  font:600 17px/19px 'Segoe UI',Arial,sans-serif;
+}
+.aiPageContent .aiToolbar .aiFallback-italic{font-style:italic}
+.aiPageContent .aiToolbar .aiFallback-underline{text-decoration:underline;text-underline-offset:3px}
+.aiPageContent .aiToolbar .aiFallback-blue-text{color:#2D4CC8;text-decoration:underline;text-decoration-color:#2D4CC8}
+.aiPageContent .aiToolbar .aiFallback-highlight{background:#FFF4AA}
+.aiPageContent .aiToolbar .aiFallback-numbered-list,
+.aiPageContent .aiToolbar .aiFallback-bulleted-list{font-size:13px}
+.aiPageContent .aiToolbar .aiFallback-clear-formatting{font-size:13px}
+/* Narrow layouts preserve tap targets and prevent table controls colliding. */
+@media(max-width:450px){
+  .aiPageContent .aiCounter{gap:3px;padding:4px;min-height:35px}
+  .aiPageContent .aiCounter button{width:23px;min-width:23px;height:25px;min-height:25px}
+  .aiPageContent .aiCounter output{width:26px;min-width:26px;height:25px;min-height:25px}
+  .aiPageContent .aiFileIcon{flex-basis:42px;min-width:42px;min-height:42px;width:42px;height:42px}
+}
+
+.aiPageContent .aiFileIcon .aiPdfLabel.aiPdfFile{font-size:17px;font-weight:600}
+.aiPageContent .aiFileIcon .aiPdfLabel.aiOtherFile{font-size:11px;font-weight:700}
+
+/* Course Activity selection — scoped only to the new source-type view.
+   Existing editor, all other source types, Header and Sidebar stay unchanged. */
+.aiPageContent .aiActivityField{width:100%;min-width:0;}
+.aiPageContent .aiActivityField>.aiSelect{width:100%;min-width:0;}
+.aiPageContent .aiActivityField .aiSelect select{height:58px;min-height:58px;padding:10px 58px 10px 20px;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 3px #FFFFFF,inset 2px 2px 3px #C4C4C4;font:600 18px/28px 'Segoe UI',Arial,sans-serif;color:#111;cursor:pointer;}
+.aiPageContent .aiActivityField .aiSelect>img{width:23px;height:23px;right:24px;}
+@media(max-width:720px){.aiPageContent .aiActivityField .aiSelect select{height:58px;min-height:58px;padding:10px 44px 10px 14px;font-size:16px;line-height:24px}.aiPageContent .aiActivityField .aiSelect>img{right:14px;width:19px;height:19px}}
+@media(max-width:435px){.aiPageContent .aiActivityField .aiSelect select{font-size:15px;min-height:58px;height:58px}}
+
+/* Pasted Text: same toolbar, raised editor and spacing as Learning Outcomes.
+   Scoped to this source only; no changes to other source selections or sections. */
+.aiPageContent .aiPasteGroup{width:100%;min-width:0;gap:14px}
+.aiPageContent .aiPasteGroup .aiEditor{width:100%;min-width:0;padding:16px 18px;background:#DFE6E9;box-shadow:-4px -4px 4px #FFF,4px 4px 4px #C4C4C4;border-radius:5px}
+.aiPageContent .aiPasteGroup .aiEditable{min-height:74px;padding:22px 6px 12px;font:400 16px/26px 'Segoe UI',Arial,sans-serif;overflow-wrap:anywhere;white-space:pre-wrap}
+@media(max-width:720px){
+  .aiPageContent .aiPasteGroup .aiEditor{padding:11px 10px}
+  .aiPageContent .aiPasteGroup .aiEditable{min-height:82px;padding:17px 5px 10px;font-size:15px;line-height:24px}
+  .aiPageContent .aiPasteGroup .aiToolbar{display:flex;flex-wrap:wrap;gap:7px;min-width:0;max-width:100%}
+  .aiPageContent .aiPasteGroup .aiToolbar select{min-width:76px;max-width:120px}
+}
+@media(max-width:435px){
+  .aiPageContent .aiPasteGroup .aiEditor{padding:9px 7px}
+  .aiPageContent .aiPasteGroup .aiToolbar select{min-width:67px;max-width:105px}
+}
+
+/* Topic Name uses the existing Pasted Text editor styles, including mobile
+   toolbar wrapping. No other sections or shared header styles are changed. */
+.aiPageContent .aiTopicGroup{width:100%;min-width:0}
+/* Screenshot's Web Page Address field: a single full-width URL input. */
+.aiPageContent .aiWebAddressField{width:100%;min-width:0}
+.aiPageContent .aiWebAddressField>input[type="url"]{display:block;width:100%;min-width:0;height:58px;min-height:58px;padding:12px 22px;border:0;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 3px #FFFFFF,inset 2px 2px 3px #C4C4C4;color:#374151;font:400 18px/28px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiWebAddressField>input[type="url"]::placeholder{color:#374151;opacity:1}
+@media(max-width:720px){.aiPageContent .aiWebAddressField>input[type="url"]{font-size:16px;padding:10px 14px;height:58px;min-height:58px}}
+
+
+/* External Source: screenshot-matched layout, within Source Material only. */
+.aiPageContent .aiExternal{display:flex;flex-direction:column;gap:24px;min-width:0}
+.aiPageContent .aiExternal .aiInset{align-items:stretch;min-width:0}
+.aiPageContent .aiExternal .aiGroup{gap:13px}
+.aiPageContent .aiExternalPlatform{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 16px;padding:16px 19px}
+.aiPageContent .aiExternalPlatformSelect{height:58px;min-height:58px}.aiPageContent .aiExternalPlatformSelect select{height:58px;min-height:58px;font-weight:600}
+.aiPageContent .aiExternalConnectionNote{grid-column:1/-1;margin:0;font:400 13px/20px 'Segoe UI',Arial,sans-serif;color:#526172;overflow-wrap:anywhere}.aiPageContent .aiExternalConnectionNote span{color:#2D4CC8}
+.aiPageContent .aiExtButton{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:40px;padding:8px 20px;border:0;border-radius:7px;white-space:nowrap;background:#DFE6E9;box-shadow:-3px -3px 4px #FFF,3px 3px 4px #C4C4C4;color:#2D4CC8;font:600 14px/20px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.aiPageContent .aiExtButton:focus-visible,.aiPageContent .aiExtIconButton:focus-visible{outline:2px solid #2D4CC8;outline-offset:3px}
+.aiPageContent .aiConnectionButton{height:58px;border-radius:25px}.aiPageContent .aiConnectionButton span{font-size:20px}
+.aiPageContent .aiConnectionPanel{grid-column:1/-1;display:flex;flex-direction:column;gap:10px;width:100%;padding:12px;border-radius:5px;box-shadow:inset -2px -2px 3px #FFF,inset 2px 2px 3px #C4C4C4}
+.aiPageContent .aiConnectionPanel label{display:flex;flex-direction:column;gap:6px;font-weight:600}.aiPageContent .aiConnectionPanel input{width:100%;min-height:43px;padding:10px;border:0;border-radius:5px;background:#DFE6E9;box-shadow:inset -2px -2px 3px #FFF,inset 2px 2px 3px #C4C4C4}
+.aiPageContent .aiConnectionPanel p{margin:0;color:#667281;font-size:13px}.aiPageContent .aiConnectionPanel button{align-self:flex-start}
+.aiPageContent .aiExternalLinks{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:18px 20px;box-shadow:inset -4px -4px 4px #FFF,inset 4px 4px 4px #C4C4C4}
+.aiPageContent .aiExternalLinks textarea{width:100%;min-height:140px;resize:vertical;min-width:0;padding:14px 17px;border:0;border-radius:4px;background:#DFE6E9;box-shadow:-3px -3px 4px #FFF,3px 3px 4px #C4C4C4;color:#374151;font:400 14px/24px 'Segoe UI',Arial,sans-serif;overflow-wrap:anywhere}
+.aiPageContent .aiExternalLinks p,.aiPageContent .aiExternalLinks small{margin:0;font:400 13px/21px 'Segoe UI',Arial,sans-serif;color:#5C6C7A}.aiPageContent .aiExternalLinks button{align-self:flex-start}.aiPageContent .aiExternalLinks small{color:#687987}
+.aiPageContent .aiExternalNotice{margin:0;color:#26770D;font-size:13px}.aiPageContent .aiExternalNotice.is-error{color:#C05512}
+.aiPageContent .aiExternalCards{display:flex;flex-direction:column;gap:14px;padding:16px 18px;box-shadow:inset -3px -3px 3px #FFF,inset 3px 3px 3px #C4C4C4}
+.aiPageContent .aiExtCard{width:100%;min-width:0;border:1px solid #BFCBD1;border-radius:5px;background:#DFE6E9}
+.aiPageContent .aiExtCardHeader{display:flex;align-items:center;gap:12px;min-width:0;min-height:76px;padding:12px 15px}
+.aiPageContent .aiExtAvatar{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:#DFE6E9;box-shadow:-3px -3px 4px #FFF,3px 3px 4px #C4C4C4;color:#842386;font:700 12px/20px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtCardHeading{display:flex;flex:1 1 auto;min-width:0;flex-direction:column;align-items:flex-start;gap:9px;padding:0;border:0;background:none;color:#374151;text-align:left;cursor:pointer}
+.aiPageContent .aiExtCardHeading strong{font:600 16px/23px 'Segoe UI',Arial,sans-serif;overflow-wrap:anywhere}
+.aiPageContent .aiExtMeta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;color:#475364;font:400 12px/18px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtMeta>span{display:inline-flex;align-items:center;gap:4px}.aiPageContent .aiExtMeta img{max-width:14px;max-height:14px}.aiPageContent .aiExtMeta em{padding:4px 10px;border-radius:15px;background:#DAE7DB;color:#347E34;font:600 12px/15px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtIconButton{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;padding:2px;border:0;border-radius:50%;box-shadow:-2px -2px 3px #FFF,2px 2px 3px #C4C4C4;background:#DFE6E9;cursor:pointer;color:#374151;font:500 20px/22px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtIconButton img{display:block;max-width:20px}.aiPageContent .aiExtRotate{transform:rotate(180deg)}
+.aiPageContent .aiExtCardBody{display:flex;flex-direction:column;gap:20px;padding:18px 18px 22px;border-top:1px solid #C4CFD5}
+.aiPageContent .aiExtSectionsHead{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.aiPageContent .aiExtSectionsHead strong,.aiPageContent .aiExtFocus>strong{display:inline-flex;gap:10px;align-items:center;font:600 15px/23px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtSectionsHead strong img,.aiPageContent .aiExtFocus>strong img{display:block;object-fit:contain}
+.aiPageContent .aiExtSectionsHead>div{display:flex;gap:12px;flex-wrap:wrap}.aiPageContent .aiExtSectionsHead .aiExtButton{min-height:36px}
+.aiPageContent .aiExtLessons{display:flex;flex-direction:column;border:1px solid #CDD6DC}
+.aiPageContent .aiExtLesson{display:flex;align-items:center;gap:12px;min-width:0;min-height:53px;padding:7px 10px;border-bottom:1px solid #CDD6DC;font:400 13px/20px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtLesson:last-child{border-bottom:0}.aiPageContent .aiExtLesson .aiCheck{flex:1 1 auto;min-width:0;font-size:13px;line-height:20px}.aiPageContent .aiExtLesson .aiCheckText{min-width:0}
+.aiPageContent .aiExtLesson>input{flex:1 1 160px;min-width:120px;max-width:360px;min-height:35px;padding:6px 8px;background:#DFE6E9;border:0;box-shadow:inset -2px -2px 3px #FFF,inset 2px 2px 3px #C4C4C4;font:400 13px/20px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtLesson>span:last-child{flex:0 0 auto;color:#637080;text-align:right;font-size:12px}
+.aiPageContent .aiExtFocus{display:flex;flex-direction:column;gap:12px;min-width:0;padding:5px 0 0}
+.aiPageContent .aiExtFocus p{margin:-7px 0 0 31px;font-size:13px;color:#647280}.aiPageContent .aiExtTags{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-left:31px}
+.aiPageContent .aiExtTag{padding:7px 11px;min-height:31px;border:0;border-radius:16px;background:#E4E4E4;color:#C65A16;font:500 12px/17px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.aiPageContent .aiExtTag.selected{background:#DBE4FC;color:#2D4CC8;font-weight:600}
+.aiPageContent .aiFullSection{align-self:flex-end;margin-top:5px;border:1px solid #2D4CC8;border-radius:22px;min-height:39px;font-size:13px}
+.aiPageContent .aiFullSection.active{box-shadow:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4}
+.aiPageContent .aiExternalCount{font:500 13px/20px 'Segoe UI',Arial,sans-serif;color:#374151}
+.aiPageContent .aiExternalWhat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 14px;padding:17px 18px}
+.aiPageContent .aiExternalRights{display:flex;flex-direction:column;gap:15px;padding:17px 18px}
+.aiPageContent .aiExtRightsWarning{display:flex;align-items:center;gap:12px;padding:6px 12px;border:1px solid #C05512;border-radius:6px;color:#C05512;font:400 14px/22px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtRightsWarning .aiWarningCircle{flex:0 0 28px;width:28px;height:28px}
+.aiPageContent .aiExternalScope{display:flex;flex-direction:column;gap:13px}.aiPageContent .aiExternalScope h3{margin:0;color:#374151;font:600 16px/24px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExternalScope>.aiCheckboxes{padding:15px 18px;border-radius:4px;box-shadow:inset -3px -3px 3px #FFF,inset 3px 3px 3px #C4C4C4}
+.aiPageContent .aiExternalEmpty{margin:0;font:400 14px/21px 'Segoe UI',Arial,sans-serif}
+@media(max-width:960px){.aiPageContent .aiExternalWhat{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){
+ .aiPageContent .aiExternal{gap:18px}.aiPageContent .aiExternalPlatform{grid-template-columns:minmax(0,1fr);padding:12px}
+ .aiPageContent .aiExternalPlatformSelect{width:100%}.aiPageContent .aiConnectionButton{width:100%;height:48px}.aiPageContent .aiExternalLinks{padding:12px}
+ .aiPageContent .aiExternalCards{padding:11px}.aiPageContent .aiExtCardHeader{padding:10px 8px;gap:8px}
+ .aiPageContent .aiExtAvatar{flex-basis:35px;width:35px;height:35px;font-size:10px}.aiPageContent .aiExtCardHeading strong{font-size:14px;line-height:20px}
+ .aiPageContent .aiExtCardBody{padding:13px 9px}.aiPageContent .aiExtLessons .aiExtLesson{align-items:flex-start;flex-wrap:wrap}
+ .aiPageContent .aiExtLesson>span:last-child{margin-left:auto}.aiPageContent .aiExtFocus p,.aiPageContent .aiExtTags{margin-left:0}
+ .aiPageContent .aiExternalWhat{grid-template-columns:minmax(0,1fr);gap:12px;padding:13px}.aiPageContent .aiExternalRights{padding:13px}
+ .aiPageContent .aiExtRightsWarning{font-size:12px}.aiPageContent .aiExtSectionsHead>div{width:100%}.aiPageContent .aiExtSectionsHead .aiExtButton{flex:1}
+}
+@media(max-width:435px){.aiPageContent .aiExtCardHeader{flex-wrap:wrap}.aiPageContent .aiExtCardHeading{flex-basis:calc(100% - 90px)}.aiPageContent .aiExtSectionsHead .aiExtButton{padding-inline:12px}.aiPageContent .aiExtMeta{gap:5px}.aiPageContent .aiExtLesson>input{flex-basis:100%;max-width:none}}
+
+
+/* External Source — applied from the supplied Figma CSS reference.
+   All overrides are restricted to this view; shared Header, Sidebar and other
+   AI sections retain their original styles. No absolute Figma coordinates. */
+.aiPageContent .aiExternal{gap:24px;font-family:'Segoe UI',Arial,sans-serif;color:#374151}
+.aiPageContent .aiExternal .aiGroup{gap:16px;min-width:0}
+.aiPageContent .aiExternal .aiGroup>h3{font:700 16px/24px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em;color:#374151}
+.aiPageContent .aiExternal .aiInset{background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;border-radius:4px}
+/* Platform drop-down and connection card */
+.aiPageContent .aiExternalPlatform{padding:24px;gap:12px 24px;grid-template-columns:minmax(0,1fr) minmax(190px,238px)}
+.aiPageContent .aiExternalPlatformSelect,.aiPageContent .aiExternalPlatformSelect select{min-width:0;width:100%;height:60px;min-height:60px;border-radius:4px}
+.aiPageContent .aiExternalPlatformSelect select{padding:14px 54px 14px 16px;box-shadow:-2px -2px 2px #FFF,2px 2px 2px #C4C4C4;font:600 18px/28px 'Segoe UI',Arial,sans-serif;color:#374151}
+.aiPageContent .aiExternalPlatformSelect>img{width:28px;height:28px;right:16px}
+.aiPageContent .aiConnectionButton{height:46px;min-height:46px;width:100%;align-self:center;justify-content:space-between;padding:8px 16px;border-radius:8px;box-shadow:-4px -4px 4px #FFF,4px 4px 8px #C4C4C4;font:700 16px/24px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em}
+.aiPageContent .aiConnectionButton .aiExtActionIcon{width:24px;height:24px;display:block;flex:0 0 24px;object-fit:contain}
+.aiPageContent .aiExternalConnectionNote{font:400 14px/24px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em}
+.aiPageContent .aiExternalConnectionNote span{color:#2D4CC8;font-weight:600}
+.aiPageContent .aiConnectionPanel{padding:16px;gap:12px;min-width:0}
+.aiPageContent .aiConnectionPanel p{font:400 13px/21px 'Segoe UI',Arial,sans-serif}
+/* The reference uses a 183px raised URL editing surface inside an inset 24px shell */
+.aiPageContent .aiExternalLinks{padding:24px;gap:16px;min-width:0}
+.aiPageContent .aiExternalLinks textarea{width:100%;min-height:183px;max-width:100%;padding:16px;box-shadow:-4px -4px 4px #FFF,4px 4px 4px #C4C4C4;font:400 16px/28px 'Segoe UI',Arial,sans-serif;line-height:1.75;resize:vertical}
+.aiPageContent .aiExternalLinks p{font:400 14px/24px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExternalLinks small{font:400 12px/19px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtButton{min-height:44px;padding:9px 20px;border-radius:8px;box-shadow:-4px -4px 4px #FFF,4px 4px 8px #C4C4C4;font:700 16px/24px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em}
+.aiPageContent .aiExtButton:active{box-shadow:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4}
+/* Sources added: separate outlines for each fetched/draft card. */
+.aiPageContent .aiExternalCards{padding:24px;gap:16px}
+.aiPageContent .aiExtCard{border:1px solid #AEAEAE;border-radius:8px;overflow:hidden;min-width:0}
+.aiPageContent .aiExtCardHeader{min-height:104px;padding:16px;gap:16px}
+.aiPageContent .aiExtAvatar{flex:0 0 48px;width:48px;height:48px;font:600 16px/22px 'Segoe UI',Arial,sans-serif;box-shadow:-4px -4px 4px #FFF,4px 4px 8px #C4C4C4}
+.aiPageContent .aiExtCardHeading{gap:7px}
+.aiPageContent .aiExtCardHeading strong{font:600 18px/28px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em}
+.aiPageContent .aiExtMeta{gap:10px 22px;font:400 14px/24px 'Segoe UI',Arial,sans-serif;letter-spacing:.01em;min-width:0}
+.aiPageContent .aiExtMeta>span{gap:8px}
+.aiPageContent .aiExtMeta img{display:block;width:20px;height:20px;max-width:20px;max-height:20px;object-fit:contain}
+.aiPageContent .aiExtMeta em{font:600 13px/21px 'Segoe UI',Arial,sans-serif;border-radius:24px;background:#DAE7DB;padding:6px 12px;font-style:normal}
+.aiPageContent .aiExtIconButton{flex:0 0 28px;width:28px;height:28px;padding:4px;border:0;box-shadow:-2px -2px 2px #FFF,2px 2px 2px #C4C4C4}
+.aiPageContent .aiExtIconButton img{display:block;width:20px;height:20px;object-fit:contain}
+.aiPageContent .aiExtCardBody{padding:24px;gap:24px;border-top:1px solid #AEAEAE}
+.aiPageContent .aiExtSectionsHead strong,.aiPageContent .aiExtFocus>strong{font:700 16px/24px 'Segoe UI',Arial,sans-serif;gap:10px}
+.aiPageContent .aiExtSectionsHead .aiExtButton{min-height:44px}
+.aiPageContent .aiExtLessons{border:1px solid #CDD6DC;border-bottom:0;min-width:0}
+.aiPageContent .aiExtLesson{min-height:56px;padding:9px 14px;gap:14px;border-bottom:1px solid #CDD6DC;font:400 14px/24px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtLesson .aiCheck{font:400 14px/24px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtLesson>span:last-child{font:400 13px/21px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtFocus{gap:14px;padding-top:0}
+.aiPageContent .aiExtFocus p{margin:-8px 0 0 30px;font:400 14px/22px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtTags{margin-left:30px;gap:12px}
+.aiPageContent .aiExtTag{display:inline-flex;gap:7px;align-items:center;justify-content:center;min-height:34px;padding:6px 14px;border-radius:24px;font:600 13px/20px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExtTag img{display:block;width:16px;height:16px;object-fit:contain;flex:0 0 16px}
+.aiPageContent .aiFullSection{min-height:44px;padding:8px 16px;border-radius:24px;border:1px solid #2D4CC8}
+.aiPageContent .aiExternalCount{font:500 14px/24px 'Segoe UI',Arial,sans-serif}
+/* Consent and reading checklist share the Figma's 24px checkbox and 16px text. */
+.aiPageContent .aiExternalWhat{padding:24px;gap:18px 24px}
+.aiPageContent .aiExternalRights{padding:24px;gap:16px}
+.aiPageContent .aiExternal .aiCheck{font:400 16px/25px 'Segoe UI',Arial,sans-serif;gap:12px}
+.aiPageContent .aiExternal .aiCheckText small{font:400 13px/21px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExternal .aiCheckMark{width:24px;height:24px;flex:0 0 24px}
+.aiPageContent .aiExtRightsWarning{gap:12px;padding:10px 14px;font:400 14px/24px 'Segoe UI',Arial,sans-serif}
+/* Responsive at the available main panel width, even with sidebar visible. */
+@media(max-width:1150px){
+ .aiPageContent .aiExternalPlatform{grid-template-columns:minmax(0,1fr) 218px;padding:18px}
+ .aiPageContent .aiExternalLinks,.aiPageContent .aiExternalCards,.aiPageContent .aiExternalRights{padding:18px}
+ .aiPageContent .aiExtCardBody{padding:18px}
+ .aiPageContent .aiExternalWhat{padding:18px}
+}
+@media(max-width:850px){
+ .aiPageContent .aiExternalPlatform{grid-template-columns:minmax(0,1fr);padding:14px;gap:12px}
+ .aiPageContent .aiConnectionButton{width:100%;max-width:320px;justify-content:center}
+ .aiPageContent .aiExternalWhat{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .aiPageContent .aiExtCardHeading strong{font-size:16px;line-height:24px}
+ .aiPageContent .aiExtMeta{gap:7px 12px;font-size:13px;line-height:21px}
+}
+@media(max-width:600px){
+ .aiPageContent .aiExternal{gap:18px}
+ .aiPageContent .aiExternal .aiGroup{gap:10px}
+ .aiPageContent .aiExternalPlatform,.aiPageContent .aiExternalLinks,.aiPageContent .aiExternalCards,.aiPageContent .aiExternalRights{padding:12px}
+ .aiPageContent .aiExternalPlatformSelect,.aiPageContent .aiExternalPlatformSelect select{height:52px;min-height:52px;font-size:16px}
+ .aiPageContent .aiConnectionButton{min-height:46px;font-size:14px;max-width:100%}
+ .aiPageContent .aiExternalConnectionNote{font-size:12px;line-height:20px}
+ .aiPageContent .aiExternalLinks textarea{min-height:140px;font-size:15px;line-height:24px}
+ .aiPageContent .aiExtButton{min-height:40px;padding:7px 11px;font-size:13px;line-height:20px}
+ .aiPageContent .aiExtCardHeader{min-height:78px;gap:9px;padding:10px 9px;flex-wrap:wrap}
+ .aiPageContent .aiExtAvatar{flex:0 0 38px;width:38px;height:38px;font-size:11px}
+ .aiPageContent .aiExtCardHeading{flex:1 1 calc(100% - 120px);gap:5px}
+ .aiPageContent .aiExtCardHeading strong{font-size:14px;line-height:20px}
+ .aiPageContent .aiExtMeta{gap:5px 9px;font-size:11px;line-height:17px}
+ .aiPageContent .aiExtMeta img{width:15px;height:15px}
+ .aiPageContent .aiExtMeta em{font-size:11px;line-height:16px;padding:3px 7px}
+ .aiPageContent .aiExtIconButton{flex-basis:26px;width:26px;height:26px}
+ .aiPageContent .aiExtCardBody{gap:16px;padding:12px 9px}
+ .aiPageContent .aiExtLesson{flex-wrap:wrap;gap:6px 9px;padding:8px;min-height:50px}
+ .aiPageContent .aiExtLesson .aiCheck{font-size:12px;line-height:19px}
+ .aiPageContent .aiExtLesson>input{flex-basis:100%;max-width:100%}
+ .aiPageContent .aiExtLesson>span:last-child{margin-left:auto;font-size:11px}
+ .aiPageContent .aiExtFocus p,.aiPageContent .aiExtTags{margin-left:0}
+ .aiPageContent .aiExtTag{font-size:12px;min-height:30px;padding:5px 9px}
+ .aiPageContent .aiExternalWhat{grid-template-columns:1fr;gap:14px;padding:12px}
+ .aiPageContent .aiExternal .aiCheck{font-size:13px;line-height:21px}
+ .aiPageContent .aiExternalRights{gap:12px}
+ .aiPageContent .aiExtRightsWarning{font-size:12px;line-height:19px;padding:8px}
+}
+@media(max-width:380px){
+ .aiPageContent .aiExtCardHeading{flex:1 1 100%;order:3}
+ .aiPageContent .aiExtAvatar{order:0}
+ .aiPageContent .aiExtCardHeader .aiExtIconButton:first-of-type{margin-left:auto}
+}
+
+/* External Source icon placement. Every icon has an explicit img src in page.tsx.
+   No rules here apply to the shared Header, Sidebar, or other source methods. */
+.aiPageContent .aiExternal .aiExtImg,
+.aiPageContent .aiExternalScope .aiExtImg{display:block;flex-shrink:0;object-fit:contain;vertical-align:middle}
+.aiPageContent .aiExternal .aiExtDropdownIcon{position:absolute;right:15px;top:50%;transform:translateY(-50%);width:24px;height:24px;pointer-events:none}
+.aiPageContent .aiExternal .aiExtActionIcon{width:24px;height:24px;flex:0 0 24px}
+.aiPageContent .aiExternal .aiExtMeta>span{display:inline-flex;align-items:center;gap:7px}
+.aiPageContent .aiExternal .aiExtMeta .aiExtImg{width:19px;height:19px}
+.aiPageContent .aiExternal .aiExtMeta .aiExtTopicCount{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:#DAE7DB;color:#287508}
+.aiPageContent .aiExternal .aiExtMeta .aiExtTopicCount .aiExtImg{width:16px;height:16px}
+.aiPageContent .aiExternal .aiExtPreviewLabel{color:#71808A;font:400 12px/20px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExternal .aiExtIconButton .aiExtImg{width:20px;height:20px;margin:auto}
+.aiPageContent .aiExternal .aiExtSectionsHead .aiExtImg,
+.aiPageContent .aiExternal .aiExtFocus>strong .aiExtImg{width:20px;height:20px}
+.aiPageContent .aiExternal .aiExtTag .aiExtImg{width:16px;height:16px}
+.aiPageContent .aiExternal .aiExtRightsWarning .aiExtImg{width:17px;height:17px}
+.aiPageContent .aiExternal .aiCheckMark .aiExtImg,
+.aiPageContent .aiExternalScope .aiCheckMark .aiExtImg{width:19px;height:19px;position:relative;margin:auto}
+.aiPageContent .aiExternal .aiCheckMark:not(.is-checked) .aiExtImg,
+.aiPageContent .aiExternalScope .aiCheckMark:not(.is-checked) .aiExtImg{display:none}
+@media(max-width:600px){
+ .aiPageContent .aiExternal .aiExtMeta>span{gap:4px}
+ .aiPageContent .aiExternal .aiExtMeta .aiExtImg{width:15px;height:15px}
+ .aiPageContent .aiExternal .aiExtMeta .aiExtTopicCount{white-space:normal}
+ .aiPageContent .aiExternal .aiExtDropdownIcon{width:20px;height:20px}
+}
+
+/* External Source: Figma-aligned section/focus icons and separate topic rows.
+   Scope deliberately does not touch the rest of Generate With AI. */
+.aiPageContent .aiExternal .aiExtSectionsHead>strong,
+.aiPageContent .aiExternal .aiExtFocus>strong{display:inline-flex;align-items:center;gap:10px;min-width:0}
+.aiPageContent .aiExternal .aiExtHeadingIcon{display:grid;place-items:center;position:relative;flex:0 0 26px;width:26px;height:26px;border-radius:5px;color:#FFF}
+.aiPageContent .aiExternal .aiExtHeadingIcon-sections{background:#2D4CC8}
+.aiPageContent .aiExternal .aiExtHeadingIcon-focus{background:#762183}
+.aiPageContent .aiExternal .aiExtHeadingIcon img{display:block;width:17px;height:17px;max-width:none;object-fit:contain;filter:brightness(0) invert(1)}
+.aiPageContent .aiExternal .aiExtTopicRows{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0;margin:0 0 0 36px}
+.aiPageContent .aiExternal .aiExtChosenTopics,.aiPageContent .aiExternal .aiExtRelatedTopics{display:flex;flex-wrap:wrap;align-items:center;gap:10px;min-width:0;max-width:100%}
+.aiPageContent .aiExternal .aiExtChosenTopics{min-height:32px}
+.aiPageContent .aiExternal .aiExtRelatedLabel{margin:0;color:#374151;font:500 13px/20px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiExternal .aiExtTag{display:inline-flex;align-items:center;justify-content:center;gap:5px;flex:0 0 auto;min-height:30px;padding:5px 12px;border:0;border-radius:20px;background:#E9E7E6;color:#C85D16;font:600 12px/19px 'Segoe UI',Arial,sans-serif;white-space:nowrap;cursor:pointer}
+.aiPageContent .aiExternal .aiExtTag.selected{background:#DBE4FC;color:#2D4CC8}
+.aiPageContent .aiExternal .aiExtTag:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+.aiPageContent .aiExternal .aiExtChipMark{position:relative;display:grid;place-items:center;width:14px;height:14px;flex:0 0 14px;border:1px solid #2D4CC8;border-radius:50%}
+.aiPageContent .aiExternal .aiExtChipMark img{display:block;width:12px;height:12px;object-fit:contain}
+.aiPageContent .aiExternal .aiExtPreviewLabel{display:none}
+@media(max-width:720px){
+ .aiPageContent .aiExternal .aiExtTopicRows{margin-left:0;gap:9px}
+ .aiPageContent .aiExternal .aiExtChosenTopics,.aiPageContent .aiExternal .aiExtRelatedTopics{gap:8px}
+ .aiPageContent .aiExternal .aiExtTag{min-height:32px;white-space:normal;font-size:12px;padding:6px 10px;text-align:center}
+ .aiPageContent .aiExternal .aiExtHeadingIcon{flex-basis:24px;width:24px;height:24px}
+ .aiPageContent .aiExternal .aiExtSectionsHead{align-items:flex-start}
+ .aiPageContent .aiExternal .aiExtSectionsHead>div{justify-content:flex-end;max-width:100%}
+}
+@media(max-width:420px){
+ .aiPageContent .aiExternal .aiExtCardBody{padding:12px 8px}
+ .aiPageContent .aiExternal .aiExtRelatedTopics{gap:7px}
+ .aiPageContent .aiExternal .aiExtTag{font-size:11px;padding:5px 8px}
+ .aiPageContent .aiExternal .aiExtSectionsHead>div{gap:8px}
+}
+
+.aiPageContent .aiCheckEntry,.aiPageContent .aiExternalCheckRow{display:contents}
+
+
+/* Dropdown lists requested for category, tags, reading level, units, model,
+   variety presets, and course Activity or Resource. Other page styles unchanged. */
+.aiPageContent .aiNDropdown{position:relative;display:flex;flex-direction:column;gap:10px;min-width:0;width:100%;color:#374151;font-family:'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiNDropdown.is-open{z-index:25}
+.aiPageContent .aiNDropdownLabel{font:600 16px/24px 'Segoe UI',Arial,sans-serif;color:#374151;letter-spacing:.015em}
+.aiPageContent .aiNDropdownTrigger{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:58px;padding:12px 16px;border:0;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4;color:#374151;text-align:left;font:400 16px/25px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.aiPageContent .aiNDropdown.is-open .aiNDropdownTrigger{box-shadow:inset -3px -3px 3px #FFF,inset 3px 3px 3px #C4C4C4}
+.aiPageContent .aiNDropdownCurrent{display:block;min-width:0;flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.aiPageContent .aiNDropdownArrow{display:block;flex:0 0 20px;width:20px;height:20px;object-fit:contain;transition:transform .18s ease}
+.aiPageContent .aiNDropdown.is-open .aiNDropdownArrow{transform:rotate(180deg)}
+.aiPageContent .aiNDropdownMenu{position:absolute;top:calc(100% - 1px);left:0;right:0;z-index:35;display:flex;flex-direction:column;gap:3px;max-height:min(320px,55vh);padding:9px;overflow-y:auto;overscroll-behavior:contain;border:1px solid #CFD9DF;border-radius:5px;background:#DFE6E9;box-shadow:-4px -4px 6px #FFF,4px 4px 9px #B5BFC5}
+.aiPageContent .aiNDropdownOption{display:block;flex:0 0 auto;min-height:40px;width:100%;padding:9px 13px;text-align:left;border:0;border-radius:4px;background:#DFE6E9;box-shadow:none;color:#374151;cursor:pointer;font:400 15px/22px 'Segoe UI',Arial,sans-serif;white-space:normal;overflow-wrap:anywhere}
+.aiPageContent .aiNDropdownOption:hover,.aiPageContent .aiNDropdownOption:focus-visible{background:#E9EEF1;box-shadow:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4}
+.aiPageContent .aiNDropdownOption.is-selected{color:#2D4CC8;font-weight:600;box-shadow:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4}
+.aiPageContent .aiNDropdownOption.is-indented{padding-left:32px}
+.aiPageContent .aiNDropdownGroup{padding:10px 13px 5px;font:700 15px/22px 'Segoe UI',Arial,sans-serif;color:#2F3547}
+.aiPageContent .aiNDropdownHint{color:#64717B;font:400 13px/20px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiVarietyDropdownWrap{width:100%;min-width:0}
+.aiPageContent .aiActivityField .aiNDropdownTrigger{min-height:58px;height:58px}
+@media(max-width:720px){
+ .aiPageContent .aiNDropdownLabel{font-size:14px;line-height:22px}
+ .aiPageContent .aiNDropdownTrigger{min-height:50px;padding:10px 12px;font-size:15px;line-height:23px}
+ .aiPageContent .aiNDropdownMenu{max-height:min(270px,50vh);padding:6px}
+ .aiPageContent .aiNDropdownOption{min-height:42px;padding:9px 11px;font-size:14px;line-height:21px}
+ .aiPageContent .aiNDropdownOption.is-indented{padding-left:25px}
+ .aiPageContent .aiActivityField .aiNDropdownTrigger{height:58px;min-height:58px}
+}
+@media(prefers-reduced-motion:reduce){.aiPageContent .aiNDropdownArrow{transition:none}}
+
+
+/* ============================================================
+   Consistent Neumorphic Dropdowns | AI page only
+   Includes individual multi-select Tags and inset scrollbars.
+   All other page components (Header, Sidebar, sections) untouched.
+   ============================================================ */
+.aiPageContent .aiNDropdown{position:relative;display:flex;flex-direction:column;gap:10px;width:100%;min-width:0;isolation:isolate}
+.aiPageContent .aiNDropdown.is-open{z-index:80;isolation:auto}
+.aiPageContent .aiNDropdownTrigger{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:58px;min-height:58px;padding:10px 16px;border:0;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 3px #C4C4C4;color:#374151;font:400 16px/24px 'Segoe UI',Arial,sans-serif;text-align:left;cursor:pointer}
+.aiPageContent .aiNDropdown.is-open .aiNDropdownTrigger{box-shadow:inset -3px -3px 3px #FFFFFF,inset 3px 3px 3px #C4C4C4}
+.aiPageContent .aiNDropdownTrigger:disabled{opacity:.55;cursor:not-allowed}
+.aiPageContent .aiNDropdownLabel{font:600 16px/24px 'Segoe UI',Arial,sans-serif;color:#374151}
+.aiPageContent .aiNDropdownCurrent{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.aiPageContent .aiNDropdownArrow{display:block;flex:0 0 20px;width:20px;height:20px;object-fit:contain;transition:transform .18s ease}
+.aiPageContent .aiNDropdown.is-open .aiNDropdownArrow{transform:rotate(180deg)}
+.aiPageContent .aiNDropdownMenu{position:absolute;left:0;right:0;top:calc(100% - 1px);z-index:100;display:flex;flex-direction:column;gap:3px;width:100%;max-height:min(320px,50dvh);overflow-x:hidden;overflow-y:auto;padding:9px;border:1px solid #C7D0D5;border-radius:6px;background:#DFE6E9;box-shadow:-4px -4px 6px #FFFFFF,4px 4px 9px #AEBBC2;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#99A9B3 #DFE6E9}
+.aiPageContent .aiNDropdown.opens-up .aiNDropdownMenu{top:auto;bottom:calc(100% - 1px)}
+.aiPageContent .aiNDropdownMenu::-webkit-scrollbar{width:12px}
+.aiPageContent .aiNDropdownMenu::-webkit-scrollbar-track{margin:6px 0;background:#DFE6E9;border-radius:14px;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 3px #C4C4C4}
+.aiPageContent .aiNDropdownMenu::-webkit-scrollbar-thumb{background:#A1B0B8;border-radius:14px;border:3px solid #DFE6E9;box-shadow:inset -1px -1px 1px #FFFFFF,inset 1px 1px 2px #85959F}
+.aiPageContent .aiNDropdownMenu::-webkit-scrollbar-thumb:hover{background:#8096A2}
+.aiPageContent .aiNDropdownOption{display:flex;align-items:center;justify-content:space-between;gap:8px;flex:0 0 auto;width:100%;min-height:42px;padding:9px 13px;border:0;border-radius:4px;background:#DFE6E9;color:#374151;text-align:left;white-space:normal;overflow-wrap:anywhere;font:400 15px/23px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.aiPageContent .aiNDropdownOption:hover,.aiPageContent .aiNDropdownOption:focus-visible{background:#E7EDF0;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.aiPageContent .aiNDropdownOption.is-selected{color:#2D4CC8;font-weight:600;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.aiPageContent .aiNDropdownOption.is-indented{padding-left:32px}
+.aiPageContent .aiNDropdownGroup{padding:10px 13px 5px;font:700 15px/22px 'Segoe UI',Arial,sans-serif;color:#2F3547}
+.aiPageContent .aiNDropdownHint{font:400 13px/20px 'Segoe UI',Arial,sans-serif;color:#64717B}
+.aiPageContent .aiNDropdownTrigger:focus-visible,.aiPageContent .aiNDropdownOption:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+/* Individual tags, each selectable independently; chips can be removed directly. */
+.aiPageContent .aiTagsDropdown .aiNDropdownMenu{max-height:min(300px,47dvh)}
+.aiPageContent .aiTagOptionMark{display:grid;place-items:center;flex:0 0 23px;width:23px;height:23px;border-radius:4px;color:#2D4CC8;font:700 19px/23px 'Segoe UI',Arial,sans-serif}
+.aiPageContent .aiTagsClear{align-self:flex-end;min-height:34px;margin:7px 3px 3px;padding:6px 13px;border:0;border-radius:18px;background:#DFE6E9;box-shadow:-2px -2px 3px #FFFFFF,2px 2px 3px #C4C4C4;color:#2D4CC8;font:600 13px/20px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.aiPageContent .aiSelectedTags{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;min-width:0}
+.aiPageContent .aiSelectedTag{display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:4px 8px 4px 12px;background:#DFE6E9;border-radius:20px;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;color:#374151;font:500 14px/22px 'Segoe UI',Arial,sans-serif;overflow-wrap:anywhere}
+.aiPageContent .aiSelectedTag button{display:grid;place-items:center;width:20px;height:20px;flex:0 0 20px;border:0;border-radius:50%;background:#DFE6E9;box-shadow:-1px -1px 2px #FFFFFF,1px 1px 2px #C4C4C4;color:#2D4CC8;font:600 18px/18px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+/* Activity dropdown 58px high; one canonical Lecture Note item in TSX. */
+.aiPageContent .aiActivityField .aiNDropdownTrigger{height:58px;min-height:58px}
+/* Page-range dropdown keeps the compact control shape. */
+.aiPageContent .aiPageRangeDropdown{flex:0 0 112px;width:112px;min-width:112px;gap:0}
+.aiPageContent .aiPageRangeDropdown .aiNDropdownTrigger{min-height:36px;height:36px;padding:6px 8px 6px 12px;border-radius:19px;font-size:13px;line-height:20px}
+.aiPageContent .aiPageRangeDropdown .aiNDropdownArrow{width:14px;height:14px;flex-basis:14px}
+.aiPageContent .aiPageRangeDropdown .aiNDropdownMenu{width:max-content;min-width:170px;max-width:min(230px,75vw)}
+/* Rich-text toolbar dropdowns keep the existing 31px button height. */
+.aiPageContent .aiToolbar .aiToolbarDropdown{width:112px;flex:0 0 112px;min-width:0;gap:0}
+.aiPageContent .aiToolbar .aiToolbarDropdown.aiToolbarSize{width:72px;flex-basis:72px}
+.aiPageContent .aiToolbar .aiToolbarDropdown .aiNDropdownTrigger{min-height:31px;height:31px;padding:4px 7px;border-radius:4px;font:400 13px/20px 'Segoe UI',Arial,sans-serif;box-shadow:-2px -2px 3px #FFFFFF,2px 2px 3px #C4C4C4}
+.aiPageContent .aiToolbar .aiToolbarDropdown .aiNDropdownArrow{width:13px;height:13px;flex:0 0 13px}
+.aiPageContent .aiToolbar .aiToolbarDropdown .aiNDropdownMenu{min-width:120px;max-height:180px;padding:5px}
+.aiPageContent .aiToolbar .aiToolbarDropdown .aiNDropdownOption{min-height:32px;padding:5px 8px;font-size:13px;line-height:20px}
+/* External platform shares the same neumorphic list instead of OS-native options. */
+.aiPageContent .aiExternalPlatformDropdown{width:100%;min-width:0;gap:0}
+.aiPageContent .aiExternalPlatformDropdown .aiNDropdownTrigger{height:60px;min-height:60px;font-size:17px;font-weight:600;box-shadow:-2px -2px 3px #FFFFFF,2px 2px 3px #C4C4C4}
+/* Match surrounding containers and allow popovers to overlay without shifting layout. */
+.aiPageContent .aiPageRange,.aiPageContent .aiExternalPlatform,.aiPageContent .aiAccordionContent,.aiPageContent .aiEditor,.aiPageContent .aiToolbar{overflow:visible}
+@media(max-width:720px){
+ .aiPageContent .aiNDropdownLabel{font-size:14px;line-height:22px}
+ .aiPageContent .aiNDropdownTrigger{min-height:50px;height:50px;padding:10px 12px;font-size:15px}
+ .aiPageContent .aiNDropdownMenu{max-height:min(260px,45dvh);padding:6px}
+ .aiPageContent .aiNDropdownOption{min-height:43px;padding:9px 11px;font-size:14px;line-height:21px}
+ .aiPageContent .aiNDropdownOption.is-indented{padding-left:25px}
+ .aiPageContent .aiTagsDropdown .aiNDropdownMenu{max-height:min(250px,44dvh)}
+ .aiPageContent .aiActivityField .aiNDropdownTrigger{height:58px;min-height:58px}
+ .aiPageContent .aiExternalPlatformDropdown .aiNDropdownTrigger{height:50px;min-height:50px;font-size:15px}
+ .aiPageContent .aiToolbar .aiToolbarDropdown{width:103px;flex-basis:103px}
+ .aiPageContent .aiToolbar .aiToolbarDropdown.aiToolbarSize{width:69px;flex-basis:69px}
+ .aiPageContent .aiPageRangeDropdown{width:106px;min-width:106px;flex-basis:106px}
+ .aiPageContent .aiPageRangeDropdown .aiNDropdownTrigger{min-height:36px;height:36px;font-size:13px}
+}
+@media(max-width:420px){
+ .aiPageContent .aiSelectedTag{font-size:13px}
+ .aiPageContent .aiNDropdownMenu{max-height:min(230px,42dvh)}
+ .aiPageContent .aiNDropdownOption{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){.aiPageContent .aiNDropdownArrow{transition:none}}
+
+/* ==========================================================
+   Tags reference correction: one combined field, flush menu.
+   Old sample tags, extra chips and clear row removed in TSX.
+   The menu stays inside its field's positioned control wrapper.
+   ========================================================== */
+.aiPageContent .aiNDropdownControl{
+  position:relative;
+  width:100%;
+  min-width:0;
+}
+.aiPageContent .aiNDropdownControl > .aiNDropdownMenu{
+  left:0;
+  right:0;
+  top:calc(100% - 1px);
+  bottom:auto;
+  width:100%;
+  margin:0;
+  border-top:0;
+  border-radius:0 0 6px 6px;
+  box-shadow:3px 5px 8px #B3BEC5,-3px 0 5px #FFFFFF;
+}
+.aiPageContent .aiNDropdown.opens-up .aiNDropdownControl > .aiNDropdownMenu{
+  top:auto;
+  bottom:calc(100% - 1px);
+  border-top:1px solid #C7D0D5;
+  border-bottom:0;
+  border-radius:6px 6px 0 0;
+}
+.aiPageContent .aiNDropdown.is-open:not(.opens-up) .aiNDropdownTrigger{
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+}
+.aiPageContent .aiNDropdown.is-open.opens-up .aiNDropdownTrigger{
+  border-top-left-radius:0;
+  border-top-right-radius:0;
+}
+.aiPageContent .aiTagsDropdown{
+  gap:8px;
+}
+.aiPageContent .aiTagsDropdown .aiNDropdownCurrent{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.aiPageContent .aiTagsDropdown .aiNDropdownMenu{
+  max-height:min(290px,48dvh);
+}
+@media (max-width:720px){
+  .aiPageContent .aiTagsDropdown .aiNDropdownMenu{
+    max-height:min(230px,45dvh);
+  }
+}

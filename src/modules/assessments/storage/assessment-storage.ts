@@ -118,6 +118,6 @@ export function publishAssessment(typeCode: "short-answer" | "one-word") {
  if (!count) throw new Error("Please save at least one question before publishing.");
  const record = getAssessment(getActiveAssessmentId() || "");
  if (!record || record.typeCode !== typeCode) throw new Error("The selected assessment does not match this creator.");
- updateAssessment({title:detail.assessmentTitle || detail.title || record.typeLabel,course:detail.course || detail.courseName || "",questions:count,marks:Number(detail.totalMarks) || questions.reduce((n:number,q:{points?:number|string})=>n+(Number(q.points)||0),0),status:"Published"});
+ updateAssessment({title:detail.assessmentName || detail.assessmentTitle || detail.title || record.title || record.typeLabel,course:detail.course || detail.courseName || "",questions:count,marks:Number(detail.totalMarks) || questions.reduce((n:number,q:{points?:number|string})=>n+(Number(q.points)||0),0),status:"Published"});
  return record.id;
 }

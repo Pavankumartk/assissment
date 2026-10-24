@@ -713,3 +713,6 @@
 }
 
 .mcqcBuilderNotice.mcqcValidationError{color:#BC1E2D;font-weight:600}
+
+/* Content validation message uses red, not blue. */
+.mcqcBuilderNotice.mcqcValidationError,.mcqcMessage.mcqcValidationError{color:#BC1E2D!important;font-weight:600;}

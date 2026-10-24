@@ -9,6 +9,7 @@ import { useState, useRef, useEffect } from "react";
 import Sidebar from "@/modules/assessments/components/common/sidebar/page";
 import Header from "@/modules/assessments/components/common/header/Header";
 import "./content.css";
+import "./ai-button.css";
 
 const ASSETS = "/assets/assessmenticons/";
 const STEPS = ["Type", "Details", "Content", "Evaluation", "Review"] as const;
@@ -27,7 +28,7 @@ function Icon({ name, size = 20, className = "" }: { name: string; size?: number
 
 
 type Question = { type: string; text: string; options: string[]; correct: number; points: string; difficulty: string; category: string; bloom: string; mandatory: boolean };
-const newQuestion = (): Question => ({ type: "MCQ", text: "", options: ["", ""], correct: -1, points: "1", difficulty: "Medium", category: "", bloom: "", mandatory: true });
+const newQuestion = (): Question => ({ type: "", text: "", options: ["", ""], correct: -1, points: "", difficulty: "", category: "", bloom: "", mandatory: true });
 const CATEGORIES = ["AI", "Machine Learning", "Deep Learning", "Natural Language Processing", "Computer Vision", "Data Science", "Cybersecurity", "Cloud Computing", "Programming", "Database", "Web Development", "Software Engineering", "Computer Networks", "Operating Systems", "Data Structures & Algorithms", "Mathematics", "Statistics", "Other"];
 const BLOOMS = ["Remember", "Create", "Evaluate", "Analyze", "Apply", "Understand"];
 const QUESTION_TYPES = ["MCQ", "Multiple Response", "True / False", "Fill in the Blank", "One-Word Answer", "Short Answer", "Long Answer / Essay", "Numeric Response"];
@@ -146,7 +147,7 @@ function QuestionBuilder({ questions, setQuestions, onExit, mcqValues }: { quest
   const [expandedOptions, setExpandedOptions] = useState<number[]>([]);
   const [optionDetails, setOptionDetails] = useState<Record<string, { feedback: string; explanation: string; hint: string; showHint: boolean; allowHint: boolean }>>({});
   const [expandedDetail, setExpandedDetail] = useState<string | null>(null);
-  const [tags, setTags] = useState(["Data Structure", "Stack"]);
+  const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
   const [addingTag, setAddingTag] = useState(false);
   const [notice, setNotice] = useState("");
@@ -171,7 +172,7 @@ function QuestionBuilder({ questions, setQuestions, onExit, mcqValues }: { quest
   const complete = (q: Question) => q.text.trim().length > 0 && q.options.filter(o => o.trim()).length >= 2 && q.correct >= 0 && !!q.options[q.correct]?.trim() && !!q.category && !!q.bloom;
   const partial = (q: Question) => !!q.text.trim() || q.options.some(v => !!v.trim()) || q.correct >= 0 || !!q.category || !!q.bloom;
   const addQuestion = () => { if (active >= mcqValues.questionCount - 1 && questions.length >= mcqValues.questionCount) { setNotice(`Only ${mcqValues.questionCount} questions are configured.`); setAddOpen(false); setBottomAddOpen(false); return; } setActive(n => Math.min(n + 1, mcqValues.questionCount - 1)); setExpandedOptions([]); setAddOpen(false); setNotice(""); };
-  const chooseAdd = (option: string) => { setAddOpen(false); setBottomAddOpen(false); if (option === "Create Manually") addQuestion(); else setNotice(`${option} will be available when connected.`); };
+  const chooseAdd = (option: string) => { setAddOpen(false); setBottomAddOpen(false); if (option === "Generate with AI") { router.push("/assessments/create/ai?type=short-answer"); return; } if (option === "Create Manually") addQuestion(); else setNotice(`${option} will be available when connected.`); };
   const setOption = (index: number, value: string) => update({ options: item.options.map((old, i) => i === index ? value : old) });
   const currentDone = questions.filter(complete).length;
   const optionKey = (index: number) => `${active}-${index}`;
@@ -217,7 +218,7 @@ function QuestionBuilder({ questions, setQuestions, onExit, mcqValues }: { quest
         <div className="mcqcBuilderField"><label>Available Options</label><div className="mcqcAnswerOptions">{item.options.map((option,index) => { const open = expandedOptions.includes(index); const detail = getDetail(index); return <div className="mcqcAnswerSection" key={index}><button type="button" className="mcqcAnswerExpand" aria-expanded={open} onClick={() => { setExpandedOptions(open ? [] : [index]); setExpandedDetail(null); }}><span>Option {String.fromCharCode(65+index)}</span><Icon name="arrow-down-01.svg" size={21} className={open ? "mcqcRotated" : ""}/></button>{open && <div className="mcqcAnswerContent"><div className="mcqcOptionSubLabel"><span>Text</span><small>{option.length}/250</small></div><div className="mcqcOptionEditor">{optionToolbar(`mcqc-opt-${active}-${index}`)}<textarea id={`mcqc-opt-${active}-${index}`} rows={3} maxLength={250} placeholder={`Enter option ${String.fromCharCode(65+index)}`} value={option} onChange={e=>setOption(index,e.target.value)}/></div><label className="mcqcCorrectOption"><input type="checkbox" checked={item.correct===index} onChange={()=>update({correct:item.correct===index?-1:index})}/>Correct Answers</label>{(["feedback","explanation","hint"] as const).map(field => { const sectionId = `${index}-${field}`; const sectionOpen = expandedDetail===sectionId; return <div className="mcqcOptionDetail" key={field}><button type="button" className="mcqcOptionDetailHead" aria-expanded={sectionOpen} onClick={()=>setExpandedDetail(sectionOpen?null:sectionId)}><span className="mcqcDetailHeading"><Icon name={field==="feedback"?"message-circle-more.svg":field==="explanation"?"assignments.svg":"idea.svg"} size={18}/>{field[0].toUpperCase()+field.slice(1)}</span><small>{detail[field].length}/250</small><Icon name="arrow-down-01.svg" size={18} className={sectionOpen?"mcqcRotated":""}/></button>{sectionOpen && <div className="mcqcOptionDetailBody">{detailEditor(index,field)}{field==="hint" && <div className="mcqcHintChecks"><label><input type="checkbox" checked={detail.showHint} onChange={e=>setDetail(index,{showHint:e.target.checked})}/>Show hint before answering</label><label><input type="checkbox" checked={detail.allowHint} onChange={e=>setDetail(index,{allowHint:e.target.checked})}/>Allow learner to request hint</label></div>}</div>}</div>; })}{item.options.length>2 && <button type="button" className="mcqcRemoveOption" onClick={()=>{ update({options:item.options.filter((_,i)=>i!==index),correct:item.correct===index?-1:item.correct>index?item.correct-1:item.correct});setExpandedOptions([]);setExpandedDetail(null); }}>Remove Option</button>}</div>}</div>; })}</div><button type="button" className="mcqcAddOptions" onClick={()=>{update({options:[...item.options,""]});setExpandedOptions([item.options.length]);setExpandedDetail(null);}}><Icon name="plus.svg" size={20}/>Add Options</button></div>
       </div><div className="mcqcBuilderBottom"><div className="mcqcAddMenu mcqcBottomAddMenu"><button type="button" className="mcqcBuilderAction mcqcSubmitQuestion" onClick={() => { setBottomAddOpen(v => !v); setAddOpen(false); }} aria-expanded={bottomAddOpen} aria-haspopup="true"><Icon name="plus.svg" size={21}/>Add Questions</button>{bottomAddOpen && <div className="mcqcAddMenuList" role="radiogroup">{["Create Manually", "Import From Question Bank", "Generate with AI"].map((option,index) => <button type="button" key={option} role="radio" aria-checked={index === 0} onClick={() => chooseAdd(option)}><span className={`mcqcOptionRadio ${index === 0 ? "mcqcOptionSelected" : ""}`} />{option}</button>)}</div>}</div><div className="mcqcBuilderArrows"><button type="button" className="mcqcRoundNav" aria-label="Previous" onClick={() => setActive(n=>Math.max(0,n-1))}><Icon name="arrowleft.svg"/></button><button type="button" className="mcqcRoundNav" aria-label="Next" onClick={() => { if(active+1<mcqValues.questionCount)setActive(n=>n+1); }}><Icon name="arrowright.svg"/></button></div></div>
     </section><aside className="mcqcBuilderAside"><section className="mcqcAsideSection"><h3>Question Settings</h3><div className="mcqcBuilderField"><label htmlFor="mcqcPoints">Points</label><div className="mcqcPointsControl"><input id="mcqcPoints" type="number" min="0" step="1" value={item.points} onChange={e=>update({points:e.target.value})}/><div className="mcqcPointsSteppers"><button type="button" aria-label="Increase points" onClick={()=>update({points:String((Number(item.points)||0)+1)})}><Icon name="arrow-down-01.svg" size={14} className="mcqcArrowUp"/></button><button type="button" aria-label="Decrease points" onClick={()=>update({points:String(Math.max(0,(Number(item.points)||0)-1))})}><Icon name="arrow-down-01.svg" size={14}/></button></div></div></div><div className="mcqcBuilderField"><label>Difficulty</label><NeumoSelect value={item.difficulty} options={["Easy","Medium","Hard"]} onChange={v=>update({difficulty:v})}/></div><div className="mcqcBuilderField"><label>Category</label><NeumoSelect value={item.category} options={CATEGORIES} placeholder="Select Category" onChange={v=>update({category:v})}/></div><div className="mcqcBuilderField"><label>Bloom’s Taxonomy</label><NeumoSelect value={item.bloom} options={BLOOMS} placeholder="Select Bloom’s Level" onChange={v=>update({bloom:v})}/></div><div className="mcqcBuilderField"><label>Tag</label><div className="mcqcTagHolder"><button type="button" className="mcqcAddTag" onClick={()=>setAddingTag(v=>!v)}><Icon name="plus.svg" size={17}/>Add Tag</button>{addingTag && <input className="mcqcTagInput" aria-label="New tag" autoFocus value={tagInput} onChange={e=>setTagInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'&&tagInput.trim()){e.preventDefault();setTags(old=>[...old,tagInput.trim()]);setTagInput('');setAddingTag(false);}}}/>}</div><div className="mcqcTagRow">{tags.map(tag=><button type="button" key={tag} onClick={()=>setTags(old=>old.filter(v=>v!==tag))}>{tag} <span>×</span></button>)}</div></div><div className="mcqcMandatory"><span>Mandatory</span><button type="button" className={`mcqcSwitch ${item.mandatory ? 'mcqcSwitchOn' : ''}`} role="switch" aria-label="Mandatory Question" aria-checked={item.mandatory} onClick={()=>update({mandatory:!item.mandatory})}><span className="mcqcSwitchText">{item.mandatory?'ON':'OFF'}</span><span className="mcqcSwitchKnob"/></button></div><p className="mcqcAsideHint">This Question is Mandatory</p></section><section className="mcqcAsideSection mcqcBuilderSummary"><h3>Assessment Summary</h3><div className="mcqcStatGrid"><div><strong>{currentDone}/{mcqValues.questionCount}</strong><span>Questions</span></div><div><strong>{questions.reduce((n,q)=>n+(complete(q)?Number(q.points)||0:0),0)}</strong><span>Marks</span></div><div><strong>60</strong><span>Minutes</span></div></div><p>Marks per Question: {mcqValues.marksPerQuestion}</p><div className="mcqcSummaryProgress"><span style={{width:`${Math.min(100,currentDone/mcqValues.questionCount*100)}%`}}/></div><p>Target is {mcqValues.questionCount} questions · {mcqValues.totalMarks} marks. Add questions to get started.</p><div className="mcqcBuilderField"><label>Passing Score</label><NeumoSelect value="60%" options={["40%","50%","60%","70%","80%","90%"]} onChange={()=>{}}/></div></section></aside></div>
-    {notice && <p className="mcqcBuilderNotice" role="status">{notice}</p>}
+    {notice && <p className="mcqcBuilderNotice mcqcValidationError" role="alert">{notice}</p>}
     <div className="mcqcBuilderPageFooter"><button type="button" className="mcqcFooterPill" onClick={()=>{setNotice("");setPreviewing(true);}}>Preview Questions</button><div className="mcqcSaveContinueGroup">{saveSuccess && <span className="mcqcSaveSuccessToast" role="status">Successfully saved</span>}<button type="button" className="mcqcFooterPill mcqcFooterContinue" disabled={isSaving} onClick={saveAndContinue}>Save &amp; Continue</button></div></div>
   </div>;
 }
@@ -227,9 +228,9 @@ function QuestionBuilder({ questions, setQuestions, onExit, mcqValues }: { quest
 // Replace these filenames with the icons you supply; their slots keep the Figma sizes.
 const SA_ICON_PATHS = {
   eye: `${ASSETS}view.svg`, ready: `${ASSETS}checkmark-square-02.svg`,
-  fullMarks: `${ASSETS}circle-check.svg`, partialMarks: `${ASSETS}partial-marks.svg`, zeroMarks: `${ASSETS}circle-x.svg`,
-  modelAnswer: `${ASSETS}model-answer.svg`, graderInfo: `${ASSETS}information-circle.svg`,
-  difficulty: `${ASSETS}target-02.svg`, bloom: `${ASSETS}brain-02.svg`, category: `${ASSETS}folder-01.svg`, tag: `${ASSETS}tag-01.svg`,
+  fullMarks: `${ASSETS}circle-check.svg`, partialMarks: `${ASSETS}checkmark-circle-02.svg`, zeroMarks: `${ASSETS}cancel-circle.svg`,
+  modelAnswer: `${ASSETS}clipboard-check.svg`, graderInfo: `${ASSETS}info.svg`,
+  difficulty: `${ASSETS}target-02.svg`, bloom: `${ASSETS}brain-01.svg`, category: `${ASSETS}folder-03.svg`, tag: `${ASSETS}tag-01.svg`,
   breadcrumb: `${ASSETS}arrowrightdouble.svg`,
   arrowDown: `${ASSETS}arrow-down-01.svg`, edit: `${ASSETS}edit-01 copy.svg`,
   feedback: `${ASSETS}message-circle-more.svg`, explanation: `${ASSETS}assignments.svg`, hint: `${ASSETS}idea-01.svg`,
@@ -498,13 +499,13 @@ function ShortAnswerPreview({ questions, configs, tags, onBack, onExit, onContin
       })}
       {!visible.length && <div className="sapNoQuestions"><p>No questions match this filter.</p><button type="button" className="sapLearnerButton" onClick={() => setFilter("All Questions")}>Show All Questions</button><button type="button" className="sapLearnerButton" onClick={() => onBack()}>Back to Question</button></div>}
     </div>
-    {notice && <p role="status" className="sapNotice">{notice}</p>}
+    {notice && <p role="status" className="sapNotice mcqcValidationError">{notice}</p>}
   </div>;
 }
 
 function ShortAnswerBuilder({ onExit, mcqValues }: { onExit: () => void; mcqValues: MCQDetailsValues }) {
   const router = useRouter();
-  const [questions, setQuestions] = useState<SAQuestion[]>([{ text: "Explain overfitting in two sentences.", points: "1", difficulty: "Medium", category: "AI", bloom: "Analyze", mandatory: true, answer: "", rubric: "", feedback: "", hint: "" }]);
+  const [questions, setQuestions] = useState<SAQuestion[]>([{ text: "", points: "", difficulty: "", category: "", bloom: "", mandatory: true, answer: "", rubric: "", feedback: "", hint: "" }]);
   const [active, setActive] = useState(0);
   const [previewing, setPreviewing] = useState(false);
   const [configs, setConfigs] = useState<Record<number, SAConfig>>({ 0: saDefaultConfig() });
@@ -516,16 +517,34 @@ function ShortAnswerBuilder({ onExit, mcqValues }: { onExit: () => void; mcqValu
   };
   const [answerOpen, setAnswerOpen] = useState(false);
   const [shortAddOpen, setShortAddOpen] = useState(false);
-  const [tags, setTags] = useState(["Data Structure", "Stack"]);
+  const [tags, setTags] = useState<string[]>([]);
   const [addingTag, setAddingTag] = useState(false);
   const [tagInput, setTagInput] = useState("");
   const [notice, setNotice] = useState("");
   const [saved, setSaved] = useState(false);
+  useEffect(()=>{try{const saved=JSON.parse(assessmentStorage.getItem("shortAnswerContentDraft")||"null");if(!saved)return;if(Array.isArray(saved.questions))setQuestions(saved.questions);if(Array.isArray(saved.tags))setTags(saved.tags);if(saved.configs)setConfigs(saved.configs);}catch{}},[]);
   const current = questions[active];
   const update = (patch: Partial<typeof current>) => setQuestions(old => old.map((q, i) => i === active ? { ...q, ...patch } : q));
-  const save = () => { try { assessmentStorage.setItem("shortAnswerContentDraft", JSON.stringify({ questions, tags, configs })); setSaved(true); setNotice("Successfully saved"); return true; } catch { setNotice("Could not save. Please try again."); return false; } };
-  const add = () => { setQuestions(old => [...old, { text: "", points: "1", difficulty: "Medium", category: "AI", bloom: "Analyze", mandatory: true, answer: "", rubric: "", feedback: "", hint: "" }]); setActive(questions.length); setAnswerOpen(false); };
-  const chooseShortAdd = (option: string) => { setShortAddOpen(false); if (option === "Create Manually") add(); else setNotice(`${option} will be available when connected.`); };
+  const save = () => {
+    for (let i=0;i<mcqValues.questionCount;i++) {
+      const q=questions[i];
+      const err=!q?.text.trim() ? "Enter the question text." :
+        !q?.answer.trim() ? "Enter the model answer." :
+        !q?.points.trim() || !(Number(q.points)>0) ? "Enter valid points greater than zero." :
+        !q?.category.trim() ? "Select a category." :
+        !q?.bloom.trim() ? "Select Bloom’s Taxonomy." : "";
+      if (err) { setQuestions(old=>Array.from({length:Math.max(old.length,i+1)},(_,index)=>old[index]??{text:"",points:"",difficulty:"",category:"",bloom:"",mandatory:true,answer:"",rubric:"",feedback:"",hint:""})); setActive(i); setPreviewing(false); setNotice(`Question ${i+1}: ${err}`); return false; }
+    }
+    const sum=questions.slice(0,mcqValues.questionCount).reduce((n,q)=>n+Number(q.points),0);
+    if (Math.abs(sum-mcqValues.totalMarks)>0.001) {setNotice(`Question marks total ${sum}, but Total Marks is ${mcqValues.totalMarks}.`);setPreviewing(false);return false;}
+    try { assessmentStorage.setItem("shortAnswerContentDraft", JSON.stringify({ questions, tags, configs })); setSaved(true); setNotice("Successfully saved"); return true; }
+    catch { setNotice("Could not save. Please try again."); return false; }
+  };
+  const add = () => { if(questions.length>=mcqValues.questionCount){setNotice(`Only ${mcqValues.questionCount} questions are configured.`);return;}setQuestions(old => [...old, { text: "", points: "", difficulty: "", category: "", bloom: "", mandatory: true, answer: "", rubric: "", feedback: "", hint: "" }]); setActive(questions.length); setAnswerOpen(false); };
+  const chooseShortAdd = (option: string) => { setShortAddOpen(false); if (option === "Generate with AI") {
+    try { assessmentStorage.setItem("shortAnswerContentDraft", JSON.stringify({ questions, tags, configs })); } catch { /* Keep navigation usable if storage is full. */ }
+    router.push("/assessments/create/ai?type=short-answer"); return;
+  } if (option === "Create Manually") add(); else setNotice(`${option} will be available when connected.`); };
   const toolbar = <SAToolbar className="mcqcShortToolbar" label="Write Your Question" onAction={() => document.getElementById("short-question-text")?.focus()}/>;
   if (previewing) return <ShortAnswerPreview questions={questions} configs={configs} tags={tags} notice={notice}
     onBack={(index) => switchPreview(false, index)} onExit={onExit} onContinue={() => { if (save()) router.push('/assessments/create/evaluation'); }}/>;
@@ -534,21 +553,20 @@ function ShortAnswerBuilder({ onExit, mcqValues }: { onExit: () => void; mcqValu
     <div className="mcqcBuilderGrid"><section className="mcqcBuilderMain">
       <div className="mcqcQuestionsHeading mcqcShortQuestionsHeading">
         <div><h2>Question {active + 1} of {mcqValues.questionCount}</h2><p>{mcqValues.questionCount} Questions | {mcqValues.totalMarks} Marks</p></div>
-        <button type="button" className="mcqcTopAdd" onClick={add}><Icon name="plus.svg" size={20}/>Add</button>
+        <div className="mcqcAIBuilderActions"><button type="button" className="mcqcTopAdd" onClick={() => { try { assessmentStorage.setItem("shortAnswerContentDraft", JSON.stringify({ questions, tags, configs })); } catch {} router.push("/assessments/create/ai?type=short-answer"); }}><Icon name="ai-chip.svg" size={20}/>Generate With AI</button><button type="button" className="mcqcTopAdd" onClick={add}><Icon name="plus.svg" size={20}/>Add</button></div>
       </div>
       <div className="mcqcTopQuestionNavigator mcqcShortQuestionNavigator" aria-label="Question navigation">
         <div className="mcqcNumberNavigation">
           <button type="button" className="mcqcRoundNav" aria-label="Previous question" onClick={() => setActive(n => Math.max(0,n-1))}><Icon name="arrowleft.svg" size={20}/></button>
           <div className="mcqcNumberScroller"><div className="mcqcQuestionNumbers">
-            {Array.from({ length: Math.max(8,mcqValues.questionCount) }, (_, index) => {
+            {Array.from({ length: mcqValues.questionCount }, (_, index) => {
               const q = questions[index];
               const completed = !!q?.text.trim() && !!q.points && !!q.category && !!q.bloom;
               const selected = index === active;
-              const typeLabels = ["T/F", "DD", "T/F", "QC", "FB", "OW", "SA", "MCQ"];
               return <button type="button" key={index} disabled={index >= mcqValues.questionCount} className={`mcqcQuestionNumber ${selected ? "is-active" : completed ? "is-complete" : "is-empty"}`} aria-label={`Question ${index+1}`} aria-current={selected ? "step" : undefined} onClick={() => { setActive(index); setAnswerOpen(false); }}>
                 <span className="mcqcNumberValue">{index+1}</span>
                 {(completed || selected) && <span className="mcqcNumberStatus" aria-hidden="true"/>}
-                <small>{q ? "SA" : typeLabels[index] || "SA"}</small>
+                <small>SA</small>
               </button>;
             })}
           </div></div>
@@ -562,7 +580,7 @@ function ShortAnswerBuilder({ onExit, mcqValues }: { onExit: () => void; mcqValu
       <div className="mcqcBuilderField mcqcShortAnswerSettings"><div className="mcqcFormHeading"><label>Answer Settings</label><span>24/250</span></div><button type="button" className="mcqcSelectTrigger mcqcShortAnswerTrigger" aria-expanded={answerOpen} onClick={() => setAnswerOpen(v => !v)}><span>Answer box, Model answer, Rubrics, Feedback and Hint</span><Icon name="arrow-down-01.svg" size={20} className={answerOpen ? "mcqcRotated" : ""}/></button>{answerOpen && <ShortAnswerExpanded key={active} value={current} update={update} config={configs[active] ?? saDefaultConfig()} onConfigChange={updateConfig} />}</div>
     </div><div className="mcqcAddMenu mcqcShortAddMenu"><button type="button" className="mcqcShortAdd" onClick={() => setShortAddOpen(v => !v)} aria-expanded={shortAddOpen} aria-haspopup="true"><Icon name="plus.svg" size={22}/>Add Questions</button>{shortAddOpen && <div className="mcqcAddMenuList" role="radiogroup">{["Create Manually", "Import From Question Bank", "Generate with AI"].map((option,index) => <button type="button" key={option} role="radio" aria-checked={index === 0} onClick={() => chooseShortAdd(option)}><span className={`mcqcOptionRadio ${index === 0 ? "mcqcOptionSelected" : ""}`}/>{option}</button>)}</div>}</div></section>
     <aside className="mcqcBuilderAside"><section className="mcqcAsideSection"><h3>Question Settings</h3><div className="mcqcBuilderField"><label htmlFor="short-points">Points</label><input id="short-points" type="number" min="0" value={current.points} onChange={e=>update({points:e.target.value})}/></div><div className="mcqcBuilderField"><label>Difficulty</label><NeumoSelect value={current.difficulty} options={["Easy","Medium","Hard"]} onChange={v=>update({difficulty:v})}/></div><div className="mcqcBuilderField"><label>Category</label><NeumoSelect value={current.category} options={CATEGORIES} onChange={v=>update({category:v})}/></div><div className="mcqcBuilderField"><label>Bloom’s Taxonomy</label><NeumoSelect value={current.bloom} options={BLOOMS} onChange={v=>update({bloom:v})}/></div><div className="mcqcBuilderField"><label>Tag</label><div className="mcqcTagHolder"><button type="button" className="mcqcAddTag" onClick={()=>setAddingTag(v=>!v)}><Icon name="plus.svg" size={17}/>Add Tag</button>{addingTag && <input className="mcqcTagInput" autoFocus aria-label="New tag" value={tagInput} onChange={e=>setTagInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'&&tagInput.trim()){e.preventDefault();setTags(old=>[...old,tagInput.trim()]);setTagInput('');setAddingTag(false);}}}/>}</div><div className="mcqcTagRow">{tags.map(tag=><button type="button" key={tag} onClick={()=>setTags(old=>old.filter(t=>t!==tag))}>{tag} <span>×</span></button>)}</div></div><div className="mcqcMandatory"><span>Mandatory</span><button type="button" role="switch" aria-label="Mandatory" aria-checked={current.mandatory} className={`mcqcSwitch ${current.mandatory ? 'mcqcSwitchOn' : ''}`} onClick={()=>update({mandatory:!current.mandatory})}><span className="mcqcSwitchText">{current.mandatory?'ON':'OFF'}</span><span className="mcqcSwitchKnob"/></button></div><p className="mcqcAsideHint">This Question is Mandatory</p></section></aside></div>
-    <div className="mcqcShortFooter"><button type="button" className="mcqcFooterPill" onClick={()=>{setNotice("");switchPreview(true);}}>Preview Questions</button><div className="mcqcShortFooterRight"><button type="button" className="mcqcFooterPill" onClick={save}>Save</button><button type="button" className="mcqcFooterPill mcqcFooterContinue" onClick={()=>{save();router.push('/assessments/create/evaluation');}}>Continue</button></div></div>{notice && <p role="status" className="mcqcBuilderNotice">{notice}</p>}
+    <div className="mcqcShortFooter"><button type="button" className="mcqcFooterPill" onClick={()=>{setNotice("");switchPreview(true);}}>Preview Questions</button><div className="mcqcShortFooterRight"><button type="button" className="mcqcFooterPill mcqcFooterContinue" onClick={()=>{if(save())router.push('/assessments/create/evaluation');}}>Save &amp; Continue</button></div></div>{notice && <p role={notice === "Successfully saved" ? "status" : "alert"} className="mcqcBuilderNotice" style={notice === "Successfully saved" ? undefined : {color:"#BC1E2D",fontWeight:600}}>{notice}</p>}
   </div>;
 }
 
@@ -588,7 +606,7 @@ export default function MCQContentPage() {
       setQuestions(old => Array.from({ length: questionCount }, (_, index) => old[index] ?? { ...newQuestion(), points: String(marksPerQuestion) }));
     } catch { setQuestions(old => Array.from({ length: 20 }, (_, index) => old[index] ?? newQuestion())); }
   }, []);
-  const action = (name: string) => name === "Create Questions" ? setBuilding(true) : setMessage(`${name} will be available when question creation is connected.`);
+  const action = (name: string) => name === "Create Questions" ? setBuilding(true) : name === "Generate With AI" ? router.push("/assessments/create/ai?type=short-answer") : setMessage(`${name} will be available when question creation is connected.`);
 
   return (
     <main className="mcqcAppShell">
@@ -608,7 +626,7 @@ export default function MCQContentPage() {
                   <span className="mcqcWizardNumber"><span>{index + 1}</span></span><span className="mcqcWizardText">{step}</span>
                 </li>)}
               </ol>
-              <header className="mcqcPageTitle"><h1>Assessment Content (Short Anwers)</h1><p>Add Questions To Your Assessment.</p></header>
+              <header className="mcqcPageTitle"><h1>Assessment Content (Short Answers)</h1><p>Add Questions To Your Assessment.</p></header>
               <div className="mcqcColumns">
                 <div className="mcqcLeftColumn">
                   <section className="mcqcQuestionsPanel" aria-label="Questions">
@@ -619,7 +637,6 @@ export default function MCQContentPage() {
                       <p>Start by Adding Questions.</p>
                       <div className="mcqcActions">
                         <button type="button" onClick={() => action("Bulk Upload")}><Icon name="upload.svg" />Bulk Upload</button>
-                        <button type="button" onClick={() => action("Question Bank")}><Icon name="clipboard-list.svg" size={24} />Question Bank</button>
                         <button type="button" onClick={() => action("Generate With AI")}><Icon name="ai-chip.svg" size={24} />Generate With AI</button>
                       </div>
                       <button className="mcqcCreateButton" type="button" onClick={() => action("Create Questions")}><Icon name="plus.svg" size={24} />Create Questions</button>
@@ -649,7 +666,7 @@ export default function MCQContentPage() {
                   </section>
                 </aside>
               </div>
-              {message && <p className="mcqcMessage" role="status">{message}</p>}
+              {message && <p className="mcqcMessage mcqcValidationError" role="alert">{message}</p>}
             </div>}
           </div>
         </section>

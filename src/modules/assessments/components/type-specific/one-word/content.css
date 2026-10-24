@@ -1335,3 +1335,91 @@
 .assessment-variant--one-word .mcqcOneWordPreview .mcqcOWLearnerInput{width:100%;padding:12px;border:0;background:#DFE6E9;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
 @media(max-width:1000px){.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr) 265px;gap:15px}.assessment-variant--one-word .mcqcOneWordBuilder .mcqcShortFooterRight{margin-right:0}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewTotals{min-width:0}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewSettings{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:760px){.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr)}.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderMain, .assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderAside, .assessment-variant--one-word .mcqcOneWordBuilder .mcqcAsideSection{min-height:0}.assessment-variant--one-word .mcqcOneWordBuilder .mcqcBuilderTop{height:190px;min-height:190px}.assessment-variant--one-word .mcqcOneWordBuilder .mcqcOWToggles{grid-template-columns:1fr}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewSettings{grid-template-columns:repeat(2,minmax(0,1fr))}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewControls{margin-inline:0}.assessment-variant--one-word .mcqcOneWordPreview .mcqcPreviewTotals{width:100%}}
+
+/* Validation alerts are red like MCQ, never blue. */
+.assessment-variant--one-word .mcqcBuilderNotice.mcqcValidationError,.assessment-variant--one-word .mcqcMessage.mcqcValidationError,.assessment-variant--one-word .sapNotice.mcqcValidationError{color:#BC1E2D!important;font-weight:600;}
+
+/* Align the existing welcome popup on the right, as in MCQ. */
+.assessment-variant--one-word .mcqcBuilderTop{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;}
+.assessment-variant--one-word .mcqcBuilderWelcome{margin-left:auto;flex:0 1 320px;}
+.assessment-variant--one-word .mcqcSaveContinueGroup{margin-left:auto;justify-content:flex-end;}
+@media(max-width:600px){
+  .assessment-variant--one-word .mcqcBuilderWelcome{margin-left:auto;max-width:100%;}
+}
+
+
+/* Match the MCQ right-aligned question-builder welcome card. */
+.assessment-variant--one-word .mcqcBuilderTop{
+  width:100%;
+  justify-content:space-between;
+}
+.assessment-variant--one-word .mcqcBuilderTop .mcqcBuilderWelcome{
+  margin-left:auto;
+  margin-right:0;
+  align-self:flex-start;
+  max-width:100%;
+}
+
+/* Match MCQ Content footer actions: consistent width, height and right alignment. */
+.assessment-variant--one-word .mcqcAppShell .mcqcShortFooter,
+.assessment-variant--one-word .mcqcAppShell .mcqcBuilderPageFooter {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  width:100%;
+}
+.assessment-variant--one-word .mcqcAppShell .mcqcShortFooterRight,
+.assessment-variant--one-word .mcqcAppShell .mcqcSaveContinueGroup {
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:14px;
+  margin:0 0 0 auto;
+  min-width:0;
+}
+.assessment-variant--one-word .mcqcAppShell .mcqcShortFooter .mcqcFooterPill,
+.assessment-variant--one-word .mcqcAppShell .mcqcBuilderPageFooter .mcqcFooterPill {
+  display:inline-flex;
+  flex:0 0 auto;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  width:auto;
+  min-width:185px;
+  height:52px;
+  min-height:52px;
+  padding:0 22px;
+  border:0;
+  border-radius:28px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 5px #fff,4px 4px 8px #C4C4C4;
+  color:#374151;
+  font:700 17px/24px 'Segoe UI',Arial,sans-serif;
+  white-space:nowrap;
+}
+.assessment-variant--one-word .mcqcAppShell .mcqcShortFooter .mcqcFooterPill.mcqcFooterContinue,
+.assessment-variant--one-word .mcqcAppShell .mcqcBuilderPageFooter .mcqcFooterPill.mcqcFooterContinue {
+  min-width:220px;
+  color:#2A7308;
+}
+@media(max-width:600px) {
+  .assessment-variant--one-word .mcqcAppShell .mcqcShortFooter,
+  .assessment-variant--one-word .mcqcAppShell .mcqcBuilderPageFooter {gap:12px;flex-wrap:wrap;}
+  .assessment-variant--one-word .mcqcAppShell .mcqcShortFooterRight,
+  .assessment-variant--one-word .mcqcAppShell .mcqcSaveContinueGroup {margin-left:auto;}
+  .assessment-variant--one-word .mcqcAppShell .mcqcShortFooter .mcqcFooterPill,
+  .assessment-variant--one-word .mcqcAppShell .mcqcBuilderPageFooter .mcqcFooterPill {
+    flex:0 1 auto;
+    width:auto;
+    min-width:142px;
+    height:46px;
+    min-height:46px;
+    padding:0 14px;
+    font-size:14px;
+  }
+  .assessment-variant--one-word .mcqcAppShell .mcqcShortFooter .mcqcFooterPill.mcqcFooterContinue,
+  .assessment-variant--one-word .mcqcAppShell .mcqcBuilderPageFooter .mcqcFooterPill.mcqcFooterContinue {min-width:165px;}
+}
+
+.assessment-variant--one-word .mcqcAppShell .mcqcOneWordBuilder .mcqcShortFooterRight {margin-right:0;margin-left:auto;}

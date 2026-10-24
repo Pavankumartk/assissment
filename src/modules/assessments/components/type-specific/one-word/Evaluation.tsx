@@ -88,6 +88,28 @@ function SettingSwitch({ checked, onChange, label }: { checked: boolean; onChang
   );
 }
 
+function MatchingMcqDropdown({label,value,options,onSelect}:{label:string;value:string;options:string[];onSelect?:(next:string)=>void}) {
+  const [open,setOpen]=useState(false);
+  const root=useRef<HTMLDivElement>(null);
+  useEffect(()=>{
+    if(!open)return;
+    const outside=(event:PointerEvent)=>{if(!root.current?.contains(event.target as Node))setOpen(false);};
+    const escape=(event:KeyboardEvent)=>{if(event.key==="Escape")setOpen(false);};
+    document.addEventListener("pointerdown",outside);
+    document.addEventListener("keydown",escape);
+    return()=>{document.removeEventListener("pointerdown",outside);document.removeEventListener("keydown",escape);};
+  },[open]);
+  return <div className="evaluationMiniSelectWrap" ref={root}>
+    <button type="button" className="evaluationMiniSelectTrigger" aria-label={label} aria-haspopup="listbox" aria-expanded={open} onClick={()=>setOpen(v=>!v)}>
+      <span>{value || `Select ${label.toLowerCase()}`}</span>
+      <img src="/assets/assessmenticons/arrow-down-01.svg" alt="" width={17} height={17}/>
+    </button>
+    {open&&<div className="evaluationMiniSelectMenu" role="listbox" aria-label={label}>
+      {options.map(option=><button type="button" key={option} role="option" aria-selected={value===option} className={`evaluationMiniSelectOption ${value===option ? "is-selected" : ""}`} onClick={()=>{onSelect?.(option);setOpen(false);}}>{option}</button>)}
+    </div>}
+  </div>;
+}
+
 function SettingRow({ label, value, options, checked, onSelect, onToggle }: {
   label: string;
   value?: string;
@@ -100,12 +122,7 @@ function SettingRow({ label, value, options, checked, onSelect, onToggle }: {
     <div className="ev-setting-row">
       <span className="ev-setting-name">{label}</span>
       {onToggle ? <SettingSwitch label={label} checked={Boolean(checked)} onChange={onToggle} /> : options ? (
-        <span className="ev-select-wrap">
-          <select aria-label={label} value={value} onChange={(e) => onSelect?.(e.target.value)}>
-            {options.map((option) => <option key={option}>{option}</option>)}
-          </select>
-          <ChevronDown size={15} strokeWidth={1.5} aria-hidden="true" />
-        </span>
+        <MatchingMcqDropdown label={label} value={value || ""} options={options} onSelect={onSelect}/>
       ) : <span className="ev-setting-value">{value || "—"}</span>}
     </div>
   );
@@ -263,7 +280,7 @@ export default function EvaluationPage() {
   function saveDraft(): boolean {
     try {
       assessmentStorage.setItem("neurolxp-one-word-evaluation", JSON.stringify(settings));
-      setNotice("Evaluation settings saved as a draft.");
+      setNotice("");
       return true;
     } catch { setNotice("Browser storage is unavailable. Settings remain on this page."); return false; }
   }
@@ -318,7 +335,7 @@ export default function EvaluationPage() {
             <section className={`ev-major-section ${feedbackOpen ? "ev-major-section-expanded" : ""}`} aria-label="Feedback and results">
               <div className="ev-major-header">
                 <div className="ev-major-header-inner">
-                  <span className="ev-major-main-icon" style={{ color: "#67096E" }}><BarChart3 size={34} strokeWidth={1.5}/></span>
+                  <span className="ev-major-main-icon" style={{ color: "#67096E" }}><img src="/assets/assessmenticons/chartpurple.svg" alt="" width={34} height={34}/></span>
                   <div className="ev-header-copy">
                     <h2 className="ev-purple">Feedback And Results</h2>
                     <p>Configure Scoring, Passing Criteria, Attempts, And What Learners See After Completing The Assessment.</p>
@@ -333,24 +350,24 @@ export default function EvaluationPage() {
                 </button>
               </div>
               {feedbackOpen && <div className="ev-card-grid">
-                <SettingCard id="ev-scoring" title="Scorings" icon={<Target size={22}/>} color="#2D4CC8">
+                <SettingCard id="ev-scoring" title="Scorings" icon={<img src="/assets/assessmenticons/target.svg" alt="" width={22} height={22}/>}  color="#2D4CC8">
                   <SettingRow label="Total Marks" value={String(totalMarks)} />
                   <SettingRow label="Passing Score" value={passingScore} />
                   <SettingRow label="Passing Marks" value={passingMarks} />
                 </SettingCard>
-                <SettingCard id="ev-attempts" title="Attempts" icon={<RefreshCw size={22}/>} color="#2A7308">
+                <SettingCard id="ev-attempts" title="Attempts" icon={<img src="/assets/assessmenticons/refresh.svg" alt="" width={22} height={22}/>}  color="#2A7308">
                   {selectRow("Maximum Attempts", "maximumAttempts", ["1", "2", "3", "4", "5", "Unlimited"])}
                   {selectRow("Score used for Result", "scoreForResult", ["Highest", "Latest", "Average", "First Attempt"])}
                   {selectRow("Attempt Cooldown", "attemptCooldown", ["None", "1 Hr", "6 Hrs", "12 Hrs", "24 Hrs", "48 Hrs"])}
                 </SettingCard>
-                <SettingCard id="ev-results" title="Results" icon={<BarChart3 size={22}/>} color="#CB5F14">
+                <SettingCard id="ev-results" title="Results" icon={<img src="/assets/assessmenticons/chart-up2.svg" alt="" width={22} height={22}/>}  color="#CB5F14">
                   {switchRow("Show Result After Submission", "showResult")}
                   {switchRow("Show Score", "showScore")}
                   {switchRow("Show Pass/ Fail", "showPassFail")}
                   {switchRow("Show Correct Answers", "showCorrectAnswers")}
                   {selectRow("Result Available", "resultAvailable", ["Immediately", "Scheduled", "After Grading", "After Closing", "Manually", "Never"])}
                 </SettingCard>
-                <SettingCard id="ev-feedback" title="Answer Feedback" icon={<MessageCircle size={22}/>} color="#91860C">
+                <SettingCard id="ev-feedback" title="Answer Feedback" icon={<img src="/assets/assessmenticons/message-circle-more.svg" alt="" width={22} height={22}/>}  color="#91860C">
                   {switchRow("Show Answer Feedback", "showAnswerFeedback")}
                   {switchRow("Show Explanation", "showExplanation")}
                   {selectRow("Feedback Timing", "feedbackTiming", ["After", "Immediately", "After Closing", "Never"])}
@@ -359,7 +376,7 @@ export default function EvaluationPage() {
                       <span key={label}><span className="ev-tick"><Check size={14} strokeWidth={3}/></span>{label}</span>)}
                   </div>
                 </SettingCard>
-                <SettingCard id="ev-cognitive" title="Cognitive & Behavioral Insights" icon={<Eye size={22}/>} color="#89800C">
+                <SettingCard id="ev-cognitive" title="Cognitive & Behavioral Insights" icon={<img src="/assets/assessmenticons/view2.svg" alt="" width={22} height={22}/>}  color="#89800C">
                   {switchRow("Answer Switching Behavioral", "answerSwitching")}
                   {switchRow("Review Wrong Answers", "reviewWrongAnswers")}
                   {switchRow("View Weakness Map", "weaknessMap")}
@@ -370,7 +387,7 @@ export default function EvaluationPage() {
             <section className={`ev-major-section ${securityOpen ? "ev-major-section-expanded" : ""}`} aria-label="Security and integrity">
               <div className="ev-major-header">
                 <div className="ev-major-header-inner">
-                  <span className="ev-major-main-icon" style={{ color: "#2A7308" }}><ShieldCheck size={34} strokeWidth={1.5}/></span>
+                  <span className="ev-major-main-icon" style={{ color: "#2A7308" }}><img src="/assets/assessmenticons/security-lock.svg" alt="" width={34} height={34}/></span>
                   <div className="ev-header-copy">
                     <h2 className="ev-green">Security &amp; Integrity</h2>
                     <p>Configure Proctoring, Browser Restrictions, Question Security, And Assessment Integrity Controls.</p>
@@ -385,25 +402,25 @@ export default function EvaluationPage() {
                 </button>
               </div>
               {securityOpen && <div className="ev-card-grid">
-                <SettingCard id="ev-access" title="Assessment Access" icon={<LockKeyhole size={22}/>} color="#C65C15">
+                <SettingCard id="ev-access" title="Assessment Access" icon={<img src="/assets/assessmenticons/lock.svg" alt="" width={22} height={22}/>}  color="#C65C15">
                   {selectRow("Access Control", "accessControl", ["Open", "Enrolled Only", "Access Code", "Restricted"])}
                   {switchRow("Require Secure Browser", "secureBrowser")}
                   {switchRow("Prevent Copy / Paste", "preventCopyPaste")}
                   {switchRow("Prevent Printing", "preventPrinting")}
                 </SettingCard>
-                <SettingCard id="ev-proctoring" title="Proctoring" icon={<Video size={22}/>} color="#2D4CC8">
+                <SettingCard id="ev-proctoring" title="Proctoring" icon={<img src="/assets/assessmenticons/video.svg" alt="" width={22} height={22}/>}  color="#2D4CC8">
                   {switchRow("Webcam Monitoring", "webcamMonitoring")}
                   {switchRow("Screen Monitoring", "screenMonitoring")}
                   {switchRow("Full-Screen Mode", "fullScreenMode")}
                   {switchRow("Identity Verification", "identityVerification")}
                 </SettingCard>
-                <SettingCard id="ev-monitoring" title="Monitoring" icon={<Eye size={22}/>} color="#89800C">
+                <SettingCard id="ev-monitoring" title="Monitoring" icon={<img src="/assets/assessmenticons/view2.svg" alt="" width={22} height={22}/>}  color="#89800C">
                   {switchRow("Detect Tab Switching", "detectTabSwitching")}
                   {switchRow("Detect Multiple Screens", "detectMultipleScreens")}
                   {switchRow("Detect Browser Exit", "detectBrowserExit")}
                   {switchRow("Record Violations", "recordViolations")}
                 </SettingCard>
-                <SettingCard id="ev-restrictions" title="Restriction" icon={<AlertTriangle size={22}/>} color="#89800C">
+                <SettingCard id="ev-restrictions" title="Restriction" icon={<img src="/assets/assessmenticons/alert.svg" alt="" width={22} height={22}/>}  color="#89800C">
                   {selectRow("Violation Threshold", "violationThreshold", ["1", "2", "3", "4", "5", "10"])}
                   {selectRow("Action", "violationAction", ["Warn", "Notify Admin", "Submit Assessment", "Block Access"])}
                 </SettingCard>
@@ -413,55 +430,15 @@ export default function EvaluationPage() {
             <footer className="ev-footer">
               <button className="ev-footer-button" type="button" onClick={() => window.dispatchEvent(new CustomEvent("one-word-step", { detail: "content" }))}>Back</button>
               <div className="ev-footer-right">
-                <button className="ev-footer-button" type="button" onClick={saveDraft}>Save</button>
-                <button className="ev-footer-button ev-footer-continue" type="button" onClick={continueToReview}>Continue</button>
+                {notice && <span className="ev-validation-message" role="alert">{notice}</span>}
+                <button className="ev-footer-button ev-footer-continue" type="button" onClick={continueToReview}>Save &amp; Continue</button>
               </div>
             </footer>
               </div>
-              <aside className="ev-question-rail" aria-label="Question summary">
-                <div className="ev-question-rail-inner">
-                  <div className="ev-question-overview">
-                    <h2>Question</h2>
-                    <p>{configuredCount} of {questionCount} configured</p>
-                    <div className="ev-question-progress" role="progressbar" aria-label="Questions configured" aria-valuemin={0} aria-valuemax={questionCount} aria-valuenow={configuredCount}>
-                      <span style={{ width: `${questionCount ? configuredCount / questionCount * 100 : 0}%` }} />
-                    </div>
-                  </div>
-                  <div className="ev-question-pills" aria-label="Question status filters">
-                    <button type="button" className={railFilter === "all" ? "ev-question-pill-active" : ""} aria-pressed={railFilter === "all"} onClick={() => setRailFilter("all")}>All {questionCount}</button>
-                    <button type="button" className={railFilter === "attention" ? "ev-question-pill-active" : ""} aria-pressed={railFilter === "attention"} onClick={() => setRailFilter("attention")}>Need Attention&nbsp; {needsAttentionCount}</button>
-                  </div>
-                  <label className="ev-question-type-select">
-                    <span className="ev-question-visually-hidden">Filter question types</span>
-                    <select value={typeFilter} onChange={event => setTypeFilter(event.target.value)}>
-                      <option value="all">All types</option>
-                      {questionTypes.map(type => <option key={type} value={type}>{type}</option>)}
-                    </select>
-                    <ChevronDown size={18} strokeWidth={1.6} aria-hidden="true" />
-                  </label>
-                  <div className="ev-question-scroll" aria-label="Questions">
-                    {shownQuestions.map(question => <button
-                      type="button"
-                      key={question.index}
-                      className={`ev-question-item ${selectedQuestion === question.index ? "ev-question-item-selected" : ""}`}
-                      aria-pressed={selectedQuestion === question.index}
-                      aria-label={`Question ${question.index + 1}. ${question.type}. ${question.configured ? question.text : "Not configured"}. ${question.needsAttention ? "Needs attention" : "Complete"}`}
-                      onClick={() => setSelectedQuestion(question.index)}
-                    >
-                      <span className={`ev-question-status-dot ${question.needsAttention ? "ev-question-status-attention" : ""}`} aria-hidden="true" />
-                      <span className="ev-question-number">Q{question.index + 1}</span>
-                      <span className="ev-question-type">{question.label}</span>
-                      <span className="ev-question-snippet" title={question.text || "Not configured"}>{question.text || "Not configured"}</span>
-                      <span className="ev-question-points">{question.points || "—"} M</span>
-                    </button>)}
-                    {shownQuestions.length === 0 && <p className="ev-question-empty">No questions match this filter.</p>}
-                  </div>
-                </div>
-              </aside>
+
             </div>
           </div>
         </main>
-        {notice && <div className="ev-toast" role="status"><span>{notice}</span><button type="button" aria-label="Close notification" onClick={() => setNotice("")}><X size={17}/></button></div>}
       </div>
     </div></div></div></div>
   );

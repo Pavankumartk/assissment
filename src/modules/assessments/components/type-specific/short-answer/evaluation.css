@@ -286,3 +286,312 @@
   .assessment-variant--short-answer .evaluationAppShell .ev-question-rail{height:400px;}
   .assessment-variant--short-answer .evaluationAppShell .ev-question-pills{gap:8px;}
 }
+
+
+/* MCQ-matched dropdown: raised trigger, inset option list; existing assessment values stay intact. */
+.assessment-variant--short-answer .ev-setting-row:has(.evaluationMiniSelectWrap){position:relative;z-index:1;}
+.assessment-variant--short-answer .ev-setting-row:has(.evaluationMiniSelectMenu){z-index:35;}
+.assessment-variant--short-answer .evaluationMiniSelectWrap{position:relative;flex:0 0 clamp(96px,35%,145px);width:clamp(96px,35%,145px);max-width:145px;min-width:0;height:34px;border:0;border-radius:6px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;}
+.assessment-variant--short-answer .evaluationMiniSelectTrigger{width:100%;height:100%;display:flex;align-items:center;justify-content:space-between;gap:5px;padding:0 9px 0 12px;border:0;border-radius:6px;background:transparent;color:#374151;font:400 13px/20px 'Segoe UI',Arial,sans-serif;text-align:left;cursor:pointer;}
+.assessment-variant--short-answer .evaluationMiniSelectTrigger>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.assessment-variant--short-answer .evaluationMiniSelectTrigger img{flex:0 0 17px;width:17px;height:17px;object-fit:contain;}
+.assessment-variant--short-answer .evaluationMiniSelectTrigger:focus-visible{outline:1px solid #7a8993;outline-offset:1px;}
+.assessment-variant--short-answer .evaluationMiniSelectMenu{position:absolute;z-index:50;top:calc(100% + 5px);right:0;width:max(100%,145px);max-width:min(260px,75vw);padding:6px;border-radius:8px;background:#DFE6E9;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4,3px 5px 8px rgba(98,110,119,.25);max-height:210px;overflow-y:auto;}
+.assessment-variant--short-answer .evaluationMiniSelectOption{display:block;width:100%;min-height:34px;padding:7px 10px;border:0;border-radius:5px;background:transparent;color:#374151;font:400 13px/20px 'Segoe UI',Arial,sans-serif;text-align:left;cursor:pointer;white-space:normal;}
+.assessment-variant--short-answer .evaluationMiniSelectOption:hover,.assessment-variant--short-answer .evaluationMiniSelectOption:focus-visible{outline:none;box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4;}
+.assessment-variant--short-answer .evaluationMiniSelectOption.is-selected{font-weight:600;color:#374151;}
+.assessment-variant--short-answer .ev-validation-message{color:#BC1E2D;font:600 14px/20px 'Segoe UI',Arial,sans-serif;}
+.assessment-variant--short-answer .evaluationSaveError{color:#BC1E2D;border-color:#BC1E2D;}
+@media(max-width:480px){.assessment-variant--short-answer .evaluationMiniSelectWrap{flex-basis:clamp(90px,37%,128px);width:clamp(90px,37%,128px);}.assessment-variant--short-answer .evaluationMiniSelectTrigger{font-size:12px;padding-inline:8px;}.assessment-variant--short-answer .evaluationMiniSelectOption{font-size:12px;}}
+
+
+/* Text-answer Evaluation UI: match MCQ full-width layout without Question Summary rail. */
+.assessment-variant--short-answer .ev-body-layout,
+.assessment-variant--short-answer .evaluationBodyLayout{
+  display:block;
+  width:100%;
+  min-width:0;
+}
+.assessment-variant--short-answer .ev-body-primary,
+.assessment-variant--short-answer .evaluationBodyPrimary{
+  width:100%;
+  min-width:0;
+}
+.assessment-variant--short-answer .ev-question-rail{display:none;}
+
+/* Security pills are one row; on narrow screens the row scrolls horizontally. */
+.assessment-variant--short-answer .evaluationAppShell .evaluationBodyPrimary .evaluationPills{
+  display:flex;
+  flex-wrap:nowrap;
+  width:calc(100% - 81px);
+  max-width:none;
+  min-width:0;
+  margin-left:81px;
+  align-items:center;
+  gap:15px;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationBodyPrimary .evaluationPill{
+  flex:1 1 0;
+  min-width:105px;
+  padding:0 10px;
+  white-space:nowrap;
+  font-size:clamp(12px,1vw,16px);
+}
+.assessment-variant--short-answer .evaluationPanelIcon,
+.assessment-variant--short-answer .evaluationDropdownBody .ev-card-icon{
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4;
+}
+.assessment-variant--short-answer .evaluationPanelIcon img,
+.assessment-variant--short-answer .evaluationDropdownBody .ev-card-icon img{object-fit:contain;}
+@media(max-width:760px){
+  .assessment-variant--short-answer .evaluationAppShell .evaluationBodyPrimary .evaluationPills{
+    width:100%;
+    margin-left:0;
+    gap:9px;
+  }
+  .assessment-variant--short-answer .evaluationAppShell .evaluationBodyPrimary .evaluationPill{
+    flex:0 0 auto;
+    min-width:112px;
+  }
+}
+
+
+/* Short Answer uses the same MCQ Evaluation card and section spacing; values unchanged. */
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanels{
+  display:grid;
+  gap:23px;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanel{
+  min-width:0;
+  padding:25px 27px 24px 24px;
+  border:0;
+  border-radius:18px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 8px #fff,5px 5px 8px #C4C4C4;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanelIcon{
+  display:grid;
+  place-items:center;
+  width:68px;
+  height:68px;
+  flex:0 0 68px;
+  border-radius:50%;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanelText h2{
+  margin:0 0 22px;
+  font:700 19px/1.25 'Segoe UI',Arial,sans-serif;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanelText p{
+  font:400 16px/1.5 'Segoe UI',Arial,sans-serif;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPills{
+  display:flex;
+  flex-wrap:nowrap;
+  width:calc(100% - 81px);
+  min-width:0;
+  margin:24px 0 0 81px;
+  gap:15px;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPill{
+  flex:0 0 auto;
+  min-width:109px;
+  height:43px;
+  padding:0 18px;
+  white-space:nowrap;
+  font:600 16px/24px 'Segoe UI',Arial,sans-serif;
+}
+@media(max-width:760px){
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPanel{padding:18px 15px 20px;border-radius:15px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPanelIcon{width:52px;height:52px;flex-basis:52px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPanelText h2{font-size:16px;margin-bottom:10px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPanelText p{font-size:13px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPills{width:100%;margin:19px 0 0;gap:10px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPill{height:36px;min-width:100px;padding:0 16px;font-size:13px;}
+}
+
+
+/* Final layout correction: full content width, no empty question-rail column. */
+.assessment-variant--short-answer .ev-content .ev-body-layout,
+.assessment-variant--short-answer .evaluationAppShell .evaluationBodyLayout {
+  display:block;
+  grid-template-columns:none;
+  width:100%;
+  max-width:none;
+  min-width:0;
+  gap:0;
+}
+.assessment-variant--short-answer .ev-content .ev-body-primary,
+.assessment-variant--short-answer .evaluationAppShell .evaluationBodyPrimary,
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanels {
+  display:block;
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.assessment-variant--short-answer .ev-content .ev-major-section,
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanel {
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.assessment-variant--short-answer .ev-content,
+.assessment-variant--short-answer .evaluationAppShell .evaluationPageContent {
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanels{display:grid;}
+
+
+/* MCQ Evaluation reference: cards fill the primary content column. */
+.assessment-variant--short-answer .evaluationAppShell .evaluationPageContent,
+.assessment-variant--short-answer .evaluationAppShell .evaluationBodyLayout,
+.assessment-variant--short-answer .evaluationAppShell .evaluationBodyPrimary,
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanels,
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanel {
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationBodyLayout {
+  display:block;
+  grid-template-columns:none;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanels {
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:23px;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPanel {
+  padding:25px 27px 24px 24px;
+  border-radius:18px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 8px #fff,5px 5px 8px #C4C4C4;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPills {
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  gap:26px;
+  width:calc(100% - 81px);
+  margin:24px 0 0 81px;
+  overflow-x:auto;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationPill {
+  flex:0 0 auto;
+  height:43px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+/* MCQ-sized action buttons: no tiny Save & Continue pill. */
+.assessment-variant--short-answer .evaluationAppShell .evaluationFooter {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  width:100%;
+  margin-top:35px;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationFooterRight {
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:15px;
+  margin-left:auto;
+  margin-right:0;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationFooterButton {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  min-width:162px;
+  width:auto;
+  height:54px;
+  min-height:54px;
+  padding:0 22px;
+  border:0;
+  border-top:4px solid #fff;
+  border-radius:30px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 8px #fff,5px 5px 8px #C4C4C4;
+  color:#374151;
+  font:700 18px/24px 'Segoe UI',Arial,sans-serif;
+  white-space:nowrap;
+}
+.assessment-variant--short-answer .evaluationAppShell .evaluationFooterButton.evaluationContinue {
+  min-width:220px;
+  color:#2A7308;
+}
+
+@media(max-width:760px) {
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPanel {padding:18px 15px 20px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPills {width:100%;margin:19px 0 0;gap:10px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPill {height:36px;min-width:100px;padding:0 16px;font-size:13px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationFooterButton {min-width:100px;height:46px;min-height:46px;padding:0 15px;font-size:15px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationFooterButton.evaluationContinue {min-width:165px;}
+}
+@media(max-width:480px) {
+  .assessment-variant--short-answer .evaluationAppShell .evaluationFooter {gap:10px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationFooterRight {gap:10px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationFooterButton {min-width:85px;height:44px;min-height:44px;padding:0 12px;font-size:13px;}
+  .assessment-variant--short-answer .evaluationAppShell .evaluationFooterButton.evaluationContinue {min-width:150px;}
+}
+
+
+/* MCQ reference — one row of equal-width Evaluation category buttons. */
+@media (min-width: 761px) {
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPanel--feedback .evaluationPills {
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:16px;
+    width:calc(100% - 81px);
+    min-width:0;
+    margin-left:81px;
+    overflow:visible;
+  }
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPanel--security .evaluationPills {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:16px;
+    width:calc(100% - 81px);
+    min-width:0;
+    margin-left:81px;
+    overflow:visible;
+  }
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPills .evaluationPill {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    max-width:none;
+    min-width:0;
+    height:43px;
+    padding:0 10px;
+    white-space:nowrap;
+    border-radius:999px;
+  }
+}
+/* On mobile, keep the exact labels without compressing or wrapping them. */
+@media (max-width:760px) {
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPanel--feedback .evaluationPills,
+  .assessment-variant--short-answer .evaluationAppShell .evaluationPanel--security .evaluationPills {
+    display:flex;
+    flex-wrap:nowrap;
+    gap:10px;
+    width:100%;
+    margin-left:0;
+    overflow-x:auto;
+  }
+}

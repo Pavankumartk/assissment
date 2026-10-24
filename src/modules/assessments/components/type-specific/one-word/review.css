@@ -251,3 +251,143 @@
   .assessment-variant--one-word .reviewAppShell .reviewQuestionRail{ height: 400px; }
   .assessment-variant--one-word .reviewAppShell .ev-question-pills{ gap: 8px; }
 }
+
+/* Publish validation matches MCQ: red text only, no blue notice. */
+.assessment-variant--one-word .reviewPublishError{align-self:center;flex:1;color:#BC1E2D;font:600 14px/21px 'Segoe UI',Arial,sans-serif;text-align:center;}
+
+
+/* MCQ Review section treatment. Presentation only: question data, fields, and actions unchanged. */
+.assessment-variant--one-word .reviewAppShell .reviewSection {
+  padding:0 0 12px;
+  overflow:hidden;
+  border-radius:15px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4;
+}
+.assessment-variant--one-word .reviewAppShell .reviewSectionHead {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  min-height:62px;
+  margin:0;
+  padding:10px 18px;
+  gap:12px;
+  border:0;
+  border-bottom:1px solid #C4CDD2;
+  border-radius:15px 15px 0 0;
+  background:#DFE6E9;
+  box-shadow:0 3px 5px -3px #9AA4A8;
+}
+.assessment-variant--one-word .reviewAppShell .reviewSectionTitle {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  min-width:0;
+}
+.assessment-variant--one-word .reviewAppShell .reviewNumber {
+  display:grid;
+  place-items:center;
+  width:36px;
+  height:36px;
+  flex:0 0 36px;
+  border-radius:50%;
+  background:#DFE6E9;
+  box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4;
+}
+.assessment-variant--one-word .reviewAppShell .reviewNumber .reviewAsset {
+  display:block;
+  width:20px;
+  height:20px;
+  object-fit:contain;
+}
+.assessment-variant--one-word .reviewAppShell .reviewSectionTitle strong {
+  font-size:18px;
+  line-height:26px;
+  font-weight:700;
+}
+.assessment-variant--one-word .reviewAppShell .reviewEdit {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:36px;
+  padding:7px 12px;
+  border-radius:6px;
+  background:#DFE6E9;
+  color:#2D4CC8;
+  font-size:18px;
+  text-decoration:none;
+  box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4;
+}
+.assessment-variant--one-word .reviewAppShell .reviewSectionBody {
+  min-width:0;
+  padding:18px 15px 12px;
+}
+.assessment-variant--one-word .reviewAppShell .reviewFieldGrid {
+  min-width:0;
+  gap:16px 20px;
+}
+.assessment-variant--one-word .reviewAppShell .reviewFieldGrid.two {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.assessment-variant--one-word .reviewAppShell .reviewFieldGrid.three {
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.assessment-variant--one-word .reviewAppShell .reviewFieldGrid .reviewWide {grid-column:1/-1;}
+.assessment-variant--one-word .reviewAppShell .reviewLabel {font:600 14px/20px 'Segoe UI',Arial,sans-serif;}
+.assessment-variant--one-word .reviewAppShell .reviewValue {
+  min-height:43px;
+  padding:10px 13px;
+  border-radius:5px;
+  background:#DFE6E9;
+  color:#374151;
+  font:400 14px/22px 'Segoe UI',Arial,sans-serif;
+  box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;
+  overflow-wrap:anywhere;
+}
+.assessment-variant--one-word .reviewAppShell .reviewInnerCard h3 .reviewSmallIcon {
+  display:grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  flex:0 0 30px;
+  border-radius:50%;
+  background:#DFE6E9;
+  box-shadow:-3px -3px 3px #fff,3px 3px 3px #C4C4C4;
+}
+/* Follow MCQ's narrower two-column breakpoint and mobile field stacking. */
+@media(max-width:1050px) {
+  .assessment-variant--one-word .reviewAppShell .reviewFieldGrid.three {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media(max-width:720px) {
+  .assessment-variant--one-word .reviewAppShell .reviewSection {padding:0 0 9px;border-radius:11px;}
+  .assessment-variant--one-word .reviewAppShell .reviewSectionHead {min-height:52px;padding:8px 10px;border-radius:11px 11px 0 0;}
+  .assessment-variant--one-word .reviewAppShell .reviewSectionBody {padding:12px 8px;}
+  .assessment-variant--one-word .reviewAppShell .reviewNumber {width:30px;height:30px;flex-basis:30px;}
+  .assessment-variant--one-word .reviewAppShell .reviewNumber .reviewAsset {width:18px;height:18px;}
+  .assessment-variant--one-word .reviewAppShell .reviewSectionTitle strong {font-size:15px;line-height:22px;}
+  .assessment-variant--one-word .reviewAppShell .reviewEdit {min-height:32px;padding:5px 8px;font-size:14px;}
+  .assessment-variant--one-word .reviewAppShell .reviewFieldGrid.two,
+  .assessment-variant--one-word .reviewAppShell .reviewFieldGrid.three {grid-template-columns:minmax(0,1fr);gap:12px;}
+}
+
+
+/* Final layout correction: Review cards occupy the entire MCQ-sized content area. */
+.assessment-variant--one-word .reviewAppShell .reviewPageContent,
+.assessment-variant--one-word .reviewAppShell .reviewBodyLayout,
+.assessment-variant--one-word .reviewAppShell .reviewBodyPrimary,
+.assessment-variant--one-word .reviewAppShell .reviewSections {
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.assessment-variant--one-word .reviewAppShell .reviewBodyLayout {
+  display:block;
+  grid-template-columns:none;
+  gap:0;
+}
+.assessment-variant--one-word .reviewAppShell .reviewSection {
+  width:100%;
+  max-width:none;
+  min-width:0;
+}

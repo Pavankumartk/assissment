@@ -612,3 +612,374 @@
   .assessment-variant--one-word .ev-body-primary .ev-tabs{ gap: 8px; }
   .assessment-variant--one-word .ev-body-primary .ev-tab{ min-width: 75px; padding: 0 9px; }
 }
+
+
+/* MCQ-matched dropdown: raised trigger, inset option list; existing assessment values stay intact. */
+.assessment-variant--one-word .ev-setting-row:has(.evaluationMiniSelectWrap){position:relative;z-index:1;}
+.assessment-variant--one-word .ev-setting-row:has(.evaluationMiniSelectMenu){z-index:35;}
+.assessment-variant--one-word .evaluationMiniSelectWrap{position:relative;flex:0 0 clamp(96px,35%,145px);width:clamp(96px,35%,145px);max-width:145px;min-width:0;height:34px;border:0;border-radius:6px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;}
+.assessment-variant--one-word .evaluationMiniSelectTrigger{width:100%;height:100%;display:flex;align-items:center;justify-content:space-between;gap:5px;padding:0 9px 0 12px;border:0;border-radius:6px;background:transparent;color:#374151;font:400 13px/20px 'Segoe UI',Arial,sans-serif;text-align:left;cursor:pointer;}
+.assessment-variant--one-word .evaluationMiniSelectTrigger>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.assessment-variant--one-word .evaluationMiniSelectTrigger img{flex:0 0 17px;width:17px;height:17px;object-fit:contain;}
+.assessment-variant--one-word .evaluationMiniSelectTrigger:focus-visible{outline:1px solid #7a8993;outline-offset:1px;}
+.assessment-variant--one-word .evaluationMiniSelectMenu{position:absolute;z-index:50;top:calc(100% + 5px);right:0;width:max(100%,145px);max-width:min(260px,75vw);padding:6px;border-radius:8px;background:#DFE6E9;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4,3px 5px 8px rgba(98,110,119,.25);max-height:210px;overflow-y:auto;}
+.assessment-variant--one-word .evaluationMiniSelectOption{display:block;width:100%;min-height:34px;padding:7px 10px;border:0;border-radius:5px;background:transparent;color:#374151;font:400 13px/20px 'Segoe UI',Arial,sans-serif;text-align:left;cursor:pointer;white-space:normal;}
+.assessment-variant--one-word .evaluationMiniSelectOption:hover,.assessment-variant--one-word .evaluationMiniSelectOption:focus-visible{outline:none;box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4;}
+.assessment-variant--one-word .evaluationMiniSelectOption.is-selected{font-weight:600;color:#374151;}
+.assessment-variant--one-word .ev-validation-message{color:#BC1E2D;font:600 14px/20px 'Segoe UI',Arial,sans-serif;}
+.assessment-variant--one-word .evaluationSaveError{color:#BC1E2D;border-color:#BC1E2D;}
+@media(max-width:480px){.assessment-variant--one-word .evaluationMiniSelectWrap{flex-basis:clamp(90px,37%,128px);width:clamp(90px,37%,128px);}.assessment-variant--one-word .evaluationMiniSelectTrigger{font-size:12px;padding-inline:8px;}.assessment-variant--one-word .evaluationMiniSelectOption{font-size:12px;}}
+
+
+/* Text-answer Evaluation UI: match MCQ full-width layout without Question Summary rail. */
+.assessment-variant--one-word .ev-body-layout,
+.assessment-variant--one-word .evaluationBodyLayout{
+  display:block;
+  width:100%;
+  min-width:0;
+}
+.assessment-variant--one-word .ev-body-primary,
+.assessment-variant--one-word .evaluationBodyPrimary{
+  width:100%;
+  min-width:0;
+}
+.assessment-variant--one-word .ev-question-rail{display:none;}
+
+/* Proctoring, Access, Monitoring and Restrictions stay on one row. */
+.assessment-variant--one-word .ev-body-primary .ev-tabs{
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  gap:16px;
+  width:100%;
+  min-width:0;
+  margin-left:0;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.assessment-variant--one-word .ev-body-primary .ev-tabs .ev-tab{
+  flex:1 1 0;
+  width:auto!important;
+  min-width:112px;
+  padding:0 10px;
+  white-space:nowrap;
+  font-size:clamp(12px,1.05vw,16px);
+}
+/* Section icon frames use the same raised circular treatment as MCQ. */
+.assessment-variant--one-word .ev-major-main-icon,
+.assessment-variant--one-word .ev-card-icon{
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4;
+}
+.assessment-variant--one-word .ev-major-main-icon img,
+.assessment-variant--one-word .ev-card-icon img{max-width:65%;max-height:65%;object-fit:contain;}
+@media(max-width:760px){
+ .assessment-variant--one-word .ev-body-primary .ev-tabs{gap:10px;}
+ .assessment-variant--one-word .ev-body-primary .ev-tabs .ev-tab{flex:0 0 auto;min-width:120px;}
+}
+
+
+/* MCQ-matched Evaluation panels: preserve all One Word setting values and event handlers. */
+.assessment-variant--one-word .ev-page-title {
+  margin:0 0 38px;
+}
+.assessment-variant--one-word .ev-page-title h1 {
+  margin:0 0 13px;
+  color:#374151;
+  font-size:21px;
+  line-height:1.35;
+  font-weight:700;
+  letter-spacing:normal;
+}
+.assessment-variant--one-word .ev-page-title p {font-size:16px;line-height:1.5;}
+.assessment-variant--one-word .ev-major-section {
+  padding:25px 27px 24px 24px;
+  margin-bottom:23px;
+  border:0;
+  border-radius:18px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 8px #fff,5px 5px 8px #C4C4C4;
+}
+.assessment-variant--one-word .ev-major-section-expanded {padding-bottom:24px;}
+.assessment-variant--one-word .ev-major-header {
+  display:flex;
+  align-items:flex-start;
+  min-height:0;
+  margin:0;
+  padding:0;
+  gap:24px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+.assessment-variant--one-word .ev-major-header-inner {
+  flex:1 1 0;
+  min-width:0;
+  display:flex;
+  align-items:flex-start;
+  gap:24px;
+}
+.assessment-variant--one-word .ev-major-main-icon {
+  display:grid;
+  place-items:center;
+  width:68px;
+  height:68px;
+  flex:0 0 68px;
+  border-radius:50%;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4;
+}
+.assessment-variant--one-word .ev-major-main-icon img {width:37px;height:37px;object-fit:contain;}
+.assessment-variant--one-word .ev-header-copy {min-width:0;flex:1 1 0;padding-top:7px;}
+.assessment-variant--one-word .ev-header-copy h2 {margin:0 0 22px;font-size:19px;line-height:1.25;font-weight:700;}
+.assessment-variant--one-word .ev-header-copy p {margin:0;font-size:16px;line-height:1.5;letter-spacing:.15px;}
+.assessment-variant--one-word .ev-section-toggle {align-self:flex-start;margin:43px 7px 0 3px;padding:7px;}
+.assessment-variant--one-word .ev-body-primary .ev-tabs {
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:15px;
+  width:100%;
+  min-width:0;
+  margin:24px 0 0;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.assessment-variant--one-word .ev-body-primary .ev-tabs .ev-tab {
+  flex:0 0 auto;
+  width:auto!important;
+  min-width:109px;
+  height:43px;
+  padding:0 18px;
+  border:0;
+  border-radius:999px;
+  background:#DFE6E9;
+  box-shadow:inset 2px 2px 3px #C4C4C4,inset -3px -3px 3px #fff;
+  font:600 16px/24px 'Segoe UI',Arial,sans-serif;
+  white-space:nowrap;
+}
+.assessment-variant--one-word .ev-card-icon {
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#DFE6E9;
+  box-shadow:-3px -3px 3px #fff,3px 3px 3px #C4C4C4;
+}
+@media(max-width:760px) {
+  .assessment-variant--one-word .ev-page-title {margin:0 0 25px;}
+  .assessment-variant--one-word .ev-page-title h1 {font-size:19px;margin-bottom:9px;}
+  .assessment-variant--one-word .ev-page-title p {font-size:14px;}
+  .assessment-variant--one-word .ev-major-section {padding:18px 15px 20px;border-radius:15px;}
+  .assessment-variant--one-word .ev-major-header {gap:13px;}
+  .assessment-variant--one-word .ev-major-header-inner {gap:13px;}
+  .assessment-variant--one-word .ev-major-main-icon {width:52px;height:52px;flex-basis:52px;}
+  .assessment-variant--one-word .ev-major-main-icon img {width:28px;height:28px;}
+  .assessment-variant--one-word .ev-header-copy {padding-top:3px;}
+  .assessment-variant--one-word .ev-header-copy h2 {font-size:16px;margin-bottom:10px;}
+  .assessment-variant--one-word .ev-header-copy p {font-size:13px;}
+  .assessment-variant--one-word .ev-section-toggle {margin:22px 0 0;padding:2px;}
+  .assessment-variant--one-word .ev-body-primary .ev-tabs {margin:19px 0 0;gap:10px;}
+  .assessment-variant--one-word .ev-body-primary .ev-tabs .ev-tab {height:36px;min-width:100px;padding:0 16px;font-size:13px;}
+}
+
+
+/* Final layout correction: full content width, no empty question-rail column. */
+.assessment-variant--one-word .ev-content .ev-body-layout,
+.assessment-variant--one-word .evaluationAppShell .evaluationBodyLayout {
+  display:block;
+  grid-template-columns:none;
+  width:100%;
+  max-width:none;
+  min-width:0;
+  gap:0;
+}
+.assessment-variant--one-word .ev-content .ev-body-primary,
+.assessment-variant--one-word .evaluationAppShell .evaluationBodyPrimary,
+.assessment-variant--one-word .evaluationAppShell .evaluationPanels {
+  display:block;
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.assessment-variant--one-word .ev-content .ev-major-section,
+.assessment-variant--one-word .evaluationAppShell .evaluationPanel {
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.assessment-variant--one-word .ev-content,
+.assessment-variant--one-word .evaluationAppShell .evaluationPageContent {
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.assessment-variant--one-word .evaluationAppShell .evaluationPanels{display:grid;}
+
+
+/* MCQ Evaluation reference: full-width stacked cards and one-row tabs. */
+.assessment-variant--one-word .ev-screen .ev-content,
+.assessment-variant--one-word .ev-screen .ev-body-layout,
+.assessment-variant--one-word .ev-screen .ev-body-primary,
+.assessment-variant--one-word .ev-screen .ev-major-section {
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.assessment-variant--one-word .ev-screen .ev-body-layout {
+  display:block;
+  grid-template-columns:none;
+  gap:0;
+}
+.assessment-variant--one-word .ev-screen .ev-major-section {
+  padding:25px 27px 24px 24px;
+  margin-bottom:23px;
+  border:0;
+  border-radius:18px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 8px #fff,5px 5px 8px #C4C4C4;
+}
+.assessment-variant--one-word .ev-screen .ev-major-header {
+  display:flex;
+  align-items:flex-start;
+  gap:24px;
+  width:100%;
+  min-height:0;
+  margin:0;
+  padding:0;
+  background:transparent;
+  box-shadow:none;
+}
+.assessment-variant--one-word .ev-screen .ev-major-header-inner {
+  display:flex;
+  flex:1 1 0;
+  min-width:0;
+  gap:24px;
+  align-items:flex-start;
+}
+.assessment-variant--one-word .ev-screen .ev-body-primary .ev-tabs {
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  gap:26px;
+  width:100%;
+  min-width:0;
+  margin:24px 0 0;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.assessment-variant--one-word .ev-screen .ev-body-primary .ev-tabs .ev-tab {
+  flex:0 0 auto;
+  width:auto!important;
+  min-width:109px;
+  height:43px;
+  padding:0 21px;
+  white-space:nowrap;
+  border-radius:999px;
+  font:600 16px/24px 'Segoe UI',Arial,sans-serif;
+}
+
+/* MCQ-sized action buttons: stable footprint and right-aligned Continue. */
+.assessment-variant--one-word .ev-screen .ev-footer {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  width:100%;
+  margin-top:35px;
+  padding:0 0 6px;
+}
+.assessment-variant--one-word .ev-screen .ev-footer-right {
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:15px;
+  margin-left:auto;
+  margin-right:0;
+}
+.assessment-variant--one-word .ev-screen .ev-footer-button {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  width:auto;
+  min-width:162px;
+  height:54px;
+  min-height:54px;
+  padding:0 22px;
+  border:0;
+  border-top:4px solid #fff;
+  border-radius:30px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 8px #fff,5px 5px 8px #C4C4C4;
+  color:#374151;
+  font:700 18px/24px 'Segoe UI',Arial,sans-serif;
+  white-space:nowrap;
+}
+.assessment-variant--one-word .ev-screen .ev-footer-button.ev-footer-continue {
+  min-width:220px;
+  color:#2A7308;
+}
+
+@media(max-width:760px) {
+  .assessment-variant--one-word .ev-screen .ev-major-section {padding:18px 15px 20px;}
+  .assessment-variant--one-word .ev-screen .ev-major-header,
+  .assessment-variant--one-word .ev-screen .ev-major-header-inner {gap:13px;}
+  .assessment-variant--one-word .ev-screen .ev-body-primary .ev-tabs {gap:10px;margin-top:19px;}
+  .assessment-variant--one-word .ev-screen .ev-body-primary .ev-tabs .ev-tab {height:36px;min-width:100px;padding:0 16px;font-size:13px;}
+  .assessment-variant--one-word .ev-screen .ev-footer-button {min-width:100px;height:46px;min-height:46px;padding:0 15px;font-size:15px;}
+  .assessment-variant--one-word .ev-screen .ev-footer-button.ev-footer-continue {min-width:165px;}
+}
+@media(max-width:480px) {
+  .assessment-variant--one-word .ev-screen .ev-footer {gap:10px;}
+  .assessment-variant--one-word .ev-screen .ev-footer-right {gap:10px;}
+  .assessment-variant--one-word .ev-screen .ev-footer-button {min-width:85px;height:44px;min-height:44px;padding:0 12px;font-size:13px;}
+  .assessment-variant--one-word .ev-screen .ev-footer-button.ev-footer-continue {min-width:150px;}
+}
+
+
+/* MCQ reference — one row of equal-width Evaluation category buttons. */
+@media (min-width: 761px) {
+  .assessment-variant--one-word .ev-screen .ev-body-primary .ev-tabs.ev-tabs-feedback,
+  .assessment-variant--one-word .ev-body-primary .ev-tabs.ev-tabs-feedback {
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:16px;
+    width:100%;
+    overflow:visible;
+  }
+  .assessment-variant--one-word .ev-screen .ev-body-primary .ev-tabs.ev-tabs-security,
+  .assessment-variant--one-word .ev-body-primary .ev-tabs.ev-tabs-security {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:16px;
+    width:100%;
+    overflow:visible;
+  }
+  .assessment-variant--one-word .ev-screen .ev-body-primary .ev-tabs .ev-tab,
+  .assessment-variant--one-word .ev-body-primary .ev-tabs .ev-tab {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%!important;
+    min-width:0;
+    max-width:none;
+    height:43px;
+    padding:0 10px;
+    white-space:nowrap;
+    border-radius:999px;
+  }
+}
+/* Keep buttons usable on narrow screens without changing page width. */
+@media (max-width:760px) {
+  .assessment-variant--one-word .ev-screen .ev-body-primary .ev-tabs,
+  .assessment-variant--one-word .ev-body-primary .ev-tabs {
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    width:100%;
+  }
+}
