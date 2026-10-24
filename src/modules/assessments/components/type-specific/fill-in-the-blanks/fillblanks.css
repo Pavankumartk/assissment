@@ -1,0 +1,762 @@
+/* MCQ Content — standalone Step 3; uses existing Header and Sidebar components. */
+.fillqcAppShell { width: 100%; min-width: 0; height: 100dvh; background: #DFE6E9; color: #374151; font-family: "Segoe UI", Arial, sans-serif; }
+.fillqcAppShell *, .fillqcAppShell *::before, .fillqcAppShell *::after { box-sizing: border-box; }
+.fillqcLayout { display: flex; height: 100dvh; min-width: 0; overflow: hidden; }
+.fillqcMainContent { flex: 1 1 auto; display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
+.fillqcHeader { flex: 0 0 auto; }
+.fillqcScrollArea { flex: 1 1 auto; min-height: 0; min-width: 0; overflow-x: hidden; overflow-y: auto; }
+.fillqcPageContent { width: 100%; min-width: 0; padding: 22px 24px 32px; }
+.fillqcIcon { display: block; flex: 0 0 auto; object-fit: contain; }
+.fillqcBreadcrumb { min-height: 30px; display: flex; align-items: center; gap: 14px; margin-bottom: 24px; font-size: 16px; line-height: 24px; letter-spacing: .02em; }
+.fillqcBreadcrumb a { text-decoration: none; color: #2F3547; }
+.fillqcBreadcrumb .fillqcBreadcrumbCurrent { color: #2D4CC8; font-weight: 700; }
+.fillqcWizard { display: flex; width: min(100%, 900px); height: 50px; margin: 0 0 36px; padding: 0; list-style: none; isolation: isolate; }
+.fillqcWizardStep { --tip: 23px; position: relative; flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-width: 0; height: 50px; gap: 10px; margin-left: calc(-1 * var(--tip)); padding: 0 10px 0 26px; clip-path: polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%,var(--tip) 50%); background: #c5cdd1; color: #374151; font-size: 14px; font-weight: 600; letter-spacing: .03em; white-space: nowrap; }
+.fillqcWizardStep::before { content: ""; position: absolute; inset: 1px; background: #DFE6E9; box-shadow: inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; clip-path: inherit; z-index: 0; }
+.fillqcWizardStep > span { z-index: 1; position: relative; }
+.fillqcWizardStep:first-child { margin-left: 0; padding-left: 8px; clip-path: polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%); }
+.fillqcWizardStep:nth-child(1) { z-index: 5; }.fillqcWizardStep:nth-child(2) { z-index: 4; }.fillqcWizardStep:nth-child(3) { z-index: 3; }.fillqcWizardStep:nth-child(4) { z-index: 2; }.fillqcWizardStep:nth-child(5) { z-index: 1; }
+.fillqcWizardDone { background: #2A7308; color: #2A7308; }.fillqcWizardActive { background: #2D4CC8; color: #2D4CC8; font-weight: 700; }
+.fillqcWizardNumber { display: grid; place-items: center; width: 21px; height: 21px; flex: 0 0 21px; border-radius: 50%; background: #DFE6E9; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px rgba(196,196,196,.8); }
+.fillqcWizardNumber > span { display: grid; place-items: center; width: 13px; height: 13px; border-radius: 50%; background: #DFE6E9; box-shadow: 2px 2px 2px #C6C6C9,-2px -2px 2px #fff; font-size: 12px; color: #374151; }
+.fillqcWizardDone .fillqcWizardNumber > span { color: #2A7308; }.fillqcWizardActive .fillqcWizardNumber > span { color: #2D4CC8; }
+.fillqcPageTitle { margin: 0 0 34px; }.fillqcPageTitle h1 { margin: 0 0 8px; font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: .02em; }.fillqcPageTitle p { margin: 0; font-size: 16px; line-height: 24px; letter-spacing: .03em; }
+.fillqcColumns { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,304px); align-items: stretch; gap: 24px; min-width: 0; }.fillqcLeftColumn { display: flex; flex-direction: column; gap: 32px; min-width: 0; }
+.fillqcQuestionsPanel { min-height: 656px; min-width: 0; padding: 24px; border-radius: 16px; background: #DFE6E9; box-shadow: -4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.fillqcQuestionsPanel h2 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; }
+.fillqcEmptyState { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 555px; width: 100%; text-align: center; }.fillqcEmptyIcon { margin: 5px 0 30px; width: min(129px,30vw); height: auto; aspect-ratio: 1; filter: drop-shadow(0 4px 14px rgba(0,0,0,.2)); }
+.fillqcEmptyState h3 { margin: 0 0 14px; font-size: clamp(23px,2.5vw,32px); font-weight: 700; line-height: 1.25; color: #2D4CC8; letter-spacing: .02em; }.fillqcEmptyState p { margin: 0 0 42px; font-size: clamp(17px,1.8vw,24px); line-height: 32px; }
+.fillqcActions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; width: 100%; margin-bottom: 32px; }.fillqcActions button,.fillqcCreateButton,.fillqcBack,.fillqcConfigure { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 50px; padding: 10px 20px; border: 0; border-radius: 36px; background: #DFE6E9; box-shadow: -4px -4px 8px #fff,4px 4px 8px rgba(196,196,196,.8); color: #374151; font: 600 16px/24px "Segoe UI",Arial,sans-serif; white-space: nowrap; cursor: pointer; transition: box-shadow .18s ease; }.fillqcActions button:active,.fillqcCreateButton:active,.fillqcBack:active,.fillqcConfigure:active { box-shadow: inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.fillqcBack { width: 150px; min-height: 48px; border-radius: 24px; font-size: 18px; font-weight: 700; }
+.fillqcSummaryPanel { display: flex; flex-direction: column; align-self: stretch; gap: 22px; min-width: 0; padding: 16px 14px; border-radius: 16px; background: #DFE6E9; box-shadow: -4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.fillqcSummarySection,.fillqcSettingsSection { border: 1px solid #ced4d8; border-radius: 5px; padding: 16px 12px; }.fillqcSummaryPanel h2 { margin: 0 0 18px; font-size: 16px; line-height: 24px; font-weight: 600; }
+.fillqcSummaryRow,.fillqcSettingRow { display: flex; gap: 12px; min-width: 0; align-items: center; min-height: 42px; color: #374151; font-size: 14px; line-height: 20px; }.fillqcSummaryRow span,.fillqcSettingRow > span { flex: 1 1 auto; min-width: 0; }.fillqcSummaryRow strong { font-size: 14px; font-weight: 600; white-space: nowrap; }
+.fillqcSettingsSection { display: flex; flex-direction: column; gap: 8px; }.fillqcSettingsSection h2 { margin-bottom: 8px; }.fillqcSettingRow { min-height: 44px; gap: 10px; }
+.fillqcSwitch { position: relative; width: 61px; height: 28px; flex: 0 0 61px; border: 0; border-radius: 32px; padding: 0; background: #DFE6E9; box-shadow: -4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4; cursor: pointer; }.fillqcSwitch::before { content: ""; position: absolute; left: 4px; top: 4px; width: 53px; height: 20px; border-radius: 32px; background: #DFE6E9; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; }.fillqcSwitchOn::before { background: linear-gradient(113.24deg,#2D4CC8 21.1%,#E01E5A 65.02%); box-shadow: none; }
+.fillqcSwitchText { position: absolute; top: 4px; right: 9px; z-index: 1; color: #2F3547; font: 400 12px/20px "Segoe UI",Arial,sans-serif; letter-spacing: .03em; }.fillqcSwitchOn .fillqcSwitchText { right: auto; left: 11px; color: #fff; }.fillqcSwitchKnob { position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; z-index: 2; background: #606162; border-radius: 50%; }.fillqcSwitchOn .fillqcSwitchKnob { left: 37px; background: #DFE6E9; box-shadow: 0 -2px 4px rgba(0,0,0,.1),0 4px 4px rgba(0,0,0,.25); }
+.fillqcConfigure { width: 170px; max-width: 100%; margin: 20px auto 4px; font-weight: 700; }.fillqcMessage { margin: 14px 0 0; font-size: 14px; color: #2D4CC8; }
+@media (max-width: 1200px) { .fillqcPageContent { padding: 20px 18px 28px; }.fillqcColumns { grid-template-columns: minmax(0,1fr) minmax(235px,275px); gap: 18px; }.fillqcQuestionsPanel { padding: 20px; }.fillqcActions { gap: 12px; }.fillqcActions button { font-size: 14px; padding-inline: 14px; } }
+@media (max-width: 950px) { .fillqcColumns { grid-template-columns: minmax(0,1fr); }.fillqcSummaryPanel { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }.fillqcEmptyState { min-height: 470px; }.fillqcQuestionsPanel { min-height: 570px; }.fillqcWizardStep { --tip: 15px; gap: 6px; padding-left: 17px; font-size: 12px; } }
+@media (max-width: 700px) { .fillqcPageContent { padding: 18px 14px 25px; }.fillqcBreadcrumb { gap: 8px; font-size: 14px; margin-bottom: 20px; }.fillqcWizard { width: 100%; height: 44px; margin-bottom: 30px; }.fillqcWizardStep { --tip: 10px; height: 44px; gap: 3px; padding: 0 2px 0 11px; font-size: clamp(9px,2.2vw,11px); letter-spacing: 0; }.fillqcWizardStep:first-child { padding-left: 3px; }.fillqcWizardNumber { width: 18px; height: 18px; flex-basis: 18px; }.fillqcWizardNumber > span { width: 12px; height: 12px; font-size: 10px; }.fillqcPageTitle h1 { font-size: 19px; }.fillqcPageTitle p { font-size: 14px; }.fillqcQuestionsPanel { min-height: 460px; padding: 16px; }.fillqcQuestionsPanel h2 { font-size: 18px; }.fillqcEmptyState { min-height: 395px; }.fillqcEmptyIcon { width: 86px; }.fillqcEmptyState h3 { font-size: 22px; }.fillqcEmptyState p { margin-bottom: 22px; font-size: 16px; line-height: 22px; }.fillqcActions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }.fillqcActions button { min-width: 0; min-height: 44px; padding: 8px; white-space: normal; font-size: 12px; gap: 5px; }.fillqcCreateButton { min-height: 44px; font-size: 14px; }.fillqcSummaryPanel { grid-template-columns: minmax(0,1fr); }.fillqcBack { width: 140px; min-height: 46px; }.fillqcLeftColumn { gap: 22px; } }
+@media (max-width: 380px) { .fillqcWizardStep { --tip: 8px; gap: 2px; padding-left: 9px; font-size: 8px; }.fillqcWizardNumber { width: 15px; height: 15px; flex-basis: 15px; }.fillqcWizardNumber > span { width: 10px; height: 10px; font-size: 9px; } }
+@media (prefers-reduced-motion: reduce) { .fillqcActions button,.fillqcCreateButton,.fillqcBack,.fillqcConfigure { transition: none; } }
+/* Create Questions extension — the existing Content screen rules above are unchanged. */
+.fillqcBuilder { min-width: 0; }.fillqcBuilderTop { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; margin-bottom:24px; }.fillqcBuilderCrumb { display:flex; flex-wrap:wrap; align-items:center; gap:10px; min-height:32px; font-size:16px; }.fillqcBuilderCrumb a,.fillqcBuilderCrumb button { color:#2F3547; text-decoration:none; background:none; border:0; padding:0; font:inherit; cursor:pointer; }.fillqcBuilderCrumb strong { color:#2D4CC8; }.fillqcBuilderWelcome { display:flex; align-items:center; justify-content:center; gap:12px; min-width:0; padding:16px 18px; background:#DFE6E9; border-radius:10px; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; text-align:center; }.fillqcBuilderWelcome h2 { margin:0 0 6px; font-size:22px; line-height:28px; font-weight:700; background:linear-gradient(90deg,#2D4CC8,#E01E5A); color:transparent; background-clip:text; }.fillqcBuilderWelcome p { margin:0; font-size:16px; line-height:24px; }
+.fillqcBuilderGrid { display:grid; grid-template-columns:minmax(0,1fr) 304px; gap:24px; align-items:start; }.fillqcBuilderMain,.fillqcBuilderAside { min-width:0; background:#DFE6E9; border-radius:16px; padding:24px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.fillqcBuilderMain { display:flex; flex-direction:column; gap:24px; }.fillqcQuestionNumbers { display:flex; align-items:center; gap:12px; overflow-x:auto; overscroll-behavior-x:contain; max-width:100%; padding:7px 4px 12px; scrollbar-width:thin; scrollbar-color:#b0bfc7 #dfe6e9; }.fillqcQuestionNumber { width:42px; height:42px; flex:0 0 42px; border:0; border-radius:9px; color:#374151; background:#D5DADC; box-shadow:inset 2px 2px 3px #bfc5c8,inset -2px -2px 3px #fff; font:700 15px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.fillqcQuestionNumber.is-partial { background:#F1B566; color:#604019; }.fillqcQuestionNumber.is-complete { background:#2A7308; color:#fff; }.fillqcQuestionNumber.is-active { background:#2D4CC8; color:#fff; box-shadow:-3px -3px 4px #fff,3px 3px 5px #b0b6bb; }
+.fillqcQuestionForm { display:flex; flex-direction:column; gap:24px; border:1px solid #AEAEAE; padding:18px; border-radius:16px; min-width:0; }.fillqcBuilderField { display:flex; flex-direction:column; gap:12px; min-width:0; position:relative; }.fillqcBuilderField > label,.fillqcFormHeading > label { font-size:16px; line-height:24px; font-weight:600; letter-spacing:.02em; }.fillqcBuilderField small { font-size:12px; font-weight:400; margin-left:8px; }.fillqcBuilderField textarea,.fillqcBuilderField input,.fillqcSelectTrigger { width:100%; min-width:0; background:#DFE6E9; border:0; border-radius:8px; color:#374151; font:400 16px/24px 'Segoe UI',Arial,sans-serif; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; outline:0; }.fillqcBuilderField textarea { display:block; resize:vertical; min-height:150px; padding:18px 20px; }.fillqcBuilderField input { min-height:50px; padding:12px 16px; }.fillqcBuilderField textarea:focus-visible,.fillqcBuilderField input:focus-visible,.fillqcSelectTrigger:focus-visible { outline:2px solid #2D4CC8; outline-offset:2px; }
+.fillqcSelectRoot { position:relative; min-width:0; }.fillqcSelectTrigger { min-height:58px; padding:12px 18px 12px 24px; display:flex; align-items:center; justify-content:space-between; gap:12px; text-align:left; cursor:pointer; }.fillqcSelectTrigger > span { min-width:0; overflow-wrap:anywhere; }.fillqcSelectList { position:absolute; top:calc(100% + 8px); left:0; width:100%; max-height:260px; overflow-y:auto; z-index:50; padding:10px; border-radius:12px; background:#DFE6E9; box-shadow:-4px -4px 8px #fff,5px 5px 12px #b8c1c6; scrollbar-width:thin; }.fillqcSelectItem { display:flex; align-items:center; width:100%; min-height:42px; gap:12px; padding:9px 11px; border:0; border-radius:7px; background:transparent; text-align:left; color:#374151; font:400 14px/20px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.fillqcSelectItem:hover { box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }.fillqcOptionRadio { width:24px; height:24px; flex:0 0 24px; display:grid; place-items:center; border-radius:50%; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }.fillqcOptionRadio::after { content:''; width:12px; height:12px; border:1px solid #C6C6C9; border-radius:50%; }.fillqcOptionSelected { box-shadow:-3px -3px 3px #fff,3px 3px 4px #C4C4C4; }.fillqcOptionSelected::after { background:#2D4CC8; border-color:#2D4CC8; }
+.fillqcRichToolbar { display:flex; flex-wrap:nowrap; gap:7px; overflow-x:auto; padding:8px; border-radius:6px; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; scrollbar-width:thin; }.fillqcRichToolbar button { width:36px; height:36px; flex:0 0 36px; display:grid; place-items:center; padding:4px; border:0; border-radius:5px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 3px #C4C4C4; cursor:pointer; }.fillqcFormHeading { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; }.fillqcFormHeading span { font-size:13px; font-weight:400; }.fillqcAnswerOptions { display:flex; flex-direction:column; gap:12px; }.fillqcAnswerRow { display:flex; align-items:center; gap:12px; min-width:0; }.fillqcAnswerRow input { flex:1; width:0; }.fillqcAnswerRadio { flex:0 0 24px; width:24px; height:24px; border:0; border-radius:50%; display:grid; place-items:center; background:#DFE6E9; box-shadow:inset 2px 2px 2px #C4C4C4,inset -2px -2px 2px #fff; cursor:pointer; }.fillqcAnswerRadio span { width:12px; height:12px; border:1px solid #C6C6C9; border-radius:50%; }.fillqcAnswerRadio.selected span { background:#2D4CC8; border-color:#2D4CC8; }.fillqcIconButton { flex:0 0 32px; width:32px; height:32px; display:grid; place-items:center; border:0; border-radius:7px; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; cursor:pointer; }.fillqcIconButton:disabled { opacity:.4; cursor:not-allowed; }.fillqcBuilderAction { display:inline-flex; justify-content:center; align-items:center; gap:8px; border:0; border-radius:28px; background:#DFE6E9; min-height:46px; padding:10px 18px; font:600 15px 'Segoe UI',Arial,sans-serif; color:#374151; box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4; cursor:pointer; white-space:nowrap; }.fillqcBuilderFooter { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:14px; }.fillqcBuilderFooter > button:first-child { margin-right:auto; }.fillqcAddMenu { position:relative; }.fillqcAddMenuList { position:absolute; bottom:calc(100% + 8px); right:0; min-width:220px; max-width:calc(100vw - 32px); padding:8px; z-index:20; background:#DFE6E9; border-radius:10px; box-shadow:-4px -4px 8px #fff,5px 5px 10px #B8C1C6; }.fillqcAddMenuList button { display:block; width:100%; border:0; border-radius:6px; padding:12px; background:transparent; color:#374151; font:400 14px 'Segoe UI',Arial,sans-serif; text-align:left; cursor:pointer; }.fillqcAddMenuList button:hover { box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }
+.fillqcBuilderAside { display:flex; flex-direction:column; gap:24px; }.fillqcBuilderAside h3 { margin:0; font-size:20px; line-height:28px; }.fillqcDifficulty { display:flex; flex-wrap:wrap; gap:9px; }.fillqcDifficulty button { flex:1 1 auto; padding:10px; min-height:42px; border:0; border-radius:8px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; font:600 14px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.fillqcDifficulty button.chosen { color:#2D4CC8; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 4px #C4C4C4; }.fillqcTagRow { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:8px; border-radius:8px; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; }.fillqcTagRow button { border:0; border-radius:5px; padding:5px 7px; background:#DFE6E9; color:#2D4CC8; cursor:pointer; }.fillqcTagRow input { flex:1 1 80px; width:85px; min-height:32px; padding:5px; box-shadow:none; }.fillqcMandatory { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:15px; font-weight:600; }
+@media (max-width:1100px) { .fillqcBuilderGrid { grid-template-columns:minmax(0,1fr) 255px; gap:15px; }.fillqcBuilderMain,.fillqcBuilderAside { padding:17px; }.fillqcBuilderWelcome { width:100%; } }
+@media (max-width:850px) { .fillqcBuilderGrid { grid-template-columns:minmax(0,1fr); }.fillqcBuilderAside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }.fillqcBuilderAside h3 { grid-column:1/-1; }.fillqcBuilderTop { flex-direction:column; }.fillqcBuilderWelcome { order:2; } }
+@media (max-width:600px) { .fillqcBuilderCrumb { font-size:12px; gap:5px; }.fillqcBuilderCrumb .fillqcIcon { width:15px; height:15px; }.fillqcBuilderWelcome { padding:12px; }.fillqcBuilderWelcome h2 { font-size:18px; line-height:24px; }.fillqcBuilderWelcome p { font-size:13px; }.fillqcBuilderMain,.fillqcBuilderAside { padding:13px; border-radius:12px; }.fillqcQuestionForm { padding:12px; gap:20px; }.fillqcBuilderAside { grid-template-columns:minmax(0,1fr); gap:20px; }.fillqcBuilderField > label,.fillqcFormHeading > label { font-size:14px; }.fillqcSelectTrigger { min-height:50px; padding:9px 13px; font-size:14px; }.fillqcBuilderField textarea { font-size:14px; }.fillqcQuestionNumbers { gap:8px; }.fillqcQuestionNumber { width:38px; height:38px; flex-basis:38px; }.fillqcBuilderFooter { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }.fillqcBuilderFooter > button:first-child { margin:0; }.fillqcBuilderAction { min-width:0; width:100%; padding:9px; font-size:13px; }.fillqcAnswerRow { gap:7px; }.fillqcAnswerRow input { min-height:44px; padding:8px; font-size:13px; } }
+
+/* Question builder: Figma-proportioned additions, original Content CSS above retained. */
+.fillqcBuilderTop { margin-bottom:20px; }.fillqcBuilderCrumb { flex:1 1 400px; }.fillqcBuilderWelcome { width:min(372px,100%); min-height:104px; border:1px solid #2D4CC8; border-right-color:#E01E5A; padding:13px; }.fillqcBuilderWelcome h2 { background:linear-gradient(90deg,#2D4CC8,#E01E5A); background-clip:text; -webkit-background-clip:text; color:transparent; font-size:21px; white-space:normal; }.fillqcBuilderWelcome p { font-size:14px; }.fillqcBuilderGrid { grid-template-columns:minmax(0,1fr) 304px; align-items:start; }.fillqcBuilderMain { gap:22px; }.fillqcQuestionsHeading { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }.fillqcQuestionsHeading h2 { margin:0 0 6px; font-size:20px; line-height:28px; }.fillqcQuestionsHeading p { margin:0; font-size:16px; }.fillqcTopAdd { display:flex; align-items:center; justify-content:center; gap:9px; min-width:120px; height:48px; border:1px solid #2D4CC8; border-radius:30px; background:#DFE6E9; color:#2D4CC8; box-shadow:-3px -3px 6px #fff,3px 3px 5px #C4C4C4; font:600 18px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.fillqcNumberNavigation { min-width:0; display:flex; align-items:center; gap:14px; }.fillqcNumberScroller { flex:1; min-width:0; overflow:hidden; }.fillqcQuestionNumbers { padding:5px 3px 11px; gap:12px; }.fillqcQuestionNumber { position:relative; width:67px; height:54px; flex:0 0 67px; border:1px solid #939da4; border-radius:4px; background:#DFE6E9; color:#606162; font-size:20px; box-shadow:-2px -2px 3px #fff,2px 2px 4px #aeb5b9; }.fillqcQuestionNumber .fillqcNumberValue { display:block; }.fillqcQuestionNumber small { display:block; font-size:11px; line-height:14px; color:inherit; }.fillqcQuestionNumber.is-complete { border-color:#2A7308; color:#2A7308; }.fillqcQuestionNumber.is-partial { border-color:#cf560e; color:#cf560e; }.fillqcQuestionNumber.is-active { border-color:#2D4CC8; color:#2D4CC8; background:#d7e0fc; }.fillqcNumberStatus { position:absolute; right:3px; top:2px; display:grid; place-items:center; width:13px; height:13px; color:#fff; border-radius:50%; background:#2A7308; font-size:10px; line-height:1; }.is-partial .fillqcNumberStatus { background:#c9560e; }.fillqcRoundNav { display:grid; place-items:center; flex:0 0 42px; width:42px; height:42px; border:0; border-radius:50%; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4; cursor:pointer; }.fillqcQuestionProgress { height:16px; padding:3px 7px; margin-top:-10px; border-radius:20px; box-shadow:inset 2px 2px 3px #c4c4c4,inset -2px -2px 3px #fff; }.fillqcQuestionProgress span { display:block; height:100%; border-radius:20px; background:#2A7308; }.fillqcQuestionForm { padding:16px; gap:28px; }.fillqcBuilderField > label { font-size:16px; }.fillqcEditorSurface { padding:10px; border-radius:8px; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 5px #C4C4C4; }.fillqcEditorSurface textarea { margin-top:14px; padding:12px 4px; box-shadow:none; min-height:60px; height:75px; resize:vertical; }.fillqcRichToolbar { padding:7px; }.fillqcBuilderField > label small { float:right; }.fillqcAnswerOptions { gap:14px; }.fillqcAnswerSection { min-width:0; }.fillqcAnswerExpand,.fillqcAddOptions { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:12px 20px; border:0; border-radius:7px; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4; color:#374151; font:600 16px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.fillqcRotated { transform:rotate(180deg); }.fillqcAnswerContent { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:10px 0 5px; padding:13px; border-radius:8px; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }.fillqcAnswerContent input:not([type=radio]) { flex:1 1 150px; padding:9px 12px; min-height:42px; }.fillqcCorrectOption { display:flex; align-items:center; gap:7px; font-size:13px; cursor:pointer; }.fillqcCorrectOption input { accent-color:#2D4CC8; }.fillqcRemoveOption { border:0; color:#c9560e; background:transparent; cursor:pointer; }.fillqcAddOptions { justify-content:center; min-height:48px; margin-top:24px; }.fillqcBuilderBottom { display:flex; justify-content:center; align-items:center; position:relative; min-height:52px; }.fillqcBuilderArrows { position:absolute; right:0; display:flex; gap:12px; }.fillqcSubmitQuestion { min-width:204px; color:#2D4CC8; border:1px solid #2D4CC8!important; font-size:18px; }.fillqcBuilderAside { display:flex; flex-direction:column; gap:14px; padding:16px; }.fillqcAsideSection { padding:14px 12px; border:1px solid #cbd3d8; border-radius:5px; display:flex; flex-direction:column; gap:12px; }.fillqcAsideSection h3 { margin:0; font-size:16px; line-height:24px; }.fillqcBuilderAside .fillqcBuilderField { gap:6px; }.fillqcBuilderAside .fillqcBuilderField > label { font-size:14px; line-height:20px; }.fillqcBuilderAside .fillqcSelectTrigger,.fillqcBuilderAside input { min-height:38px; padding:7px 12px; font-size:14px; }.fillqcBuilderAside .fillqcSelectItem { font-size:14px; }.fillqcBuilderAside .fillqcSelectList { max-height:325px; padding:9px; }.fillqcBuilderAside .fillqcOptionRadio { width:24px; height:24px; flex:0 0 24px; }.fillqcTagHolder { display:flex; flex-wrap:wrap; gap:8px; }.fillqcAddTag { display:flex; align-items:center; gap:5px; border:0; padding:7px; border-radius:5px; color:#2A7308; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #c4c4c4; cursor:pointer; }.fillqcTagInput { width:100%; }.fillqcTagRow { display:flex; flex-wrap:wrap; gap:7px; }.fillqcTagRow button { font-size:11px; padding:4px 8px; color:#2A7308; border:1px solid #91b67f; border-radius:4px; background:#e1ecd8; }.fillqcMandatory { margin-top:3px; font-size:14px; font-weight:600; }.fillqcAsideHint { margin:-10px 0 0; font-size:11px; }.fillqcBuilderSummary { margin-top:0; }.fillqcStatGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }.fillqcStatGrid div { min-width:0; text-align:center; }.fillqcStatGrid strong { display:grid; place-items:center; height:48px; box-shadow:-2px -2px 3px #fff,2px 2px 3px #c4c4c4; border-radius:7px; color:#2D4CC8; font-size:24px; }.fillqcStatGrid div:first-child strong { color:#67096E; }.fillqcStatGrid div:last-child strong { color:#2A7308; }.fillqcStatGrid span { display:block; margin-top:6px; font-size:12px; color:#2D4CC8; }.fillqcSummaryProgress { height:4px; background:#b8c0c5; }.fillqcSummaryProgress span { display:block; height:100%; background:linear-gradient(90deg,#2D4CC8,#E01E5A); }.fillqcBuilderSummary > p { margin:0; font-size:11px; line-height:17px; }.fillqcBuilderPageFooter { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:36px; }.fillqcBuilderPageFooter > div { display:flex; gap:24px; }.fillqcFooterPill { min-width:135px; height:48px; border:0; border-radius:28px; background:#DFE6E9; box-shadow:-4px -4px 5px #fff,4px 4px 6px #c4c4c4; font:600 16px 'Segoe UI',Arial,sans-serif; color:#374151; cursor:pointer; }.fillqcFooterContinue { color:#2A7308; }.fillqcBuilderNotice { margin:12px 0; font-size:14px; color:#2D4CC8; }.fillqcAddMenuList { min-width:230px; }.fillqcAddMenuList button { display:flex; align-items:center; gap:10px; }.fillqcAddMenuList .fillqcOptionRadio { flex:0 0 24px; }
+@media (max-width:1100px) { .fillqcBuilderGrid { grid-template-columns:minmax(0,1fr) 270px; gap:17px; }.fillqcBuilderMain { padding:16px; }.fillqcBuilderAside { padding:12px; } }
+@media (max-width:850px) { .fillqcBuilderGrid { grid-template-columns:minmax(0,1fr); }.fillqcBuilderAside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }.fillqcBuilderWelcome { margin-left:auto; }.fillqcBuilderPageFooter { margin-top:24px; } }
+@media (max-width:600px) { .fillqcBuilderTop { gap:14px; }.fillqcBuilderWelcome { min-height:84px; }.fillqcBuilderWelcome h2 { font-size:18px; line-height:24px; }.fillqcBuilderCrumb { flex-basis:100%; font-size:12px; gap:7px; }.fillqcBuilderMain { padding:12px; gap:16px; }.fillqcBuilderAside { display:flex; padding:12px; }.fillqcQuestionsHeading h2 { font-size:17px; line-height:24px; }.fillqcQuestionsHeading p { font-size:12px; }.fillqcTopAdd { min-width:88px; height:42px; font-size:15px; }.fillqcNumberNavigation { gap:6px; }.fillqcRoundNav { width:32px; height:32px; flex-basis:32px; }.fillqcQuestionNumber { width:55px; height:53px; flex-basis:55px; }.fillqcQuestionNumbers { gap:8px; }.fillqcQuestionForm { padding:12px; gap:22px; }.fillqcBuilderField > label { font-size:14px; }.fillqcBuilderBottom { justify-content:flex-start; padding-bottom:56px; }.fillqcBuilderArrows { right:0; bottom:0; }.fillqcSubmitQuestion { min-width:0; padding:10px 14px; font-size:15px; }.fillqcBuilderPageFooter { flex-direction:column; align-items:stretch; }.fillqcBuilderPageFooter > div { gap:10px; }.fillqcFooterPill { flex:1; min-width:0; padding:0 12px; font-size:14px; }.fillqcAnswerExpand,.fillqcAddOptions { min-height:46px; font-size:14px; padding:8px 12px; }.fillqcBuilderAside .fillqcSelectList { max-height:245px; } }
+
+/* Reference refinements: preserve all existing MCQ Content markup, assets and layout. */
+.fillqcBuilder .fillqcPointsControl { position:relative; display:flex; align-items:center; width:100%; min-width:0; height:44px; border-radius:7px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.fillqcBuilder .fillqcPointsControl input { flex:1; width:100%; height:100%; min-height:0; padding:7px 39px 7px 13px; border:0; border-radius:7px; box-shadow:none; background:transparent; outline:0; }
+.fillqcBuilder .fillqcPointsControl:focus-within { outline:2px solid #2D4CC8; outline-offset:2px; }
+.fillqcPointsControl input::-webkit-inner-spin-button,.fillqcPointsControl input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+.fillqcPointsControl input[type=number] { -moz-appearance:textfield; appearance:textfield; }
+.fillqcPointsSteppers { position:absolute; right:8px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center; width:24px; height:34px; gap:0; border-radius:3px; background:#DFE6E9; box-shadow:-1px -1px 2px #fff,1px 1px 2px #C4C4C4; }
+.fillqcPointsSteppers button { display:grid; place-items:center; flex:1; width:100%; min-height:0; padding:0; border:0; background:transparent; cursor:pointer; }
+.fillqcPointsSteppers .fillqcArrowUp { transform:rotate(180deg); }
+.fillqcPointsSteppers button:active { box-shadow:inset 1px 1px 2px #C4C4C4,inset -1px -1px 2px #fff; }
+/* Tag chips: no outside border; inset tag area and pale green chip fill. */
+.fillqcBuilder .fillqcTagRow { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-height:44px; padding:7px 9px; border:0; outline:0; border-radius:8px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.fillqcBuilder .fillqcTagRow button { display:inline-flex; gap:6px; align-items:center; min-height:26px; padding:4px 10px; border:1px solid #8cb66c; border-radius:5px; background:#E2EED9; color:#2A7308; font:400 13px/18px 'Segoe UI',Arial,sans-serif; box-shadow:none; }
+.fillqcBuilder .fillqcTagRow button span { color:#2A7308; font-size:16px; line-height:14px; }
+/* Summary figures and labels share the same purple, blue and green. */
+.fillqcBuilderSummary .fillqcStatGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.fillqcBuilderSummary .fillqcStatGrid > div { min-width:0; text-align:center; }
+.fillqcBuilderSummary .fillqcStatGrid strong { display:grid; place-items:center; height:52px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; border-radius:7px; font-size:25px; font-weight:700; }
+.fillqcBuilderSummary .fillqcStatGrid span { display:block; margin-top:9px; font:500 14px/20px 'Segoe UI',Arial,sans-serif; }
+.fillqcBuilderSummary .fillqcStatGrid > div:nth-child(1) strong,.fillqcBuilderSummary .fillqcStatGrid > div:nth-child(1) span { color:#67096E; }
+.fillqcBuilderSummary .fillqcStatGrid > div:nth-child(2) strong,.fillqcBuilderSummary .fillqcStatGrid > div:nth-child(2) span { color:#2D4CC8; }
+.fillqcBuilderSummary .fillqcStatGrid > div:nth-child(3) strong,.fillqcBuilderSummary .fillqcStatGrid > div:nth-child(3) span { color:#2A7308; }
+.fillqcBuilderSummary .fillqcSummaryProgress { position:relative; height:4px; margin-top:10px; background:linear-gradient(90deg,#67096E 0%,#2D4CC8 51%,#E01E5A 100%); border-radius:8px; overflow:hidden; }
+.fillqcBuilderSummary .fillqcSummaryProgress > span { position:absolute; left:0; top:0; height:100%; background:#2A7308; border-radius:8px; }
+/* Raised circular arrows stay legible on navigation and become subdued only when disabled. */
+.fillqcBuilder .fillqcRoundNav { display:grid; place-items:center; border:1px solid rgba(255,255,255,.6); border-radius:50%; background:#DFE6E9; color:#2F3547; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; cursor:pointer; opacity:1; }
+.fillqcBuilder .fillqcRoundNav .fillqcIcon { opacity:1; visibility:visible; filter:contrast(1.4); }
+.fillqcBuilder .fillqcRoundNav:disabled { opacity:.48; cursor:not-allowed; }
+.fillqcBuilder .fillqcRoundNav:not(:disabled):hover { box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+/* Neumorphic scroll tracks for all editor scrollable areas. */
+.fillqcBuilder .fillqcQuestionNumbers,.fillqcBuilder .fillqcNumberScroller,.fillqcBuilder .fillqcRichToolbar,.fillqcBuilder .fillqcSelectList { scrollbar-width:thin; scrollbar-color:#a3b2bc #DFE6E9; }
+.fillqcBuilder .fillqcQuestionNumbers::-webkit-scrollbar,.fillqcBuilder .fillqcNumberScroller::-webkit-scrollbar,.fillqcBuilder .fillqcRichToolbar::-webkit-scrollbar { height:9px; }
+.fillqcBuilder .fillqcSelectList::-webkit-scrollbar { width:8px; }
+.fillqcBuilder .fillqcQuestionNumbers::-webkit-scrollbar-track,.fillqcBuilder .fillqcNumberScroller::-webkit-scrollbar-track,.fillqcBuilder .fillqcRichToolbar::-webkit-scrollbar-track,.fillqcBuilder .fillqcSelectList::-webkit-scrollbar-track { background:#DFE6E9; border-radius:12px; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }
+.fillqcBuilder .fillqcQuestionNumbers::-webkit-scrollbar-thumb,.fillqcBuilder .fillqcNumberScroller::-webkit-scrollbar-thumb,.fillqcBuilder .fillqcRichToolbar::-webkit-scrollbar-thumb,.fillqcBuilder .fillqcSelectList::-webkit-scrollbar-thumb { border:1px solid #DFE6E9; border-radius:12px; background:#a3b2bc; box-shadow:inset -1px -1px 2px #8c9ca6,inset 1px 1px 2px #fff; }
+@media (max-width:600px) { .fillqcBuilderSummary .fillqcStatGrid { gap:8px; }.fillqcBuilderSummary .fillqcStatGrid strong { height:46px; font-size:21px; }.fillqcBuilderSummary .fillqcStatGrid span { font-size:12px; }.fillqcBuilder .fillqcTagRow { padding:7px; }.fillqcBuilder .fillqcRoundNav { flex-shrink:0; } }
+/* Create Questions: reference screenshot proportions (scaled naturally with the available width). */
+.fillqcBuilder { font:400 14px/20px "Segoe UI",Arial,sans-serif; color:#374151; }
+.fillqcBuilderTop { gap:16px; margin-bottom:16px; align-items:flex-start; }
+.fillqcBuilderCrumb { gap:8px; min-height:32px; font-size:14px; line-height:20px; letter-spacing:.02em; }
+.fillqcBuilderWelcome { width:min(320px,100%); min-height:90px; padding:12px 15px; gap:9px; border:1px solid #2D4CC8; border-right-color:#E01E5A; border-radius:9px; }
+.fillqcBuilderWelcome h2 { font-size:18px; line-height:25px; letter-spacing:.02em; }
+.fillqcBuilderWelcome p { font-size:13px; line-height:20px; }
+.fillqcBuilderGrid { grid-template-columns:minmax(0,1fr) minmax(230px,264px); align-items:start; gap:16px; }
+.fillqcBuilderMain { padding:20px 21px; gap:18px; border-radius:15px; }
+.fillqcBuilderAside { padding:12px; gap:12px; border-radius:12px; }
+.fillqcQuestionsHeading { align-items:center; }
+.fillqcQuestionsHeading h2 { font-size:17px; line-height:23px; margin-bottom:6px; }
+.fillqcQuestionsHeading p { font-size:13px; line-height:19px; }
+.fillqcTopAdd { min-width:112px; height:44px; font-size:16px; }
+.fillqcNumberNavigation { gap:10px; }
+.fillqcQuestionNumbers { gap:12px; padding:5px 3px 11px; }
+.fillqcQuestionNumber { flex:0 0 66px; width:66px; height:48px; background:#DFE6E9; color:#606162; border:1px solid #A6AFB5; border-radius:4px; font-size:17px; box-shadow:-2px -2px 3px #fff,2px 2px 4px #AEB5B9; }
+.fillqcQuestionNumber.is-complete { background:#DFE6E9; border-color:#2A7308; color:#2A7308; }
+.fillqcQuestionNumber.is-partial { background:#DFE6E9; border-color:#CE580B; color:#CE580B; }
+.fillqcQuestionNumber.is-active { background:#D9E2FB; border-color:#2D4CC8; color:#2D4CC8; }
+.fillqcQuestionNumber small { font-size:10px; line-height:13px; }
+.fillqcBuilder .fillqcRoundNav { width:38px; height:38px; flex:0 0 38px; background:#DFE6E9; border:1px solid #fff; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.fillqcBuilder .fillqcRoundNav:disabled { opacity:.46; }
+.fillqcBuilder .fillqcRoundNav:not(:disabled) .fillqcIcon { filter:contrast(1.7); opacity:1; }
+.fillqcQuestionProgress { height:15px; margin-top:-8px; }
+.fillqcQuestionForm { padding:18px 14px 22px; gap:24px; border:1px solid #AEAEAE; border-radius:15px; }
+.fillqcBuilderField { gap:12px; }
+.fillqcBuilder .fillqcBuilderField > label,.fillqcBuilder .fillqcFormHeading > label { font:600 14px/20px "Segoe UI",Arial,sans-serif; letter-spacing:.02em; }
+.fillqcBuilder .fillqcSelectTrigger { min-height:50px; padding:9px 15px 9px 20px; font:400 14px/22px "Segoe UI",Arial,sans-serif; border-radius:7px; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; }
+.fillqcEditorSurface { padding:9px; border-radius:7px; }
+.fillqcBuilder .fillqcRichToolbar { gap:6px; padding:6px; }
+.fillqcBuilder .fillqcRichToolbar button { width:32px; height:32px; flex-basis:32px; }
+.fillqcEditorSurface textarea { min-height:58px; height:62px; margin-top:9px; padding:10px 4px; font-size:13px; line-height:20px; }
+.fillqcBuilder .fillqcAnswerExpand { min-height:51px; padding:10px 18px; font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.fillqcAnswerOptions { gap:11px; }
+.fillqcBuilder .fillqcAddOptions { min-height:44px; margin-top:18px; font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilderBottom { min-height:48px; }
+.fillqcSubmitQuestion { min-width:180px; height:44px; min-height:44px; font-size:15px; }
+.fillqcBuilder .fillqcAsideSection { padding:13px 11px; gap:11px; }
+.fillqcBuilder .fillqcAsideSection h3 { font:600 16px/23px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilderAside .fillqcBuilderField { gap:6px; }
+.fillqcBuilderAside .fillqcBuilderField > label { font:600 13px/19px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilderAside .fillqcSelectTrigger { min-height:33px; height:33px; padding:4px 11px; font-size:13px; line-height:19px; }
+.fillqcBuilder .fillqcPointsControl { min-height:33px; height:33px; }
+.fillqcBuilder .fillqcPointsControl input { min-height:0; height:100%; font-size:13px; padding:4px 35px 4px 10px; }
+.fillqcPointsSteppers { height:27px; right:5px; width:22px; }
+.fillqcBuilder .fillqcSelectItem { min-height:38px; font-size:13px; line-height:20px; }
+.fillqcBuilder .fillqcSelectList { max-height:245px; }
+.fillqcBuilder .fillqcTagRow { min-height:34px; padding:5px 7px; gap:6px; }
+.fillqcBuilder .fillqcTagRow button { font-size:11px; min-height:22px; padding:2px 7px; }
+.fillqcBuilderSummary .fillqcStatGrid { gap:12px; }
+.fillqcBuilderSummary .fillqcStatGrid strong { height:48px; font-size:23px; }
+.fillqcBuilderSummary .fillqcStatGrid span { margin-top:7px; font:500 12px/18px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilderPageFooter { margin-top:36px; }
+.fillqcBuilderPageFooter .fillqcFooterPill { min-width:135px; height:44px; padding:8px 17px; border-radius:25px; font:700 15px/22px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcQuestionNumbers,.fillqcBuilder .fillqcNumberScroller,.fillqcBuilder .fillqcRichToolbar,.fillqcBuilder .fillqcSelectList { scrollbar-width:thin; scrollbar-color:#A3B2BC #DFE6E9; }
+@media (max-width:1100px) { .fillqcBuilderGrid { grid-template-columns:minmax(0,1fr) 244px; gap:14px; }.fillqcBuilderMain { padding:16px; }.fillqcBuilderAside { padding:11px; } }
+@media (max-width:850px) { .fillqcBuilderGrid { grid-template-columns:minmax(0,1fr); }.fillqcBuilderAside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }.fillqcBuilderTop { flex-direction:column; }.fillqcBuilderWelcome { margin-left:0; }.fillqcBuilderPageFooter { margin-top:24px; } }
+@media (max-width:600px) { .fillqcBuilderTop { gap:12px; }.fillqcBuilderCrumb { flex-basis:auto; font-size:12px; gap:5px; }.fillqcBuilderWelcome { min-height:75px; padding:11px; width:100%; }.fillqcBuilderWelcome h2 { font-size:17px; line-height:22px; }.fillqcBuilderWelcome p { font-size:12px; line-height:18px; }.fillqcBuilderMain,.fillqcBuilderAside { padding:12px; gap:14px; }.fillqcQuestionsHeading h2 { font-size:16px; }.fillqcTopAdd { min-width:85px; height:39px; font-size:14px; }.fillqcNumberNavigation { gap:6px; }.fillqcQuestionNumber { width:54px; height:47px; flex-basis:54px; }.fillqcQuestionNumbers { gap:8px; }.fillqcBuilder .fillqcRoundNav { width:33px; height:33px; flex-basis:33px; }.fillqcQuestionForm { padding:12px; gap:20px; }.fillqcBuilderAside { display:flex; }.fillqcBuilderPageFooter { margin-top:22px; }.fillqcBuilderPageFooter .fillqcFooterPill { min-width:0; height:42px; font-size:13px; padding:7px 11px; }.fillqcBuilder .fillqcAnswerExpand { min-height:46px; }.fillqcBuilder .fillqcSelectTrigger { min-height:46px; }.fillqcBuilderAside .fillqcSelectTrigger { min-height:36px; height:36px; }.fillqcBuilderBottom { padding-bottom:48px; } }
+
+/* Targeted corrections: dropdown direction, responsive settings and options. */
+.fillqcBuilder .fillqcAddMenu { position:relative; z-index:30; }
+.fillqcBuilder .fillqcAddMenuList { top:calc(100% + 8px); bottom:auto; right:0; left:auto; width:max-content; min-width:228px; max-width:min(310px,calc(100vw - 28px)); max-height:min(280px,50dvh); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#aab8c1 #dfe6e9; box-sizing:border-box; }
+.fillqcBuilder .fillqcAddMenuList button { min-height:43px; white-space:normal; overflow-wrap:break-word; }
+.fillqcBuilder .fillqcBuilderAside { min-width:0; width:100%; }
+.fillqcBuilder .fillqcAsideSection { min-width:0; width:100%; box-sizing:border-box; }
+.fillqcBuilderAside .fillqcBuilderField,.fillqcBuilderAside .fillqcSelectRoot,.fillqcBuilderAside .fillqcSelectTrigger,.fillqcBuilderAside .fillqcPointsControl { min-width:0; width:100%; max-width:100%; box-sizing:border-box; }
+.fillqcBuilderAside .fillqcSelectTrigger { display:flex; gap:8px; justify-content:space-between; }
+.fillqcBuilderAside .fillqcSelectTrigger > span { min-width:0; flex:1; overflow-wrap:anywhere; }
+.fillqcBuilderAside .fillqcSelectTrigger > .fillqcIcon { flex:0 0 auto; }
+@media (max-width:850px) { .fillqcBuilder .fillqcBuilderAside { display:flex; flex-direction:column; gap:14px; }.fillqcBuilder .fillqcAsideSection { width:100%; }.fillqcBuilderGrid { grid-template-columns:minmax(0,1fr); }.fillqcBuilder .fillqcAddMenuList { right:0; } }
+@media (max-width:600px) { .fillqcBuilder .fillqcBuilderAside { padding:12px; gap:13px; }.fillqcBuilder .fillqcAsideSection { padding:14px 12px; gap:12px; }.fillqcBuilderAside .fillqcBuilderField { gap:7px; }.fillqcBuilderAside .fillqcBuilderField > label { font-size:14px; line-height:20px; }.fillqcBuilderAside .fillqcSelectTrigger { min-height:42px; height:auto; padding:9px 12px; font-size:14px; line-height:20px; }.fillqcBuilderAside .fillqcPointsControl { min-height:42px; height:42px; }.fillqcBuilder .fillqcAddMenuList { right:0; left:auto; max-width:min(260px,calc(100vw - 36px)); } }
+
+/* Bottom Add Questions: same dropdown as the upper Add button, positioned below. */
+.fillqcBuilder .fillqcBottomAddMenu { position:relative; z-index:35; display:inline-flex; justify-content:center; }
+.fillqcBuilder .fillqcBottomAddMenu .fillqcAddMenuList { top:calc(100% + 8px); bottom:auto; left:50%; right:auto; transform:translateX(-50%); }
+@media (max-width:600px) { .fillqcBuilder .fillqcBottomAddMenu .fillqcAddMenuList { left:0; right:auto; transform:none; } }
+
+/* Expanded answer sections: Figma reference, scoped to question builder only. */
+.fillqcBuilder .fillqcAnswerSection { min-width:0; border-radius:8px; }
+.fillqcBuilder .fillqcAnswerContent { display:flex; flex-direction:column; gap:11px; min-width:0; padding:12px 11px 14px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; border-radius:0 0 8px 8px; }
+.fillqcBuilder .fillqcOptionSubLabel { display:flex; align-items:center; justify-content:space-between; gap:10px; font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcOptionSubLabel small { font-size:12px; font-weight:400; }
+.fillqcBuilder .fillqcOptionEditor { min-width:0; padding:8px; border-radius:7px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; }
+.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { padding:5px; gap:7px; min-height:45px; }
+.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button { width:32px; height:32px; flex:0 0 32px; }
+.fillqcBuilder .fillqcOptionEditor textarea { display:block; width:100%; height:70px; min-height:70px; resize:vertical; margin:8px 0 0; padding:10px 7px; background:transparent; color:#374151; border:0; border-radius:4px; box-shadow:none; outline:0; font:400 13px/20px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcCorrectOption { display:flex; align-items:center; gap:8px; font:600 13px/19px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcCorrectOption input,.fillqcBuilder .fillqcHintChecks input { width:16px; height:16px; min-height:0; margin:0; accent-color:#2A7308; box-shadow:none; }
+.fillqcBuilder .fillqcOptionDetail { min-width:0; border-radius:6px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4; }
+.fillqcBuilder .fillqcOptionDetailHead { display:flex; align-items:center; gap:10px; width:100%; min-height:41px; padding:8px 12px; background:transparent; border:0; border-radius:6px; color:#374151; font:600 13px/19px "Segoe UI",Arial,sans-serif; cursor:pointer; text-align:left; }
+.fillqcBuilder .fillqcDetailHeading { display:flex; align-items:center; flex:1; gap:8px; min-width:0; }
+.fillqcBuilder .fillqcOptionDetailHead small { margin-left:auto; font:400 11px/16px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.fillqcBuilder .fillqcOptionDetailBody { padding:6px 10px 12px; min-width:0; }
+.fillqcBuilder .fillqcHintChecks { display:grid; gap:8px; margin-top:10px; }
+.fillqcBuilder .fillqcHintChecks label { display:flex; align-items:center; gap:8px; font:400 12px/18px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcAnswerExpand[aria-expanded="true"] { border-radius:7px 7px 0 0; }
+.fillqcBuilder .fillqcOptionToolbar,.fillqcBuilder .fillqcOptionEditor textarea { scrollbar-width:thin; scrollbar-color:#a3b2bc #dfe6e9; }
+@media (max-width:600px) { .fillqcBuilder .fillqcAnswerContent { padding:10px 8px; }.fillqcBuilder .fillqcOptionDetailHead { padding:8px; }.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { overflow-x:auto; }.fillqcBuilder .fillqcOptionEditor textarea { font-size:13px; } }
+
+/* Option accordion: full-width vertical sections, matching the supplied reference. */
+.fillqcBuilder .fillqcAnswerContent { display:flex; flex-direction:column; flex-wrap:nowrap; align-items:stretch; justify-content:flex-start; width:100%; margin:0; padding:14px 12px 16px; gap:14px; border-radius:0 0 8px 8px; }
+.fillqcBuilder .fillqcAnswerContent > * { width:100%; max-width:100%; min-width:0; flex:0 0 auto; align-self:stretch; }
+.fillqcBuilder .fillqcOptionSubLabel { justify-content:space-between; font-size:14px; line-height:22px; }
+.fillqcBuilder .fillqcOptionSubLabel small { margin-left:auto; font-size:12px; }
+.fillqcBuilder .fillqcOptionEditor { display:flex; flex-direction:column; width:100%; padding:8px 10px 10px; box-sizing:border-box; }
+.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { width:100%; max-width:100%; min-width:0; min-height:46px; overflow-x:auto; overflow-y:hidden; flex-wrap:nowrap; }
+.fillqcBuilder .fillqcOptionEditor textarea { box-sizing:border-box; width:100%; max-width:100%; min-width:0; height:95px; min-height:95px; margin:8px 0 0; padding:12px 8px; font-size:14px; line-height:21px; }
+.fillqcBuilder .fillqcCorrectOption { display:flex; align-items:center; justify-content:flex-start; width:100%; gap:10px; white-space:normal; font-size:14px; line-height:22px; }
+.fillqcBuilder .fillqcCorrectOption input { display:block; flex:0 0 18px; width:18px; height:18px; min-width:18px; min-height:18px; margin:0; padding:0; }
+.fillqcBuilder .fillqcOptionDetail { display:block; width:100%; min-width:0; margin:0; border-radius:7px; }
+.fillqcBuilder .fillqcOptionDetailHead { width:100%; min-height:44px; padding:10px 14px; justify-content:space-between; font-size:14px; }
+.fillqcBuilder .fillqcDetailHeading { flex:1 1 auto; min-width:0; justify-content:flex-start; }
+.fillqcBuilder .fillqcOptionDetailHead small { margin-left:auto; }
+.fillqcBuilder .fillqcOptionDetailBody { width:100%; padding:10px 12px 14px; }
+.fillqcBuilder .fillqcHintChecks { width:100%; }
+@media (max-width:600px) { .fillqcBuilder .fillqcAnswerContent { padding:10px 8px 12px; gap:12px; }.fillqcBuilder .fillqcOptionEditor { padding:7px; }.fillqcBuilder .fillqcOptionDetailHead { padding:9px 10px; gap:7px; }.fillqcBuilder .fillqcOptionDetailHead small { font-size:11px; }.fillqcBuilder .fillqcOptionEditor textarea { min-height:85px; height:85px; }.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { gap:5px; } }
+
+/* Option editors: Figma typography, compact toolbar and square selection controls. */
+.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { display:flex; align-items:center; gap:7px; padding:6px 8px; min-height:48px; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; }
+.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button { flex:0 0 34px; width:34px; height:34px; min-width:34px; padding:5px; font:600 16px/22px "Segoe UI",Arial,sans-serif; border-radius:4px; }
+.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button.fillqcToolbarSelect { display:inline-flex; align-items:center; justify-content:space-between; flex:0 0 auto; width:auto; gap:9px; padding:5px 9px; font:400 14px/22px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar .fillqcToolbarFont { min-width:84px; }
+.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar .fillqcToolbarSize { min-width:53px; }
+.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar .fillqcIcon { width:18px; height:18px; }
+.fillqcBuilder .fillqcOptionEditor textarea { resize:none; font:400 16px/24px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcOptionSubLabel { font:600 16px/24px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcOptionSubLabel small { font:400 12px/20px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcCorrectOption,.fillqcBuilder .fillqcHintChecks label { font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcCorrectOption input[type="checkbox"],.fillqcBuilder .fillqcHintChecks input[type="checkbox"] { appearance:none; -webkit-appearance:none; display:grid; place-items:center; flex:0 0 24px; width:24px; height:24px; min-width:24px; min-height:24px; padding:0; margin:0; border:0; border-radius:4px; background:#DFE6E9; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px rgba(196,196,196,.8); cursor:pointer; }
+.fillqcBuilder .fillqcCorrectOption input[type="checkbox"]:checked,.fillqcBuilder .fillqcHintChecks input[type="checkbox"]:checked { box-shadow:-4px -4px 4px #fff,4px 4px 4px rgba(196,196,196,.8); }
+.fillqcBuilder .fillqcCorrectOption input[type="checkbox"]:checked::after,.fillqcBuilder .fillqcHintChecks input[type="checkbox"]:checked::after { content:""; display:block; width:16px; height:16px; border-radius:3px; background:#2D4CC8; clip-path:polygon(0 0,100% 0,100% 100%,0 100%); }
+.fillqcBuilder .fillqcCorrectOption input[type="checkbox"]:checked::after { background:#2A7308; }
+.fillqcBuilder .fillqcCorrectOption input[type="checkbox"]:checked,.fillqcBuilder .fillqcHintChecks input[type="checkbox"]:checked { position:relative; }
+.fillqcBuilder .fillqcCorrectOption input[type="checkbox"]:checked::before,.fillqcBuilder .fillqcHintChecks input[type="checkbox"]:checked::before { content:""; position:absolute; left:8px; top:6px; width:6px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); z-index:1; }
+.fillqcBuilder .fillqcOptionDetailHead { font:600 16px/24px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcOptionDetailHead small { font:400 12px/20px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcOptionDetailHead .fillqcIcon { flex-shrink:0; }
+@media (max-width:700px) { .fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { gap:5px; padding:5px; }.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button { flex-basis:30px; width:30px; min-width:30px; height:30px; }.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button.fillqcToolbarSelect { padding-inline:7px; font-size:12px; }.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar .fillqcToolbarFont { min-width:74px; }.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar .fillqcToolbarSize { min-width:46px; }.fillqcBuilder .fillqcOptionEditor textarea { font-size:14px; line-height:22px; }.fillqcBuilder .fillqcOptionDetailHead { font-size:14px; } }
+
+/* Main question editor: same Segoe UI, family and size controls as option editors. */
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar { display:flex; align-items:center; gap:6px; min-width:0; min-height:45px; padding:5px 7px; overflow-x:auto; overflow-y:hidden; flex-wrap:nowrap; scrollbar-width:thin; scrollbar-color:#aab8c1 #DFE6E9; }
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar button { flex:0 0 32px; width:32px; height:32px; min-width:32px; padding:5px; border:0; border-radius:3px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:600 16px/22px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar button.fillqcToolbarSelect { flex:0 0 auto; width:auto; display:inline-flex; align-items:center; justify-content:space-between; gap:8px; padding:4px 9px; font:400 14px/22px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.fillqcBuilder .fillqcEditorSurface .fillqcToolbarFont { min-width:83px; }
+.fillqcBuilder .fillqcEditorSurface .fillqcToolbarSize { min-width:52px; }
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar .fillqcIcon { width:18px; height:18px; }
+.fillqcBuilder .fillqcEditorSurface textarea { font:400 16px/24px "Segoe UI",Arial,sans-serif; resize:none; }
+.fillqcBuilder .fillqcDetailHeading { gap:9px; font:600 16px/24px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcOptionDetailHead { gap:12px; }
+/* Uniform rich-text editors: question, option text, feedback, explanation and hint. */
+.fillqcBuilder .fillqcEditorSurface,.fillqcBuilder .fillqcOptionEditor { width:100%; min-width:0; padding:8px; border-radius:8px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; }
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { display:flex; align-items:center; flex-wrap:wrap; gap:7px; width:100%; min-width:0; min-height:46px; padding:6px 8px; overflow:visible; border-radius:5px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar button,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button { display:inline-flex; align-items:center; justify-content:center; flex:0 0 32px; width:32px; min-width:32px; height:32px; padding:5px; border:0; border-radius:4px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:600 16px/22px "Segoe UI",Arial,sans-serif; cursor:pointer; }
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar button.fillqcToolbarSelect,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button.fillqcToolbarSelect { display:inline-flex; justify-content:space-between; align-items:center; flex:0 0 auto; width:auto; gap:8px; padding:4px 9px; font:400 14px/22px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.fillqcBuilder .fillqcEditorSurface .fillqcToolbarFont,.fillqcBuilder .fillqcOptionEditor .fillqcToolbarFont { min-width:84px; }
+.fillqcBuilder .fillqcEditorSurface .fillqcToolbarSize,.fillqcBuilder .fillqcOptionEditor .fillqcToolbarSize { min-width:52px; }
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar .fillqcIcon,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar .fillqcIcon { width:18px; height:18px; }
+.fillqcBuilder .fillqcEditorSurface textarea,.fillqcBuilder .fillqcOptionEditor textarea { display:block; box-sizing:border-box; width:100%; max-width:100%; min-width:0; height:95px; min-height:95px; margin:8px 0 0; padding:12px 8px; border:0; border-radius:4px; background:transparent; box-shadow:none; outline:0; resize:none; color:#374151; font:400 16px/24px "Segoe UI",Arial,sans-serif; }
+.fillqcBuilder .fillqcEditorSurface textarea:focus-visible,.fillqcBuilder .fillqcOptionEditor textarea:focus-visible { outline:2px solid #2D4CC8; outline-offset:-2px; }
+@media (max-width:700px) { .fillqcBuilder .fillqcEditorSurface,.fillqcBuilder .fillqcOptionEditor { padding:6px; } .fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { gap:5px; padding:5px; } .fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar button,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button { width:30px; min-width:30px; height:30px; flex-basis:30px; } .fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar button.fillqcToolbarSelect,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button.fillqcToolbarSelect { padding:4px 7px; font-size:12px; flex-basis:auto; } .fillqcBuilder .fillqcEditorSurface textarea,.fillqcBuilder .fillqcOptionEditor textarea { min-height:90px; height:90px; font-size:14px; line-height:22px; } }
+/* Keep every rich-text toolbar on exactly one row, including Hint. */
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { display:flex; flex-direction:row; flex-wrap:nowrap; align-items:center; justify-content:flex-start; gap:10px; min-width:0; width:100%; min-height:44px; padding:5px 6px; overflow-x:auto; overflow-y:hidden; white-space:nowrap; scrollbar-width:thin; }
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar button,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button { flex:0 0 31px; width:31px; min-width:31px; height:32px; padding:4px; }
+.fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar button.fillqcToolbarSelect,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button.fillqcToolbarSelect { flex:0 0 auto; width:auto; white-space:nowrap; }
+.fillqcBuilder .fillqcEditorSurface .fillqcToolbarFont,.fillqcBuilder .fillqcOptionEditor .fillqcToolbarFont { min-width:80px; }
+.fillqcBuilder .fillqcEditorSurface .fillqcToolbarSize,.fillqcBuilder .fillqcOptionEditor .fillqcToolbarSize { min-width:50px; }
+@media (max-width:700px) { .fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar { flex-wrap:nowrap; gap:4px; padding:5px; } .fillqcBuilder .fillqcEditorSurface .fillqcOptionToolbar button,.fillqcBuilder .fillqcOptionEditor .fillqcOptionToolbar button { flex:0 0 30px; min-width:30px; width:30px; } }
+/* Remove Option: raised action aligned to the right edge of the expanded answer. */
+.fillqcBuilder .fillqcAnswerContent .fillqcRemoveOption { display:inline-flex; align-items:center; justify-content:center; align-self:flex-end; width:max-content; max-width:100%; min-height:36px; margin:6px 0 0 auto; padding:7px 16px; border:1px solid #d95e23; border-radius:8px; background:#DFE6E9; color:#c9560e; box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4; font:600 14px/20px 'Segoe UI',Arial,sans-serif; white-space:nowrap; cursor:pointer; }
+.fillqcBuilder .fillqcAnswerContent .fillqcRemoveOption:active { box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+/* Available previous/next arrows must be dark and visible; only disabled arrows are faded. */
+.fillqcBuilder .fillqcRoundNav:not(:disabled) { opacity:1; color:#141B34; }
+.fillqcBuilder .fillqcRoundNav:not(:disabled) .fillqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(1258%) hue-rotate(190deg) brightness(95%) contrast(93%)!important; }
+.fillqcBuilder .fillqcRoundNav:disabled { opacity:.43; cursor:not-allowed; }
+.fillqcBuilder .fillqcRoundNav:disabled .fillqcIcon { opacity:.5; filter:grayscale(1); }
+@media(max-width:600px) { .fillqcBuilder .fillqcAnswerContent .fillqcRemoveOption { min-height:34px; padding:6px 12px; font-size:13px; } }
+/* Question navigation: first question has a softly dimmed Previous arrow;
+   from question 2 onward Previous and Next have identical enabled contrast. */
+.fillqcBuilder .fillqcRoundNav:disabled { opacity:1; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; cursor:not-allowed; }
+.fillqcBuilder .fillqcRoundNav:disabled .fillqcIcon { opacity:.58!important; visibility:visible!important; filter:grayscale(1) brightness(0) saturate(100%) invert(65%) sepia(6%) saturate(320%) hue-rotate(165deg)!important; }
+.fillqcBuilder .fillqcRoundNav:not(:disabled) { opacity:1; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.fillqcBuilder .fillqcRoundNav:not(:disabled) .fillqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(1258%) hue-rotate(190deg) brightness(95%) contrast(93%)!important; }
+/* Previous arrow on Question 1: same clearly visible dark icon as the Next arrow; button stays disabled. */
+.fillqcBuilder .fillqcRoundNav:disabled .fillqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+/* Once Previous is enabled it gets the same dark arrow treatment as Next. */
+.fillqcBuilder .fillqcRoundNav:not(:disabled) .fillqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+
+/* Both navigation arrows always use the same visible appearance. */
+.fillqcBuilder .fillqcRoundNav,.fillqcBuilder .fillqcRoundNav:not(:disabled) { opacity:1!important; color:#141B34; cursor:pointer; }
+.fillqcBuilder .fillqcRoundNav .fillqcIcon,.fillqcBuilder .fillqcRoundNav:not(:disabled) .fillqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+
+/* Create Questions breadcrumb: no preceding back-icon button; links remain responsive. */
+.fillqcAppShell .fillqcBuilderCrumb > .fillqcBreadcrumbReturn,
+.fillqcAppShell .fillqcBreadcrumb > .fillqcBreadcrumbReturn { display:none!important; }
+.fillqcBuilderCrumb { min-width:0; flex-wrap:wrap; }
+@media (max-width:600px) { .fillqcBuilderCrumb { column-gap:6px; row-gap:8px; } }
+
+/* Connected Preview Questions — scoped so the original builder remains unchanged. */
+.fillqcPreview { color:#374151; font:400 14px/1.5 "Segoe UI",Arial,sans-serif; min-width:0; }
+.fillqcPreviewCrumb { display:flex; align-items:center; flex-wrap:wrap; gap:9px; margin:0 0 18px; font-size:14px; }
+.fillqcPreviewCrumb a,.fillqcPreviewCrumb button { border:0; padding:0; background:transparent; color:#374151; text-decoration:none; font:inherit; cursor:pointer; }
+.fillqcPreviewCrumb strong { color:#2D4CC8; }
+.fillqcPreviewCard { padding:20px; border-radius:16px; background:#DFE6E9; box-shadow:-4px -4px 5px #fff,4px 4px 5px #C4C4C4; min-width:0; }
+.fillqcPreviewCard>header h2 { font-size:18px; margin:0 0 4px; }.fillqcPreviewCard>header p { margin:0 0 14px; }
+.fillqcPreviewControls { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; margin-bottom:16px; }
+.fillqcPreviewTotals { display:flex; flex-wrap:wrap; gap:10px; padding:10px; border-radius:9px; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; }
+.fillqcPreviewTotals>div { min-width:100px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:1px solid #D0D7DB; border-radius:5px; padding:6px 10px; }
+.fillqcPreviewTotals strong { font-size:14px; }.fillqcPreviewTotals span { font-size:12px; }.fillqcPreviewTotals .fillqcPreviewReady { min-width:155px; flex-direction:row; gap:8px; justify-content:flex-start; }
+.fillqcPreviewReady strong,.fillqcGreen { color:#2A7308; }.fillqcPreviewReady small { display:block; }.fillqcOrange { color:#CC670D; }
+.fillqcPreviewTools { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }.fillqcPreviewFilter { position:relative; }.fillqcPreviewFilter>button,.fillqcPreviewLearner { display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:38px; padding:7px 14px; border:0; border-radius:6px; background:#DFE6E9; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font:inherit; color:#374151; cursor:pointer; }
+.fillqcPreviewLearner { box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; color:#2D4CC8; font-weight:600; }.fillqcPreviewFilter>div { position:absolute; top:100%; left:0; z-index:20; min-width:160px; padding:6px; border-radius:8px; background:#DFE6E9; box-shadow:3px 3px 7px #C4C4C4,-3px -3px 7px #fff; }.fillqcPreviewFilter>div button { display:block; width:100%; border:0; padding:9px; text-align:left; background:transparent; cursor:pointer; }
+.fillqcPreviewQuestion { padding:16px; border:1px solid #B4BDC2; border-radius:16px; min-width:0; }.fillqcPreviewMeta { display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px; }.fillqcPreviewMeta>span,.fillqcPreviewMeta>button { min-height:31px; padding:6px 12px; border:1px solid #C6CFD4; border-radius:22px; background:#DFE6E9; font-size:12px; }.fillqcPreviewMeta>button { display:flex; align-items:center; gap:6px; cursor:pointer; color:#374151; }
+.fillqcPreviewPanel { margin-bottom:17px; border-radius:6px; overflow:hidden; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }.fillqcPreviewPanel>h3,.fillqcPreviewSectionHead { width:100%; margin:0; padding:12px 16px; text-align:left; font:600 14px/21px "Segoe UI",Arial,sans-serif; background:#DFE6E9; border:0; box-shadow:0 2px 4px #C4C4C4; color:#374151; }.fillqcPreviewPanel>p { margin:0; min-height:58px; padding:18px 16px; font-size:14px; }.fillqcPreviewSectionHead { display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+.fillqcPreviewAnswers,.fillqcPreviewLearning { padding:12px; display:grid; gap:8px; }.fillqcPreviewAnswer { display:flex; gap:9px; align-items:center; min-width:0; padding:8px 12px; border:1px solid #D3DBD9; border-radius:5px; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; }.fillqcPreviewAnswer.correct { border-color:#6C9C58; color:#28750B; }.fillqcPreviewAnswer.incorrect { color:#A4333D; }.fillqcAnswerLetter { padding:1px 6px; box-shadow:inset 1px 1px 2px #C4C4C4,inset -1px -1px 2px #fff; }.fillqcPreviewAnswerText { flex:1; min-width:0; overflow-wrap:anywhere; }.fillqcPreviewAnswer small { padding:3px 8px; border:1px solid currentColor; border-radius:15px; white-space:nowrap; }
+.fillqcPreviewLearning section { padding:12px; border-radius:6px; box-shadow:-2px -2px 4px #fff,2px 2px 4px #C4C4C4; }.fillqcPreviewLearning h4 { display:flex; align-items:center; gap:8px; margin:0 0 12px; font-size:14px; }.fillqcPreviewLearning section>p { margin:8px 0; padding:0 24px; white-space:pre-wrap; }.fillqcPreviewFeedbackItem { margin:7px 0 7px 26px; border:1px solid #D0D7DB; }.fillqcPreviewFeedbackItem>button { width:100%; display:flex; align-items:center; gap:9px; border:0; padding:8px 10px; background:#DFE6E9; color:#374151; font:inherit; text-align:left; cursor:pointer; }.fillqcPreviewFeedbackItem>button .fillqcIcon:last-child { margin-left:auto; }.fillqcPreviewFeedbackItem p { padding:12px 14px; margin:0; white-space:pre-wrap; }
+.fillqcPreviewSettings { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; padding:14px; }.fillqcPreviewSettings>div { min-width:0; }.fillqcPreviewSettings>div>span { display:block; margin-bottom:7px; font-size:13px; }.fillqcPreviewSettings strong { display:flex; align-items:center; gap:8px; min-height:38px; padding:7px 9px; border-radius:5px; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font-size:13px; font-weight:600; overflow-wrap:anywhere; }.fillqcPreviewSettings .fillqcIcon { flex-shrink:0; }
+.fillqcPreviewBottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-top:20px; }.fillqcPreviewBottom button,.fillqcPreviewEmpty button { min-height:40px; border:0; border-radius:25px; padding:9px 18px; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; color:#374151; font:600 14px "Segoe UI",Arial,sans-serif; cursor:pointer; }.fillqcPreviewBottom .fillqcPreviewSave { color:#2D4CC8; }.fillqcPreviewPager { display:flex; align-items:center; gap:10px; }.fillqcPreviewPager button:disabled { opacity:.45; cursor:default; }.fillqcPreviewEmpty { text-align:center; padding:25px; }
+@media(max-width:850px) { .fillqcPreviewSettings { grid-template-columns:repeat(2,minmax(0,1fr)); }.fillqcPreviewControls { align-items:flex-start; } }
+@media(max-width:600px) { .fillqcPreviewCard { padding:12px; }.fillqcPreviewQuestion { padding:10px; }.fillqcPreviewCrumb { font-size:12px; gap:5px; }.fillqcPreviewControls { gap:12px; }.fillqcPreviewTotals { width:100%; }.fillqcPreviewTotals>div { flex:1 1 75px; min-width:0; }.fillqcPreviewTotals .fillqcPreviewReady { flex:1 1 135px; }.fillqcPreviewTools { width:100%; gap:9px; }.fillqcPreviewSettings { gap:10px; }.fillqcPreviewAnswer small { font-size:10px; white-space:normal; }.fillqcPreviewAnswer { padding:8px 6px; gap:5px; }.fillqcPreviewBottom { justify-content:center; }.fillqcPreviewFeedbackItem { margin-left:0; }.fillqcPreviewLearning,.fillqcPreviewAnswers { padding:8px; }.fillqcPreviewLearning section { padding:9px; } }
+
+/* Figma Preview Questions corrections — scoped to preview; builder and shared layout untouched. */
+.fillqcPreview { font-family:"Segoe UI",Arial,sans-serif; font-size:16px; line-height:1.5; color:#374151; }
+.fillqcPreviewCrumb { font-size:16px; line-height:24px; gap:8px; margin-bottom:20px; letter-spacing:.02em; }
+.fillqcPreviewCard { border-radius:16px; padding:24px; box-shadow:-8px -8px 16px #FFFFFF,8px 8px 16px #C4C4C4; }
+.fillqcPreviewCard>header h2 { font-size:20px; line-height:28px; font-weight:700; margin-bottom:7px; }
+.fillqcPreviewCard>header p { font-size:16px; line-height:24px; margin-bottom:18px; }
+.fillqcPreviewControls { margin-bottom:20px; gap:20px; }
+.fillqcPreviewTotals { padding:8px 12px; gap:12px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.fillqcPreviewTotals>div { min-height:55px; }.fillqcPreviewTotals strong { font-size:16px; }.fillqcPreviewTotals span { font-size:14px; }
+.fillqcPreviewQuestion { padding:18px; border:1px solid #B7C1C5; border-radius:16px; }
+.fillqcPreviewMeta { gap:16px; margin-bottom:20px; }.fillqcPreviewMeta>span,.fillqcPreviewMeta>button { font-size:14px; }
+.fillqcPreviewPanel { margin-bottom:20px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.fillqcPreviewPanel>h3,.fillqcPreviewSectionHead { font:600 18px/26px "Segoe UI",Arial,sans-serif; padding:13px 16px; box-shadow:0 3px 5px #C4C4C4; }
+.fillqcPreviewPanel>p { font-size:16px; line-height:24px; padding:18px 16px; }
+.fillqcPreviewAnswers,.fillqcPreviewLearning { padding:14px; gap:12px; }
+.fillqcPreviewAnswer { min-height:45px; padding:9px 13px; font-size:16px; gap:12px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.fillqcPreviewAnswer.correct { border-color:#6A994E; color:#267208; }.fillqcPreviewAnswer.incorrect { color:#B62B38; }
+.fillqcPreviewAnswer small { font-size:12px; line-height:18px; }
+.fillqcPreviewLearning section { padding:15px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.fillqcPreviewLearning h4 { font-size:18px; font-weight:600; line-height:26px; gap:10px; }
+.fillqcPreviewFeedbackItem { margin:9px 0 9px 26px; border:1px solid #D1D6D9; }
+.fillqcPreviewFeedbackItem>button { padding:12px; gap:11px; font:400 16px/24px "Segoe UI",Arial,sans-serif; }
+.fillqcPreviewFeedbackItem p,.fillqcPreviewLearning section>p { font-size:16px; line-height:24px; }
+.fillqcPreviewSettings { gap:16px; padding:16px; }.fillqcPreviewSettings>div>span { font-size:16px; margin-bottom:9px; }
+.fillqcPreviewSettings strong { min-height:48px; font:600 16px/24px "Segoe UI",Arial,sans-serif; padding:9px 12px; box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4; }
+.fillqcPreviewBottom { justify-content:space-between; margin-top:22px; }.fillqcPreviewBottom button { min-height:48px; padding:10px 22px; font-size:18px; box-shadow:-4px -4px 4px #FFFFFF,4px 4px 8px #C4C4C4; }
+.fillqcPreviewStatusIcon { display:inline-grid; place-items:center; flex:0 0 auto; border:2px solid currentColor; border-radius:50%; font-family:"Segoe UI",Arial,sans-serif; font-weight:800; line-height:1; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; }
+.fillqcPreviewStatusIcon.is-correct { color:#287B10; }.fillqcPreviewStatusIcon.is-wrong { color:#C12A3A; }
+.fillqcPreviewFeedbackItem .fillqcPreviewStatusIcon,.fillqcPreviewLearning h4 .fillqcPreviewStatusIcon { opacity:1; }
+@media(max-width:850px) { .fillqcPreviewSettings { grid-template-columns:repeat(2,minmax(0,1fr)); }.fillqcPreviewCard { padding:18px; } }
+@media(max-width:600px) { .fillqcPreviewCard { padding:12px; }.fillqcPreviewQuestion { padding:10px; }.fillqcPreviewCrumb { font-size:12px; line-height:20px; }.fillqcPreviewPanel>h3,.fillqcPreviewSectionHead { font-size:15px; line-height:22px; padding:11px 12px; }.fillqcPreviewLearning h4 { font-size:15px; line-height:22px; }.fillqcPreviewAnswer,.fillqcPreviewFeedbackItem>button,.fillqcPreviewFeedbackItem p,.fillqcPreviewLearning section>p { font-size:13px; line-height:19px; }.fillqcPreviewAnswer { gap:6px; padding:7px; }.fillqcPreviewAnswer small { font-size:10px; }.fillqcPreviewSettings { grid-template-columns:minmax(0,1fr); gap:10px; }.fillqcPreviewSettings>div>span,.fillqcPreviewSettings strong { font-size:14px; }.fillqcPreviewBottom button { font-size:14px; min-height:44px; }.fillqcPreviewMeta { gap:7px; }.fillqcPreviewMeta>span,.fillqcPreviewMeta>button { font-size:11px; }.fillqcPreviewTotals>div { min-width:0; }.fillqcPreviewLearning section { padding:10px; } }
+
+/* Preview-only Figma measurements: compact settings, pills, status glyphs. */
+.fillqcPreview, .fillqcPreview button {font-family:"Segoe UI",Arial,sans-serif;}
+.fillqcPreviewReadyCheck {display:grid;place-items:center;flex:0 0 18px;width:18px;height:18px;border-radius:2px;color:#fff;background:#2A7308;font:700 13px/18px "Segoe UI",Arial,sans-serif;box-shadow:-2px -2px 2px #fff,2px 2px 2px rgba(196,196,196,.8);}
+.fillqcPreviewReady {display:flex;align-items:center;gap:8px;}
+.fillqcPreviewReady strong {font-weight:600;color:#2A7308;}
+.fillqcPreviewMeta {display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:24px;}
+.fillqcPreviewMeta > span,.fillqcPreviewMeta > button {display:inline-flex;align-items:center;justify-content:center;min-height:40px;height:40px;padding:0 14px;border:0;border-radius:32px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;color:#2F3547;font:400 14px/20px "Segoe UI",Arial,sans-serif;letter-spacing:.03em;white-space:nowrap;}
+.fillqcPreviewMeta > span:first-child {min-width:142px;}.fillqcPreviewMeta > span:nth-child(2) {min-width:165px;gap:4px;}.fillqcPreviewMeta > button {min-width:81px;gap:8px;cursor:pointer;}
+.fillqcPreviewMeta b.fillqcGreen {color:#2A7308;font-weight:600;}.fillqcPreviewMeta b.fillqcOrange {font-weight:600;}
+.fillqcPreviewStatusIcon {width:24px!important;height:24px!important;border:0!important;border-radius:50%;background:#DFE6E9;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #fff;font:800 15px/24px "Segoe UI",Arial,sans-serif!important;text-align:center;opacity:1!important;}
+.fillqcPreviewStatusIcon.is-correct {color:#fff;background:radial-gradient(circle at center,#2A7308 0 49%,#DFE6E9 53% 100%);}
+.fillqcPreviewStatusIcon.is-wrong {color:#fff;background:radial-gradient(circle at center,#A91E2C 0 49%,#DFE6E9 53% 100%);}
+.fillqcPreviewAnswer.incorrect .fillqcPreviewStatusIcon {background:#DFE6E9;color:#C6C6C9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:0!important;}
+.fillqcPreviewAnswer.incorrect .fillqcPreviewStatusIcon::after {content:"";width:12px;height:12px;border:1.5px solid #C6C6C9;border-radius:50%;display:block;margin:6px auto;}
+.fillqcPreviewFeedbackItem {margin:8px 0 8px 26px;border:0;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;overflow:hidden;}
+.fillqcPreviewFeedbackItem > button {display:flex;align-items:center;min-height:44px;width:100%;padding:8px 14px;gap:12px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font:600 16px/24px "Segoe UI",Arial,sans-serif;}
+.fillqcPreviewFeedbackItem > button .fillqcIcon {margin-left:auto;opacity:1;}
+.fillqcPreviewFeedbackItem > p {margin:0;padding:15px 30px;font:400 14px/22px "Segoe UI",Arial,sans-serif;letter-spacing:.02em;}
+.fillqcPreviewSettings {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding:14px 16px;align-items:start;}
+.fillqcPreviewSettings > div {min-width:0;}.fillqcPreviewSettings > div > span {font:400 14px/20px "Segoe UI",Arial,sans-serif;margin-bottom:7px;letter-spacing:.02em;}
+.fillqcPreviewSettings strong {min-height:40px;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font:600 14px/20px "Segoe UI",Arial,sans-serif;overflow-wrap:anywhere;}
+.fillqcPreviewSettings strong .fillqcIcon {width:18px;height:18px;flex:0 0 18px;visibility:visible;opacity:1;}
+@media(max-width:900px) {.fillqcPreviewSettings {grid-template-columns:repeat(3,minmax(0,1fr));}.fillqcPreviewMeta {gap:10px;}}
+@media(max-width:600px) {.fillqcPreviewSettings {grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px;}.fillqcPreviewSettings > div > span {font-size:12px;}.fillqcPreviewSettings strong {font-size:12px;min-height:40px;padding:7px;}.fillqcPreviewMeta {justify-content:flex-start;gap:8px;}.fillqcPreviewMeta > span,.fillqcPreviewMeta > button {font-size:12px;min-height:36px;height:36px;padding:0 10px;min-width:0!important;}.fillqcPreviewFeedbackItem {margin-left:0;}.fillqcPreviewFeedbackItem > button {font-size:13px;padding:8px;}.fillqcPreviewFeedbackItem > p {padding:12px;font-size:13px;}}
+@media(max-width:370px) {.fillqcPreviewSettings {grid-template-columns:minmax(0,1fr);}}
+
+/* Figma status marks: raised 24px circle, green tick / red cross; 18px Ready square. */
+.fillqcPreview .fillqcPreviewStatusIcon {position:relative;display:inline-grid;place-items:center;width:24px!important;height:24px!important;flex:0 0 24px;border:0!important;border-radius:50%;background:#DFE6E9!important;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF!important;opacity:1!important;font-size:0!important;}
+.fillqcPreview .fillqcPreviewStatusIcon::before {content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#2A7308;}
+.fillqcPreview .fillqcPreviewStatusIcon.is-correct::after {content:"";position:absolute;width:7px;height:4px;border-left:1.8px solid #fff;border-bottom:1.8px solid #fff;transform:translateY(-1px) rotate(-45deg);}
+.fillqcPreview .fillqcPreviewStatusIcon.is-wrong::before {background:#A91E2C;}
+.fillqcPreview .fillqcPreviewStatusIcon.is-wrong::after {content:"×";position:absolute;inset:0;display:grid;place-items:center;color:#FFFFFF;font:700 14px/24px "Segoe UI",Arial,sans-serif;}
+.fillqcPreview .fillqcPreviewAnswer.incorrect .fillqcPreviewStatusIcon {background:#DFE6E9!important;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4!important;}
+.fillqcPreview .fillqcPreviewAnswer.incorrect .fillqcPreviewStatusIcon::before {width:12px;height:12px;background:transparent;border:1.5px solid #C6C6C9;}
+.fillqcPreview .fillqcPreviewAnswer.incorrect .fillqcPreviewStatusIcon::after {content:none;}
+.fillqcPreview .fillqcPreviewReadyCheck {position:relative;display:inline-grid;place-items:center;width:18px;height:18px;flex:0 0 18px;border-radius:2px;background:#DFE6E9;box-shadow:-2px -2px 2px #fff,2px 2px 2px rgba(196,196,196,.8);font-size:0;}
+.fillqcPreview .fillqcPreviewReadyCheck::before {content:"";width:14px;height:14px;background:#2A7308;border-radius:2px;}
+.fillqcPreview .fillqcPreviewReadyCheck::after {content:"";position:absolute;width:7px;height:4px;border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;transform:translateY(-1px) rotate(-45deg);}
+
+/* Preview Question Settings: four fields on row one; Tags on row two. */
+.fillqcPreviewSettings { grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.fillqcPreviewSettings > div:nth-child(4) { grid-column:1 / span 2; grid-row:2; } /* Tags */
+.fillqcPreviewSettings > div:nth-child(5) { grid-column:4; grid-row:1; } /* Mandatory */
+@media (max-width:900px) {
+  .fillqcPreviewSettings { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .fillqcPreviewSettings > div:nth-child(4) { grid-column:1 / -1; grid-row:3; }
+  .fillqcPreviewSettings > div:nth-child(5) { grid-column:2; grid-row:2; }
+}
+@media (max-width:480px) {
+  .fillqcPreviewSettings { grid-template-columns:minmax(0,1fr); }
+  .fillqcPreviewSettings > div:nth-child(4) { grid-column:1; grid-row:5; }
+  .fillqcPreviewSettings > div:nth-child(5) { grid-column:1; grid-row:4; }
+}
+
+/* Center the wrong-feedback cross geometrically inside its raised circle. */
+.fillqcPreview .fillqcPreviewStatusIcon.is-wrong::after {content:"";inset:auto;left:50%;top:50%;display:block;width:10px;height:10px;transform:translate(-50%,calc(-30% - 2px));background:linear-gradient(45deg,transparent calc(50% - 1px),#fff calc(50% - 1px),#fff calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(-45deg,transparent calc(50% - 1px),#fff calc(50% - 1px),#fff calc(50% + 1px),transparent calc(50% + 1px));}
+
+/* Smaller wrong-answer X only; circle and shadow remain unchanged. */
+.fillqcPreview .fillqcPreviewStatusIcon.is-wrong::after {width:9px;height:9px;}
+
+/* Question-number scrollbar only: fixed short thumb, while the numbers remain horizontally scrollable. */
+.fillqcBuilder .fillqcQuestionNumbers { scrollbar-width:none; padding-bottom:5px; }
+.fillqcBuilder .fillqcQuestionNumbers::-webkit-scrollbar { display:none; height:0; }
+.fillqcNumberShortTrack { position:relative; width:100%; height:9px; margin-top:9px; border-radius:12px; background:#DFE6E9; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #FFFFFF; }
+.fillqcNumberShortThumb { position:absolute; top:0; width:var(--fillqc-scroll-thumb, min(67px,26%)); height:9px; border-radius:12px; background:#7C878D; transition:left .08s linear; }
+@media(max-width:600px) { .fillqcNumberScroller { --fillqc-scroll-thumb:min(38px,26%); } }
+
+/* Question Type dropdown: matching field width, expandable reference groups. */
+.fillqcTypeRoot { width:100%; min-width:0; }
+.fillqcTypeDropdown { position:absolute; z-index:100; left:0; right:0; top:calc(100% + 7px); width:100%; min-width:0; max-height:min(490px,65vh); overflow-y:auto; overscroll-behavior:contain; padding:12px 14px; border-radius:12px; background:#DFE6E9; box-shadow:-4px -4px 8px #FFFFFF,5px 5px 10px #B8C1C6; scrollbar-width:thin; scrollbar-color:#ABB7BF #DFE6E9; }
+.fillqcTypeSearch { display:flex; align-items:center; gap:12px; min-width:0; min-height:52px; padding:8px 13px; border-radius:8px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #FFFFFF,inset 3px 3px 4px #C4C4C4; }
+.fillqcTypeSearch input { flex:1 1 0; min-width:0; width:100%; height:34px; padding:0; border:0; outline:0; background:transparent; box-shadow:none!important; font:400 16px/24px 'Segoe UI',Arial,sans-serif; color:#374151; }
+.fillqcTypeSearch input::-webkit-search-cancel-button { cursor:pointer; }
+.fillqcTypeGroups { margin-top:12px; }
+.fillqcTypeGroup { border-top:1px solid #C8D2D7; }
+.fillqcTypeHeading { display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%; min-height:61px; padding:12px 10px; border:0; background:transparent; text-align:left; color:#2D4CC8; font:700 17px/24px 'Segoe UI',Arial,sans-serif; cursor:pointer; }
+.fillqcTypeHeading > span { min-width:0; overflow-wrap:anywhere; }
+.fillqcTypeHeading > .fillqcIcon { margin-left:auto; }
+.fillqcTypeOptions { padding:0 0 12px; }
+.fillqcTypeOption { display:flex; align-items:center; gap:14px; min-height:49px; width:100%; padding:9px 10px; border:0; border-radius:6px; background:transparent; text-align:left; color:#2F3547; font:400 16px/24px 'Segoe UI',Arial,sans-serif; cursor:pointer; }
+.fillqcTypeOption:hover,.fillqcTypeOption:focus-visible { background:rgba(255,255,255,.3); outline:0; }
+.fillqcTypeOption > span:last-child { min-width:0; overflow-wrap:anywhere; }
+.fillqcTypeOption .fillqcOptionRadio { flex:0 0 26px; width:26px; height:26px; border-radius:50%; }
+.fillqcTypeOption .fillqcOptionSelected::after { width:13px; height:13px; background:#2D4CC8; border-color:#2D4CC8; }
+.fillqcTypeEmpty { padding:12px; margin:0; font-size:14px; }
+@media(max-width:600px) { .fillqcTypeDropdown { max-height:min(440px,60vh); padding:10px; }.fillqcTypeSearch { min-height:45px; }.fillqcTypeSearch input { font-size:14px; }.fillqcTypeHeading { font-size:15px; min-height:52px; }.fillqcTypeOption { font-size:14px; line-height:21px; gap:10px; padding:8px; }.fillqcTypeOption .fillqcOptionRadio { flex-basis:24px; width:24px; height:24px; } }
+
+/* Question Type only: slightly shorter search input and visible selected tick. */
+.fillqcTypeSearch { min-height:44px; padding:5px 13px; }
+.fillqcTypeSearch input { height:30px; min-height:0; }
+.fillqcTypeOption .fillqcOptionSelected { position:relative; }
+.fillqcTypeOption .fillqcOptionSelected::after { width:17px; height:17px; border:0; background:#2D4CC8; border-radius:50%; }
+.fillqcTypeOption .fillqcOptionSelected::before { content:""; position:absolute; z-index:1; top:9px; left:10px; width:7px; height:5px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg); pointer-events:none; }
+@media(max-width:600px) { .fillqcTypeSearch { min-height:42px; padding:5px 11px; }.fillqcTypeSearch input { height:28px; }.fillqcTypeOption .fillqcOptionSelected::before { top:8px; left:9px; } }
+
+/* Combined Content save and continue, compact inline success popup. */
+.fillqcBuilderPageFooter .fillqcSaveContinueGroup {display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap;}
+.fillqcSaveSuccessToast {display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:7px 18px;border:1.5px solid #C05512;border-radius:24px;color:#C05512;background:#DFE6E9;font:600 14px/20px "Segoe UI",Arial,sans-serif;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;white-space:nowrap;}
+.fillqcBuilderPageFooter .fillqcSaveContinueGroup .fillqcFooterContinue {min-width:190px;color:#2A7308;}
+.fillqcBuilderPageFooter .fillqcSaveContinueGroup .fillqcFooterContinue:disabled {opacity:.75;cursor:default;}
+@media(max-width:600px){.fillqcBuilderPageFooter .fillqcSaveContinueGroup{justify-content:stretch;gap:9px;}.fillqcSaveSuccessToast{font-size:12px;min-height:36px;padding:7px 12px;}.fillqcBuilderPageFooter .fillqcSaveContinueGroup .fillqcFooterContinue{min-width:0;flex:1 1 170px;}}
+
+/* Functional rich editing toolbar. Existing layout and controls are unchanged. */
+.fillqcRichEditorRoot { min-width:0; position:relative; }
+.fillqcRichEditorRoot .fillqcRichToolbar { overflow:visible; flex-wrap:wrap; position:relative; z-index:4; }
+.fillqcRichMenuRoot { position:relative; flex:0 0 auto; }
+.fillqcRichEditorRoot .fillqcRichToolbar .fillqcToolbarSelect { display:flex; align-items:center; justify-content:space-between; gap:9px; width:auto; min-width:75px; padding:5px 9px; font:400 14px 'Segoe UI',Arial,sans-serif; }
+.fillqcRichEditorRoot .fillqcRichToolbar .fillqcToolbarFont { min-width:115px; }
+.fillqcRichEditorRoot .fillqcRichToolbar .fillqcToolbarSize { min-width:62px; }
+.fillqcRichDropdown { position:absolute; top:calc(100% + 7px); left:0; z-index:30; width:max-content; min-width:100%; max-width:min(300px,85vw); border-radius:9px; padding:6px; background:#DFE6E9; box-shadow:-4px -4px 8px #fff,5px 5px 9px #b8c1c6; }
+.fillqcRichEditorRoot .fillqcRichToolbar .fillqcRichDropdown button { width:100%; min-width:105px; height:auto; min-height:36px; display:block; text-align:left; padding:8px 12px; box-shadow:none; font:400 14px 'Segoe UI',Arial,sans-serif; }
+.fillqcRichEditorRoot .fillqcRichToolbar .fillqcRichDropdown button:hover,.fillqcRichEditorRoot .fillqcRichToolbar .fillqcRichDropdown button:focus-visible { box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+.fillqcRichEditorRoot .fillqcRichToolbar .fillqcRichSymbols { display:grid; grid-template-columns:repeat(6,36px); gap:4px; left:auto; right:0; max-width:260px; }
+.fillqcRichEditorRoot .fillqcRichToolbar .fillqcRichSymbols button { min-width:0; width:36px; min-height:34px; text-align:center; padding:4px; font-size:18px; }
+.fillqcRichEditable { margin-top:12px; width:100%; min-height:75px; max-width:100%; padding:12px 6px; color:#374151; font:400 16px/24px 'Segoe UI',Arial,sans-serif; white-space:pre-wrap; overflow-wrap:anywhere; outline:none; }
+.fillqcRichEditable:empty::before { content:attr(data-placeholder); color:#8b969d; pointer-events:none; }
+.fillqcRichEditable:focus-visible { outline:2px solid #2D4CC8; outline-offset:2px; border-radius:6px; }
+.fillqcRichEditable img { max-width:100%; max-height:260px; height:auto; border-radius:5px; vertical-align:middle; }
+.fillqcRichEditable a { color:#2D4CC8; overflow-wrap:anywhere; }
+@media(max-width:600px) { .fillqcRichEditorRoot .fillqcRichToolbar { gap:6px; padding:6px; } .fillqcRichEditorRoot .fillqcRichToolbar button { min-height:34px; } .fillqcRichEditorRoot .fillqcRichToolbar .fillqcToolbarFont { min-width:94px; } .fillqcRichEditorRoot .fillqcRichSymbols { max-width:230px; } .fillqcRichEditable { font-size:14px; } }
+
+/* Font/size lists mount at document level to avoid toolbar and card overflow clipping. */
+.fillqcFloatingFormatMenu {
+  position: fixed;
+  z-index: 2147483000;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: min(230px, 70dvh);
+  overflow-y: auto;
+  padding: 7px;
+  border: 1px solid #ced5d9;
+  border-radius: 10px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 8px #FFFFFF, 5px 5px 10px #b8c1c6;
+  scrollbar-width: thin;
+}
+.fillqcFloatingFormatMenu button {
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 37px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: #DFE6E9;
+  color: #374151;
+  text-align: left;
+  font: 400 14px/20px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+.fillqcFloatingFormatMenu button:hover,
+.fillqcFloatingFormatMenu button[aria-selected="true"] {
+  color: #2D4CC8;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+}
+
+/* Consistent responsive formatting-tool spacing in every rich-text editor.
+   Keep this at the end of content.css so older question/option overrides cannot
+   apply different button sizes and gaps to otherwise identical toolbars. */
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 8px;
+  overflow: visible;
+  box-sizing: border-box;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > button,
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot {
+  flex: 1 1 42px;
+  width: auto;
+  min-width: 38px;
+  max-width: none;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot:has(.fillqcToolbarFont) {
+  flex: 2.4 1 112px;
+  min-width: 105px;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot:has(.fillqcToolbarSize) {
+  flex: 1.4 1 68px;
+  min-width: 65px;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  min-height: 42px;
+  margin: 0;
+  box-sizing: border-box;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot > button.fillqcToolbarSelect {
+  justify-content: space-between;
+  padding: 6px 10px;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > button {
+  display: grid;
+  place-items: center;
+  min-height: 42px;
+}
+@media (max-width: 700px) {
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar { gap: 7px; padding: 7px; }
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > button,
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot {
+    flex-basis: 36px;
+    min-width: 34px;
+    height: 36px;
+  }
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot:has(.fillqcToolbarFont) { flex-basis: 98px; min-width: 95px; }
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot:has(.fillqcToolbarSize) { flex-basis: 60px; min-width: 56px; }
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > button,
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot > button { height: 36px; min-height: 36px; }
+}
+
+/* Keep every rich editor toolbar on exactly one horizontal row. */
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > button,
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot {
+  flex: 0 0 42px;
+  width: 42px;
+  min-width: 42px;
+  max-width: 42px;
+  height: 42px;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot:has(.fillqcToolbarFont) {
+  flex: 0 0 124px;
+  width: 124px;
+  min-width: 124px;
+  max-width: 124px;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot:has(.fillqcToolbarSize) {
+  flex: 0 0 76px;
+  width: 76px;
+  min-width: 76px;
+  max-width: 76px;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot > button,
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > button {
+  height: 42px;
+  min-height: 42px;
+}
+@media (max-width: 700px) {
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar { flex-wrap: nowrap; gap: 7px; padding: 7px; }
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > button,
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot {
+    flex: 0 0 36px; width: 36px; min-width: 36px; max-width: 36px; height: 36px;
+  }
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot:has(.fillqcToolbarFont) {
+    flex: 0 0 106px; width: 106px; min-width: 106px; max-width: 106px;
+  }
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot:has(.fillqcToolbarSize) {
+    flex: 0 0 65px; width: 65px; min-width: 65px; max-width: 65px;
+  }
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > .fillqcRichMenuRoot > button,
+  .fillqcBuilder .fillqcRichEditorRoot .fillqcRichToolbar.fillqcOptionToolbar > button { height: 36px; min-height: 36px; }
+}
+
+/* Keep list markers INSIDE the editable surface: no dots overlapping its outer frame. */
+.fillqcRichEditorRoot .fillqcRichEditable { padding-left: 18px; padding-right: 18px; overflow-x: hidden; }
+.fillqcRichEditorRoot .fillqcRichEditable ul,
+.fillqcRichEditorRoot .fillqcRichEditable ol { padding-left: 26px; margin: 6px 0 8px; list-style-position: outside; }
+.fillqcRichEditorRoot .fillqcRichEditable li { padding-left: 3px; margin: 3px 0; }
+.fillqcRichEditorRoot .fillqcRichEditable ul { list-style-type: disc; }
+.fillqcRichEditorRoot .fillqcRichEditable ol { list-style-type: decimal; }
+.fillqcRichEditorRoot .fillqcRichEditable:focus-visible { outline: none; }
+
+/* Bullet/numbered list visibility: put markers inside the text box (not under its border). */
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichEditable ul,
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichEditable ol {
+  display: block;
+  list-style-position: inside;
+  padding: 0 8px;
+  margin: 8px 0;
+  overflow: visible;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichEditable ul { list-style-type: disc; }
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichEditable ol { list-style-type: decimal; }
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichEditable li {
+  display: list-item;
+  list-style-position: inside;
+  padding: 2px 0;
+  margin: 2px 0;
+  overflow-wrap: anywhere;
+}
+.fillqcBuilder .fillqcRichEditorRoot .fillqcRichEditable li::marker { color: #2F3547; }
+
+/* Portal-based special-character picker: remains visible outside toolbar scrolling
+   and above all editor cards; same neumorphic treatment as font/size menus. */
+.fillqcFloatingFormatMenu.fillqcFloatingSymbols {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-content: start;
+  gap: 5px;
+  max-height: min(280px, 65dvh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px;
+  z-index: 2147483000;
+}
+.fillqcFloatingFormatMenu.fillqcFloatingSymbols > button {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  text-align: center;
+  font: 500 19px/1 "Segoe UI", Arial, sans-serif;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+@media(max-width: 460px) {
+  .fillqcFloatingFormatMenu.fillqcFloatingSymbols {grid-template-columns: repeat(5, minmax(0, 1fr));}
+}
+
+/* Question count navigation: no unnecessary track for seven or fewer questions. */
+.fillqcBuilder .fillqcFewQuestions .fillqcNumberShortTrack { display:none; }
+.fillqcBuilder .fillqcFewQuestions .fillqcQuestionNumbers { width:max-content; max-width:100%; gap:8px; padding-bottom:5px; }
+.fillqcBuilder .fillqcFewQuestions .fillqcNumberScroller { overflow:visible; }
+.fillqcBuilder .fillqcFewQuestions .fillqcQuestionNumbers { overflow-x:auto; scrollbar-width:none; }
+.fillqcBuilder .fillqcFewQuestions .fillqcQuestionNumbers::-webkit-scrollbar { display:none; }
+/* For more questions, keep horizontal movement available without a visible scrollbar. */
+.fillqcBuilder .fillqcManyQuestions .fillqcQuestionNumbers { overflow-x:auto; scrollbar-width:none; }
+.fillqcBuilder .fillqcManyQuestions .fillqcQuestionNumbers::-webkit-scrollbar { display:none; }
+@media (max-width:700px) {
+  .fillqcBuilder .fillqcFewQuestions .fillqcNumberScroller { overflow:hidden; }
+}
+
+/* Question-number navigation only: compact for short sets; invisible scrolling for long sets. */
+.fillqcBuilder .fillqcNumberNavigation { justify-content:flex-start; }
+.fillqcBuilder .fillqcNumberShortTrack { display:none !important; }
+.fillqcBuilder .fillqcNumberScroller { min-width:0; }
+.fillqcBuilder .fillqcQuestionNumbers { overflow-x:auto; overflow-y:hidden; scrollbar-width:none !important; -ms-overflow-style:none; scroll-behavior:smooth; }
+.fillqcBuilder .fillqcQuestionNumbers::-webkit-scrollbar { display:none !important; width:0; height:0; }
+.fillqcBuilder .fillqcFewQuestions .fillqcNumberScroller { flex:0 1 auto; width:max-content; max-width:calc(100% - 112px); overflow:hidden; }
+.fillqcBuilder .fillqcFewQuestions .fillqcQuestionNumbers { width:max-content; max-width:100%; gap:8px; }
+.fillqcBuilder .fillqcManyQuestions .fillqcNumberScroller { flex:1 1 0; width:auto; overflow:hidden; }
+.fillqcBuilder .fillqcManyQuestions .fillqcQuestionNumbers { width:100%; }
+@media (max-width:600px) {
+  .fillqcBuilder .fillqcFewQuestions .fillqcNumberScroller { max-width:calc(100% - 78px); }
+}
+
+/* Fill in the Blanks functionality only. Existing Figma dimensions and shadows stay intact. */
+.fillqcValidationErrors { margin:6px 0 0; color:#B42318; font:400 13px/21px "Segoe UI",Arial,sans-serif; }
+.fillqcValidationErrors p { margin:3px 0; }
+.fillqcValidationError { color:#B42318!important; }
+.fillqcBlankTarget { display:flex;align-items:center;gap:12px;min-width:0;flex-wrap:wrap; }
+.fillqcBlankTarget label { font:600 14px/21px "Segoe UI",Arial,sans-serif; }
+.fillqcBlankTarget .fillqcSelectRoot { flex:1 1 150px;max-width:260px; }
+.fillqcNumberStatus .fillqcIcon { width:13px;height:13px; }
+@media(max-width:600px){ .fillqcBlankTarget { align-items:stretch;flex-direction:column;gap:7px; }.fillqcBlankTarget .fillqcSelectRoot { flex-basis:auto;max-width:100%;width:100%; } }
+
+/* Interactive learner preview is displayed only after selecting Learner Preview. */
+.fillqcLearnerBlanks { padding:12px 16px 17px;display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px; }
+.fillqcLearnerBlanks label { flex:1 1 190px;min-width:0;display:flex;flex-direction:column;gap:7px;font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.fillqcLearnerBlanks input { width:100%;min-width:0;min-height:44px;padding:8px 12px;border:0;border-radius:6px;background:#DFE6E9;color:#374151;font:400 15px/22px "Segoe UI",Arial,sans-serif;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.fillqcLearnerBlanks small.is-correct { color:#267208; }.fillqcLearnerBlanks small.is-wrong { color:#B42318; }
+.fillqcLearnerBlanks button { flex:0 0 auto; }
+@media(max-width:600px){.fillqcLearnerBlanks{padding:10px;gap:10px}.fillqcLearnerBlanks label{flex-basis:100%}.fillqcLearnerBlanks button{width:100%}}
+
+/* Only dropdown-arrow appearance: 12% larger and slightly stronger.
+   SVGs still come from the existing assessmenticons folder; no control sizes or shadows change. */
+.fillqcBuilder .fillqcSelectTrigger > .fillqcIcon,
+.fillqcBuilder .fillqcAnswerExpand > .fillqcIcon,
+.fillqcBuilder .fillqcOptionDetailHead > .fillqcIcon,
+.fillqcBuilder .fillqcTypeHeading > .fillqcIcon {
+  scale: 1.12;
+  filter: drop-shadow(0 0 .5px #2F3547);
+}
+
+/* Keep all special-character choices, including the three-dot ellipsis,
+   contained in the Sigma dropdown without changing toolbar/icon dimensions. */
+.fillqcFloatingFormatMenu.fillqcFloatingSymbols {
+  box-sizing: border-box;
+  overscroll-behavior: contain;
+}
+.fillqcFloatingFormatMenu.fillqcFloatingSymbols > button {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Targeted spacing adjustments: no other page, toggle dimensions, or shadows changed. */
+.fillqcAppShell .fillqcSwitch { margin-right: 8px; }
+.fillqcAppShell .fillqcSwitch:not(.fillqcSwitchOn) .fillqcSwitchText { right: 12px; }
+.fillqcAppShell .fillqcPreviewEmpty button { margin-top: 16px; }
+.fillqcAppShell .fillqcPreviewBottom { margin-top: 30px; }
+
+.fillqcSummaryValue{width:100%;min-height:45px;padding:11px 14px;background:#DFE6E9;box-shadow:inset 2px 2px 4px #C4C4C4,inset -2px -2px 3px #fff;border:0;border-radius:9px;color:#374151;font:500 15px "Segoe UI",Arial,sans-serif;}

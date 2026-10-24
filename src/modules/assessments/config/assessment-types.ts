@@ -5,6 +5,8 @@ export const DEFAULT_ASSESSMENT_TYPES: AssessmentTypeDefinition[] = [
  {code:"mcq",label:"Multiple Choice Question (MCQ)",category:"Academic assessment",implemented:true},
  {code:"short-answer",label:"Short Answer",category:"Academic assessment",implemented:true},
  {code:"one-word",label:"One-Word Answer",category:"Academic assessment",implemented:true},
+ {code:"fill-in-the-blanks",label:"Fill in the Blank",category:"Academic assessment",implemented:true},
+ {code:"true-false",label:"True / False",category:"Academic assessment",implemented:true},
 ];
 const TYPES_KEY="neurolxp.assessment-types.v1";
 export function getAssessmentTypes():AssessmentTypeDefinition[] {
@@ -22,7 +24,7 @@ export function registerAssessmentType(item:AssessmentTypeDefinition) {
  localStorage.setItem(TYPES_KEY,JSON.stringify(next));
  window.dispatchEvent(new Event("neurolxp-assessments-changed"));
 }
-export function findAssessmentTypeByLabel(label:string) {return getAssessmentTypes().find(t=>t.label===label);}
+export function findAssessmentTypeByLabel(label:string) {return DEFAULT_ASSESSMENT_TYPES.find(t=>t.label===label) ?? getAssessmentTypes().find(t=>t.label===label);}
 
 export const typeGroups: AssessmentTypeGroup[] = [
 

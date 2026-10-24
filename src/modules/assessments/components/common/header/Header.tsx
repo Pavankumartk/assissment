@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import {demoSignOut,getDemoSession,type DemoSession} from "@/modules/assessments/auth/demo-auth";
+import { usePathname } from "next/navigation";
+import {getDemoSession,type DemoSession} from "@/modules/assessments/auth/demo-auth";
 import "./header.css";
 
 const SUPER_ADMIN_ROUTES: Record<string, string> = {
@@ -201,7 +201,6 @@ const STUDENT_ROUTES: Record<string, string[]> = {
 
 export default function Header() {
   const pathname = usePathname();
-  const router = useRouter();
   const [demoUser,setDemoUser]=useState<DemoSession|null>(null);
   useEffect(()=>{setDemoUser(getDemoSession());},[pathname]);
 
@@ -983,9 +982,6 @@ export default function Header() {
         )}
 
         <div className="headerRight">
-          {isAssessmentPage && normalizedPath !== "/assessments" && (
-            <button type="button" className="assessmentHeaderLogout" onClick={()=>{demoSignOut();router.replace("/login");}}>Log out</button>
-          )}
           <button
             type="button"
             className="notificationButton"

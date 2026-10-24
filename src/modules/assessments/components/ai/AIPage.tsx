@@ -24,10 +24,10 @@ function Asset({ icon, size = 20, className = "" }: { icon: string; size?: numbe
 }
 
 const STORAGE = "neurolxp-ai-question-generator-draft";
-type CreatorType = "mcq" | "short-answer" | "one-word";
+type CreatorType = "mcq" | "short-answer" | "one-word" | "fill-in-the-blanks";
 const aiDraftKey = (type: CreatorType) => `${STORAGE}-${type}`;
-const typeRowKey = (type: CreatorType): TypeKey => type === "short-answer" ? "short" : type === "one-word" ? "one" : "mcq";
-const typeLabel = (type: CreatorType) => type === "short-answer" ? "Short Answers" : type === "one-word" ? "One Word" : "MCQ";
+const typeRowKey = (type: CreatorType): TypeKey => type === "short-answer" ? "short" : type === "one-word" ? "one" : type === "fill-in-the-blanks" ? "fill" : "mcq";
+const typeLabel = (type: CreatorType) => type === "short-answer" ? "Short Answers" : type === "one-word" ? "One Word" : type === "fill-in-the-blanks" ? "Fill in the Blanks" : "MCQ";
 
 const SECTIONS = [
   { id: "source", title: "Source Material", subtitle: "Choose what AI should use" },
@@ -48,6 +48,7 @@ const TYPES = [
   { key: "tf", abbr: "TF", name: "True / False", desc: "Two possible answers", tone: "orange", count: 2, mark: 1 },
   { key: "short", abbr: "SA", name: "Short Answers", desc: "Text Matched Against Accepted Answers", tone: "pink", count: 2, mark: 2 },
   { key: "one", abbr: "OW", name: "One Word", desc: "Short exact text answers", tone: "purple", count: 1, mark: 1 },
+  { key: "fill", abbr: "FB", name: "Fill in the Blanks", desc: "Choose answers for missing words", tone: "blue", count: 1, mark: 1 },
   { key: "matching", abbr: "MA", name: "Matching", desc: "Match related pairs", tone: "purple", count: 1, mark: 3 },
   { key: "numeric", abbr: "NU", name: "Numerical", desc: "With Tolerance And Units", tone: "green", count: 0, mark: 1 },
   { key: "essay", abbr: "ES", name: "Essay", desc: "Graded Manually : A Rubric Is Drafted Too", tone: "teal", count: 1, mark: 10 },
@@ -448,7 +449,7 @@ export default function AIPage() {
   useEffect(() => {
     try {
       const requested = new URLSearchParams(window.location.search).get("type");
-      const currentType: CreatorType = requested === "short-answer" || requested === "one-word" ? requested : "mcq";
+      const currentType: CreatorType = requested === "short-answer" || requested === "one-word" || requested === "fill-in-the-blanks" ? requested : "mcq";
       setCreatorType(currentType);
       // Separate local drafts for MCQ, One Word and Short Answers. Do not mix question counts.
       const selectedKey = typeRowKey(currentType);

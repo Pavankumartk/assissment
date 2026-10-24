@@ -1,0 +1,65 @@
+/* Details validation only. Leave existing sizes, shadows and alignment intact. */
+.mcqPageContent .mcqDetailsError {
+  color: #bc1e2d;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 5px 0 0;
+}
+.mcqPageContent .mcqReferenceTrigger.mcqDetailsInvalid,
+.mcqPageContent .mcqNumericField input[aria-invalid="true"],
+.mcqPageContent .mcqEditorBody[aria-invalid="true"] {
+  outline: 1px solid #bc1e2d;
+  outline-offset: 0;
+}
+.mcqPageContent .mcqNotifyOnly .mcqSwitchField {
+  justify-content: flex-end;
+}
+
+/* Details-only controls for MCQ, One Word, and Short Answers.
+   All three Details components already import this shared stylesheet. */
+
+/* Leave the inset field and its dimensions unchanged; move only the switch. */
+.mcqPageContent .mcqNotifyOnly .mcqSwitchField {
+  justify-content: flex-end;
+}
+
+/* Provide breathing room between the OFF text and the switch edge. */
+.mcqPageContent .mcqDetailsFields .mcqSwitch {
+  width: 66px;
+  min-width: 66px;
+  flex: 0 0 66px;
+}
+.mcqPageContent .mcqDetailsFields .mcqSwitch::before {
+  width: 58px;
+}
+.mcqPageContent .mcqDetailsFields .mcqSwitchState {
+  right: 9px;
+  width: 24px;
+  letter-spacing: 0;
+}
+.mcqPageContent .mcqDetailsFields .mcqSwitchOn .mcqSwitchState {
+  left: 9px;
+  right: auto;
+}
+.mcqPageContent .mcqDetailsFields .mcqSwitchOn .mcqSwitchKnob {
+  left: 42px;
+}
+
+/* Crisp, centered white check in the selected marking-scheme radio. */
+.mcqPageContent .mcqMarkingOptions .mcqChoiceChecked::before {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  background: #2D4CC8;
+}
+.mcqPageContent .mcqMarkingOptions .mcqChoiceChecked::after {
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 4px;
+  border-left: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  transform: translate(-50%, -65%) rotate(-45deg);
+}

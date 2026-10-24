@@ -49,7 +49,7 @@ function EvaluationNeumoDropdown({ label, value, options, onChange, disabled = f
 }
 
 
-export default function EvaluationPage() {
+export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", evaluationKey = "mcqAssessmentEvaluationDraft" }: { detailsKey?: string; evaluationKey?: string } = {}) {
   const router = useRouter();
   const redirectRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [openPanels, setOpenPanels] = useState<PanelId[]>([]);
@@ -58,12 +58,12 @@ export default function EvaluationPage() {
   const [message, setMessage] = useState("");
   const [configuredTotalMarks,setConfiguredTotalMarks]=useState(30);
   useEffect(()=>{
-    try {const draft=JSON.parse(assessmentStorage.getItem("mcqAssessmentDraft")||"{}");const n=Number(draft.totalMarks);if(Number.isFinite(n)&&n>0)setConfiguredTotalMarks(n);}catch{}
+    try {const draft=JSON.parse(assessmentStorage.getItem(detailsKey)||"{}");const n=Number(draft.totalMarks);if(Number.isFinite(n)&&n>0)setConfiguredTotalMarks(n);}catch{}
   },[]);
 
   const [saving, setSaving] = useState(false);
   useEffect(() => {
-    try { const saved = assessmentStorage.getItem("mcqAssessmentEvaluationDraft"); if (saved) setSettings({ ...initialSettings, ...JSON.parse(saved) }); }
+    try { const saved = assessmentStorage.getItem(evaluationKey); if (saved) setSettings({ ...initialSettings, ...JSON.parse(saved) }); }
     catch { /* Keep defaults when browser storage is unavailable. */ }
     return () => { if (redirectRef.current) clearTimeout(redirectRef.current); };
   }, []);
@@ -85,7 +85,7 @@ export default function EvaluationPage() {
   const saveAndContinue = () => {
     if (saving) return;
     try {
-      assessmentStorage.setItem("mcqAssessmentEvaluationDraft", JSON.stringify({ ...settings, ...controls }));
+      assessmentStorage.setItem(evaluationKey, JSON.stringify({ ...settings, ...controls }));
       setMessage("Successfully saved");
       setSaving(true);
       redirectRef.current = setTimeout(() => router.push("/assessments/create/review"), 1000);
@@ -100,7 +100,7 @@ export default function EvaluationPage() {
   });
   useEffect(() => {
     try {
-      const draft = assessmentStorage.getItem("mcqAssessmentEvaluationDraft");
+      const draft = assessmentStorage.getItem(evaluationKey);
       if (draft) {
         const saved = JSON.parse(draft) as Record<string, string>;
         setControls(previous => ({ ...previous, ...Object.fromEntries(Object.keys(previous).filter(key => typeof saved[key] === "string").map(key => [key, saved[key]])) }));
@@ -109,7 +109,7 @@ export default function EvaluationPage() {
   }, []);
   const [readyToAutosave,setReadyToAutosave]=useState(false);
   useEffect(()=>{const frame=window.requestAnimationFrame(()=>setReadyToAutosave(true));return()=>window.cancelAnimationFrame(frame);},[]);
-  useEffect(()=>{ if(!readyToAutosave) return; try {assessmentStorage.setItem("mcqAssessmentEvaluationDraft",JSON.stringify({...settings,...controls}));}catch{} },[settings,controls,readyToAutosave]);
+  useEffect(()=>{ if(!readyToAutosave) return; try {assessmentStorage.setItem(evaluationKey,JSON.stringify({...settings,...controls}));}catch{} },[settings,controls,readyToAutosave]);
   const control = (name: string, fallback = "") => controls[name] ?? fallback;
   const changeControl = (name: string, value: string) => { setControls(old => ({ ...old, [name]: value })); setMessage(""); };
   const switchRow = (label: string, key: string, dependent = false) => {

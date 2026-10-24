@@ -1,0 +1,40 @@
+/* Isolated Fill in the Blanks instruction and results screens, shared neumorphic theme. */
+.fillStartApp{--fb-bg:#DFE6E9;--fb-raised:-4px -4px 7px #FFF,4px 4px 8px #C4C4C4;--fb-inset:inset 2px 2px 5px #C4C4C4,inset -2px -2px 4px #FFF;background:var(--fb-bg);color:#374151;font-family:'Segoe UI',Arial,sans-serif;}
+.fillStartApp *{box-sizing:border-box;}
+.fillStartLayout{height:100dvh;display:flex;overflow:hidden;}
+.fillStartMain{min-width:0;flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
+.fillStartHeader{flex:0 0 auto;}
+.fillStartScroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;}
+.fillStartContent{padding:28px 28px 45px;max-width:1520px;margin:0 auto;width:100%;}
+.fillStartCrumb{display:flex;align-items:center;gap:9px;font-size:14px;flex-wrap:wrap;margin-bottom:25px;}
+.fillStartCrumb button{padding:0;background:none;border:none;color:#3156c7;font:inherit;cursor:pointer;}
+.fillStartContent h1{font-size:25px;font-weight:700;line-height:1.35;margin:0 0 6px;color:#2F3547;}
+.fillStartSubtype{margin:0 0 25px;color:#536276;font-size:15px;}
+.fillStartColumns{display:grid;grid-template-columns:minmax(210px,30%) minmax(0,1fr);gap:22px;align-items:start;}
+.fillStartStats,.fillStartCard{border-radius:15px;background:var(--fb-bg);box-shadow:var(--fb-raised);padding:23px 25px;}
+.fillStartStats{display:grid;gap:15px;}
+.fillStartStats>div{display:flex;flex-direction:column;gap:7px;border-bottom:1px solid #cbd3d8;padding-bottom:13px;}
+.fillStartStats>div:last-child{border:0;padding:0;}
+.fillStartStats span,.fillResultSummary span{font-size:14px;color:#586678;}
+.fillStartStats strong{font-size:18px;color:#2F3547;}
+.fillStartRight{display:grid;gap:20px;}
+.fillStartCard h2{font-size:20px;margin:0 0 18px;color:#2F3547;}
+.fillStartCard p,.fillStartCard li{font-size:15px;line-height:1.7;}
+.fillStartCard ol{padding-left:23px;}
+.fillStartConfirmation{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+.fillStartConfirmation label{font-size:15px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.fillStartConfirmation input{width:18px;height:18px;accent-color:#3155cc;}
+.fillStartConfirmation button,.fillResultActions button,.fillResultContent button:not(.fillStartCrumb button){background:var(--fb-bg);border:1px solid #f7fbff;border-radius:12px;box-shadow:var(--fb-raised);color:#2d4cc8;padding:13px 20px;font:700 15px 'Segoe UI',Arial,sans-serif;cursor:pointer;}
+.fillStartConfirmation button:disabled{opacity:.45;cursor:not-allowed;}
+.fillStartMissing{color:#b52939;font-size:14px;margin-top:20px;}
+.fillResultSummary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-bottom:24px;}
+.fillResultSummary>.fillStartCard{display:flex;flex-direction:column;gap:15px;}
+.fillResultSummary strong{font-size:26px;color:#2a7308;}
+.fillResultReview{margin-bottom:22px;}
+.fillResultQuestion{border-top:1px solid #bbc8d1;padding:18px 0;}
+.fillResultQuestion h3{display:flex;justify-content:space-between;gap:18px;font-size:16px;margin:0 0 12px;}
+.fillResultQuestion p{margin:0 0 10px;}
+.fillResultQuestion .is-correct{color:#2a7308;}.fillResultQuestion .is-wrong{color:#a51e30;}.fillResultQuestion .is-unanswered{color:#756476;}
+.fillResultAnswer{font-size:14px;padding:6px 0;}
+.fillResultActions{text-align:right;}
+@media(max-width:720px){.fillStartContent{padding:20px 14px 32px;}.fillStartColumns{grid-template-columns:1fr;}.fillStartStats{grid-template-columns:repeat(2,minmax(0,1fr));}.fillResultSummary{grid-template-columns:1fr;gap:12px;}.fillStartConfirmation{align-items:stretch;flex-direction:column;}.fillStartConfirmation button{width:100%;}}

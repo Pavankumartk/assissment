@@ -186,7 +186,7 @@ export default function CreateStep({ onCancel }: { onCancel: () => void }) {
         )}
       </section>
       <div className="asm-create-footer">
-        {nextNotice && <span role="status" className="asm-next-note asmValidationError">{selected ? `${selected} — ${selectedSubtype[selected] ?? ""} selected. This assessment type needs its own question builder; MCQ is fully connected.` : "Choose an assessment type first."}</span>}
+        {nextNotice && <span role="status" className="asm-next-note asmValidationError">{selected ? `${selected} — ${selectedSubtype[selected] ?? ""} selected. This assessment type is not configured yet.` : "Choose an assessment type first."}</span>}
         <button type="button" className="asm-create-footer-button" onClick={onCancel}>Cancel</button>
         <button type="button" className="asm-create-footer-button asm-create-footer-button--continue" onClick={() => {
            setOpenType(null);

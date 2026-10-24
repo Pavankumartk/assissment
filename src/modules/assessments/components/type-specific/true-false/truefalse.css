@@ -1,0 +1,792 @@
+/* MCQ Content — standalone Step 3; uses existing Header and Sidebar components. */
+.tfqcAppShell { width: 100%; min-width: 0; height: 100dvh; background: #DFE6E9; color: #374151; font-family: "Segoe UI", Arial, sans-serif; }
+.tfqcAppShell *, .tfqcAppShell *::before, .tfqcAppShell *::after { box-sizing: border-box; }
+.tfqcLayout { display: flex; height: 100dvh; min-width: 0; overflow: hidden; }
+.tfqcMainContent { flex: 1 1 auto; display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
+.tfqcHeader { flex: 0 0 auto; }
+.tfqcScrollArea { flex: 1 1 auto; min-height: 0; min-width: 0; overflow-x: hidden; overflow-y: auto; }
+.tfqcPageContent { width: 100%; min-width: 0; padding: 22px 24px 32px; }
+.tfqcIcon { display: block; flex: 0 0 auto; object-fit: contain; }
+.tfqcBreadcrumb { min-height: 30px; display: flex; align-items: center; gap: 14px; margin-bottom: 24px; font-size: 16px; line-height: 24px; letter-spacing: .02em; }
+.tfqcBreadcrumb a { text-decoration: none; color: #2F3547; }
+.tfqcBreadcrumb .tfqcBreadcrumbCurrent { color: #2D4CC8; font-weight: 700; }
+.tfqcWizard { display: flex; width: min(100%, 900px); height: 50px; margin: 0 0 36px; padding: 0; list-style: none; isolation: isolate; }
+.tfqcWizardStep { --tip: 23px; position: relative; flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-width: 0; height: 50px; gap: 10px; margin-left: calc(-1 * var(--tip)); padding: 0 10px 0 26px; clip-path: polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%,var(--tip) 50%); background: #c5cdd1; color: #374151; font-size: 14px; font-weight: 600; letter-spacing: .03em; white-space: nowrap; }
+.tfqcWizardStep::before { content: ""; position: absolute; inset: 1px; background: #DFE6E9; box-shadow: inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; clip-path: inherit; z-index: 0; }
+.tfqcWizardStep > span { z-index: 1; position: relative; }
+.tfqcWizardStep:first-child { margin-left: 0; padding-left: 8px; clip-path: polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%); }
+.tfqcWizardStep:nth-child(1) { z-index: 5; }.tfqcWizardStep:nth-child(2) { z-index: 4; }.tfqcWizardStep:nth-child(3) { z-index: 3; }.tfqcWizardStep:nth-child(4) { z-index: 2; }.tfqcWizardStep:nth-child(5) { z-index: 1; }
+.tfqcWizardDone { background: #2A7308; color: #2A7308; }.tfqcWizardActive { background: #2D4CC8; color: #2D4CC8; font-weight: 700; }
+.tfqcWizardNumber { display: grid; place-items: center; width: 21px; height: 21px; flex: 0 0 21px; border-radius: 50%; background: #DFE6E9; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px rgba(196,196,196,.8); }
+.tfqcWizardNumber > span { display: grid; place-items: center; width: 13px; height: 13px; border-radius: 50%; background: #DFE6E9; box-shadow: 2px 2px 2px #C6C6C9,-2px -2px 2px #fff; font-size: 12px; color: #374151; }
+.tfqcWizardDone .tfqcWizardNumber > span { color: #2A7308; }.tfqcWizardActive .tfqcWizardNumber > span { color: #2D4CC8; }
+.tfqcPageTitle { margin: 0 0 34px; }.tfqcPageTitle h1 { margin: 0 0 8px; font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: .02em; }.tfqcPageTitle p { margin: 0; font-size: 16px; line-height: 24px; letter-spacing: .03em; }
+.tfqcColumns { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,304px); align-items: stretch; gap: 24px; min-width: 0; }.tfqcLeftColumn { display: flex; flex-direction: column; gap: 32px; min-width: 0; }
+.tfqcQuestionsPanel { min-height: 656px; min-width: 0; padding: 24px; border-radius: 16px; background: #DFE6E9; box-shadow: -4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.tfqcQuestionsPanel h2 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; }
+.tfqcEmptyState { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 555px; width: 100%; text-align: center; }.tfqcEmptyIcon { margin: 5px 0 30px; width: min(129px,30vw); height: auto; aspect-ratio: 1; filter: drop-shadow(0 4px 14px rgba(0,0,0,.2)); }
+.tfqcEmptyState h3 { margin: 0 0 14px; font-size: clamp(23px,2.5vw,32px); font-weight: 700; line-height: 1.25; color: #2D4CC8; letter-spacing: .02em; }.tfqcEmptyState p { margin: 0 0 42px; font-size: clamp(17px,1.8vw,24px); line-height: 32px; }
+.tfqcActions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; width: 100%; margin-bottom: 32px; }.tfqcActions button,.tfqcCreateButton,.tfqcBack,.tfqcConfigure { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 50px; padding: 10px 20px; border: 0; border-radius: 36px; background: #DFE6E9; box-shadow: -4px -4px 8px #fff,4px 4px 8px rgba(196,196,196,.8); color: #374151; font: 600 16px/24px "Segoe UI",Arial,sans-serif; white-space: nowrap; cursor: pointer; transition: box-shadow .18s ease; }.tfqcActions button:active,.tfqcCreateButton:active,.tfqcBack:active,.tfqcConfigure:active { box-shadow: inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.tfqcBack { width: 150px; min-height: 48px; border-radius: 24px; font-size: 18px; font-weight: 700; }
+.tfqcSummaryPanel { display: flex; flex-direction: column; align-self: stretch; gap: 22px; min-width: 0; padding: 16px 14px; border-radius: 16px; background: #DFE6E9; box-shadow: -4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.tfqcSummarySection,.tfqcSettingsSection { border: 1px solid #ced4d8; border-radius: 5px; padding: 16px 12px; }.tfqcSummaryPanel h2 { margin: 0 0 18px; font-size: 16px; line-height: 24px; font-weight: 600; }
+.tfqcSummaryRow,.tfqcSettingRow { display: flex; gap: 12px; min-width: 0; align-items: center; min-height: 42px; color: #374151; font-size: 14px; line-height: 20px; }.tfqcSummaryRow span,.tfqcSettingRow > span { flex: 1 1 auto; min-width: 0; }.tfqcSummaryRow strong { font-size: 14px; font-weight: 600; white-space: nowrap; }
+.tfqcSettingsSection { display: flex; flex-direction: column; gap: 8px; }.tfqcSettingsSection h2 { margin-bottom: 8px; }.tfqcSettingRow { min-height: 44px; gap: 10px; }
+.tfqcSwitch { position: relative; width: 61px; height: 28px; flex: 0 0 61px; border: 0; border-radius: 32px; padding: 0; background: #DFE6E9; box-shadow: -4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4; cursor: pointer; }.tfqcSwitch::before { content: ""; position: absolute; left: 4px; top: 4px; width: 53px; height: 20px; border-radius: 32px; background: #DFE6E9; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; }.tfqcSwitchOn::before { background: linear-gradient(113.24deg,#2D4CC8 21.1%,#E01E5A 65.02%); box-shadow: none; }
+.tfqcSwitchText { position: absolute; top: 4px; right: 9px; z-index: 1; color: #2F3547; font: 400 12px/20px "Segoe UI",Arial,sans-serif; letter-spacing: .03em; }.tfqcSwitchOn .tfqcSwitchText { right: auto; left: 11px; color: #fff; }.tfqcSwitchKnob { position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; z-index: 2; background: #606162; border-radius: 50%; }.tfqcSwitchOn .tfqcSwitchKnob { left: 37px; background: #DFE6E9; box-shadow: 0 -2px 4px rgba(0,0,0,.1),0 4px 4px rgba(0,0,0,.25); }
+.tfqcConfigure { width: 170px; max-width: 100%; margin: 20px auto 4px; font-weight: 700; }.tfqcMessage { margin: 14px 0 0; font-size: 14px; color: #2D4CC8; }
+@media (max-width: 1200px) { .tfqcPageContent { padding: 20px 18px 28px; }.tfqcColumns { grid-template-columns: minmax(0,1fr) minmax(235px,275px); gap: 18px; }.tfqcQuestionsPanel { padding: 20px; }.tfqcActions { gap: 12px; }.tfqcActions button { font-size: 14px; padding-inline: 14px; } }
+@media (max-width: 950px) { .tfqcColumns { grid-template-columns: minmax(0,1fr); }.tfqcSummaryPanel { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }.tfqcEmptyState { min-height: 470px; }.tfqcQuestionsPanel { min-height: 570px; }.tfqcWizardStep { --tip: 15px; gap: 6px; padding-left: 17px; font-size: 12px; } }
+@media (max-width: 700px) { .tfqcPageContent { padding: 18px 14px 25px; }.tfqcBreadcrumb { gap: 8px; font-size: 14px; margin-bottom: 20px; }.tfqcWizard { width: 100%; height: 44px; margin-bottom: 30px; }.tfqcWizardStep { --tip: 10px; height: 44px; gap: 3px; padding: 0 2px 0 11px; font-size: clamp(9px,2.2vw,11px); letter-spacing: 0; }.tfqcWizardStep:first-child { padding-left: 3px; }.tfqcWizardNumber { width: 18px; height: 18px; flex-basis: 18px; }.tfqcWizardNumber > span { width: 12px; height: 12px; font-size: 10px; }.tfqcPageTitle h1 { font-size: 19px; }.tfqcPageTitle p { font-size: 14px; }.tfqcQuestionsPanel { min-height: 460px; padding: 16px; }.tfqcQuestionsPanel h2 { font-size: 18px; }.tfqcEmptyState { min-height: 395px; }.tfqcEmptyIcon { width: 86px; }.tfqcEmptyState h3 { font-size: 22px; }.tfqcEmptyState p { margin-bottom: 22px; font-size: 16px; line-height: 22px; }.tfqcActions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }.tfqcActions button { min-width: 0; min-height: 44px; padding: 8px; white-space: normal; font-size: 12px; gap: 5px; }.tfqcCreateButton { min-height: 44px; font-size: 14px; }.tfqcSummaryPanel { grid-template-columns: minmax(0,1fr); }.tfqcBack { width: 140px; min-height: 46px; }.tfqcLeftColumn { gap: 22px; } }
+@media (max-width: 380px) { .tfqcWizardStep { --tip: 8px; gap: 2px; padding-left: 9px; font-size: 8px; }.tfqcWizardNumber { width: 15px; height: 15px; flex-basis: 15px; }.tfqcWizardNumber > span { width: 10px; height: 10px; font-size: 9px; } }
+@media (prefers-reduced-motion: reduce) { .tfqcActions button,.tfqcCreateButton,.tfqcBack,.tfqcConfigure { transition: none; } }
+/* Create Questions extension — the existing Content screen rules above are unchanged. */
+.tfqcBuilder { min-width: 0; }.tfqcBuilderTop { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; margin-bottom:24px; }.tfqcBuilderCrumb { display:flex; flex-wrap:wrap; align-items:center; gap:10px; min-height:32px; font-size:16px; }.tfqcBuilderCrumb a,.tfqcBuilderCrumb button { color:#2F3547; text-decoration:none; background:none; border:0; padding:0; font:inherit; cursor:pointer; }.tfqcBuilderCrumb strong { color:#2D4CC8; }.tfqcBuilderWelcome { display:flex; align-items:center; justify-content:center; gap:12px; min-width:0; padding:16px 18px; background:#DFE6E9; border-radius:10px; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; text-align:center; }.tfqcBuilderWelcome h2 { margin:0 0 6px; font-size:22px; line-height:28px; font-weight:700; background:linear-gradient(90deg,#2D4CC8,#E01E5A); color:transparent; background-clip:text; }.tfqcBuilderWelcome p { margin:0; font-size:16px; line-height:24px; }
+.tfqcBuilderGrid { display:grid; grid-template-columns:minmax(0,1fr) 304px; gap:24px; align-items:start; }.tfqcBuilderMain,.tfqcBuilderAside { min-width:0; background:#DFE6E9; border-radius:16px; padding:24px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.tfqcBuilderMain { display:flex; flex-direction:column; gap:24px; }.tfqcQuestionNumbers { display:flex; align-items:center; gap:12px; overflow-x:auto; overscroll-behavior-x:contain; max-width:100%; padding:7px 4px 12px; scrollbar-width:thin; scrollbar-color:#b0bfc7 #dfe6e9; }.tfqcQuestionNumber { width:42px; height:42px; flex:0 0 42px; border:0; border-radius:9px; color:#374151; background:#D5DADC; box-shadow:inset 2px 2px 3px #bfc5c8,inset -2px -2px 3px #fff; font:700 15px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.tfqcQuestionNumber.is-partial { background:#F1B566; color:#604019; }.tfqcQuestionNumber.is-complete { background:#2A7308; color:#fff; }.tfqcQuestionNumber.is-active { background:#2D4CC8; color:#fff; box-shadow:-3px -3px 4px #fff,3px 3px 5px #b0b6bb; }
+.tfqcQuestionForm { display:flex; flex-direction:column; gap:24px; border:1px solid #AEAEAE; padding:18px; border-radius:16px; min-width:0; }.tfqcBuilderField { display:flex; flex-direction:column; gap:12px; min-width:0; position:relative; }.tfqcBuilderField > label,.tfqcFormHeading > label { font-size:16px; line-height:24px; font-weight:600; letter-spacing:.02em; }.tfqcBuilderField small { font-size:12px; font-weight:400; margin-left:8px; }.tfqcBuilderField textarea,.tfqcBuilderField input,.tfqcSelectTrigger { width:100%; min-width:0; background:#DFE6E9; border:0; border-radius:8px; color:#374151; font:400 16px/24px 'Segoe UI',Arial,sans-serif; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; outline:0; }.tfqcBuilderField textarea { display:block; resize:vertical; min-height:150px; padding:18px 20px; }.tfqcBuilderField input { min-height:50px; padding:12px 16px; }.tfqcBuilderField textarea:focus-visible,.tfqcBuilderField input:focus-visible,.tfqcSelectTrigger:focus-visible { outline:2px solid #2D4CC8; outline-offset:2px; }
+.tfqcSelectRoot { position:relative; min-width:0; }.tfqcSelectTrigger { min-height:58px; padding:12px 18px 12px 24px; display:flex; align-items:center; justify-content:space-between; gap:12px; text-align:left; cursor:pointer; }.tfqcSelectTrigger > span { min-width:0; overflow-wrap:anywhere; }.tfqcSelectList { position:absolute; top:calc(100% + 8px); left:0; width:100%; max-height:260px; overflow-y:auto; z-index:50; padding:10px; border-radius:12px; background:#DFE6E9; box-shadow:-4px -4px 8px #fff,5px 5px 12px #b8c1c6; scrollbar-width:thin; }.tfqcSelectItem { display:flex; align-items:center; width:100%; min-height:42px; gap:12px; padding:9px 11px; border:0; border-radius:7px; background:transparent; text-align:left; color:#374151; font:400 14px/20px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.tfqcSelectItem:hover { box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }.tfqcOptionRadio { width:24px; height:24px; flex:0 0 24px; display:grid; place-items:center; border-radius:50%; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }.tfqcOptionRadio::after { content:''; width:12px; height:12px; border:1px solid #C6C6C9; border-radius:50%; }.tfqcOptionSelected { box-shadow:-3px -3px 3px #fff,3px 3px 4px #C4C4C4; }.tfqcOptionSelected::after { background:#2D4CC8; border-color:#2D4CC8; }
+.tfqcRichToolbar { display:flex; flex-wrap:nowrap; gap:7px; overflow-x:auto; padding:8px; border-radius:6px; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; scrollbar-width:thin; }.tfqcRichToolbar button { width:36px; height:36px; flex:0 0 36px; display:grid; place-items:center; padding:4px; border:0; border-radius:5px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 3px #C4C4C4; cursor:pointer; }.tfqcFormHeading { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; }.tfqcFormHeading span { font-size:13px; font-weight:400; }.tfqcAnswerOptions { display:flex; flex-direction:column; gap:12px; }.tfqcAnswerRow { display:flex; align-items:center; gap:12px; min-width:0; }.tfqcAnswerRow input { flex:1; width:0; }.tfqcAnswerRadio { flex:0 0 24px; width:24px; height:24px; border:0; border-radius:50%; display:grid; place-items:center; background:#DFE6E9; box-shadow:inset 2px 2px 2px #C4C4C4,inset -2px -2px 2px #fff; cursor:pointer; }.tfqcAnswerRadio span { width:12px; height:12px; border:1px solid #C6C6C9; border-radius:50%; }.tfqcAnswerRadio.selected span { background:#2D4CC8; border-color:#2D4CC8; }.tfqcIconButton { flex:0 0 32px; width:32px; height:32px; display:grid; place-items:center; border:0; border-radius:7px; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; cursor:pointer; }.tfqcIconButton:disabled { opacity:.4; cursor:not-allowed; }.tfqcBuilderAction { display:inline-flex; justify-content:center; align-items:center; gap:8px; border:0; border-radius:28px; background:#DFE6E9; min-height:46px; padding:10px 18px; font:600 15px 'Segoe UI',Arial,sans-serif; color:#374151; box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4; cursor:pointer; white-space:nowrap; }.tfqcBuilderFooter { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:14px; }.tfqcBuilderFooter > button:first-child { margin-right:auto; }.tfqcAddMenu { position:relative; }.tfqcAddMenuList { position:absolute; bottom:calc(100% + 8px); right:0; min-width:220px; max-width:calc(100vw - 32px); padding:8px; z-index:20; background:#DFE6E9; border-radius:10px; box-shadow:-4px -4px 8px #fff,5px 5px 10px #B8C1C6; }.tfqcAddMenuList button { display:block; width:100%; border:0; border-radius:6px; padding:12px; background:transparent; color:#374151; font:400 14px 'Segoe UI',Arial,sans-serif; text-align:left; cursor:pointer; }.tfqcAddMenuList button:hover { box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }
+.tfqcBuilderAside { display:flex; flex-direction:column; gap:24px; }.tfqcBuilderAside h3 { margin:0; font-size:20px; line-height:28px; }.tfqcDifficulty { display:flex; flex-wrap:wrap; gap:9px; }.tfqcDifficulty button { flex:1 1 auto; padding:10px; min-height:42px; border:0; border-radius:8px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; font:600 14px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.tfqcDifficulty button.chosen { color:#2D4CC8; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 4px #C4C4C4; }.tfqcTagRow { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:8px; border-radius:8px; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; }.tfqcTagRow button { border:0; border-radius:5px; padding:5px 7px; background:#DFE6E9; color:#2D4CC8; cursor:pointer; }.tfqcTagRow input { flex:1 1 80px; width:85px; min-height:32px; padding:5px; box-shadow:none; }.tfqcMandatory { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:15px; font-weight:600; }
+@media (max-width:1100px) { .tfqcBuilderGrid { grid-template-columns:minmax(0,1fr) 255px; gap:15px; }.tfqcBuilderMain,.tfqcBuilderAside { padding:17px; }.tfqcBuilderWelcome { width:100%; } }
+@media (max-width:850px) { .tfqcBuilderGrid { grid-template-columns:minmax(0,1fr); }.tfqcBuilderAside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }.tfqcBuilderAside h3 { grid-column:1/-1; }.tfqcBuilderTop { flex-direction:column; }.tfqcBuilderWelcome { order:2; } }
+@media (max-width:600px) { .tfqcBuilderCrumb { font-size:12px; gap:5px; }.tfqcBuilderCrumb .tfqcIcon { width:15px; height:15px; }.tfqcBuilderWelcome { padding:12px; }.tfqcBuilderWelcome h2 { font-size:18px; line-height:24px; }.tfqcBuilderWelcome p { font-size:13px; }.tfqcBuilderMain,.tfqcBuilderAside { padding:13px; border-radius:12px; }.tfqcQuestionForm { padding:12px; gap:20px; }.tfqcBuilderAside { grid-template-columns:minmax(0,1fr); gap:20px; }.tfqcBuilderField > label,.tfqcFormHeading > label { font-size:14px; }.tfqcSelectTrigger { min-height:50px; padding:9px 13px; font-size:14px; }.tfqcBuilderField textarea { font-size:14px; }.tfqcQuestionNumbers { gap:8px; }.tfqcQuestionNumber { width:38px; height:38px; flex-basis:38px; }.tfqcBuilderFooter { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }.tfqcBuilderFooter > button:first-child { margin:0; }.tfqcBuilderAction { min-width:0; width:100%; padding:9px; font-size:13px; }.tfqcAnswerRow { gap:7px; }.tfqcAnswerRow input { min-height:44px; padding:8px; font-size:13px; } }
+
+/* Question builder: Figma-proportioned additions, original Content CSS above retained. */
+.tfqcBuilderTop { margin-bottom:20px; }.tfqcBuilderCrumb { flex:1 1 400px; }.tfqcBuilderWelcome { width:min(372px,100%); min-height:104px; border:1px solid #2D4CC8; border-right-color:#E01E5A; padding:13px; }.tfqcBuilderWelcome h2 { background:linear-gradient(90deg,#2D4CC8,#E01E5A); background-clip:text; -webkit-background-clip:text; color:transparent; font-size:21px; white-space:normal; }.tfqcBuilderWelcome p { font-size:14px; }.tfqcBuilderGrid { grid-template-columns:minmax(0,1fr) 304px; align-items:start; }.tfqcBuilderMain { gap:22px; }.tfqcQuestionsHeading { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }.tfqcQuestionsHeading h2 { margin:0 0 6px; font-size:20px; line-height:28px; }.tfqcQuestionsHeading p { margin:0; font-size:16px; }.tfqcTopAdd { display:flex; align-items:center; justify-content:center; gap:9px; min-width:120px; height:48px; border:1px solid #2D4CC8; border-radius:30px; background:#DFE6E9; color:#2D4CC8; box-shadow:-3px -3px 6px #fff,3px 3px 5px #C4C4C4; font:600 18px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.tfqcNumberNavigation { min-width:0; display:flex; align-items:center; gap:14px; }.tfqcNumberScroller { flex:1; min-width:0; overflow:hidden; }.tfqcQuestionNumbers { padding:5px 3px 11px; gap:12px; }.tfqcQuestionNumber { position:relative; width:67px; height:54px; flex:0 0 67px; border:1px solid #939da4; border-radius:4px; background:#DFE6E9; color:#606162; font-size:20px; box-shadow:-2px -2px 3px #fff,2px 2px 4px #aeb5b9; }.tfqcQuestionNumber .tfqcNumberValue { display:block; }.tfqcQuestionNumber small { display:block; font-size:11px; line-height:14px; color:inherit; }.tfqcQuestionNumber.is-complete { border-color:#2A7308; color:#2A7308; }.tfqcQuestionNumber.is-partial { border-color:#cf560e; color:#cf560e; }.tfqcQuestionNumber.is-active { border-color:#2D4CC8; color:#2D4CC8; background:#d7e0fc; }.tfqcNumberStatus { position:absolute; right:3px; top:2px; display:grid; place-items:center; width:13px; height:13px; color:#fff; border-radius:50%; background:#2A7308; font-size:10px; line-height:1; }.is-partial .tfqcNumberStatus { background:#c9560e; }.tfqcRoundNav { display:grid; place-items:center; flex:0 0 42px; width:42px; height:42px; border:0; border-radius:50%; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4; cursor:pointer; }.tfqcQuestionProgress { height:16px; padding:3px 7px; margin-top:-10px; border-radius:20px; box-shadow:inset 2px 2px 3px #c4c4c4,inset -2px -2px 3px #fff; }.tfqcQuestionProgress span { display:block; height:100%; border-radius:20px; background:#2A7308; }.tfqcQuestionForm { padding:16px; gap:28px; }.tfqcBuilderField > label { font-size:16px; }.tfqcEditorSurface { padding:10px; border-radius:8px; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 5px #C4C4C4; }.tfqcEditorSurface textarea { margin-top:14px; padding:12px 4px; box-shadow:none; min-height:60px; height:75px; resize:vertical; }.tfqcRichToolbar { padding:7px; }.tfqcBuilderField > label small { float:right; }.tfqcAnswerOptions { gap:14px; }.tfqcAnswerSection { min-width:0; }.tfqcAnswerExpand,.tfqcAddOptions { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:12px 20px; border:0; border-radius:7px; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4; color:#374151; font:600 16px 'Segoe UI',Arial,sans-serif; cursor:pointer; }.tfqcRotated { transform:rotate(180deg); }.tfqcAnswerContent { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:10px 0 5px; padding:13px; border-radius:8px; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }.tfqcAnswerContent input:not([type=radio]) { flex:1 1 150px; padding:9px 12px; min-height:42px; }.tfqcCorrectOption { display:flex; align-items:center; gap:7px; font-size:13px; cursor:pointer; }.tfqcCorrectOption input { accent-color:#2D4CC8; }.tfqcRemoveOption { border:0; color:#c9560e; background:transparent; cursor:pointer; }.tfqcAddOptions { justify-content:center; min-height:48px; margin-top:24px; }.tfqcBuilderBottom { display:flex; justify-content:center; align-items:center; position:relative; min-height:52px; }.tfqcBuilderArrows { position:absolute; right:0; display:flex; gap:12px; }.tfqcSubmitQuestion { min-width:204px; color:#2D4CC8; border:1px solid #2D4CC8!important; font-size:18px; }.tfqcBuilderAside { display:flex; flex-direction:column; gap:14px; padding:16px; }.tfqcAsideSection { padding:14px 12px; border:1px solid #cbd3d8; border-radius:5px; display:flex; flex-direction:column; gap:12px; }.tfqcAsideSection h3 { margin:0; font-size:16px; line-height:24px; }.tfqcBuilderAside .tfqcBuilderField { gap:6px; }.tfqcBuilderAside .tfqcBuilderField > label { font-size:14px; line-height:20px; }.tfqcBuilderAside .tfqcSelectTrigger,.tfqcBuilderAside input { min-height:38px; padding:7px 12px; font-size:14px; }.tfqcBuilderAside .tfqcSelectItem { font-size:14px; }.tfqcBuilderAside .tfqcSelectList { max-height:325px; padding:9px; }.tfqcBuilderAside .tfqcOptionRadio { width:24px; height:24px; flex:0 0 24px; }.tfqcTagHolder { display:flex; flex-wrap:wrap; gap:8px; }.tfqcAddTag { display:flex; align-items:center; gap:5px; border:0; padding:7px; border-radius:5px; color:#2A7308; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #c4c4c4; cursor:pointer; }.tfqcTagInput { width:100%; }.tfqcTagRow { display:flex; flex-wrap:wrap; gap:7px; }.tfqcTagRow button { font-size:11px; padding:4px 8px; color:#2A7308; border:1px solid #91b67f; border-radius:4px; background:#e1ecd8; }.tfqcMandatory { margin-top:3px; font-size:14px; font-weight:600; }.tfqcAsideHint { margin:-10px 0 0; font-size:11px; }.tfqcBuilderSummary { margin-top:0; }.tfqcStatGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }.tfqcStatGrid div { min-width:0; text-align:center; }.tfqcStatGrid strong { display:grid; place-items:center; height:48px; box-shadow:-2px -2px 3px #fff,2px 2px 3px #c4c4c4; border-radius:7px; color:#2D4CC8; font-size:24px; }.tfqcStatGrid div:first-child strong { color:#67096E; }.tfqcStatGrid div:last-child strong { color:#2A7308; }.tfqcStatGrid span { display:block; margin-top:6px; font-size:12px; color:#2D4CC8; }.tfqcSummaryProgress { height:4px; background:#b8c0c5; }.tfqcSummaryProgress span { display:block; height:100%; background:linear-gradient(90deg,#2D4CC8,#E01E5A); }.tfqcBuilderSummary > p { margin:0; font-size:11px; line-height:17px; }.tfqcBuilderPageFooter { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:36px; }.tfqcBuilderPageFooter > div { display:flex; gap:24px; }.tfqcFooterPill { min-width:135px; height:48px; border:0; border-radius:28px; background:#DFE6E9; box-shadow:-4px -4px 5px #fff,4px 4px 6px #c4c4c4; font:600 16px 'Segoe UI',Arial,sans-serif; color:#374151; cursor:pointer; }.tfqcFooterContinue { color:#2A7308; }.tfqcBuilderNotice { margin:12px 0; font-size:14px; color:#2D4CC8; }.tfqcAddMenuList { min-width:230px; }.tfqcAddMenuList button { display:flex; align-items:center; gap:10px; }.tfqcAddMenuList .tfqcOptionRadio { flex:0 0 24px; }
+@media (max-width:1100px) { .tfqcBuilderGrid { grid-template-columns:minmax(0,1fr) 270px; gap:17px; }.tfqcBuilderMain { padding:16px; }.tfqcBuilderAside { padding:12px; } }
+@media (max-width:850px) { .tfqcBuilderGrid { grid-template-columns:minmax(0,1fr); }.tfqcBuilderAside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }.tfqcBuilderWelcome { margin-left:auto; }.tfqcBuilderPageFooter { margin-top:24px; } }
+@media (max-width:600px) { .tfqcBuilderTop { gap:14px; }.tfqcBuilderWelcome { min-height:84px; }.tfqcBuilderWelcome h2 { font-size:18px; line-height:24px; }.tfqcBuilderCrumb { flex-basis:100%; font-size:12px; gap:7px; }.tfqcBuilderMain { padding:12px; gap:16px; }.tfqcBuilderAside { display:flex; padding:12px; }.tfqcQuestionsHeading h2 { font-size:17px; line-height:24px; }.tfqcQuestionsHeading p { font-size:12px; }.tfqcTopAdd { min-width:88px; height:42px; font-size:15px; }.tfqcNumberNavigation { gap:6px; }.tfqcRoundNav { width:32px; height:32px; flex-basis:32px; }.tfqcQuestionNumber { width:55px; height:53px; flex-basis:55px; }.tfqcQuestionNumbers { gap:8px; }.tfqcQuestionForm { padding:12px; gap:22px; }.tfqcBuilderField > label { font-size:14px; }.tfqcBuilderBottom { justify-content:flex-start; padding-bottom:56px; }.tfqcBuilderArrows { right:0; bottom:0; }.tfqcSubmitQuestion { min-width:0; padding:10px 14px; font-size:15px; }.tfqcBuilderPageFooter { flex-direction:column; align-items:stretch; }.tfqcBuilderPageFooter > div { gap:10px; }.tfqcFooterPill { flex:1; min-width:0; padding:0 12px; font-size:14px; }.tfqcAnswerExpand,.tfqcAddOptions { min-height:46px; font-size:14px; padding:8px 12px; }.tfqcBuilderAside .tfqcSelectList { max-height:245px; } }
+
+/* Reference refinements: preserve all existing MCQ Content markup, assets and layout. */
+.tfqcBuilder .tfqcPointsControl { position:relative; display:flex; align-items:center; width:100%; min-width:0; height:44px; border-radius:7px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.tfqcBuilder .tfqcPointsControl input { flex:1; width:100%; height:100%; min-height:0; padding:7px 39px 7px 13px; border:0; border-radius:7px; box-shadow:none; background:transparent; outline:0; }
+.tfqcBuilder .tfqcPointsControl:focus-within { outline:2px solid #2D4CC8; outline-offset:2px; }
+.tfqcPointsControl input::-webkit-inner-spin-button,.tfqcPointsControl input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+.tfqcPointsControl input[type=number] { -moz-appearance:textfield; appearance:textfield; }
+.tfqcPointsSteppers { position:absolute; right:8px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center; width:24px; height:34px; gap:0; border-radius:3px; background:#DFE6E9; box-shadow:-1px -1px 2px #fff,1px 1px 2px #C4C4C4; }
+.tfqcPointsSteppers button { display:grid; place-items:center; flex:1; width:100%; min-height:0; padding:0; border:0; background:transparent; cursor:pointer; }
+.tfqcPointsSteppers .tfqcArrowUp { transform:rotate(180deg); }
+.tfqcPointsSteppers button:active { box-shadow:inset 1px 1px 2px #C4C4C4,inset -1px -1px 2px #fff; }
+/* Tag chips: no outside border; inset tag area and pale green chip fill. */
+.tfqcBuilder .tfqcTagRow { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-height:44px; padding:7px 9px; border:0; outline:0; border-radius:8px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.tfqcBuilder .tfqcTagRow button { display:inline-flex; gap:6px; align-items:center; min-height:26px; padding:4px 10px; border:1px solid #8cb66c; border-radius:5px; background:#E2EED9; color:#2A7308; font:400 13px/18px 'Segoe UI',Arial,sans-serif; box-shadow:none; }
+.tfqcBuilder .tfqcTagRow button span { color:#2A7308; font-size:16px; line-height:14px; }
+/* Summary figures and labels share the same purple, blue and green. */
+.tfqcBuilderSummary .tfqcStatGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.tfqcBuilderSummary .tfqcStatGrid > div { min-width:0; text-align:center; }
+.tfqcBuilderSummary .tfqcStatGrid strong { display:grid; place-items:center; height:52px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; border-radius:7px; font-size:25px; font-weight:700; }
+.tfqcBuilderSummary .tfqcStatGrid span { display:block; margin-top:9px; font:500 14px/20px 'Segoe UI',Arial,sans-serif; }
+.tfqcBuilderSummary .tfqcStatGrid > div:nth-child(1) strong,.tfqcBuilderSummary .tfqcStatGrid > div:nth-child(1) span { color:#67096E; }
+.tfqcBuilderSummary .tfqcStatGrid > div:nth-child(2) strong,.tfqcBuilderSummary .tfqcStatGrid > div:nth-child(2) span { color:#2D4CC8; }
+.tfqcBuilderSummary .tfqcStatGrid > div:nth-child(3) strong,.tfqcBuilderSummary .tfqcStatGrid > div:nth-child(3) span { color:#2A7308; }
+.tfqcBuilderSummary .tfqcSummaryProgress { position:relative; height:4px; margin-top:10px; background:linear-gradient(90deg,#67096E 0%,#2D4CC8 51%,#E01E5A 100%); border-radius:8px; overflow:hidden; }
+.tfqcBuilderSummary .tfqcSummaryProgress > span { position:absolute; left:0; top:0; height:100%; background:#2A7308; border-radius:8px; }
+/* Raised circular arrows stay legible on navigation and become subdued only when disabled. */
+.tfqcBuilder .tfqcRoundNav { display:grid; place-items:center; border:1px solid rgba(255,255,255,.6); border-radius:50%; background:#DFE6E9; color:#2F3547; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; cursor:pointer; opacity:1; }
+.tfqcBuilder .tfqcRoundNav .tfqcIcon { opacity:1; visibility:visible; filter:contrast(1.4); }
+.tfqcBuilder .tfqcRoundNav:disabled { opacity:.48; cursor:not-allowed; }
+.tfqcBuilder .tfqcRoundNav:not(:disabled):hover { box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+/* Neumorphic scroll tracks for all editor scrollable areas. */
+.tfqcBuilder .tfqcQuestionNumbers,.tfqcBuilder .tfqcNumberScroller,.tfqcBuilder .tfqcRichToolbar,.tfqcBuilder .tfqcSelectList { scrollbar-width:thin; scrollbar-color:#a3b2bc #DFE6E9; }
+.tfqcBuilder .tfqcQuestionNumbers::-webkit-scrollbar,.tfqcBuilder .tfqcNumberScroller::-webkit-scrollbar,.tfqcBuilder .tfqcRichToolbar::-webkit-scrollbar { height:9px; }
+.tfqcBuilder .tfqcSelectList::-webkit-scrollbar { width:8px; }
+.tfqcBuilder .tfqcQuestionNumbers::-webkit-scrollbar-track,.tfqcBuilder .tfqcNumberScroller::-webkit-scrollbar-track,.tfqcBuilder .tfqcRichToolbar::-webkit-scrollbar-track,.tfqcBuilder .tfqcSelectList::-webkit-scrollbar-track { background:#DFE6E9; border-radius:12px; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }
+.tfqcBuilder .tfqcQuestionNumbers::-webkit-scrollbar-thumb,.tfqcBuilder .tfqcNumberScroller::-webkit-scrollbar-thumb,.tfqcBuilder .tfqcRichToolbar::-webkit-scrollbar-thumb,.tfqcBuilder .tfqcSelectList::-webkit-scrollbar-thumb { border:1px solid #DFE6E9; border-radius:12px; background:#a3b2bc; box-shadow:inset -1px -1px 2px #8c9ca6,inset 1px 1px 2px #fff; }
+@media (max-width:600px) { .tfqcBuilderSummary .tfqcStatGrid { gap:8px; }.tfqcBuilderSummary .tfqcStatGrid strong { height:46px; font-size:21px; }.tfqcBuilderSummary .tfqcStatGrid span { font-size:12px; }.tfqcBuilder .tfqcTagRow { padding:7px; }.tfqcBuilder .tfqcRoundNav { flex-shrink:0; } }
+/* Create Questions: reference screenshot proportions (scaled naturally with the available width). */
+.tfqcBuilder { font:400 14px/20px "Segoe UI",Arial,sans-serif; color:#374151; }
+.tfqcBuilderTop { gap:16px; margin-bottom:16px; align-items:flex-start; }
+.tfqcBuilderCrumb { gap:8px; min-height:32px; font-size:14px; line-height:20px; letter-spacing:.02em; }
+.tfqcBuilderWelcome { width:min(320px,100%); min-height:90px; padding:12px 15px; gap:9px; border:1px solid #2D4CC8; border-right-color:#E01E5A; border-radius:9px; }
+.tfqcBuilderWelcome h2 { font-size:18px; line-height:25px; letter-spacing:.02em; }
+.tfqcBuilderWelcome p { font-size:13px; line-height:20px; }
+.tfqcBuilderGrid { grid-template-columns:minmax(0,1fr) minmax(230px,264px); align-items:start; gap:16px; }
+.tfqcBuilderMain { padding:20px 21px; gap:18px; border-radius:15px; }
+.tfqcBuilderAside { padding:12px; gap:12px; border-radius:12px; }
+.tfqcQuestionsHeading { align-items:center; }
+.tfqcQuestionsHeading h2 { font-size:17px; line-height:23px; margin-bottom:6px; }
+.tfqcQuestionsHeading p { font-size:13px; line-height:19px; }
+.tfqcTopAdd { min-width:112px; height:44px; font-size:16px; }
+.tfqcNumberNavigation { gap:10px; }
+.tfqcQuestionNumbers { gap:12px; padding:5px 3px 11px; }
+.tfqcQuestionNumber { flex:0 0 66px; width:66px; height:48px; background:#DFE6E9; color:#606162; border:1px solid #A6AFB5; border-radius:4px; font-size:17px; box-shadow:-2px -2px 3px #fff,2px 2px 4px #AEB5B9; }
+.tfqcQuestionNumber.is-complete { background:#DFE6E9; border-color:#2A7308; color:#2A7308; }
+.tfqcQuestionNumber.is-partial { background:#DFE6E9; border-color:#CE580B; color:#CE580B; }
+.tfqcQuestionNumber.is-active { background:#D9E2FB; border-color:#2D4CC8; color:#2D4CC8; }
+.tfqcQuestionNumber small { font-size:10px; line-height:13px; }
+.tfqcBuilder .tfqcRoundNav { width:38px; height:38px; flex:0 0 38px; background:#DFE6E9; border:1px solid #fff; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.tfqcBuilder .tfqcRoundNav:disabled { opacity:.46; }
+.tfqcBuilder .tfqcRoundNav:not(:disabled) .tfqcIcon { filter:contrast(1.7); opacity:1; }
+.tfqcQuestionProgress { height:15px; margin-top:-8px; }
+.tfqcQuestionForm { padding:18px 14px 22px; gap:24px; border:1px solid #AEAEAE; border-radius:15px; }
+.tfqcBuilderField { gap:12px; }
+.tfqcBuilder .tfqcBuilderField > label,.tfqcBuilder .tfqcFormHeading > label { font:600 14px/20px "Segoe UI",Arial,sans-serif; letter-spacing:.02em; }
+.tfqcBuilder .tfqcSelectTrigger { min-height:50px; padding:9px 15px 9px 20px; font:400 14px/22px "Segoe UI",Arial,sans-serif; border-radius:7px; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; }
+.tfqcEditorSurface { padding:9px; border-radius:7px; }
+.tfqcBuilder .tfqcRichToolbar { gap:6px; padding:6px; }
+.tfqcBuilder .tfqcRichToolbar button { width:32px; height:32px; flex-basis:32px; }
+.tfqcEditorSurface textarea { min-height:58px; height:62px; margin-top:9px; padding:10px 4px; font-size:13px; line-height:20px; }
+.tfqcBuilder .tfqcAnswerExpand { min-height:51px; padding:10px 18px; font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.tfqcAnswerOptions { gap:11px; }
+.tfqcBuilder .tfqcAddOptions { min-height:44px; margin-top:18px; font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilderBottom { min-height:48px; }
+.tfqcSubmitQuestion { min-width:180px; height:44px; min-height:44px; font-size:15px; }
+.tfqcBuilder .tfqcAsideSection { padding:13px 11px; gap:11px; }
+.tfqcBuilder .tfqcAsideSection h3 { font:600 16px/23px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilderAside .tfqcBuilderField { gap:6px; }
+.tfqcBuilderAside .tfqcBuilderField > label { font:600 13px/19px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilderAside .tfqcSelectTrigger { min-height:33px; height:33px; padding:4px 11px; font-size:13px; line-height:19px; }
+.tfqcBuilder .tfqcPointsControl { min-height:33px; height:33px; }
+.tfqcBuilder .tfqcPointsControl input { min-height:0; height:100%; font-size:13px; padding:4px 35px 4px 10px; }
+.tfqcPointsSteppers { height:27px; right:5px; width:22px; }
+.tfqcBuilder .tfqcSelectItem { min-height:38px; font-size:13px; line-height:20px; }
+.tfqcBuilder .tfqcSelectList { max-height:245px; }
+.tfqcBuilder .tfqcTagRow { min-height:34px; padding:5px 7px; gap:6px; }
+.tfqcBuilder .tfqcTagRow button { font-size:11px; min-height:22px; padding:2px 7px; }
+.tfqcBuilderSummary .tfqcStatGrid { gap:12px; }
+.tfqcBuilderSummary .tfqcStatGrid strong { height:48px; font-size:23px; }
+.tfqcBuilderSummary .tfqcStatGrid span { margin-top:7px; font:500 12px/18px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilderPageFooter { margin-top:36px; }
+.tfqcBuilderPageFooter .tfqcFooterPill { min-width:135px; height:44px; padding:8px 17px; border-radius:25px; font:700 15px/22px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcQuestionNumbers,.tfqcBuilder .tfqcNumberScroller,.tfqcBuilder .tfqcRichToolbar,.tfqcBuilder .tfqcSelectList { scrollbar-width:thin; scrollbar-color:#A3B2BC #DFE6E9; }
+@media (max-width:1100px) { .tfqcBuilderGrid { grid-template-columns:minmax(0,1fr) 244px; gap:14px; }.tfqcBuilderMain { padding:16px; }.tfqcBuilderAside { padding:11px; } }
+@media (max-width:850px) { .tfqcBuilderGrid { grid-template-columns:minmax(0,1fr); }.tfqcBuilderAside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }.tfqcBuilderTop { flex-direction:column; }.tfqcBuilderWelcome { margin-left:0; }.tfqcBuilderPageFooter { margin-top:24px; } }
+@media (max-width:600px) { .tfqcBuilderTop { gap:12px; }.tfqcBuilderCrumb { flex-basis:auto; font-size:12px; gap:5px; }.tfqcBuilderWelcome { min-height:75px; padding:11px; width:100%; }.tfqcBuilderWelcome h2 { font-size:17px; line-height:22px; }.tfqcBuilderWelcome p { font-size:12px; line-height:18px; }.tfqcBuilderMain,.tfqcBuilderAside { padding:12px; gap:14px; }.tfqcQuestionsHeading h2 { font-size:16px; }.tfqcTopAdd { min-width:85px; height:39px; font-size:14px; }.tfqcNumberNavigation { gap:6px; }.tfqcQuestionNumber { width:54px; height:47px; flex-basis:54px; }.tfqcQuestionNumbers { gap:8px; }.tfqcBuilder .tfqcRoundNav { width:33px; height:33px; flex-basis:33px; }.tfqcQuestionForm { padding:12px; gap:20px; }.tfqcBuilderAside { display:flex; }.tfqcBuilderPageFooter { margin-top:22px; }.tfqcBuilderPageFooter .tfqcFooterPill { min-width:0; height:42px; font-size:13px; padding:7px 11px; }.tfqcBuilder .tfqcAnswerExpand { min-height:46px; }.tfqcBuilder .tfqcSelectTrigger { min-height:46px; }.tfqcBuilderAside .tfqcSelectTrigger { min-height:36px; height:36px; }.tfqcBuilderBottom { padding-bottom:48px; } }
+
+/* Targeted corrections: dropdown direction, responsive settings and options. */
+.tfqcBuilder .tfqcAddMenu { position:relative; z-index:30; }
+.tfqcBuilder .tfqcAddMenuList { top:calc(100% + 8px); bottom:auto; right:0; left:auto; width:max-content; min-width:228px; max-width:min(310px,calc(100vw - 28px)); max-height:min(280px,50dvh); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#aab8c1 #dfe6e9; box-sizing:border-box; }
+.tfqcBuilder .tfqcAddMenuList button { min-height:43px; white-space:normal; overflow-wrap:break-word; }
+.tfqcBuilder .tfqcBuilderAside { min-width:0; width:100%; }
+.tfqcBuilder .tfqcAsideSection { min-width:0; width:100%; box-sizing:border-box; }
+.tfqcBuilderAside .tfqcBuilderField,.tfqcBuilderAside .tfqcSelectRoot,.tfqcBuilderAside .tfqcSelectTrigger,.tfqcBuilderAside .tfqcPointsControl { min-width:0; width:100%; max-width:100%; box-sizing:border-box; }
+.tfqcBuilderAside .tfqcSelectTrigger { display:flex; gap:8px; justify-content:space-between; }
+.tfqcBuilderAside .tfqcSelectTrigger > span { min-width:0; flex:1; overflow-wrap:anywhere; }
+.tfqcBuilderAside .tfqcSelectTrigger > .tfqcIcon { flex:0 0 auto; }
+@media (max-width:850px) { .tfqcBuilder .tfqcBuilderAside { display:flex; flex-direction:column; gap:14px; }.tfqcBuilder .tfqcAsideSection { width:100%; }.tfqcBuilderGrid { grid-template-columns:minmax(0,1fr); }.tfqcBuilder .tfqcAddMenuList { right:0; } }
+@media (max-width:600px) { .tfqcBuilder .tfqcBuilderAside { padding:12px; gap:13px; }.tfqcBuilder .tfqcAsideSection { padding:14px 12px; gap:12px; }.tfqcBuilderAside .tfqcBuilderField { gap:7px; }.tfqcBuilderAside .tfqcBuilderField > label { font-size:14px; line-height:20px; }.tfqcBuilderAside .tfqcSelectTrigger { min-height:42px; height:auto; padding:9px 12px; font-size:14px; line-height:20px; }.tfqcBuilderAside .tfqcPointsControl { min-height:42px; height:42px; }.tfqcBuilder .tfqcAddMenuList { right:0; left:auto; max-width:min(260px,calc(100vw - 36px)); } }
+
+/* Bottom Add Questions: same dropdown as the upper Add button, positioned below. */
+.tfqcBuilder .tfqcBottomAddMenu { position:relative; z-index:35; display:inline-flex; justify-content:center; }
+.tfqcBuilder .tfqcBottomAddMenu .tfqcAddMenuList { top:calc(100% + 8px); bottom:auto; left:50%; right:auto; transform:translateX(-50%); }
+@media (max-width:600px) { .tfqcBuilder .tfqcBottomAddMenu .tfqcAddMenuList { left:0; right:auto; transform:none; } }
+
+/* Expanded answer sections: Figma reference, scoped to question builder only. */
+.tfqcBuilder .tfqcAnswerSection { min-width:0; border-radius:8px; }
+.tfqcBuilder .tfqcAnswerContent { display:flex; flex-direction:column; gap:11px; min-width:0; padding:12px 11px 14px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; border-radius:0 0 8px 8px; }
+.tfqcBuilder .tfqcOptionSubLabel { display:flex; align-items:center; justify-content:space-between; gap:10px; font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcOptionSubLabel small { font-size:12px; font-weight:400; }
+.tfqcBuilder .tfqcOptionEditor { min-width:0; padding:8px; border-radius:7px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; }
+.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { padding:5px; gap:7px; min-height:45px; }
+.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button { width:32px; height:32px; flex:0 0 32px; }
+.tfqcBuilder .tfqcOptionEditor textarea { display:block; width:100%; height:70px; min-height:70px; resize:vertical; margin:8px 0 0; padding:10px 7px; background:transparent; color:#374151; border:0; border-radius:4px; box-shadow:none; outline:0; font:400 13px/20px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcCorrectOption { display:flex; align-items:center; gap:8px; font:600 13px/19px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcCorrectOption input,.tfqcBuilder .tfqcHintChecks input { width:16px; height:16px; min-height:0; margin:0; accent-color:#2A7308; box-shadow:none; }
+.tfqcBuilder .tfqcOptionDetail { min-width:0; border-radius:6px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4; }
+.tfqcBuilder .tfqcOptionDetailHead { display:flex; align-items:center; gap:10px; width:100%; min-height:41px; padding:8px 12px; background:transparent; border:0; border-radius:6px; color:#374151; font:600 13px/19px "Segoe UI",Arial,sans-serif; cursor:pointer; text-align:left; }
+.tfqcBuilder .tfqcDetailHeading { display:flex; align-items:center; flex:1; gap:8px; min-width:0; }
+.tfqcBuilder .tfqcOptionDetailHead small { margin-left:auto; font:400 11px/16px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.tfqcBuilder .tfqcOptionDetailBody { padding:6px 10px 12px; min-width:0; }
+.tfqcBuilder .tfqcHintChecks { display:grid; gap:8px; margin-top:10px; }
+.tfqcBuilder .tfqcHintChecks label { display:flex; align-items:center; gap:8px; font:400 12px/18px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcAnswerExpand[aria-expanded="true"] { border-radius:7px 7px 0 0; }
+.tfqcBuilder .tfqcOptionToolbar,.tfqcBuilder .tfqcOptionEditor textarea { scrollbar-width:thin; scrollbar-color:#a3b2bc #dfe6e9; }
+@media (max-width:600px) { .tfqcBuilder .tfqcAnswerContent { padding:10px 8px; }.tfqcBuilder .tfqcOptionDetailHead { padding:8px; }.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { overflow-x:auto; }.tfqcBuilder .tfqcOptionEditor textarea { font-size:13px; } }
+
+/* Option accordion: full-width vertical sections, matching the supplied reference. */
+.tfqcBuilder .tfqcAnswerContent { display:flex; flex-direction:column; flex-wrap:nowrap; align-items:stretch; justify-content:flex-start; width:100%; margin:0; padding:14px 12px 16px; gap:14px; border-radius:0 0 8px 8px; }
+.tfqcBuilder .tfqcAnswerContent > * { width:100%; max-width:100%; min-width:0; flex:0 0 auto; align-self:stretch; }
+.tfqcBuilder .tfqcOptionSubLabel { justify-content:space-between; font-size:14px; line-height:22px; }
+.tfqcBuilder .tfqcOptionSubLabel small { margin-left:auto; font-size:12px; }
+.tfqcBuilder .tfqcOptionEditor { display:flex; flex-direction:column; width:100%; padding:8px 10px 10px; box-sizing:border-box; }
+.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { width:100%; max-width:100%; min-width:0; min-height:46px; overflow-x:auto; overflow-y:hidden; flex-wrap:nowrap; }
+.tfqcBuilder .tfqcOptionEditor textarea { box-sizing:border-box; width:100%; max-width:100%; min-width:0; height:95px; min-height:95px; margin:8px 0 0; padding:12px 8px; font-size:14px; line-height:21px; }
+.tfqcBuilder .tfqcCorrectOption { display:flex; align-items:center; justify-content:flex-start; width:100%; gap:10px; white-space:normal; font-size:14px; line-height:22px; }
+.tfqcBuilder .tfqcCorrectOption input { display:block; flex:0 0 18px; width:18px; height:18px; min-width:18px; min-height:18px; margin:0; padding:0; }
+.tfqcBuilder .tfqcOptionDetail { display:block; width:100%; min-width:0; margin:0; border-radius:7px; }
+.tfqcBuilder .tfqcOptionDetailHead { width:100%; min-height:44px; padding:10px 14px; justify-content:space-between; font-size:14px; }
+.tfqcBuilder .tfqcDetailHeading { flex:1 1 auto; min-width:0; justify-content:flex-start; }
+.tfqcBuilder .tfqcOptionDetailHead small { margin-left:auto; }
+.tfqcBuilder .tfqcOptionDetailBody { width:100%; padding:10px 12px 14px; }
+.tfqcBuilder .tfqcHintChecks { width:100%; }
+@media (max-width:600px) { .tfqcBuilder .tfqcAnswerContent { padding:10px 8px 12px; gap:12px; }.tfqcBuilder .tfqcOptionEditor { padding:7px; }.tfqcBuilder .tfqcOptionDetailHead { padding:9px 10px; gap:7px; }.tfqcBuilder .tfqcOptionDetailHead small { font-size:11px; }.tfqcBuilder .tfqcOptionEditor textarea { min-height:85px; height:85px; }.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { gap:5px; } }
+
+/* Option editors: Figma typography, compact toolbar and square selection controls. */
+.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { display:flex; align-items:center; gap:7px; padding:6px 8px; min-height:48px; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; }
+.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button { flex:0 0 34px; width:34px; height:34px; min-width:34px; padding:5px; font:600 16px/22px "Segoe UI",Arial,sans-serif; border-radius:4px; }
+.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button.tfqcToolbarSelect { display:inline-flex; align-items:center; justify-content:space-between; flex:0 0 auto; width:auto; gap:9px; padding:5px 9px; font:400 14px/22px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar .tfqcToolbarFont { min-width:84px; }
+.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar .tfqcToolbarSize { min-width:53px; }
+.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar .tfqcIcon { width:18px; height:18px; }
+.tfqcBuilder .tfqcOptionEditor textarea { resize:none; font:400 16px/24px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcOptionSubLabel { font:600 16px/24px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcOptionSubLabel small { font:400 12px/20px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcCorrectOption,.tfqcBuilder .tfqcHintChecks label { font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcCorrectOption input[type="checkbox"],.tfqcBuilder .tfqcHintChecks input[type="checkbox"] { appearance:none; -webkit-appearance:none; display:grid; place-items:center; flex:0 0 24px; width:24px; height:24px; min-width:24px; min-height:24px; padding:0; margin:0; border:0; border-radius:4px; background:#DFE6E9; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px rgba(196,196,196,.8); cursor:pointer; }
+.tfqcBuilder .tfqcCorrectOption input[type="checkbox"]:checked,.tfqcBuilder .tfqcHintChecks input[type="checkbox"]:checked { box-shadow:-4px -4px 4px #fff,4px 4px 4px rgba(196,196,196,.8); }
+.tfqcBuilder .tfqcCorrectOption input[type="checkbox"]:checked::after,.tfqcBuilder .tfqcHintChecks input[type="checkbox"]:checked::after { content:""; display:block; width:16px; height:16px; border-radius:3px; background:#2D4CC8; clip-path:polygon(0 0,100% 0,100% 100%,0 100%); }
+.tfqcBuilder .tfqcCorrectOption input[type="checkbox"]:checked::after { background:#2A7308; }
+.tfqcBuilder .tfqcCorrectOption input[type="checkbox"]:checked,.tfqcBuilder .tfqcHintChecks input[type="checkbox"]:checked { position:relative; }
+.tfqcBuilder .tfqcCorrectOption input[type="checkbox"]:checked::before,.tfqcBuilder .tfqcHintChecks input[type="checkbox"]:checked::before { content:""; position:absolute; left:8px; top:6px; width:6px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); z-index:1; }
+.tfqcBuilder .tfqcOptionDetailHead { font:600 16px/24px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcOptionDetailHead small { font:400 12px/20px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcOptionDetailHead .tfqcIcon { flex-shrink:0; }
+@media (max-width:700px) { .tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { gap:5px; padding:5px; }.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button { flex-basis:30px; width:30px; min-width:30px; height:30px; }.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button.tfqcToolbarSelect { padding-inline:7px; font-size:12px; }.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar .tfqcToolbarFont { min-width:74px; }.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar .tfqcToolbarSize { min-width:46px; }.tfqcBuilder .tfqcOptionEditor textarea { font-size:14px; line-height:22px; }.tfqcBuilder .tfqcOptionDetailHead { font-size:14px; } }
+
+/* Main question editor: same Segoe UI, family and size controls as option editors. */
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar { display:flex; align-items:center; gap:6px; min-width:0; min-height:45px; padding:5px 7px; overflow-x:auto; overflow-y:hidden; flex-wrap:nowrap; scrollbar-width:thin; scrollbar-color:#aab8c1 #DFE6E9; }
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar button { flex:0 0 32px; width:32px; height:32px; min-width:32px; padding:5px; border:0; border-radius:3px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:600 16px/22px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar button.tfqcToolbarSelect { flex:0 0 auto; width:auto; display:inline-flex; align-items:center; justify-content:space-between; gap:8px; padding:4px 9px; font:400 14px/22px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.tfqcBuilder .tfqcEditorSurface .tfqcToolbarFont { min-width:83px; }
+.tfqcBuilder .tfqcEditorSurface .tfqcToolbarSize { min-width:52px; }
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar .tfqcIcon { width:18px; height:18px; }
+.tfqcBuilder .tfqcEditorSurface textarea { font:400 16px/24px "Segoe UI",Arial,sans-serif; resize:none; }
+.tfqcBuilder .tfqcDetailHeading { gap:9px; font:600 16px/24px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcOptionDetailHead { gap:12px; }
+/* Uniform rich-text editors: question, option text, feedback, explanation and hint. */
+.tfqcBuilder .tfqcEditorSurface,.tfqcBuilder .tfqcOptionEditor { width:100%; min-width:0; padding:8px; border-radius:8px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; }
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { display:flex; align-items:center; flex-wrap:wrap; gap:7px; width:100%; min-width:0; min-height:46px; padding:6px 8px; overflow:visible; border-radius:5px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar button,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button { display:inline-flex; align-items:center; justify-content:center; flex:0 0 32px; width:32px; min-width:32px; height:32px; padding:5px; border:0; border-radius:4px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:600 16px/22px "Segoe UI",Arial,sans-serif; cursor:pointer; }
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar button.tfqcToolbarSelect,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button.tfqcToolbarSelect { display:inline-flex; justify-content:space-between; align-items:center; flex:0 0 auto; width:auto; gap:8px; padding:4px 9px; font:400 14px/22px "Segoe UI",Arial,sans-serif; white-space:nowrap; }
+.tfqcBuilder .tfqcEditorSurface .tfqcToolbarFont,.tfqcBuilder .tfqcOptionEditor .tfqcToolbarFont { min-width:84px; }
+.tfqcBuilder .tfqcEditorSurface .tfqcToolbarSize,.tfqcBuilder .tfqcOptionEditor .tfqcToolbarSize { min-width:52px; }
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar .tfqcIcon,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar .tfqcIcon { width:18px; height:18px; }
+.tfqcBuilder .tfqcEditorSurface textarea,.tfqcBuilder .tfqcOptionEditor textarea { display:block; box-sizing:border-box; width:100%; max-width:100%; min-width:0; height:95px; min-height:95px; margin:8px 0 0; padding:12px 8px; border:0; border-radius:4px; background:transparent; box-shadow:none; outline:0; resize:none; color:#374151; font:400 16px/24px "Segoe UI",Arial,sans-serif; }
+.tfqcBuilder .tfqcEditorSurface textarea:focus-visible,.tfqcBuilder .tfqcOptionEditor textarea:focus-visible { outline:2px solid #2D4CC8; outline-offset:-2px; }
+@media (max-width:700px) { .tfqcBuilder .tfqcEditorSurface,.tfqcBuilder .tfqcOptionEditor { padding:6px; } .tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { gap:5px; padding:5px; } .tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar button,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button { width:30px; min-width:30px; height:30px; flex-basis:30px; } .tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar button.tfqcToolbarSelect,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button.tfqcToolbarSelect { padding:4px 7px; font-size:12px; flex-basis:auto; } .tfqcBuilder .tfqcEditorSurface textarea,.tfqcBuilder .tfqcOptionEditor textarea { min-height:90px; height:90px; font-size:14px; line-height:22px; } }
+/* Keep every rich-text toolbar on exactly one row, including Hint. */
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { display:flex; flex-direction:row; flex-wrap:nowrap; align-items:center; justify-content:flex-start; gap:10px; min-width:0; width:100%; min-height:44px; padding:5px 6px; overflow-x:auto; overflow-y:hidden; white-space:nowrap; scrollbar-width:thin; }
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar button,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button { flex:0 0 31px; width:31px; min-width:31px; height:32px; padding:4px; }
+.tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar button.tfqcToolbarSelect,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button.tfqcToolbarSelect { flex:0 0 auto; width:auto; white-space:nowrap; }
+.tfqcBuilder .tfqcEditorSurface .tfqcToolbarFont,.tfqcBuilder .tfqcOptionEditor .tfqcToolbarFont { min-width:80px; }
+.tfqcBuilder .tfqcEditorSurface .tfqcToolbarSize,.tfqcBuilder .tfqcOptionEditor .tfqcToolbarSize { min-width:50px; }
+@media (max-width:700px) { .tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar { flex-wrap:nowrap; gap:4px; padding:5px; } .tfqcBuilder .tfqcEditorSurface .tfqcOptionToolbar button,.tfqcBuilder .tfqcOptionEditor .tfqcOptionToolbar button { flex:0 0 30px; min-width:30px; width:30px; } }
+/* Remove Option: raised action aligned to the right edge of the expanded answer. */
+.tfqcBuilder .tfqcAnswerContent .tfqcRemoveOption { display:inline-flex; align-items:center; justify-content:center; align-self:flex-end; width:max-content; max-width:100%; min-height:36px; margin:6px 0 0 auto; padding:7px 16px; border:1px solid #d95e23; border-radius:8px; background:#DFE6E9; color:#c9560e; box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4; font:600 14px/20px 'Segoe UI',Arial,sans-serif; white-space:nowrap; cursor:pointer; }
+.tfqcBuilder .tfqcAnswerContent .tfqcRemoveOption:active { box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+/* Available previous/next arrows must be dark and visible; only disabled arrows are faded. */
+.tfqcBuilder .tfqcRoundNav:not(:disabled) { opacity:1; color:#141B34; }
+.tfqcBuilder .tfqcRoundNav:not(:disabled) .tfqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(1258%) hue-rotate(190deg) brightness(95%) contrast(93%)!important; }
+.tfqcBuilder .tfqcRoundNav:disabled { opacity:.43; cursor:not-allowed; }
+.tfqcBuilder .tfqcRoundNav:disabled .tfqcIcon { opacity:.5; filter:grayscale(1); }
+@media(max-width:600px) { .tfqcBuilder .tfqcAnswerContent .tfqcRemoveOption { min-height:34px; padding:6px 12px; font-size:13px; } }
+/* Question navigation: first question has a softly dimmed Previous arrow;
+   from question 2 onward Previous and Next have identical enabled contrast. */
+.tfqcBuilder .tfqcRoundNav:disabled { opacity:1; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; cursor:not-allowed; }
+.tfqcBuilder .tfqcRoundNav:disabled .tfqcIcon { opacity:.58!important; visibility:visible!important; filter:grayscale(1) brightness(0) saturate(100%) invert(65%) sepia(6%) saturate(320%) hue-rotate(165deg)!important; }
+.tfqcBuilder .tfqcRoundNav:not(:disabled) { opacity:1; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.tfqcBuilder .tfqcRoundNav:not(:disabled) .tfqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(1258%) hue-rotate(190deg) brightness(95%) contrast(93%)!important; }
+/* Previous arrow on Question 1: same clearly visible dark icon as the Next arrow; button stays disabled. */
+.tfqcBuilder .tfqcRoundNav:disabled .tfqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+/* Once Previous is enabled it gets the same dark arrow treatment as Next. */
+.tfqcBuilder .tfqcRoundNav:not(:disabled) .tfqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+
+/* Both navigation arrows always use the same visible appearance. */
+.tfqcBuilder .tfqcRoundNav,.tfqcBuilder .tfqcRoundNav:not(:disabled) { opacity:1!important; color:#141B34; cursor:pointer; }
+.tfqcBuilder .tfqcRoundNav .tfqcIcon,.tfqcBuilder .tfqcRoundNav:not(:disabled) .tfqcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+
+/* Create Questions breadcrumb: no preceding back-icon button; links remain responsive. */
+.tfqcAppShell .tfqcBuilderCrumb > .tfqcBreadcrumbReturn,
+.tfqcAppShell .tfqcBreadcrumb > .tfqcBreadcrumbReturn { display:none!important; }
+.tfqcBuilderCrumb { min-width:0; flex-wrap:wrap; }
+@media (max-width:600px) { .tfqcBuilderCrumb { column-gap:6px; row-gap:8px; } }
+
+/* Connected Preview Questions — scoped so the original builder remains unchanged. */
+.tfqcPreview { color:#374151; font:400 14px/1.5 "Segoe UI",Arial,sans-serif; min-width:0; }
+.tfqcPreviewCrumb { display:flex; align-items:center; flex-wrap:wrap; gap:9px; margin:0 0 18px; font-size:14px; }
+.tfqcPreviewCrumb a,.tfqcPreviewCrumb button { border:0; padding:0; background:transparent; color:#374151; text-decoration:none; font:inherit; cursor:pointer; }
+.tfqcPreviewCrumb strong { color:#2D4CC8; }
+.tfqcPreviewCard { padding:20px; border-radius:16px; background:#DFE6E9; box-shadow:-4px -4px 5px #fff,4px 4px 5px #C4C4C4; min-width:0; }
+.tfqcPreviewCard>header h2 { font-size:18px; margin:0 0 4px; }.tfqcPreviewCard>header p { margin:0 0 14px; }
+.tfqcPreviewControls { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; margin-bottom:16px; }
+.tfqcPreviewTotals { display:flex; flex-wrap:wrap; gap:10px; padding:10px; border-radius:9px; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; }
+.tfqcPreviewTotals>div { min-width:100px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:1px solid #D0D7DB; border-radius:5px; padding:6px 10px; }
+.tfqcPreviewTotals strong { font-size:14px; }.tfqcPreviewTotals span { font-size:12px; }.tfqcPreviewTotals .tfqcPreviewReady { min-width:155px; flex-direction:row; gap:8px; justify-content:flex-start; }
+.tfqcPreviewReady strong,.tfqcGreen { color:#2A7308; }.tfqcPreviewReady small { display:block; }.tfqcOrange { color:#CC670D; }
+.tfqcPreviewTools { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }.tfqcPreviewFilter { position:relative; }.tfqcPreviewFilter>button,.tfqcPreviewLearner { display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:38px; padding:7px 14px; border:0; border-radius:6px; background:#DFE6E9; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font:inherit; color:#374151; cursor:pointer; }
+.tfqcPreviewLearner { box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; color:#2D4CC8; font-weight:600; }.tfqcPreviewFilter>div { position:absolute; top:100%; left:0; z-index:20; min-width:160px; padding:6px; border-radius:8px; background:#DFE6E9; box-shadow:3px 3px 7px #C4C4C4,-3px -3px 7px #fff; }.tfqcPreviewFilter>div button { display:block; width:100%; border:0; padding:9px; text-align:left; background:transparent; cursor:pointer; }
+.tfqcPreviewQuestion { padding:16px; border:1px solid #B4BDC2; border-radius:16px; min-width:0; }.tfqcPreviewMeta { display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px; }.tfqcPreviewMeta>span,.tfqcPreviewMeta>button { min-height:31px; padding:6px 12px; border:1px solid #C6CFD4; border-radius:22px; background:#DFE6E9; font-size:12px; }.tfqcPreviewMeta>button { display:flex; align-items:center; gap:6px; cursor:pointer; color:#374151; }
+.tfqcPreviewPanel { margin-bottom:17px; border-radius:6px; overflow:hidden; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }.tfqcPreviewPanel>h3,.tfqcPreviewSectionHead { width:100%; margin:0; padding:12px 16px; text-align:left; font:600 14px/21px "Segoe UI",Arial,sans-serif; background:#DFE6E9; border:0; box-shadow:0 2px 4px #C4C4C4; color:#374151; }.tfqcPreviewPanel>p { margin:0; min-height:58px; padding:18px 16px; font-size:14px; }.tfqcPreviewSectionHead { display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+.tfqcPreviewAnswers,.tfqcPreviewLearning { padding:12px; display:grid; gap:8px; }.tfqcPreviewAnswer { display:flex; gap:9px; align-items:center; min-width:0; padding:8px 12px; border:1px solid #D3DBD9; border-radius:5px; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; }.tfqcPreviewAnswer.correct { border-color:#6C9C58; color:#28750B; }.tfqcPreviewAnswer.incorrect { color:#A4333D; }.tfqcAnswerLetter { padding:1px 6px; box-shadow:inset 1px 1px 2px #C4C4C4,inset -1px -1px 2px #fff; }.tfqcPreviewAnswerText { flex:1; min-width:0; overflow-wrap:anywhere; }.tfqcPreviewAnswer small { padding:3px 8px; border:1px solid currentColor; border-radius:15px; white-space:nowrap; }
+.tfqcPreviewLearning section { padding:12px; border-radius:6px; box-shadow:-2px -2px 4px #fff,2px 2px 4px #C4C4C4; }.tfqcPreviewLearning h4 { display:flex; align-items:center; gap:8px; margin:0 0 12px; font-size:14px; }.tfqcPreviewLearning section>p { margin:8px 0; padding:0 24px; white-space:pre-wrap; }.tfqcPreviewFeedbackItem { margin:7px 0 7px 26px; border:1px solid #D0D7DB; }.tfqcPreviewFeedbackItem>button { width:100%; display:flex; align-items:center; gap:9px; border:0; padding:8px 10px; background:#DFE6E9; color:#374151; font:inherit; text-align:left; cursor:pointer; }.tfqcPreviewFeedbackItem>button .tfqcIcon:last-child { margin-left:auto; }.tfqcPreviewFeedbackItem p { padding:12px 14px; margin:0; white-space:pre-wrap; }
+.tfqcPreviewSettings { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; padding:14px; }.tfqcPreviewSettings>div { min-width:0; }.tfqcPreviewSettings>div>span { display:block; margin-bottom:7px; font-size:13px; }.tfqcPreviewSettings strong { display:flex; align-items:center; gap:8px; min-height:38px; padding:7px 9px; border-radius:5px; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font-size:13px; font-weight:600; overflow-wrap:anywhere; }.tfqcPreviewSettings .tfqcIcon { flex-shrink:0; }
+.tfqcPreviewBottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-top:20px; }.tfqcPreviewBottom button,.tfqcPreviewEmpty button { min-height:40px; border:0; border-radius:25px; padding:9px 18px; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; color:#374151; font:600 14px "Segoe UI",Arial,sans-serif; cursor:pointer; }.tfqcPreviewBottom .tfqcPreviewSave { color:#2D4CC8; }.tfqcPreviewPager { display:flex; align-items:center; gap:10px; }.tfqcPreviewPager button:disabled { opacity:.45; cursor:default; }.tfqcPreviewEmpty { text-align:center; padding:25px; }
+@media(max-width:850px) { .tfqcPreviewSettings { grid-template-columns:repeat(2,minmax(0,1fr)); }.tfqcPreviewControls { align-items:flex-start; } }
+@media(max-width:600px) { .tfqcPreviewCard { padding:12px; }.tfqcPreviewQuestion { padding:10px; }.tfqcPreviewCrumb { font-size:12px; gap:5px; }.tfqcPreviewControls { gap:12px; }.tfqcPreviewTotals { width:100%; }.tfqcPreviewTotals>div { flex:1 1 75px; min-width:0; }.tfqcPreviewTotals .tfqcPreviewReady { flex:1 1 135px; }.tfqcPreviewTools { width:100%; gap:9px; }.tfqcPreviewSettings { gap:10px; }.tfqcPreviewAnswer small { font-size:10px; white-space:normal; }.tfqcPreviewAnswer { padding:8px 6px; gap:5px; }.tfqcPreviewBottom { justify-content:center; }.tfqcPreviewFeedbackItem { margin-left:0; }.tfqcPreviewLearning,.tfqcPreviewAnswers { padding:8px; }.tfqcPreviewLearning section { padding:9px; } }
+
+/* Figma Preview Questions corrections — scoped to preview; builder and shared layout untouched. */
+.tfqcPreview { font-family:"Segoe UI",Arial,sans-serif; font-size:16px; line-height:1.5; color:#374151; }
+.tfqcPreviewCrumb { font-size:16px; line-height:24px; gap:8px; margin-bottom:20px; letter-spacing:.02em; }
+.tfqcPreviewCard { border-radius:16px; padding:24px; box-shadow:-8px -8px 16px #FFFFFF,8px 8px 16px #C4C4C4; }
+.tfqcPreviewCard>header h2 { font-size:20px; line-height:28px; font-weight:700; margin-bottom:7px; }
+.tfqcPreviewCard>header p { font-size:16px; line-height:24px; margin-bottom:18px; }
+.tfqcPreviewControls { margin-bottom:20px; gap:20px; }
+.tfqcPreviewTotals { padding:8px 12px; gap:12px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.tfqcPreviewTotals>div { min-height:55px; }.tfqcPreviewTotals strong { font-size:16px; }.tfqcPreviewTotals span { font-size:14px; }
+.tfqcPreviewQuestion { padding:18px; border:1px solid #B7C1C5; border-radius:16px; }
+.tfqcPreviewMeta { gap:16px; margin-bottom:20px; }.tfqcPreviewMeta>span,.tfqcPreviewMeta>button { font-size:14px; }
+.tfqcPreviewPanel { margin-bottom:20px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.tfqcPreviewPanel>h3,.tfqcPreviewSectionHead { font:600 18px/26px "Segoe UI",Arial,sans-serif; padding:13px 16px; box-shadow:0 3px 5px #C4C4C4; }
+.tfqcPreviewPanel>p { font-size:16px; line-height:24px; padding:18px 16px; }
+.tfqcPreviewAnswers,.tfqcPreviewLearning { padding:14px; gap:12px; }
+.tfqcPreviewAnswer { min-height:45px; padding:9px 13px; font-size:16px; gap:12px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.tfqcPreviewAnswer.correct { border-color:#6A994E; color:#267208; }.tfqcPreviewAnswer.incorrect { color:#B62B38; }
+.tfqcPreviewAnswer small { font-size:12px; line-height:18px; }
+.tfqcPreviewLearning section { padding:15px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.tfqcPreviewLearning h4 { font-size:18px; font-weight:600; line-height:26px; gap:10px; }
+.tfqcPreviewFeedbackItem { margin:9px 0 9px 26px; border:1px solid #D1D6D9; }
+.tfqcPreviewFeedbackItem>button { padding:12px; gap:11px; font:400 16px/24px "Segoe UI",Arial,sans-serif; }
+.tfqcPreviewFeedbackItem p,.tfqcPreviewLearning section>p { font-size:16px; line-height:24px; }
+.tfqcPreviewSettings { gap:16px; padding:16px; }.tfqcPreviewSettings>div>span { font-size:16px; margin-bottom:9px; }
+.tfqcPreviewSettings strong { min-height:48px; font:600 16px/24px "Segoe UI",Arial,sans-serif; padding:9px 12px; box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4; }
+.tfqcPreviewBottom { justify-content:space-between; margin-top:22px; }.tfqcPreviewBottom button { min-height:48px; padding:10px 22px; font-size:18px; box-shadow:-4px -4px 4px #FFFFFF,4px 4px 8px #C4C4C4; }
+.tfqcPreviewStatusIcon { display:inline-grid; place-items:center; flex:0 0 auto; border:2px solid currentColor; border-radius:50%; font-family:"Segoe UI",Arial,sans-serif; font-weight:800; line-height:1; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; }
+.tfqcPreviewStatusIcon.is-correct { color:#287B10; }.tfqcPreviewStatusIcon.is-wrong { color:#C12A3A; }
+.tfqcPreviewFeedbackItem .tfqcPreviewStatusIcon,.tfqcPreviewLearning h4 .tfqcPreviewStatusIcon { opacity:1; }
+@media(max-width:850px) { .tfqcPreviewSettings { grid-template-columns:repeat(2,minmax(0,1fr)); }.tfqcPreviewCard { padding:18px; } }
+@media(max-width:600px) { .tfqcPreviewCard { padding:12px; }.tfqcPreviewQuestion { padding:10px; }.tfqcPreviewCrumb { font-size:12px; line-height:20px; }.tfqcPreviewPanel>h3,.tfqcPreviewSectionHead { font-size:15px; line-height:22px; padding:11px 12px; }.tfqcPreviewLearning h4 { font-size:15px; line-height:22px; }.tfqcPreviewAnswer,.tfqcPreviewFeedbackItem>button,.tfqcPreviewFeedbackItem p,.tfqcPreviewLearning section>p { font-size:13px; line-height:19px; }.tfqcPreviewAnswer { gap:6px; padding:7px; }.tfqcPreviewAnswer small { font-size:10px; }.tfqcPreviewSettings { grid-template-columns:minmax(0,1fr); gap:10px; }.tfqcPreviewSettings>div>span,.tfqcPreviewSettings strong { font-size:14px; }.tfqcPreviewBottom button { font-size:14px; min-height:44px; }.tfqcPreviewMeta { gap:7px; }.tfqcPreviewMeta>span,.tfqcPreviewMeta>button { font-size:11px; }.tfqcPreviewTotals>div { min-width:0; }.tfqcPreviewLearning section { padding:10px; } }
+
+/* Preview-only Figma measurements: compact settings, pills, status glyphs. */
+.tfqcPreview, .tfqcPreview button {font-family:"Segoe UI",Arial,sans-serif;}
+.tfqcPreviewReadyCheck {display:grid;place-items:center;flex:0 0 18px;width:18px;height:18px;border-radius:2px;color:#fff;background:#2A7308;font:700 13px/18px "Segoe UI",Arial,sans-serif;box-shadow:-2px -2px 2px #fff,2px 2px 2px rgba(196,196,196,.8);}
+.tfqcPreviewReady {display:flex;align-items:center;gap:8px;}
+.tfqcPreviewReady strong {font-weight:600;color:#2A7308;}
+.tfqcPreviewMeta {display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:24px;}
+.tfqcPreviewMeta > span,.tfqcPreviewMeta > button {display:inline-flex;align-items:center;justify-content:center;min-height:40px;height:40px;padding:0 14px;border:0;border-radius:32px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;color:#2F3547;font:400 14px/20px "Segoe UI",Arial,sans-serif;letter-spacing:.03em;white-space:nowrap;}
+.tfqcPreviewMeta > span:first-child {min-width:142px;}.tfqcPreviewMeta > span:nth-child(2) {min-width:165px;gap:4px;}.tfqcPreviewMeta > button {min-width:81px;gap:8px;cursor:pointer;}
+.tfqcPreviewMeta b.tfqcGreen {color:#2A7308;font-weight:600;}.tfqcPreviewMeta b.tfqcOrange {font-weight:600;}
+.tfqcPreviewStatusIcon {width:24px!important;height:24px!important;border:0!important;border-radius:50%;background:#DFE6E9;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #fff;font:800 15px/24px "Segoe UI",Arial,sans-serif!important;text-align:center;opacity:1!important;}
+.tfqcPreviewStatusIcon.is-correct {color:#fff;background:radial-gradient(circle at center,#2A7308 0 49%,#DFE6E9 53% 100%);}
+.tfqcPreviewStatusIcon.is-wrong {color:#fff;background:radial-gradient(circle at center,#A91E2C 0 49%,#DFE6E9 53% 100%);}
+.tfqcPreviewAnswer.incorrect .tfqcPreviewStatusIcon {background:#DFE6E9;color:#C6C6C9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:0!important;}
+.tfqcPreviewAnswer.incorrect .tfqcPreviewStatusIcon::after {content:"";width:12px;height:12px;border:1.5px solid #C6C6C9;border-radius:50%;display:block;margin:6px auto;}
+.tfqcPreviewFeedbackItem {margin:8px 0 8px 26px;border:0;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;overflow:hidden;}
+.tfqcPreviewFeedbackItem > button {display:flex;align-items:center;min-height:44px;width:100%;padding:8px 14px;gap:12px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font:600 16px/24px "Segoe UI",Arial,sans-serif;}
+.tfqcPreviewFeedbackItem > button .tfqcIcon {margin-left:auto;opacity:1;}
+.tfqcPreviewFeedbackItem > p {margin:0;padding:15px 30px;font:400 14px/22px "Segoe UI",Arial,sans-serif;letter-spacing:.02em;}
+.tfqcPreviewSettings {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding:14px 16px;align-items:start;}
+.tfqcPreviewSettings > div {min-width:0;}.tfqcPreviewSettings > div > span {font:400 14px/20px "Segoe UI",Arial,sans-serif;margin-bottom:7px;letter-spacing:.02em;}
+.tfqcPreviewSettings strong {min-height:40px;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font:600 14px/20px "Segoe UI",Arial,sans-serif;overflow-wrap:anywhere;}
+.tfqcPreviewSettings strong .tfqcIcon {width:18px;height:18px;flex:0 0 18px;visibility:visible;opacity:1;}
+@media(max-width:900px) {.tfqcPreviewSettings {grid-template-columns:repeat(3,minmax(0,1fr));}.tfqcPreviewMeta {gap:10px;}}
+@media(max-width:600px) {.tfqcPreviewSettings {grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px;}.tfqcPreviewSettings > div > span {font-size:12px;}.tfqcPreviewSettings strong {font-size:12px;min-height:40px;padding:7px;}.tfqcPreviewMeta {justify-content:flex-start;gap:8px;}.tfqcPreviewMeta > span,.tfqcPreviewMeta > button {font-size:12px;min-height:36px;height:36px;padding:0 10px;min-width:0!important;}.tfqcPreviewFeedbackItem {margin-left:0;}.tfqcPreviewFeedbackItem > button {font-size:13px;padding:8px;}.tfqcPreviewFeedbackItem > p {padding:12px;font-size:13px;}}
+@media(max-width:370px) {.tfqcPreviewSettings {grid-template-columns:minmax(0,1fr);}}
+
+/* Figma status marks: raised 24px circle, green tick / red cross; 18px Ready square. */
+.tfqcPreview .tfqcPreviewStatusIcon {position:relative;display:inline-grid;place-items:center;width:24px!important;height:24px!important;flex:0 0 24px;border:0!important;border-radius:50%;background:#DFE6E9!important;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF!important;opacity:1!important;font-size:0!important;}
+.tfqcPreview .tfqcPreviewStatusIcon::before {content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#2A7308;}
+.tfqcPreview .tfqcPreviewStatusIcon.is-correct::after {content:"";position:absolute;width:7px;height:4px;border-left:1.8px solid #fff;border-bottom:1.8px solid #fff;transform:translateY(-1px) rotate(-45deg);}
+.tfqcPreview .tfqcPreviewStatusIcon.is-wrong::before {background:#A91E2C;}
+.tfqcPreview .tfqcPreviewStatusIcon.is-wrong::after {content:"×";position:absolute;inset:0;display:grid;place-items:center;color:#FFFFFF;font:700 14px/24px "Segoe UI",Arial,sans-serif;}
+.tfqcPreview .tfqcPreviewAnswer.incorrect .tfqcPreviewStatusIcon {background:#DFE6E9!important;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4!important;}
+.tfqcPreview .tfqcPreviewAnswer.incorrect .tfqcPreviewStatusIcon::before {width:12px;height:12px;background:transparent;border:1.5px solid #C6C6C9;}
+.tfqcPreview .tfqcPreviewAnswer.incorrect .tfqcPreviewStatusIcon::after {content:none;}
+.tfqcPreview .tfqcPreviewReadyCheck {position:relative;display:inline-grid;place-items:center;width:18px;height:18px;flex:0 0 18px;border-radius:2px;background:#DFE6E9;box-shadow:-2px -2px 2px #fff,2px 2px 2px rgba(196,196,196,.8);font-size:0;}
+.tfqcPreview .tfqcPreviewReadyCheck::before {content:"";width:14px;height:14px;background:#2A7308;border-radius:2px;}
+.tfqcPreview .tfqcPreviewReadyCheck::after {content:"";position:absolute;width:7px;height:4px;border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;transform:translateY(-1px) rotate(-45deg);}
+
+/* Preview Question Settings: four fields on row one; Tags on row two. */
+.tfqcPreviewSettings { grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.tfqcPreviewSettings > div:nth-child(4) { grid-column:1 / span 2; grid-row:2; } /* Tags */
+.tfqcPreviewSettings > div:nth-child(5) { grid-column:4; grid-row:1; } /* Mandatory */
+@media (max-width:900px) {
+  .tfqcPreviewSettings { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .tfqcPreviewSettings > div:nth-child(4) { grid-column:1 / -1; grid-row:3; }
+  .tfqcPreviewSettings > div:nth-child(5) { grid-column:2; grid-row:2; }
+}
+@media (max-width:480px) {
+  .tfqcPreviewSettings { grid-template-columns:minmax(0,1fr); }
+  .tfqcPreviewSettings > div:nth-child(4) { grid-column:1; grid-row:5; }
+  .tfqcPreviewSettings > div:nth-child(5) { grid-column:1; grid-row:4; }
+}
+
+/* Center the wrong-feedback cross geometrically inside its raised circle. */
+.tfqcPreview .tfqcPreviewStatusIcon.is-wrong::after {content:"";inset:auto;left:50%;top:50%;display:block;width:10px;height:10px;transform:translate(-50%,calc(-30% - 2px));background:linear-gradient(45deg,transparent calc(50% - 1px),#fff calc(50% - 1px),#fff calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(-45deg,transparent calc(50% - 1px),#fff calc(50% - 1px),#fff calc(50% + 1px),transparent calc(50% + 1px));}
+
+/* Smaller wrong-answer X only; circle and shadow remain unchanged. */
+.tfqcPreview .tfqcPreviewStatusIcon.is-wrong::after {width:9px;height:9px;}
+
+/* Question-number scrollbar only: fixed short thumb, while the numbers remain horizontally scrollable. */
+.tfqcBuilder .tfqcQuestionNumbers { scrollbar-width:none; padding-bottom:5px; }
+.tfqcBuilder .tfqcQuestionNumbers::-webkit-scrollbar { display:none; height:0; }
+.tfqcNumberShortTrack { position:relative; width:100%; height:9px; margin-top:9px; border-radius:12px; background:#DFE6E9; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #FFFFFF; }
+.tfqcNumberShortThumb { position:absolute; top:0; width:var(--tfqc-scroll-thumb, min(67px,26%)); height:9px; border-radius:12px; background:#7C878D; transition:left .08s linear; }
+@media(max-width:600px) { .tfqcNumberScroller { --tfqc-scroll-thumb:min(38px,26%); } }
+
+/* Question Type dropdown: matching field width, expandable reference groups. */
+.tfqcTypeRoot { width:100%; min-width:0; }
+.tfqcTypeDropdown { position:absolute; z-index:100; left:0; right:0; top:calc(100% + 7px); width:100%; min-width:0; max-height:min(490px,65vh); overflow-y:auto; overscroll-behavior:contain; padding:12px 14px; border-radius:12px; background:#DFE6E9; box-shadow:-4px -4px 8px #FFFFFF,5px 5px 10px #B8C1C6; scrollbar-width:thin; scrollbar-color:#ABB7BF #DFE6E9; }
+.tfqcTypeSearch { display:flex; align-items:center; gap:12px; min-width:0; min-height:52px; padding:8px 13px; border-radius:8px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #FFFFFF,inset 3px 3px 4px #C4C4C4; }
+.tfqcTypeSearch input { flex:1 1 0; min-width:0; width:100%; height:34px; padding:0; border:0; outline:0; background:transparent; box-shadow:none!important; font:400 16px/24px 'Segoe UI',Arial,sans-serif; color:#374151; }
+.tfqcTypeSearch input::-webkit-search-cancel-button { cursor:pointer; }
+.tfqcTypeGroups { margin-top:12px; }
+.tfqcTypeGroup { border-top:1px solid #C8D2D7; }
+.tfqcTypeHeading { display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%; min-height:61px; padding:12px 10px; border:0; background:transparent; text-align:left; color:#2D4CC8; font:700 17px/24px 'Segoe UI',Arial,sans-serif; cursor:pointer; }
+.tfqcTypeHeading > span { min-width:0; overflow-wrap:anywhere; }
+.tfqcTypeHeading > .tfqcIcon { margin-left:auto; }
+.tfqcTypeOptions { padding:0 0 12px; }
+.tfqcTypeOption { display:flex; align-items:center; gap:14px; min-height:49px; width:100%; padding:9px 10px; border:0; border-radius:6px; background:transparent; text-align:left; color:#2F3547; font:400 16px/24px 'Segoe UI',Arial,sans-serif; cursor:pointer; }
+.tfqcTypeOption:hover,.tfqcTypeOption:focus-visible { background:rgba(255,255,255,.3); outline:0; }
+.tfqcTypeOption > span:last-child { min-width:0; overflow-wrap:anywhere; }
+.tfqcTypeOption .tfqcOptionRadio { flex:0 0 26px; width:26px; height:26px; border-radius:50%; }
+.tfqcTypeOption .tfqcOptionSelected::after { width:13px; height:13px; background:#2D4CC8; border-color:#2D4CC8; }
+.tfqcTypeEmpty { padding:12px; margin:0; font-size:14px; }
+@media(max-width:600px) { .tfqcTypeDropdown { max-height:min(440px,60vh); padding:10px; }.tfqcTypeSearch { min-height:45px; }.tfqcTypeSearch input { font-size:14px; }.tfqcTypeHeading { font-size:15px; min-height:52px; }.tfqcTypeOption { font-size:14px; line-height:21px; gap:10px; padding:8px; }.tfqcTypeOption .tfqcOptionRadio { flex-basis:24px; width:24px; height:24px; } }
+
+/* Question Type only: slightly shorter search input and visible selected tick. */
+.tfqcTypeSearch { min-height:44px; padding:5px 13px; }
+.tfqcTypeSearch input { height:30px; min-height:0; }
+.tfqcTypeOption .tfqcOptionSelected { position:relative; }
+.tfqcTypeOption .tfqcOptionSelected::after { width:17px; height:17px; border:0; background:#2D4CC8; border-radius:50%; }
+.tfqcTypeOption .tfqcOptionSelected::before { content:""; position:absolute; z-index:1; top:9px; left:10px; width:7px; height:5px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg); pointer-events:none; }
+@media(max-width:600px) { .tfqcTypeSearch { min-height:42px; padding:5px 11px; }.tfqcTypeSearch input { height:28px; }.tfqcTypeOption .tfqcOptionSelected::before { top:8px; left:9px; } }
+
+/* Combined Content save and continue, compact inline success popup. */
+.tfqcBuilderPageFooter .tfqcSaveContinueGroup {display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap;}
+.tfqcSaveSuccessToast {display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:7px 18px;border:1.5px solid #C05512;border-radius:24px;color:#C05512;background:#DFE6E9;font:600 14px/20px "Segoe UI",Arial,sans-serif;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;white-space:nowrap;}
+.tfqcBuilderPageFooter .tfqcSaveContinueGroup .tfqcFooterContinue {min-width:190px;color:#2A7308;}
+.tfqcBuilderPageFooter .tfqcSaveContinueGroup .tfqcFooterContinue:disabled {opacity:.75;cursor:default;}
+@media(max-width:600px){.tfqcBuilderPageFooter .tfqcSaveContinueGroup{justify-content:stretch;gap:9px;}.tfqcSaveSuccessToast{font-size:12px;min-height:36px;padding:7px 12px;}.tfqcBuilderPageFooter .tfqcSaveContinueGroup .tfqcFooterContinue{min-width:0;flex:1 1 170px;}}
+
+/* Functional rich editing toolbar. Existing layout and controls are unchanged. */
+.tfqcRichEditorRoot { min-width:0; position:relative; }
+.tfqcRichEditorRoot .tfqcRichToolbar { overflow:visible; flex-wrap:wrap; position:relative; z-index:4; }
+.tfqcRichMenuRoot { position:relative; flex:0 0 auto; }
+.tfqcRichEditorRoot .tfqcRichToolbar .tfqcToolbarSelect { display:flex; align-items:center; justify-content:space-between; gap:9px; width:auto; min-width:75px; padding:5px 9px; font:400 14px 'Segoe UI',Arial,sans-serif; }
+.tfqcRichEditorRoot .tfqcRichToolbar .tfqcToolbarFont { min-width:115px; }
+.tfqcRichEditorRoot .tfqcRichToolbar .tfqcToolbarSize { min-width:62px; }
+.tfqcRichDropdown { position:absolute; top:calc(100% + 7px); left:0; z-index:30; width:max-content; min-width:100%; max-width:min(300px,85vw); border-radius:9px; padding:6px; background:#DFE6E9; box-shadow:-4px -4px 8px #fff,5px 5px 9px #b8c1c6; }
+.tfqcRichEditorRoot .tfqcRichToolbar .tfqcRichDropdown button { width:100%; min-width:105px; height:auto; min-height:36px; display:block; text-align:left; padding:8px 12px; box-shadow:none; font:400 14px 'Segoe UI',Arial,sans-serif; }
+.tfqcRichEditorRoot .tfqcRichToolbar .tfqcRichDropdown button:hover,.tfqcRichEditorRoot .tfqcRichToolbar .tfqcRichDropdown button:focus-visible { box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+.tfqcRichEditorRoot .tfqcRichToolbar .tfqcRichSymbols { display:grid; grid-template-columns:repeat(6,36px); gap:4px; left:auto; right:0; max-width:260px; }
+.tfqcRichEditorRoot .tfqcRichToolbar .tfqcRichSymbols button { min-width:0; width:36px; min-height:34px; text-align:center; padding:4px; font-size:18px; }
+.tfqcRichEditable { margin-top:12px; width:100%; min-height:75px; max-width:100%; padding:12px 6px; color:#374151; font:400 16px/24px 'Segoe UI',Arial,sans-serif; white-space:pre-wrap; overflow-wrap:anywhere; outline:none; }
+.tfqcRichEditable:empty::before { content:attr(data-placeholder); color:#8b969d; pointer-events:none; }
+.tfqcRichEditable:focus-visible { outline:2px solid #2D4CC8; outline-offset:2px; border-radius:6px; }
+.tfqcRichEditable img { max-width:100%; max-height:260px; height:auto; border-radius:5px; vertical-align:middle; }
+.tfqcRichEditable a { color:#2D4CC8; overflow-wrap:anywhere; }
+@media(max-width:600px) { .tfqcRichEditorRoot .tfqcRichToolbar { gap:6px; padding:6px; } .tfqcRichEditorRoot .tfqcRichToolbar button { min-height:34px; } .tfqcRichEditorRoot .tfqcRichToolbar .tfqcToolbarFont { min-width:94px; } .tfqcRichEditorRoot .tfqcRichSymbols { max-width:230px; } .tfqcRichEditable { font-size:14px; } }
+
+/* Font/size lists mount at document level to avoid toolbar and card overflow clipping. */
+.tfqcFloatingFormatMenu {
+  position: fixed;
+  z-index: 2147483000;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: min(230px, 70dvh);
+  overflow-y: auto;
+  padding: 7px;
+  border: 1px solid #ced5d9;
+  border-radius: 10px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 8px #FFFFFF, 5px 5px 10px #b8c1c6;
+  scrollbar-width: thin;
+}
+.tfqcFloatingFormatMenu button {
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 37px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: #DFE6E9;
+  color: #374151;
+  text-align: left;
+  font: 400 14px/20px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+.tfqcFloatingFormatMenu button:hover,
+.tfqcFloatingFormatMenu button[aria-selected="true"] {
+  color: #2D4CC8;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+}
+
+/* Consistent responsive formatting-tool spacing in every rich-text editor.
+   Keep this at the end of content.css so older question/option overrides cannot
+   apply different button sizes and gaps to otherwise identical toolbars. */
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 8px;
+  overflow: visible;
+  box-sizing: border-box;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > button,
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot {
+  flex: 1 1 42px;
+  width: auto;
+  min-width: 38px;
+  max-width: none;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot:has(.tfqcToolbarFont) {
+  flex: 2.4 1 112px;
+  min-width: 105px;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot:has(.tfqcToolbarSize) {
+  flex: 1.4 1 68px;
+  min-width: 65px;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  min-height: 42px;
+  margin: 0;
+  box-sizing: border-box;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot > button.tfqcToolbarSelect {
+  justify-content: space-between;
+  padding: 6px 10px;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > button {
+  display: grid;
+  place-items: center;
+  min-height: 42px;
+}
+@media (max-width: 700px) {
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar { gap: 7px; padding: 7px; }
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > button,
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot {
+    flex-basis: 36px;
+    min-width: 34px;
+    height: 36px;
+  }
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot:has(.tfqcToolbarFont) { flex-basis: 98px; min-width: 95px; }
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot:has(.tfqcToolbarSize) { flex-basis: 60px; min-width: 56px; }
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > button,
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot > button { height: 36px; min-height: 36px; }
+}
+
+/* Keep every rich editor toolbar on exactly one horizontal row. */
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > button,
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot {
+  flex: 0 0 42px;
+  width: 42px;
+  min-width: 42px;
+  max-width: 42px;
+  height: 42px;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot:has(.tfqcToolbarFont) {
+  flex: 0 0 124px;
+  width: 124px;
+  min-width: 124px;
+  max-width: 124px;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot:has(.tfqcToolbarSize) {
+  flex: 0 0 76px;
+  width: 76px;
+  min-width: 76px;
+  max-width: 76px;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot > button,
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > button {
+  height: 42px;
+  min-height: 42px;
+}
+@media (max-width: 700px) {
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar { flex-wrap: nowrap; gap: 7px; padding: 7px; }
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > button,
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot {
+    flex: 0 0 36px; width: 36px; min-width: 36px; max-width: 36px; height: 36px;
+  }
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot:has(.tfqcToolbarFont) {
+    flex: 0 0 106px; width: 106px; min-width: 106px; max-width: 106px;
+  }
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot:has(.tfqcToolbarSize) {
+    flex: 0 0 65px; width: 65px; min-width: 65px; max-width: 65px;
+  }
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > .tfqcRichMenuRoot > button,
+  .tfqcBuilder .tfqcRichEditorRoot .tfqcRichToolbar.tfqcOptionToolbar > button { height: 36px; min-height: 36px; }
+}
+
+/* Keep list markers INSIDE the editable surface: no dots overlapping its outer frame. */
+.tfqcRichEditorRoot .tfqcRichEditable { padding-left: 18px; padding-right: 18px; overflow-x: hidden; }
+.tfqcRichEditorRoot .tfqcRichEditable ul,
+.tfqcRichEditorRoot .tfqcRichEditable ol { padding-left: 26px; margin: 6px 0 8px; list-style-position: outside; }
+.tfqcRichEditorRoot .tfqcRichEditable li { padding-left: 3px; margin: 3px 0; }
+.tfqcRichEditorRoot .tfqcRichEditable ul { list-style-type: disc; }
+.tfqcRichEditorRoot .tfqcRichEditable ol { list-style-type: decimal; }
+.tfqcRichEditorRoot .tfqcRichEditable:focus-visible { outline: none; }
+
+/* Bullet/numbered list visibility: put markers inside the text box (not under its border). */
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichEditable ul,
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichEditable ol {
+  display: block;
+  list-style-position: inside;
+  padding: 0 8px;
+  margin: 8px 0;
+  overflow: visible;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichEditable ul { list-style-type: disc; }
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichEditable ol { list-style-type: decimal; }
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichEditable li {
+  display: list-item;
+  list-style-position: inside;
+  padding: 2px 0;
+  margin: 2px 0;
+  overflow-wrap: anywhere;
+}
+.tfqcBuilder .tfqcRichEditorRoot .tfqcRichEditable li::marker { color: #2F3547; }
+
+/* Portal-based special-character picker: remains visible outside toolbar scrolling
+   and above all editor cards; same neumorphic treatment as font/size menus. */
+.tfqcFloatingFormatMenu.tfqcFloatingSymbols {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-content: start;
+  gap: 5px;
+  max-height: min(280px, 65dvh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px;
+  z-index: 2147483000;
+}
+.tfqcFloatingFormatMenu.tfqcFloatingSymbols > button {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  text-align: center;
+  font: 500 19px/1 "Segoe UI", Arial, sans-serif;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+@media(max-width: 460px) {
+  .tfqcFloatingFormatMenu.tfqcFloatingSymbols {grid-template-columns: repeat(5, minmax(0, 1fr));}
+}
+
+/* Question count navigation: no unnecessary track for seven or fewer questions. */
+.tfqcBuilder .tfqcFewQuestions .tfqcNumberShortTrack { display:none; }
+.tfqcBuilder .tfqcFewQuestions .tfqcQuestionNumbers { width:max-content; max-width:100%; gap:8px; padding-bottom:5px; }
+.tfqcBuilder .tfqcFewQuestions .tfqcNumberScroller { overflow:visible; }
+.tfqcBuilder .tfqcFewQuestions .tfqcQuestionNumbers { overflow-x:auto; scrollbar-width:none; }
+.tfqcBuilder .tfqcFewQuestions .tfqcQuestionNumbers::-webkit-scrollbar { display:none; }
+/* For more questions, keep horizontal movement available without a visible scrollbar. */
+.tfqcBuilder .tfqcManyQuestions .tfqcQuestionNumbers { overflow-x:auto; scrollbar-width:none; }
+.tfqcBuilder .tfqcManyQuestions .tfqcQuestionNumbers::-webkit-scrollbar { display:none; }
+@media (max-width:700px) {
+  .tfqcBuilder .tfqcFewQuestions .tfqcNumberScroller { overflow:hidden; }
+}
+
+/* Question-number navigation only: compact for short sets; invisible scrolling for long sets. */
+.tfqcBuilder .tfqcNumberNavigation { justify-content:flex-start; }
+.tfqcBuilder .tfqcNumberShortTrack { display:none !important; }
+.tfqcBuilder .tfqcNumberScroller { min-width:0; }
+.tfqcBuilder .tfqcQuestionNumbers { overflow-x:auto; overflow-y:hidden; scrollbar-width:none !important; -ms-overflow-style:none; scroll-behavior:smooth; }
+.tfqcBuilder .tfqcQuestionNumbers::-webkit-scrollbar { display:none !important; width:0; height:0; }
+.tfqcBuilder .tfqcFewQuestions .tfqcNumberScroller { flex:0 1 auto; width:max-content; max-width:calc(100% - 112px); overflow:hidden; }
+.tfqcBuilder .tfqcFewQuestions .tfqcQuestionNumbers { width:max-content; max-width:100%; gap:8px; }
+.tfqcBuilder .tfqcManyQuestions .tfqcNumberScroller { flex:1 1 0; width:auto; overflow:hidden; }
+.tfqcBuilder .tfqcManyQuestions .tfqcQuestionNumbers { width:100%; }
+@media (max-width:600px) {
+  .tfqcBuilder .tfqcFewQuestions .tfqcNumberScroller { max-width:calc(100% - 78px); }
+}
+
+/* Fill in the Blanks functionality only. Existing Figma dimensions and shadows stay intact. */
+.tfqcValidationErrors { margin:6px 0 0; color:#B42318; font:400 13px/21px "Segoe UI",Arial,sans-serif; }
+.tfqcValidationErrors p { margin:3px 0; }
+.tfqcValidationError { color:#B42318!important; }
+.tfqcBlankTarget { display:flex;align-items:center;gap:12px;min-width:0;flex-wrap:wrap; }
+.tfqcBlankTarget label { font:600 14px/21px "Segoe UI",Arial,sans-serif; }
+.tfqcBlankTarget .tfqcSelectRoot { flex:1 1 150px;max-width:260px; }
+.tfqcNumberStatus .tfqcIcon { width:13px;height:13px; }
+@media(max-width:600px){ .tfqcBlankTarget { align-items:stretch;flex-direction:column;gap:7px; }.tfqcBlankTarget .tfqcSelectRoot { flex-basis:auto;max-width:100%;width:100%; } }
+
+/* Interactive learner preview is displayed only after selecting Learner Preview. */
+.tfqcLearnerBlanks { padding:12px 16px 17px;display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px; }
+.tfqcLearnerBlanks label { flex:1 1 190px;min-width:0;display:flex;flex-direction:column;gap:7px;font:600 14px/20px "Segoe UI",Arial,sans-serif; }
+.tfqcLearnerBlanks input { width:100%;min-width:0;min-height:44px;padding:8px 12px;border:0;border-radius:6px;background:#DFE6E9;color:#374151;font:400 15px/22px "Segoe UI",Arial,sans-serif;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.tfqcLearnerBlanks small.is-correct { color:#267208; }.tfqcLearnerBlanks small.is-wrong { color:#B42318; }
+.tfqcLearnerBlanks button { flex:0 0 auto; }
+@media(max-width:600px){.tfqcLearnerBlanks{padding:10px;gap:10px}.tfqcLearnerBlanks label{flex-basis:100%}.tfqcLearnerBlanks button{width:100%}}
+
+/* Only dropdown-arrow appearance: 12% larger and slightly stronger.
+   SVGs still come from the existing assessmenticons folder; no control sizes or shadows change. */
+.tfqcBuilder .tfqcSelectTrigger > .tfqcIcon,
+.tfqcBuilder .tfqcAnswerExpand > .tfqcIcon,
+.tfqcBuilder .tfqcOptionDetailHead > .tfqcIcon,
+.tfqcBuilder .tfqcTypeHeading > .tfqcIcon {
+  scale: 1.12;
+  filter: drop-shadow(0 0 .5px #2F3547);
+}
+
+/* Keep all special-character choices, including the three-dot ellipsis,
+   contained in the Sigma dropdown without changing toolbar/icon dimensions. */
+.tfqcFloatingFormatMenu.tfqcFloatingSymbols {
+  box-sizing: border-box;
+  overscroll-behavior: contain;
+}
+.tfqcFloatingFormatMenu.tfqcFloatingSymbols > button {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Targeted spacing adjustments: no other page, toggle dimensions, or shadows changed. */
+.tfqcAppShell .tfqcSwitch { margin-right: 8px; }
+.tfqcAppShell .tfqcSwitch:not(.tfqcSwitchOn) .tfqcSwitchText { right: 12px; }
+.tfqcAppShell .tfqcPreviewEmpty button { margin-top: 16px; }
+.tfqcAppShell .tfqcPreviewBottom { margin-top: 30px; }
+
+/* True / False creator — screenshot-specific visibility and small responsive fixes.
+   The existing dimensions, shadows, typography and shared Header/Sidebar stay unchanged. */
+.tfqcAppShell .tfqcFirstQuestion .tfqcQuestionsHeading,
+.tfqcAppShell .tfqcFirstQuestion .tfqcNumberNavigation,
+.tfqcAppShell .tfqcFirstQuestion .tfqcQuestionProgress,
+.tfqcAppShell .tfqcBuilderSummary,
+.tfqcAppShell .tfqcBuilderArrows{display:none;}
+.tfqcAppShell .tfqcBuilderMain{min-width:0;}
+.tfqcAppShell .tfqcBuilderAside{align-self:start;}
+.tfqcAppShell .tfqcSaveContinueGroup{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.tfqcAppShell .tfqcAnswerExpand{justify-content:space-between;}
+.tfqcAppShell .tfqcLearnerTFAnswer{width:100%;text-align:left;cursor:pointer;border:0;background:#DFE6E9;color:#374151;}
+.tfqcAppShell .tfqcLearnerTFAnswer.is-selected{box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4;outline:1px solid #2D4CC8;}
+@media(max-width:850px){.tfqcAppShell .tfqcBuilderGrid{grid-template-columns:minmax(0,1fr);}.tfqcAppShell .tfqcBuilderAside{width:100%;}}
+@media(max-width:600px){
+ .tfqcAppShell .tfqcSaveContinueGroup{gap:10px;width:100%;justify-content:flex-end;}
+ .tfqcAppShell .tfqcBuilderPageFooter{display:flex;flex-wrap:wrap;gap:14px;}
+ .tfqcAppShell .tfqcBuilderPageFooter > .tfqcFooterPill{margin-right:auto;}
+ .tfqcAppShell .tfqcAnswerSection,.tfqcAppShell .tfqcOptionEditor{min-width:0;}
+ .tfqcAppShell .tfqcRichToolbar{max-width:100%;overflow-x:auto;}
+}
+
+/* Show question navigation only when the preview contains multiple questions. */
+.tfqcAppShell .tfqcTrueFalsePreviewPaging{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0 6px;}
+.tfqcAppShell .tfqcTrueFalsePreviewPaging button{border:0;border-radius:24px;padding:9px 16px;background:#DFE6E9;box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4;color:#374151;font:600 14px "Segoe UI",Arial,sans-serif;cursor:pointer;}
+.tfqcAppShell .tfqcTrueFalsePreviewPaging button:disabled{opacity:.45;cursor:default;}
+.tfqcAppShell .tfqcTrueFalsePreviewPaging span{font:600 14px "Segoe UI",Arial,sans-serif;}
+@media(max-width:600px){.tfqcAppShell .tfqcTrueFalsePreviewPaging{gap:8px}.tfqcAppShell .tfqcTrueFalsePreviewPaging button{padding:8px 10px;font-size:12px;}}
+
+/* True / False score is sourced from Details and is read-only here. */
+.tfqcReadonlyValue {min-height:54px;display:flex;align-items:center;padding:12px 18px;border-radius:8px;box-shadow:inset 2px 2px 4px #c4c4c4,inset -2px -2px 3px #fff;color:#374151;}

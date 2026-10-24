@@ -1,0 +1,175 @@
+/* Fill in the Blanks viewer — ONLY the exam screen from the supplied reference.
+   Uses the existing shared Header, Sidebar and /assets/viewericons/ assets. */
+.fillViewerAppShell{
+  --viewer-bg:#DFE6E9;
+  --viewer-ink:#2F3547;
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100dvh;
+  min-height:0!important;
+  max-height:100dvh;
+  margin:0;
+  padding:0;
+  overflow:hidden!important;
+  background:var(--viewer-bg);
+  color:var(--viewer-ink);
+  font-family:'Segoe UI',Arial,sans-serif;
+}
+.fillViewerAppShell *,.fillViewerAppShell *::before,.fillViewerAppShell *::after{box-sizing:border-box}
+html:has(.fillViewerAppShell),body:has(.fillViewerAppShell){height:100%;overflow:hidden!important;overscroll-behavior:none}
+body:has(.fillViewerAppShell){margin:0}
+.fillViewerLayout{display:flex;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden}
+.fillViewerMain{display:flex;flex:1 1 0%;flex-direction:column;min-width:0;min-height:0;height:100%;overflow:hidden}
+.fillViewerSharedHeader{flex:0 0 auto;min-width:0;width:100%}
+.fillViewerAppShell .fillViewerSharedHeader .topHeader{width:100%;display:flex;justify-content:flex-end}
+.fillViewerAppShell .fillViewerSharedHeader .topHeader .headerRight{margin-left:auto}
+.fillViewerScroll{flex:1 1 0%;min-width:0;min-height:0;max-height:100%;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.fillViewerContent{width:100%;max-width:1260px;min-width:0;height:auto;min-height:0;margin:0 auto;padding:26px 24px 55px}
+
+/* Heading, breadcrumbs and countdown match the original Viewer sizing. */
+.fillViewerExamTop{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+.fillViewerBreadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:24px;margin:0;font-size:16px;line-height:24px;letter-spacing:.02em}
+.fillViewerBreadcrumb a{color:var(--viewer-ink);text-decoration:none}
+.fillViewerBreadcrumb img{flex:none;display:block;object-fit:contain}
+.fillViewerBreadcrumb strong{color:#2D4CC8;font-weight:700;overflow-wrap:anywhere}
+.fillViewerExamClock{display:flex;align-items:center;justify-content:center;gap:5px;padding:11px 12px;border-radius:8px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.fillViewerTimeGroup{display:flex;align-items:center;gap:4px}
+.fillViewerTimeColon{font-weight:700;font-size:20px;margin-inline:2px}
+.fillViewerTimeDigit{display:grid;place-items:center;width:26px;height:28px;border-radius:4px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;font-size:18px;font-weight:600}
+.fillViewerPageHeading{margin-bottom:20px}
+.fillViewerPageHeading h1{margin:0;color:#2D4CC8;font-size:24px;line-height:32px;font-weight:700;letter-spacing:.02em}
+
+/* Two exam cards (question + navigator), no instruction or summary landing page. */
+.fillViewerExamGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,345px);gap:24px;align-items:stretch}
+.fillViewerExamCard{min-width:0;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4}
+.fillViewerQuestionCard{display:flex;flex-direction:column;gap:20px;min-height:765px;padding:24px}
+.fillViewerProgressArea{width:100%}
+.fillViewerProgressLabel{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:16px;line-height:22px;color:#374151}
+.fillViewerProgressLabel strong{font-weight:700}
+.fillViewerProgressLabel span{color:#374151}
+.fillViewerProgressLabel .fillViewerMarks{font-size:15px}
+.fillViewerProgressRow{display:flex;align-items:center;gap:12px;margin-top:7px;color:#2A7308}
+.fillViewerProgressTrack{flex:1;min-width:0;height:18px;padding:4px;border-radius:40px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.fillViewerProgressTrack span{display:block;height:100%;min-width:0;border-radius:30px;background:#2A7308;transition:width .2s ease}
+.fillViewerProgressRow strong{font-size:16px;font-weight:700}
+.fillViewerQuestionHeading h2{margin:0 0 8px;font-size:18px;line-height:28px;color:#2D4CC8}
+.fillViewerQuestionHeading p{margin:0;font-size:16px;line-height:26px;color:#374151}
+.fillViewerBlankGroups{display:flex;flex-direction:column;gap:22px}
+.fillViewerBlankGroup{min-width:0}
+.fillViewerBlankGroup h3{margin:0 0 10px;color:#2D4CC8;font-size:15px;font-weight:600}
+.fillViewerAnswerList{display:grid;gap:18px}
+.fillViewerAnswer{display:flex;align-items:center;gap:12px;position:relative;min-height:54px;width:100%;padding:9px 15px;border:1px solid transparent;text-align:left;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4;color:#374151;font:400 17px/26px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.fillViewerAnswer:disabled{cursor:default}
+.fillViewerAnswer:focus-visible,.fillViewerQuestionTile:focus-visible,.fillViewerExamButton:focus-visible,.fillViewerFlagButton:focus-visible,.fillViewerToolsList button:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+.fillViewerAnswer.isSelected{border-color:transparent;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4}
+.fillViewerAnswer.isCorrect,.fillViewerAnswer.isIncorrect{box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4}
+.fillViewerAnswer.isCorrect{border-color:#2A7308}
+.fillViewerAnswer.isIncorrect{border-color:#A91E2C}
+.fillViewerAnswerRadio{position:relative;display:grid;place-items:center;width:24px;height:24px;flex:0 0 24px;border-radius:50%;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.fillViewerAnswerRadio::before{content:'';width:16px;height:16px;border:1.5px solid #C6C6C9;border-radius:50%}
+/* Selected: 24px raised option with a centered 16px blue circle and white tick. */
+.fillViewerAnswer.isSelected .fillViewerAnswerRadio{background:#DFE6E9;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF}
+.fillViewerAnswer.isSelected .fillViewerAnswerRadio::before{width:16px;height:16px;background:#2D4CC8;border:1.5px solid #2D4CC8;border-radius:50%}
+.fillViewerAnswer.isSelected .fillViewerAnswerRadio::after{content:"";position:absolute;top:8px;left:7px;width:10px;height:6px;border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;transform:rotate(-45deg)}
+.fillViewerAnswer.isCorrect .fillViewerAnswerRadio,.fillViewerAnswer.isIncorrect .fillViewerAnswerRadio{position:relative;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #fff}
+.fillViewerAnswer.isCorrect .fillViewerAnswerRadio::before{background:#2A7308;border-color:#2A7308}
+.fillViewerAnswer.isCorrect .fillViewerAnswerRadio::after{content:'';position:absolute;left:10px;top:10px;width:8px;height:5px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg)}
+.fillViewerAnswer.isIncorrect .fillViewerAnswerRadio::before{background:transparent;border-color:#A91E2C}
+.fillViewerAnswer.isIncorrect .fillViewerAnswerRadio::after{content:'×';position:absolute;left:7px;top:5px;color:#A91E2C;font:600 18px/18px 'Segoe UI',Arial,sans-serif}
+.fillViewerAnswerFeedback{margin-left:auto;font-size:13px;font-weight:600}
+.fillViewerAnswer.isCorrect .fillViewerAnswerFeedback{color:#2A7308}
+.fillViewerAnswer.isIncorrect .fillViewerAnswerFeedback{color:#A91E2C}
+
+/* Hint and Bloom's Taxonomy retain the supplied card's heights, type and shadows. */
+.fillViewerHintBox{border-radius:8px;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}
+.fillViewerHintToggle{display:flex;align-items:center;width:100%;min-height:66px;padding:10px 16px;background:transparent;border:0;text-align:left;cursor:pointer;color:#63560B;font:600 18px 'Segoe UI',Arial,sans-serif}
+.fillViewerHintTitle{display:flex;align-items:center;gap:14px}
+.fillViewerHintIcon{display:grid;place-items:center;width:39px;height:39px;flex:0 0 39px;border-radius:50%;border:1px solid #63560B;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}
+.fillViewerHintTitle small{display:block;margin-top:5px;color:#374151;font-size:14px;font-weight:400;line-height:21px}
+.fillViewerQuestionSettings{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.fillViewerQuestionSettings label{display:block;font-size:15px;font-weight:600;margin-bottom:8px}
+.fillViewerBloomValue{display:block;min-width:175px;max-width:100%;padding:9px 14px;min-height:42px;border-radius:8px;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4}
+.fillViewerFlagButton{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 16px;min-height:42px;border:0;border-radius:5px;color:#C05512;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4;cursor:pointer;font:600 15px 'Segoe UI',Arial,sans-serif}
+.fillViewerFlagButton.isFlagged{box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+.fillViewerFlagButton:disabled{cursor:default;opacity:.6}
+.fillViewerInlineNotice{margin:0;color:#C05512;font-size:14px;line-height:22px}
+.fillViewerExamActions{display:flex;align-items:center;justify-content:flex-start;gap:16px;margin-top:auto;padding-top:12px}
+.fillViewerExamButton{display:flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:10px 18px;border:0;border-radius:30px;background:#DFE6E9;color:#374151;font:600 16px 'Segoe UI',Arial,sans-serif;box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4;cursor:pointer;white-space:nowrap}
+.fillViewerExamButton:disabled{opacity:.5;cursor:not-allowed}
+.fillViewerExamActions>.fillViewerNext{margin-left:auto}
+.fillViewerExamButton.fillViewerNext{color:#2A7308;border:1px solid #2A7308}
+
+/* Right-hand question navigator, response counters and tools. */
+.fillViewerNavigator{display:flex;flex-direction:column;gap:19px;padding:24px 19px}
+.fillViewerNavigator h2{margin:0;color:#2D4CC8;font-size:18px;line-height:28px;font-weight:700}
+.fillViewerQuestionTiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 12px}
+.fillViewerQuestionTile{min-width:0;aspect-ratio:1/1;min-height:38px;border:1px solid #adb5bb;border-radius:5px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;color:#374151;font:600 16px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.fillViewerQuestionTile.is-answered{border-color:#2A7308;color:#2A7308}
+.fillViewerQuestionTile.is-flagged,.fillViewerQuestionTile.is-skipped{border-color:#C05512;color:#C05512}
+.fillViewerQuestionTile.is-current{border-color:#2D4CC8;color:#2D4CC8;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.fillViewerStatusRows{display:grid;gap:14px;margin-top:4px}
+.fillViewerStatusRows>div{display:flex;align-items:center;gap:11px;min-height:44px;padding:8px 12px;border-radius:6px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:15px}
+.fillViewerStatusRows img{width:22px;height:22px;object-fit:contain}
+.fillViewerStatusRows strong{margin-left:auto}
+.fillViewerStatusRows>div:first-child strong{color:#2A7308}
+.fillViewerStatusRows>div:last-child strong{color:#C05512}
+.fillViewerRemainingCircle{display:block;flex:0 0 22px;width:22px;height:22px;border:1px solid #C4C4C4;border-radius:50%}
+.fillViewerToolsHeading{margin-top:8px!important}
+.fillViewerToolsList{display:grid;gap:13px}
+.fillViewerToolsList button{display:flex;align-items:center;gap:12px;min-height:42px;width:100%;padding:8px 12px;border:0;border-radius:5px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;text-align:left;font:600 14px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.fillViewerToolsList button:nth-child(1){color:#005C60}
+.fillViewerToolsList button:nth-child(2){color:#780A87}
+.fillViewerToolsList button:nth-child(3){color:#2A7308}
+.fillViewerToolsList button img{width:22px;height:22px;flex:0 0 22px;object-fit:contain}
+.fillViewerToolsList button img:last-child{width:18px;height:18px;flex:0 0 18px;margin-left:auto}
+
+/* Responsiveness: desktop proportions remain the same, cards stack on mobile. */
+@media(max-width:1050px){
+  .fillViewerContent{padding:22px 20px 40px}
+  .fillViewerExamGrid{grid-template-columns:minmax(0,1fr) 265px;gap:16px}
+  .fillViewerQuestionCard{padding:18px;min-height:0}
+  .fillViewerNavigator{padding:18px 12px}
+  .fillViewerQuestionTiles{gap:9px}
+  .fillViewerExamActions{flex-wrap:wrap}
+}
+@media(max-width:780px){
+  .fillViewerExamGrid{grid-template-columns:minmax(0,1fr)}
+  .fillViewerNavigator{padding:20px}
+  .fillViewerQuestionTiles{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .fillViewerExamTop{gap:14px}
+  .fillViewerQuestionCard{min-height:0}
+  .fillViewerExamActions{flex-wrap:nowrap}
+}
+@media(max-width:520px){
+  .fillViewerContent{padding:16px 12px 28px}
+  .fillViewerExamTop .fillViewerBreadcrumb{font-size:12px;line-height:20px;gap:5px}
+  .fillViewerBreadcrumb img{width:15px;height:15px}
+  /* Timer sits on its own centered row on narrow screens, never squeezed beside the breadcrumb. */
+  .fillViewerExamTop{flex-direction:column;align-items:stretch;gap:12px}
+  .fillViewerExamClock{align-self:center;flex:none;width:max-content;max-width:100%;margin:0 auto;padding:11px 14px;gap:7px}
+  .fillViewerTimeGroup{gap:6px}
+  .fillViewerTimeColon{font-size:19px;margin-inline:3px}
+  .fillViewerPageHeading h1{font-size:20px;line-height:28px}
+  .fillViewerQuestionCard,.fillViewerNavigator{padding:14px}
+  .fillViewerQuestionCard{gap:17px}
+  .fillViewerQuestionHeading p{font-size:14px;line-height:22px}
+  .fillViewerAnswer{font-size:14px;line-height:22px}
+  .fillViewerQuestionTiles{gap:8px}
+  .fillViewerQuestionTile{min-height:38px}
+  .fillViewerQuestionSettings{align-items:flex-start}
+  .fillViewerFlagButton{font-size:13px}
+  .fillViewerExamActions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .fillViewerExamActions .fillViewerExamButton{min-height:44px;padding:8px;font-size:12px;gap:6px}
+  .fillViewerExamActions>.fillViewerExamButton:first-child{grid-column:1}
+  .fillViewerExamActions>.fillViewerNext{grid-column:2;margin-left:0}
+  .fillViewerTimeDigit{width:clamp(24px,7.4vw,28px);height:32px;font-size:17px}
+}
+@media(max-width:360px){
+  .fillViewerExamClock{padding:9px 10px;gap:5px}
+  .fillViewerTimeGroup{gap:4px}
+  .fillViewerTimeColon{font-size:17px;margin-inline:2px}
+  .fillViewerTimeDigit{width:23px;height:29px;font-size:15px}
+  .fillViewerStatusRows>div{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){.fillViewerProgressTrack span{transition:none}}

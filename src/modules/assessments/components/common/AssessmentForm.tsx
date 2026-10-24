@@ -16,6 +16,14 @@ import OneDetails from "../type-specific/one-word/Details";
 import OneContent from "../type-specific/one-word/Content";
 import OneEvaluation from "../type-specific/one-word/Evaluation";
 import OneReview from "../type-specific/one-word/Review";
+import FillDetails from "../type-specific/fill-in-the-blanks/Details";
+import FillContent from "../type-specific/fill-in-the-blanks/Content";
+import FillEvaluation from "../type-specific/fill-in-the-blanks/Evaluation";
+import FillReview from "../type-specific/fill-in-the-blanks/Review";
+import TFDetails from "../type-specific/true-false/Details";
+import TFContent from "../type-specific/true-false/Content";
+import TFEvaluation from "../type-specific/true-false/Evaluation";
+import TFReview from "../type-specific/true-false/Review";
 
 /** A single shared Creator for every assessment type (no MCQ-only routes). */
 export type AssessmentFormStep = "details" | "content" | "evaluation" | "review";
@@ -28,6 +36,8 @@ const STEPS = {
 const TYPE_STEPS = {
  "short-answer": { details:ShortDetails, content:ShortContent, evaluation:ShortEvaluation, review:ShortReview },
  "one-word": { details:OneDetails, content:OneContent, evaluation:OneEvaluation, review:OneReview },
+ "fill-in-the-blanks": { details:FillDetails, content:FillContent, evaluation:FillEvaluation, review:FillReview },
+ "true-false": { details:TFDetails, content:TFContent, evaluation:TFEvaluation, review:TFReview },
 };
 export default function AssessmentForm({ step }: { step: AssessmentFormStep }) {
   const router = useRouter();
@@ -50,6 +60,6 @@ export default function AssessmentForm({ step }: { step: AssessmentFormStep }) {
     return () => window.removeEventListener("one-word-step",onWizardStep);
   }, [router]);
   if (!typeCode) return null;
-  const Screen = typeCode === "short-answer" || typeCode === "one-word" ? TYPE_STEPS[typeCode][step] : STEPS[step];
+  const Screen = typeCode === "short-answer" || typeCode === "one-word" || typeCode === "fill-in-the-blanks" || typeCode === "true-false" ? TYPE_STEPS[typeCode][step] : STEPS[step];
   return <div className={`assessment-variant assessment-variant--${typeCode}`}><Screen /></div>;
 }

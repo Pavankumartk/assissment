@@ -11,7 +11,7 @@ import Header from "../../header/Header";
 import "./review.css";
 
 type Dict = Record<string, unknown>;
-type ReviewQuestion = { text?: string; points?: string | number; correct?: number; options?: string[]; difficulty?: string; bloom?: string; mandatory?: boolean };
+type ReviewQuestion = { text?: string; points?: string | number; correct?: number; blankCorrect?: number[]; options?: string[]; difficulty?: string; bloom?: string; mandatory?: boolean };
 const ROOT = "/assets/assessmenticons/";
 const STEPS = ["Type", "Details", "Content", "Evaluation", "Review"];
 const DEFAULT_LEARNERS = [
@@ -32,14 +32,41 @@ function ReadSetting({ label, value }: { label: string; value: React.ReactNode }
 function ReadSwitch({ label, on }: { label: string; on: boolean }) { return <ReadSetting label={label} value={<ReviewSwitch enabled={on} />} />; }
 function InnerCard({ heading, icon, children }: { heading: string; icon: string; children: React.ReactNode }) { return <section className="reviewInnerCard"><h3><span className="reviewSmallIcon"><Asset name={icon} size={18}/></span>{heading}</h3><div className="reviewInnerRows">{children}</div></section>; }
 function ReviewSection({ number, title, icon, editRoute, children }: { number: number; title: string; icon: string; editRoute: string; children: React.ReactNode }) { return <section className="reviewSection"><div className="reviewSectionHead"><div className="reviewSectionTitle"><span className="reviewNumber"><Asset name={icon} size={20}/></span><strong>{number}. {title}</strong></div><Link className="reviewEdit" href={editRoute}><Asset name="editbig.svg" size={24}/>Edit</Link></div><div className="reviewSectionBody">{children}</div></section>; }
-export default function MCQReviewPage() {
+export default function MCQReviewPage({ detailsKey = "mcqAssessmentDraft", contentKey = "mcqContentDraft", evaluationKey = "mcqAssessmentEvaluationDraft", fillBlanks = false, trueFalse = false }: { detailsKey?: string; contentKey?: string; evaluationKey?: string; fillBlanks?: boolean; trueFalse?: boolean } = {}) {
   const router = useRouter();
   const [publishError,setPublishError]=useState("");
   const publish=()=>{
     const validDetails=validateMcqDetails(details);
     if(validDetails.ok===false){setPublishError(validDetails.message);return;}
-    const validQuestions=validateMcqQuestions(questions,Number(details.questionCount??20),Number(details.totalMarks??20));
-    if(validQuestions.ok===false){setPublishError(validQuestions.message);return;}
+    if(fillBlanks){
+      const count = Number(details.questionCount);
+      const valid = questions.length === count && questions.every(q => {
+        const text = String(q.text || "");
+        const blanks = text.match(/_{3,}|\[\[blank\]\]|\{\{blank\}\}/gi) || [];
+        const options = Array.isArray(q.options) ? q.options : [];
+        const indices = Array.isArray(q.blankCorrect) ? q.blankCorrect : [];
+        return blanks.length > 0 && options.filter(o => o.trim()).length >= 2 &&
+          blanks.every((_,i) => Number.isInteger(indices[i]) && options[indices[i]]?.trim()) && Number(q.points)>0;
+      });
+      if(!valid){setPublishError(`Complete and save all ${count} Fill in the Blanks questions before publishing.`);return;}
+    }else if(trueFalse){
+      const expected = Number(details.questionCount);
+      const configuredMarks = Number(details.totalMarks);
+      const savedMarks = questions.reduce((sum,q)=>sum+Number(q.points||0),0);
+      const valid = Number.isInteger(expected) && expected>0 && questions.length === expected &&
+        questions.every(q => {
+          const options = Array.isArray(q.options) ? q.options : [];
+          const correct = Number(q.correct);
+          return Boolean(q.text?.trim()) && q.text!.trim().length<=250 &&
+            options.length>=2 && options[0]?.trim().toLowerCase()==="true" && options[1]?.trim().toLowerCase()==="false" &&
+            options.every(o=>typeof o==="string" && Boolean(o.trim())) &&
+            Number.isInteger(correct) && correct>=0 && correct<options.length && Number(q.points)>0;
+        }) && (!Number.isFinite(configuredMarks)||configuredMarks<=0||Math.abs(savedMarks-configuredMarks)<0.001);
+      if(!valid){setPublishError(`Complete all ${expected || "configured"} True / False questions, their correct answers and marks before publishing.`);return;}
+    }else{
+      const validQuestions=validateMcqQuestions(questions,Number(details.questionCount??20),Number(details.totalMarks??20));
+      if(validQuestions.ok===false){setPublishError(validQuestions.message);return;}
+    }
     updateAssessment({title,course,questions:questions.length,marks:Number(total)||0,status:"Published"});
     router.push("/assessments/create");
   };
@@ -49,8 +76,8 @@ export default function MCQReviewPage() {
   const [content, setContent] = useState<Dict>({});
   useEffect(() => {
     const read = (key: string): Dict => { try { return JSON.parse(assessmentStorage.getItem(key) || "{}") as Dict; } catch { return {}; } };
-    const a = read("mcqAssessmentDraft"); const c = read("mcqContentDraft");
-    setDetails(a); setEvaluation(read("mcqAssessmentEvaluationDraft")); setContent(c);
+    const a = read(detailsKey); const c = read(contentKey);
+    setDetails(a); setEvaluation(read(evaluationKey)); setContent(c);
     if (Array.isArray(c.questions)) setQuestions(c.questions as ReviewQuestion[]);
   }, []);
   const total = get(details, ["totalMarks"], "40");
@@ -64,7 +91,7 @@ export default function MCQReviewPage() {
   const course = get(details, ["course", "courseName"], "Introduction to AI");
   const learnerRecords = Array.isArray(details.accommodationRows) ? details.accommodationRows as { learner: string; id?: string; extraTime?: string; accommodation?: string }[] : DEFAULT_LEARNERS;
   const totalQuestionMarks = questions.reduce((sum, q) => sum + Number(q.points || 0), 0);
-  const allCorrect = questions.length > 0 && questions.every(q => (q.correct ?? -1) >= 0 && !!q.text?.trim() && (q.options || []).filter(Boolean).length >= 2);
+  const allCorrect = questions.length > 0 && questions.every(q => (fillBlanks ? !!q.blankCorrect?.length && q.blankCorrect.every(i => i >= 0) : (q.correct ?? -1) >= 0) && !!q.text?.trim() && (q.options || []).filter(Boolean).length >= 2);
   const setting = (key: string, fallback = "on") => get(evaluation, [key], fallback);
   const isOn = (key: string, fallback = "on") => boolText(setting(key, fallback));
   return <main className="superAdminPage institutionAdminPage reviewAppShell"><div className="dashboardLayout reviewDashboardLayout"><Sidebar/><section className="mainContent reviewMainContent"><div className="reviewHeaderSlot"><Header/></div><div className="institutionScrollArea reviewScrollArea"><div className="pageContent institutionPageContent reviewPageContent">

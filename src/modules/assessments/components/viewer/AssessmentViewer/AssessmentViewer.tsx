@@ -9,6 +9,7 @@ import { assessmentStorage, viewerPath, resultPath, updateAssessment } from "@/m
 
 
 
+import ViewerInstructions from "@/modules/assessments/components/viewer/ViewerInstructions";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -70,12 +71,12 @@ function Icon({ name, size = 22 }: { name: string; size?: number }) { return <im
 // Match the Viewer submission message to the Result Available setting saved by MCQ Evaluation.
 type ResultReleaseMode = "immediate" | "scheduled" | "manual" | "never";
 type ResultRelease = { mode: ResultReleaseMode; releaseDateLabel: string };
-function getResultRelease(): ResultRelease {
+function getResultRelease(evaluationKey = "mcqAssessmentEvaluationDraft"): ResultRelease {
   const parseDraft = (raw: string | null): Record<string, unknown> => {
     try { const value: unknown = JSON.parse(raw || "{}"); return value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {}; }
     catch { return {}; }
   };
-  const data = parseDraft(assessmentStorage.getItem("mcqAssessmentEvaluationDraft"));
+  const data = parseDraft(assessmentStorage.getItem(evaluationKey));
   const nested = data.dropdownSettings;
   const settings = nested && typeof nested === "object" && !Array.isArray(nested) ? nested as Record<string, unknown> : {};
   const get = (...keys: string[]): unknown => {
@@ -127,7 +128,16 @@ function Stopwatch({ seconds }: { seconds: number }) { const parts = formatTime(
 
 
 
-export default function ViewerPage() {
+export default function ViewerPage({mode="mcq"}:{mode?:"mcq"|"true-false"}={}) {
+  const trueFalse = mode === "true-false";
+  const detailsKey = trueFalse ? "trueFalseAssessmentDraft" : "mcqAssessmentDraft";
+  const contentKey = trueFalse ? "trueFalseContentDraft" : "mcqContentDraft";
+  const evaluationKey = trueFalse ? "trueFalseEvaluationDraft" : "mcqAssessmentEvaluationDraft";
+  const attemptKey = trueFalse ? "trueFalseViewerState" : "viewerAttemptDraft";
+  const resultKey = trueFalse ? "trueFalseViewerResult" : "viewerAssessmentResult";
+  const attemptsKey = trueFalse ? "trueFalseViewerAttempts" : "viewerAttempts";
+  const retryQuestionsKey = trueFalse ? "trueFalseRetryQuestions" : "viewerRetryQuestions";
+  const retryDurationKey = trueFalse ? "trueFalseRetryDurationMinutes" : "viewerRetryDurationMinutes";
   const router=useRouter();
   const [hydrated,setHydrated]=useState(false);
 
@@ -137,7 +147,7 @@ export default function ViewerPage() {
 
 
 
-  const [questions,setQuestions] = useState<AssessmentQuestion[]>([demoQuestion]);
+  const [questions,setQuestions] = useState<AssessmentQuestion[]>(trueFalse?[]:[demoQuestion]);
 
 
 
@@ -209,11 +219,11 @@ export default function ViewerPage() {
 
 
 
-      const draft = JSON.parse(assessmentStorage.getItem("mcqAssessmentDraft") || "{}") as Record<string,unknown>;
+      const draft = JSON.parse(assessmentStorage.getItem(detailsKey) || "{}") as Record<string,unknown>;
 
 
 
-      const contentDraft = JSON.parse(assessmentStorage.getItem("mcqContentDraft") || "{}") as { questions?: unknown[]; optionDetails?: Record<string,{hint?:string;showHint?:boolean;allowHint?:boolean}> };
+      const contentDraft = JSON.parse(assessmentStorage.getItem(contentKey) || "{}") as { questions?: unknown[]; optionDetails?: Record<string,{hint?:string;showHint?:boolean;allowHint?:boolean}> };
 
 
 
@@ -245,7 +255,7 @@ export default function ViewerPage() {
 
 
 
-        return { type:String(q.type||"MCQ"), text:String(q.text||""), options, correct, bloom:String(q.bloom||""), hint:hintDetail?.hint || "", allowHint:hintDetail?.allowHint !== false, points:Number(q.points)||1 } satisfies AssessmentQuestion;
+        return { type:String(q.type||(trueFalse?"True / False":"MCQ")), text:String(q.text||""), options, correct, bloom:String(q.bloom||""), hint:hintDetail?.hint || "", allowHint:hintDetail?.allowHint !== false, points:Number(q.points)||1 } satisfies AssessmentQuestion;
 
 
 
@@ -258,6 +268,7 @@ export default function ViewerPage() {
 
 
       if (available.length) { setQuestions(available); setHasDraft(true); }
+      else if (trueFalse) {setQuestions([]);setHasDraft(false);}
 
 
 
@@ -273,7 +284,7 @@ export default function ViewerPage() {
 
 
 
-      const negative = firstValue(draft,["negativeMarkingValue","negativeMarking"],"-0.25");
+      const negative = firstValue(draft,["negativeMarkingValue","negativeMarking"],trueFalse?"0":"-0.25");
 
 
 
@@ -285,13 +296,13 @@ export default function ViewerPage() {
 
 
 
-      setDetails({ title:firstValue(draft,["assessmentTitle","assessmentName","title"],initialDetails.title), type:firstValue(draft,["assessmentType"],"MCQ"), totalQuestions:available.length?String(available.length):"20", totalMarks:firstValue(draft,["totalMarks"],available.length?String(available.reduce((n,q)=>n+q.points,0)):"20"), totalTime:/minute|hour/i.test(duration)?duration:`${duration} Minutes`, passingScore:passing.includes("%")?passing:`${passing}%`, negativeMarking:/wrong|per/i.test(negative)?negative:`${negative} Per Wrong Answers`, instructions:rawInstructions?rawInstructions.split(/\r?\n/).map(s=>s.trim()).filter(Boolean):defaultInstructions });
+      setDetails({ title:firstValue(draft,["assessmentTitle","assessmentName","title"],initialDetails.title), type:firstValue(draft,["assessmentType"],trueFalse?"True / False":"MCQ"), totalQuestions:available.length?String(available.length):(trueFalse?"0":"20"), totalMarks:firstValue(draft,["totalMarks"],available.length?String(available.reduce((n,q)=>n+q.points,0)):(trueFalse?"0":"20")), totalTime:/minute|hour/i.test(duration)?duration:`${duration} Minutes`, passingScore:passing.includes("%")?passing:`${passing}%`, negativeMarking:/wrong|per/i.test(negative)?negative:`${negative} Per Wrong Answers`, instructions:rawInstructions?rawInstructions.split(/\r?\n/).map(s=>s.trim()).filter(Boolean):defaultInstructions });
 
 
 
     } catch { /* Keep the original demo only if no saved assessment exists. */ }
     try {
-      const state=JSON.parse(assessmentStorage.getItem("viewerAttemptDraft")||"null");
+      const state=JSON.parse(assessmentStorage.getItem(attemptKey)||"null");
       if(state && typeof state==="object" && !state.finished){
         if(state.answers) setAnswers(state.answers);
         if(Array.isArray(state.flagged))setFlagged(state.flagged);
@@ -301,18 +312,18 @@ export default function ViewerPage() {
         if(Number.isFinite(state.secondsLeft))setSecondsLeft(state.secondsLeft);
       }
       if(new URLSearchParams(window.location.search).get("retry")==="wrong") {
-        const retry=JSON.parse(assessmentStorage.getItem("viewerRetryQuestions")||"[]");
+        const retry=JSON.parse(assessmentStorage.getItem(retryQuestionsKey)||"[]");
         if(Array.isArray(retry)&&retry.length){
-          setQuestions(retry.map(q=>({type:"MCQ",text:q.text||"",options:q.options||[],correct:q.correct??-1,bloom:q.bloom||"",hint:q.hint||"",allowHint:true,points:q.points||1})));
+          setQuestions(retry.map(q=>({type:trueFalse?"True / False":"MCQ",text:q.text||"",options:q.options||[],correct:q.correct??-1,bloom:q.bloom||"",hint:q.hint||"",allowHint:true,points:q.points||1})));
           setHasDraft(true);
           setAnswers({});setFlagged([]);setSkipped([]);setCurrent(0);setStarted(false);
-          const duration=Number(assessmentStorage.getItem("viewerRetryDurationMinutes")||15);
+          const duration=Number(assessmentStorage.getItem(retryDurationKey)||15);
           setSecondsLeft(Math.max(60,duration*60));
         }
       }
     }catch{}
     setHydrated(true);
-  },[]);
+  },[trueFalse,detailsKey,contentKey,attemptKey,retryQuestionsKey,retryDurationKey]);
 
 
 
@@ -324,7 +335,7 @@ export default function ViewerPage() {
 
 
 
-  const total = hasDraft ? questions.length : Math.max(20,questions.length);
+  const total = hasDraft ? questions.length : (trueFalse?0:Math.max(20,questions.length));
 
 
 
@@ -394,7 +405,7 @@ export default function ViewerPage() {
 
   useEffect(()=>{
     if(!hydrated || finished || new URLSearchParams(window.location.search).get("preview")==="true") return;
-    try { assessmentStorage.setItem("viewerAttemptDraft",JSON.stringify({answers,flagged,skipped,current,started,secondsLeft,finished:false}));assessmentStorage.setItem("viewerCurrentQuestion",String(current)); }catch{}
+    try { assessmentStorage.setItem(attemptKey,JSON.stringify({answers,flagged,skipped,current,started,secondsLeft,finished:false}));assessmentStorage.setItem(trueFalse?"trueFalseCurrentQuestion":"viewerCurrentQuestion",String(current)); }catch{}
   },[hydrated,answers,flagged,skipped,current,started,secondsLeft,finished]);
   const resultText = useMemo(()=>Object.entries(answers).reduce((score,[idx,answer])=>score+(questions[Number(idx)]?.correct===answer?questions[Number(idx)]?.points||0:0),0),[answers,questions]);
   const submitAssessment=()=>{
@@ -415,16 +426,16 @@ export default function ViewerPage() {
       totalSeconds,usedSeconds:Math.max(0,totalSeconds-secondsLeft),flaggedQuestionIndexes:flagged,
       retryAttemptsUsed:1,retryAttemptsAllowed:2,retryDurationMinutes:15,submittedAt:new Date().toISOString()};
     try {
-      if (!isPreview) assessmentStorage.setItem("viewerAssessmentResult",JSON.stringify(result));
-      const prior=JSON.parse(assessmentStorage.getItem("viewerAttempts")||"[]");
+      if (!isPreview) assessmentStorage.setItem(resultKey,JSON.stringify(trueFalse?{...result,assessmentType:"true-false"}:result));
+      const prior=JSON.parse(assessmentStorage.getItem(attemptsKey)||"[]");
       if(!isPreview) {
         const attempts=[...(Array.isArray(prior)?prior:[]),result];
-        assessmentStorage.setItem("viewerAttempts",JSON.stringify(attempts));
-        assessmentStorage.setItem("viewerAttemptDraft",JSON.stringify({finished:true}));
+        assessmentStorage.setItem(attemptsKey,JSON.stringify(attempts));
+        assessmentStorage.setItem(attemptKey,JSON.stringify({finished:true}));
         updateAssessment({attemptCount:attempts.length});
       }
     }catch{}
-    setResultRelease(getResultRelease());setSubmitOpen(false);setFinished(true);setSubmittedPopupOpen(!isPreview);
+    setResultRelease(getResultRelease(evaluationKey));setSubmitOpen(false);setFinished(true);setSubmittedPopupOpen(!isPreview);
   };
 
 
@@ -485,7 +496,7 @@ export default function ViewerPage() {
 
 
 
-    </> : <><nav className="viewerBreadcrumb" aria-label="Breadcrumb"><Link href={demoDashboardPath()}>Dashboard</Link><Icon name="arrow-right-double.svg" size={20}/><Link href={demoDashboardPath()}>Assessment</Link><Icon name="arrow-right-double.svg" size={20}/><strong>{details.title}</strong></nav><div className="viewerPageHeading"><h1>{details.title}</h1><p>{details.type}</p></div><div className="viewerColumns"><aside className="viewerSummary" aria-label="Assessment summary"><SummaryItem label="Total Questions" value={details.totalQuestions} iconName="list.svg" variant="blue"/><SummaryItem label="Total Marks" value={details.totalMarks} iconName="star-award.svg" variant="orange"/><SummaryItem label="Total Time" value={details.totalTime} iconName="alarm-clock.svg" variant="purple"/><SummaryItem label="Passing Score" value={details.passingScore} iconName="checkmark-circle.svg" variant="green"/><SummaryItem label="Negative Marking" value={details.negativeMarking} iconName="remove-circle.svg" variant="red"/></aside><div className="viewerRightColumn"><section className="viewerInstructions"><h2>Instructions</h2><ol>{details.instructions.map((instruction,index)=><li key={`${index}-${instruction}`}>{index+1}. {instruction}</li>)}</ol></section><section className="viewerConfirmation" aria-label="Confirm instructions"><label className="viewerAgreement"><input type="checkbox" checked={accepted} onChange={e=>setAccepted(e.target.checked)}/><span className="viewerCheckboxIcon">{accepted && <Icon name="checkmark-square-02.svg" size={20}/>}</span><span>I have read and understood the instructions</span></label><button type="button" className="viewerStart" disabled={!accepted} onClick={()=>{setStarted(true);setCurrent(0);setHintOpen(false);}}>Start Assessment</button></section></div></div></>}
+    </> : <><nav className="viewerBreadcrumb" aria-label="Breadcrumb"><Link href={demoDashboardPath()}>Dashboard</Link><Icon name="arrow-right-double.svg" size={20}/><Link href={demoDashboardPath()}>Assessment</Link><Icon name="arrow-right-double.svg" size={20}/><strong>{details.title}</strong></nav><div className="viewerPageHeading"><h1>{details.title}</h1><p>{details.type}</p></div><ViewerInstructions details={details} accepted={accepted} onAcceptedChange={setAccepted} onStart={()=>{setStarted(true);setCurrent(0);setHintOpen(false);}} canStart={!trueFalse || hasDraft} unavailableMessage="No saved True / False questions are available for this assessment."/> </>}
 
 
 
