@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", "Inter", sans-serif;
   background: #dfe6e9;
 }
 
@@ -59,4 +59,10 @@ body {
   .home-card h1 {
     font-size: 22px;
   }
+}
+
+/* Shared typography for Creator, Learner and every Viewer page.
+   Scoped component CSS may set sizing/weight; only the font family is unified. */
+html, body, body *, body *::before, body *::after {
+  font-family: "Segoe UI", "Inter", sans-serif !important;
 }

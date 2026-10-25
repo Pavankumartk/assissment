@@ -63,10 +63,675 @@
 @media(max-width:850px){.learnerDashboardStart{min-height:370px;}.learnerAssessmentTwoColumn{grid-template-columns:1fr;}.learnerAssessmentList{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,255px),1fr));}.learnerMetricGrid{grid-template-columns:repeat(3,minmax(0,1fr));}}
 @media(max-width:560px){.learnerDashboardStart{padding:25px 10px;min-height:350px;}.learnerDueCard{flex-direction:column;align-items:stretch;padding:20px 19px;gap:18px;}.learnerDueInfo h1{font-size:19px;}.learnerDueInfo p{font-size:15px;}.learnerDueButton{width:100%;font-size:15px;}.learnerAssessmentRoot{padding:20px 12px 35px;}.learnerAssessmentFilters{gap:9px;}.learnerAssessmentFilters button{padding:9px 14px;}.learnerDetailCard{padding:18px 16px;}.learnerMetricGrid{grid-template-columns:repeat(2,minmax(0,1fr));}.learnerScheduleGrid{grid-template-columns:1fr;}.learnerDetailTitle h2{font-size:17px;}.learnerReadyActions button{width:100%;}}
 
-/* Dashboard reference: edge-to-edge neumorphic reminder in the content area. */
-.portalScreen.learnerDashboardStart{padding:20px 12px 24px;background:#DFE6E9;}
-.learnerDashboardStart .learnerDueCard{width:100%;max-width:none;min-height:120px;border:1px solid #F4F9FB;background:#DFE6E9;border-radius:15px;box-shadow:-4px -4px 7px #FFFFFF,4px 4px 8px #C4C4C4;padding:25px 27px;}
-.learnerDashboardStart .learnerDueInfo h1{font:700 21px/1.35 'Segoe UI',Arial,sans-serif;margin-bottom:12px;color:#30394D;}
-.learnerDashboardStart .learnerDueInfo p{font:400 18px/1.5 'Segoe UI',Arial,sans-serif;color:#374151;}
-.learnerDashboardStart .learnerDueButton{min-height:48px;border-radius:12px;border:1px solid #F9FCFF;box-shadow:-3px -3px 6px #FFFFFF,3px 3px 6px #C4C4C4;background:#DFE6E9;color:#2D4CC8;font:700 17px/1.35 'Segoe UI',Arial,sans-serif;}
-@media(max-width:560px){.portalScreen.learnerDashboardStart{padding:20px 10px;}.learnerDashboardStart .learnerDueCard{padding:21px 19px;}.learnerDashboardStart .learnerDueInfo h1{font-size:19px;}.learnerDashboardStart .learnerDueInfo p{font-size:15px;}.learnerDashboardStart .learnerDueButton{font-size:15px;}}
+/* Learner start screens — match the supplied MCQ-style neumorphic references.
+   Scoped to learner pages; creator forms and the question viewer are untouched. */
+.learnerDashboardStart,
+.learnerAssessmentRoot {
+  --learner-bg: #DFE6E9;
+  --learner-raised: -4px -4px 7px #FFFFFF, 4px 4px 8px #C4C4C4;
+  --learner-inset: inset 2px 2px 5px #C4C4C4, inset -2px -2px 4px #FFFFFF;
+}
+
+/* 1 — Dashboard: heading, four scorecards, then the reminder. */
+.learnerDashboardStart {
+  display: block;
+  min-height: calc(100dvh - 180px);
+  padding: 25px 25px 46px;
+}
+.learnerDashboardHeading { margin-bottom: 22px; }
+.learnerDashboardHeading h1 {
+  margin: 0 0 7px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #2D4CC8;
+  font-size: 25px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+.learnerDashboardHeading p {
+  margin: 0;
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+.learnerDashboardStats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 27px;
+  margin-bottom: 40px;
+}
+.learnerDashboardStat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  min-height: 96px;
+  padding: 17px 22px 14px;
+  background: #DFE6E9;
+  box-shadow: var(--learner-raised);
+  border: 1px solid #EDF3F5;
+  border-radius: 10px;
+}
+.learnerDashboardStat span {
+  color: #30394D;
+  font-size: 18px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+.learnerDashboardStat strong {
+  margin-top: 5px;
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.learnerDashboardStat .is-blue { color: #3056D4; }
+.learnerDashboardStat .is-purple { color: #6B1278; }
+.learnerDashboardStat .is-orange { color: #D55108; }
+.learnerDashboardStat .is-green { color: #287E15; }
+.learnerDashboardStart .learnerDueCard {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: 122px;
+  padding: 25px 26px;
+  border-radius: 10px;
+  border: 1px solid #EFF5F7;
+  background: #DFE6E9;
+  box-shadow: var(--learner-raised);
+}
+.learnerDashboardStart .learnerDueInfo h2 {
+  margin: 0 0 11px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #30394D;
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+.learnerDashboardStart .learnerDueInfo p {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+.learnerDashboardStart .learnerDueButton {
+  padding: 11px 22px;
+  min-height: 46px;
+  border-radius: 9px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #2D4CC8;
+}
+
+
+/* ================================================================
+   LEARNER ASSESSMENT — translated from supplied Figma CSS export
+   Figma base: 1440 artboard; content columns 443 / 779; gap 26.
+   Scoped exclusively to .learnerAssessmentRoot. No Creator/Viewer
+   styles are changed. Flexible widths replace Figma absolute x/y.
+   ================================================================ */
+.learnerAssessmentRoot {
+  --figma-bg: #DFE6E9;
+  --figma-text: #374151;
+  --figma-ink: #2F3547;
+  --figma-blue: #2D4CC8;
+  --figma-card-shadow: -2px -2px 2px #FFFFFF, 2px 2px 2px #C4C4C4;
+  --figma-input-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+  --figma-pill-shadow: -2px -2px 2px #FFFFFF, 2px 2px 2px #C4C4C4;
+  --figma-action-shadow: -4px -4px 4px #FFFFFF, 4px 4px 8px #C4C4C4;
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  padding: 24px 28px 50px 60px;
+  background: var(--figma-bg);
+  color: var(--figma-text);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  box-sizing: border-box;
+}
+.learnerAssessmentRoot *,
+.learnerAssessmentRoot *::before,
+.learnerAssessmentRoot *::after { box-sizing: border-box; }
+
+/* Breadcrumb and page header, per Figma 16/24 and 24/32. */
+.learnerAssessmentRoot .learnerAssessmentBreadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 24px;
+  color: var(--figma-ink);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+.learnerAssessmentRoot .learnerAssessmentBreadcrumb a,
+.learnerAssessmentRoot .learnerAssessmentBreadcrumb strong {
+  font-weight: 400;
+  color: var(--figma-ink);
+  text-decoration: none;
+}
+.learnerAssessmentRoot .learnerAssessmentBreadcrumb a:hover { color: var(--figma-blue); }
+.learnerAssessmentRoot .learnerAssessmentBreadcrumb span {
+  color: #31344B;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.learnerAssessmentRoot .learnerAssessmentHeading { margin: 0 0 24px; }
+.learnerAssessmentRoot .learnerAssessmentHeading h1 {
+  margin: 0 0 8px;
+  color: var(--figma-blue);
+  font-family: inherit;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.learnerAssessmentRoot .learnerAssessmentHeading p {
+  margin: 0;
+  color: var(--figma-ink);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+  text-transform: capitalize;
+}
+
+/* Figma pills: 69.56 / 69.56 / 119.13 / 116.28 by 36px. */
+.learnerAssessmentRoot .learnerAssessmentFilters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin: 0 0 30px;
+}
+.learnerAssessmentRoot .learnerAssessmentFilters button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 70px;
+  height: 36px;
+  min-width: 0;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 100px;
+  background: var(--figma-bg);
+  box-shadow: var(--figma-pill-shadow);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--figma-text);
+  cursor: pointer;
+  transition: box-shadow 150ms ease;
+}
+.learnerAssessmentRoot .learnerAssessmentFilters button:nth-child(3) { width: 119px; }
+.learnerAssessmentRoot .learnerAssessmentFilters button:nth-child(4) { width: 116px; }
+.learnerAssessmentRoot .learnerAssessmentFilters button.selected {
+  background: var(--figma-bg);
+  box-shadow: var(--figma-input-shadow);
+  color: var(--figma-blue);
+  font-weight: 600;
+}
+.learnerAssessmentRoot .learnerAssessmentFilters button:hover:not(.selected) {
+  box-shadow: var(--figma-input-shadow);
+}
+.learnerAssessmentRoot button:focus-visible,
+.learnerAssessmentRoot a:focus-visible {
+  outline: 2px solid var(--figma-blue);
+  outline-offset: 3px;
+}
+
+/* The exact artboard split is 443px + 26px + 779px = 1248px. */
+.learnerAssessmentRoot .learnerAssessmentTwoColumn {
+  display: grid;
+  grid-template-columns: minmax(0, 443px) minmax(0, 779px);
+  width: 100%;
+  max-width: 1248px;
+  gap: 26px;
+  align-items: start;
+  justify-content: stretch;
+}
+.learnerAssessmentRoot .learnerAssessmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+  padding: 0;
+}
+.learnerAssessmentRoot .learnerAssessmentListCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+  min-height: 122px;
+  min-width: 0;
+  padding: 16px;
+  background: var(--figma-bg);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: var(--figma-card-shadow);
+  text-align: left;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  color: var(--figma-text);
+  cursor: pointer;
+}
+.learnerAssessmentRoot .learnerAssessmentListCard.is-selected {
+  background: var(--figma-bg);
+  border: 0;
+  box-shadow: var(--figma-card-shadow);
+}
+.learnerAssessmentRoot .learnerAssessmentListCard:hover {
+  box-shadow: var(--figma-input-shadow);
+}
+.learnerAssessmentRoot .learnerListTitleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+.learnerAssessmentRoot .learnerListTitleRow strong {
+  min-width: 0;
+  font-family: inherit;
+  color: var(--figma-text);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+.learnerAssessmentRoot .learnerCardSubtitle {
+  color: var(--figma-ink);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+.learnerAssessmentRoot .learnerAssessmentListCard > .learnerCardSubtitle:last-child {
+  color: var(--figma-blue);
+  font-size: 14px;
+  line-height: 24px;
+}
+
+/* Figma 82 × 24 status badges. */
+.learnerAssessmentRoot .learnerStatusBadge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 82px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 36px;
+  box-shadow: none;
+  text-align: center;
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.learnerAssessmentRoot .learnerStatusBadge.is-live {
+  background: #D2DDCD;
+  border: 0.8px solid #2A7308;
+  color: #2A7308;
+}
+.learnerAssessmentRoot .learnerStatusBadge.is-upcoming {
+  background: #E4DFDC;
+  border: 0.8px solid #C05512;
+  color: #C05512;
+}
+.learnerAssessmentRoot .learnerStatusBadge.is-completed {
+  background: #E2E3E8;
+  border: 0.8px solid #2D4CC8;
+  color: #2D4CC8;
+}
+
+/* Right column 779px; Figma cards 284 / 136 / 195 / 337px. */
+.learnerAssessmentRoot .learnerAssessmentDetail {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 24px;
+}
+.learnerAssessmentRoot .learnerDetailCard,
+.learnerAssessmentRoot .learnerEmptyState,
+.learnerAssessmentRoot .learnerEmptyFilter {
+  width: 100%;
+  min-width: 0;
+  padding: 24px 16px;
+  background: var(--figma-bg);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: var(--figma-card-shadow);
+  color: var(--figma-text);
+}
+.learnerAssessmentRoot .learnerOverview {
+  min-height: 284px;
+  padding: 24px 16px;
+}
+.learnerAssessmentRoot .learnerDetailTitle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+}
+.learnerAssessmentRoot .learnerDetailTitle h2 {
+  min-width: 0;
+  margin: 0 0 8px;
+  color: var(--figma-blue);
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+.learnerAssessmentRoot .learnerOverview > .learnerCardSubtitle {
+  display: block;
+  margin: 0 0 28px;
+  color: var(--figma-ink);
+  font-size: 16px;
+  line-height: 24px;
+}
+.learnerAssessmentRoot .learnerMetricGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 18px;
+}
+.learnerAssessmentRoot .learnerMetricGrid > div,
+.learnerAssessmentRoot .learnerScheduleGrid > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.learnerAssessmentRoot .learnerMetricGrid span,
+.learnerAssessmentRoot .learnerScheduleGrid span {
+  color: var(--figma-text);
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.learnerAssessmentRoot .learnerMetricGrid strong {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  padding: 5px 14px;
+  background: var(--figma-bg);
+  border: 0;
+  border-radius: 4px;
+  box-shadow: var(--figma-input-shadow);
+  color: var(--figma-text);
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+.learnerAssessmentRoot .learnerDetailCard h3 {
+  margin: 0 0 18px;
+  color: var(--figma-text);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.learnerAssessmentRoot .learnerAssessmentDetail > .learnerDetailCard:nth-child(2) {
+  min-height: 136px;
+}
+.learnerAssessmentRoot .learnerScheduleGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+}
+.learnerAssessmentRoot .learnerScheduleGrid > div { gap: 8px; }
+.learnerAssessmentRoot .learnerScheduleGrid strong {
+  color: var(--figma-ink);
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+
+/* Original Figma attempt history: labels 16/24 and 306 × 46 inset empty state. */
+.learnerAssessmentRoot .learnerHistoryCard { min-height: 175px; }
+.learnerAssessmentRoot .learnerTableScroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.learnerAssessmentRoot .learnerAttemptsTable {
+  width: 100%;
+  min-width: 470px;
+  border-spacing: 0;
+  border-collapse: separate;
+  table-layout: fixed;
+  text-align: left;
+  color: var(--figma-text);
+  font-size: 16px;
+  line-height: 24px;
+}
+.learnerAssessmentRoot .learnerAttemptsTable th {
+  padding: 0 10px 18px;
+  border: 0;
+  color: var(--figma-text);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.learnerAssessmentRoot .learnerAttemptsTable td {
+  padding: 9px 10px;
+  border: 0;
+  color: var(--figma-text);
+  font-size: 14px;
+  line-height: 24px;
+}
+.learnerAssessmentRoot .learnerEmptyHistoryRow td { padding: 0; border: 0; }
+.learnerAssessmentRoot .learnerNoAttempts {
+  display: flex;
+  align-items: center;
+  width: 306px;
+  max-width: 100%;
+  min-width: 0;
+  height: 46px;
+  min-height: 46px;
+  padding: 0 14px;
+  background: var(--figma-bg);
+  box-shadow: var(--figma-input-shadow);
+  border: 0;
+  border-radius: 4px;
+  color: var(--figma-text);
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* Ready to Begin: Figma 337px card and 250 × 48 action. */
+.learnerAssessmentRoot .learnerReadyCard {
+  min-height: 337px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 24px 16px;
+}
+.learnerAssessmentRoot .learnerReadyCard h3 { margin: 0 0 20px; }
+.learnerAssessmentRoot .learnerReadyChecks p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  color: var(--figma-text);
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.learnerAssessmentRoot .learnerReadyChecks p.is-positive { color: #2A7308; }
+.learnerAssessmentRoot .learnerReadyChecks p.is-positive::before {
+  content: "✓";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  color: #FFFFFF;
+  background: #2A7308;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+.learnerAssessmentRoot .learnerReadyChecks p.is-muted::before,
+.learnerAssessmentRoot .learnerReadyChecks p.learnerReadyNeutral::before {
+  content: "•";
+  display: flex;
+  flex: 0 0 24px;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  color: var(--figma-text);
+  font-size: 17px;
+  line-height: 1;
+}
+.learnerAssessmentRoot .learnerReadyChecks p.is-muted { color: #C05512; }
+.learnerAssessmentRoot .learnerReadyActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding-top: 26px;
+}
+.learnerAssessmentRoot .learnerReadyActions button {
+  min-width: 250px;
+  min-height: 48px;
+  padding: 9px 17px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--figma-bg);
+  box-shadow: var(--figma-action-shadow);
+  color: var(--figma-blue);
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  cursor: pointer;
+}
+.learnerAssessmentRoot .learnerReadyActions button:hover:not(:disabled) {
+  box-shadow: var(--figma-input-shadow);
+}
+.learnerAssessmentRoot .learnerReadyActions button:disabled {
+  background: var(--figma-bg);
+  box-shadow: var(--figma-action-shadow);
+  color: #8395C5;
+  opacity: .75;
+  cursor: not-allowed;
+}
+.learnerAssessmentRoot .learnerUnavailableNote {
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.learnerAssessmentRoot .learnerEmptyState h2 { font-size: 18px; margin: 0 0 7px; }
+.learnerAssessmentRoot .learnerEmptyState p { font-size: 15px; margin: 0; }
+.learnerAssessmentRoot .learnerEmptyFilter { font-size: 15px; }
+
+/* The Figma fixed 443 / 779 layout scales down only when required. */
+@media (max-width: 1400px) {
+  .learnerAssessmentRoot { padding-left: 34px; padding-right: 20px; }
+  .learnerAssessmentRoot .learnerAssessmentTwoColumn {
+    grid-template-columns: minmax(300px, 35.5fr) minmax(0, 62.5fr);
+    gap: 24px;
+  }
+  .learnerAssessmentRoot .learnerMetricGrid { column-gap: 16px; }
+}
+@media (max-width: 1120px) {
+  .learnerAssessmentRoot { padding-left: 22px; padding-right: 20px; }
+  .learnerAssessmentRoot .learnerAssessmentTwoColumn {
+    grid-template-columns: minmax(245px, 36%) minmax(0, 1fr);
+    gap: 18px;
+  }
+  .learnerAssessmentRoot .learnerMetricGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px 15px;
+  }
+  .learnerAssessmentRoot .learnerCardSubtitle { font-size: 14px; line-height: 21px; }
+}
+@media (max-width: 850px) {
+  .learnerAssessmentRoot { padding: 22px 20px 40px; }
+  .learnerAssessmentRoot .learnerAssessmentTwoColumn { grid-template-columns: minmax(0, 1fr); }
+  .learnerAssessmentRoot .learnerAssessmentList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+  .learnerAssessmentRoot .learnerMetricGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .learnerAssessmentRoot .learnerCardSubtitle { font-size: 15px; line-height: 22px; }
+}
+@media (max-width: 600px) {
+  .learnerAssessmentRoot { padding: 20px 14px 36px; }
+  .learnerAssessmentRoot .learnerAssessmentBreadcrumb { font-size: 14px; margin-bottom: 18px; }
+  .learnerAssessmentRoot .learnerAssessmentHeading h1 { font-size: 22px; line-height: 30px; }
+  .learnerAssessmentRoot .learnerAssessmentHeading p { font-size: 14px; line-height: 21px; }
+  .learnerAssessmentRoot .learnerAssessmentFilters { gap: 10px; margin-bottom: 22px; }
+  .learnerAssessmentRoot .learnerAssessmentFilters button {
+    width: auto;
+    min-width: 64px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+  .learnerAssessmentRoot .learnerAssessmentFilters button:nth-child(3),
+  .learnerAssessmentRoot .learnerAssessmentFilters button:nth-child(4) { width: auto; }
+  .learnerAssessmentRoot .learnerAssessmentList { grid-template-columns: minmax(0, 1fr); }
+  .learnerAssessmentRoot .learnerMetricGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .learnerAssessmentRoot .learnerScheduleGrid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .learnerAssessmentRoot .learnerReadyActions button { width: 100%; min-width: 0; font-size: 15px; }
+  .learnerAssessmentRoot .learnerDetailTitle h2 { font-size: 18px; line-height: 26px; }
+  .learnerAssessmentRoot .learnerOverview > .learnerCardSubtitle { font-size: 14px; }
+}
+
+/* Dashboard-only responsive rules retained from previous CSS. */
+@media(max-width:1100px) {
+  .learnerDashboardStats { gap: 15px; }
+  .learnerDashboardStat { padding: 15px; }
+  .learnerDashboardStat span { font-size: 15px; }
+}
+@media(max-width:850px) {
+  .learnerDashboardStats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media(max-width:560px) {
+  .learnerDashboardStart { padding: 22px 13px 36px; }
+  .learnerDashboardHeading h1 { font-size: 22px; }
+  .learnerDashboardStats { gap: 14px; margin-bottom: 27px; }
+  .learnerDashboardStat { min-height: 89px; padding: 12px; }
+  .learnerDashboardStat span { font-size: 13px; }
+  .learnerDashboardStat strong { font-size: 23px; }
+  .learnerDashboardStart .learnerDueCard { flex-direction: column; align-items: stretch; padding: 19px; }
+  .learnerDashboardStart .learnerDueInfo h2 { font-size: 18px; }
+  .learnerDashboardStart .learnerDueInfo p { font-size: 15px; }
+  .learnerDashboardStart .learnerDueButton { width: 100%; }
+}

@@ -3,7 +3,7 @@
 import {useEffect,useMemo,useState} from "react";
 import {useRouter} from "next/navigation";
 import {getDemoSession} from "@/modules/assessments/auth/demo-auth";
-import {getAssessments,setActiveAssessmentId,viewerPath} from "@/modules/assessments/storage/assessment-storage";
+import {getAssessments,setActiveAssessmentId,viewerPath,assessmentStorage} from "@/modules/assessments/storage/assessment-storage";
 import type {LearnerAssessment,LearnerStatus} from "./learner-assessment-data";
 import {learnerAssessmentsForTenant} from "./learner-assessment-data";
 import "./learner-assessment.css";
@@ -38,16 +38,29 @@ export default function LearnerAssessmentBrowser(){
     window.addEventListener("neurolxp-assessments-changed",update);
     return ()=>{window.removeEventListener("storage",update);window.removeEventListener("neurolxp-assessments-changed",update);};
   },[router]);
+  useEffect(()=>{
+    if (!ready) return;
+    const scrollArea=document.querySelector<HTMLElement>(".institutionScrollArea");
+    if (scrollArea) scrollArea.scrollTop=0;
+  },[ready]);
   const selected=items.find(item=>item.record.id===chosen);
   const visible=useMemo(()=>items.filter(item=>filter==="All"||item.status===filter),[items,filter]);
   const proceed=()=>{
     if(!selected?.canStart)return;
     setActiveAssessmentId(selected.record.id);
-    router.push(viewerPath(selected.record.id));
+    // Entering from the learner list is always a fresh Instructions entry.
+    // Preserve the viewer itself, all Submit dialogs, Results and retry routes.
+    if (selected.record.typeCode === "fill-in-the-blanks") {
+      assessmentStorage.removeItem("fillBlanksViewerStarted");
+    }
+    if (selected.record.typeCode === "short-answer") {
+      assessmentStorage.removeItem("shortAnswerViewerReturnState");
+    }
+    router.push(`${viewerPath(selected.record.id)}?instructions=1`);
   };
   if(!ready)return null;
   return <div className="portalScreen learnerAssessmentRoot">
-    <nav aria-label="Breadcrumb" className="learnerAssessmentBreadcrumb"><a href="/dashboard">Dashboard</a><span aria-hidden="true">›</span><strong>Assessment</strong></nav>
+    <nav aria-label="Breadcrumb" className="learnerAssessmentBreadcrumb"><a href="/dashboard">Dashboard</a><span aria-hidden="true">»</span><strong>Assessment</strong></nav>
     <div className="learnerAssessmentHeading"><h1>Assessment</h1><p>Pick an assessment to see its details</p></div>
     <div className="learnerAssessmentFilters" role="group" aria-label="Filter assessments">
       {filters.map(option=><button type="button" key={option} className={option===filter?"selected":""} aria-pressed={option===filter} onClick={()=>{setFilter(option);if(option!=="All"&&selected?.status!==option){const first=items.find(item=>item.status===option);if(first)setChosen(first.record.id);}}}>{option}</button>)}
@@ -76,8 +89,8 @@ export default function LearnerAssessmentBrowser(){
             </div>
           </section>
           <section className="learnerDetailCard"><h3>Schedule</h3><div className="learnerScheduleGrid"><div><span>Available window</span><strong>{selected.schedule}</strong></div><div><span>Mode</span><strong>{selected.mode}</strong></div></div></section>
-          <section className="learnerDetailCard"><h3>Attempt history</h3><div className="learnerTableScroll"><table className="learnerAttemptsTable"><thead><tr><th>Attempt</th><th>Date</th><th>Score</th><th>Result</th></tr></thead><tbody>{selected.attempts.length?selected.attempts.map((attempt,index)=><tr key={attempt.attemptId||index}><td>{index+1}</td><td>{dateText(attempt.submittedAt)}</td><td>{Number.isFinite(attempt.scorePercent)?`${attempt.scorePercent}%`:"Awaiting grading"}</td><td>{Number(attempt.pendingCount)>0?"Pending review":"Submitted"}</td></tr>):<tr><td colSpan={4}>No attempts yet</td></tr>}</tbody></table></div></section>
-          <section className="learnerDetailCard learnerReadyCard"><h3>Ready to begin?</h3><div className="learnerReadyChecks"><p className={selected.canStart?"is-positive":"is-muted"}>{selected.canStart?"✓ Assessment is open now":selected.status==="Upcoming"?"• Assessment is not open yet":"• Assessment is closed or completed"}</p><p className="is-positive">✓ {selected.maxAttempts===null?"Attempts are available":`${Math.max(0,selected.maxAttempts-(selected.attempts.length||selected.record.attemptCount||0))} attempt(s) remaining`}</p><p>• Stable internet connection</p><p>• Quiet place{selected.duration?`, ${selected.duration} minutes free`:""}</p></div>
+          <section className="learnerDetailCard learnerHistoryCard"><h3>Attempt History</h3><div className="learnerTableScroll"><table className="learnerAttemptsTable"><thead><tr><th>Attempt</th><th>Date</th><th>Score</th><th>Result</th></tr></thead><tbody>{selected.attempts.length?selected.attempts.map((attempt,index)=><tr key={attempt.attemptId||index}><td>{index+1}</td><td>{dateText(attempt.submittedAt)}</td><td>{Number.isFinite(attempt.scorePercent)?`${attempt.scorePercent}%`:"Awaiting grading"}</td><td>{Number(attempt.pendingCount)>0?"Pending review":"Submitted"}</td></tr>):<tr className="learnerEmptyHistoryRow"><td colSpan={4}><span className="learnerNoAttempts">No attempt yet</span></td></tr>}</tbody></table></div></section>
+          <section className="learnerDetailCard learnerReadyCard"><h3>Ready to Begin</h3><div className="learnerReadyChecks"><p className={selected.canStart?"is-positive":"is-muted"}>{selected.canStart?"Assessment open now":selected.status==="Upcoming"?"Assessment is not open yet":"Assessment is closed or completed"}</p><p className="is-positive">{selected.maxAttempts===null?"Attempts are available":`${Math.max(0,selected.maxAttempts-(selected.attempts.length||selected.record.attemptCount||0))} attempt(s) remaining`}</p><p className="learnerReadyNeutral">Stable internet connection</p><p className="learnerReadyNeutral">Quiet place{selected.duration?`, ${selected.duration} minutes free`:""}</p></div>
             <div className="learnerReadyActions"><button type="button" disabled={!selected.canStart} onClick={proceed}>Proceed to instructions <span aria-hidden="true">→</span></button></div>
             {!selected.canStart&&<p className="learnerUnavailableNote">{selected.status==="Upcoming"?`Available when the assessment opens${selected.startAt?` on ${dateText(selected.startAt.toISOString())}`:""}.`:"This assessment is no longer available to start."}</p>}
           </section>

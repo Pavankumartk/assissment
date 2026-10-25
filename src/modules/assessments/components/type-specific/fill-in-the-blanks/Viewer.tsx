@@ -43,7 +43,9 @@ export default function FillViewer(){
       const questions=Array.isArray(content.questions)?content.questions:[];
       setDetails(draft);setCount(questions.length);
       setQuestionMarks(questions.reduce((sum:number,q:{points?:unknown})=>sum+(Number(q.points)||1),0));
-      setStarted(assessmentStorage.getItem(startedKey)==="yes");
+      const freshInstructions = new URLSearchParams(window.location.search).get("instructions") === "1";
+      if (freshInstructions) assessmentStorage.removeItem(startedKey);
+      setStarted(!freshInstructions && assessmentStorage.getItem(startedKey)==="yes");
     }catch{}
     setReady(true);
   },[startedKey]);

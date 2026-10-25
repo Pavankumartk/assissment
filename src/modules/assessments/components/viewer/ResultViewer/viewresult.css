@@ -467,3 +467,32 @@
 .vrResultReleaseNotice h1{font-size:24px;line-height:32px;font-weight:700;color:#2A7308;margin:14px 0}
 .vrResultReleaseNotice p{font-size:15px;line-height:24px;margin:14px auto;max-width:520px}
 .vrResultReleaseNotice button{min-height:48px;margin-top:18px;padding:10px 24px;border:1px solid #2D4CC8;border-radius:26px;background:#DFE6E9;color:#2D4CC8;box-shadow:-2px -2px 3px #FFF,2px 2px 3px #C4C4C4;font:600 16px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+
+/* The result, detailed review, revision folder and retry screen share one scroll viewport.
+   Give the flex layout a real height so it can scroll immediately after SPA navigation,
+   without requiring a hard browser refresh. */
+.vrAppShell {
+  height: 100dvh;
+  min-height: 0;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+.vrAppShell .vrLayout {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.vrAppShell .vrMain {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.vrAppShell .institutionScrollArea.vrScroll {
+  flex: 1 1 0;
+  min-height: 0;
+  height: auto;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}

@@ -7,7 +7,7 @@ import "./assessment.css";
 import {useAssessments} from "@/modules/assessments/hooks/useAssessment";
 import {duplicateAssessment,setActiveAssessmentId} from "@/modules/assessments/storage/assessment-storage";
 import {typeGroups,getAssessmentTypeGroups} from "@/modules/assessments/config/assessment-types";
-import {getDemoSession,demoSignOut} from "@/modules/assessments/auth/demo-auth";
+import {getDemoSession} from "@/modules/assessments/auth/demo-auth";
 import CreateStep from "../steps/CreateStep/CreateStep";
 import PortalShell from "../PortalShell";
 
@@ -328,7 +328,7 @@ function AssessmentContent({initialScreen = "list"}:{initialScreen?:"list"|"crea
 
         </div>
 
-        <div style={{display:"flex",alignItems:"center",gap:14}}><button type="button" onClick={()=>{demoSignOut();router.replace("/login");}} className="asm-signout-btn">Log out</button><button type="button" className="asm-create" onClick={() => { setScreen("create"); setOpenFilter(null); router.push("/assessments/create"); }}>
+        <div style={{display:"flex",alignItems:"center",gap:14}}><button type="button" className="asm-create" onClick={() => { setScreen("create"); setOpenFilter(null); router.push("/assessments/create"); }}>
 
           <img src="/assets/assessmenticons/plus.svg" width={20} height={20} alt="" />
 

@@ -38,9 +38,7 @@ function storedJson(id: string, key: string): unknown {
 }
 function draftFor(record: StoredAssessment): Draft {
   const key = record.typeCode === "short-answer" ? "shortAnswerAssessmentDraft"
-    : record.typeCode === "one-word" ? "oneWordAssessmentDraft"
-    : record.typeCode === "fill-in-the-blanks" ? "fillBlanksAssessmentDraft"
-    : record.typeCode === "true-false" ? "trueFalseAssessmentDraft" : "mcqAssessmentDraft";
+    : record.typeCode === "one-word" ? "oneWordAssessmentDraft" : "mcqAssessmentDraft";
   const saved = storedJson(record.id, key);
   return saved && typeof saved === "object" && !Array.isArray(saved) ? saved as Draft : {};
 }
@@ -70,7 +68,7 @@ export function learnerAssessmentData(record: StoredAssessment, now = new Date()
   const useEnd = toggles.availableUntil !== false;
   const startAt = useStart ? dateTime(draft.availableFromDate ?? draft.availableFrom, draft.availableFromTime) : null;
   const endAt = useEnd ? dateTime(draft.availableUntilDate ?? draft.availableUntil, draft.availableUntilTime) : null;
-  const attemptsRaw = storedJson(record.id, record.typeCode === "true-false" ? "trueFalseViewerAttempts" : "viewerAttempts");
+  const attemptsRaw = storedJson(record.id, "viewerAttempts");
   const attempts = Array.isArray(attemptsRaw) ? attemptsRaw.filter(a => a && typeof a === "object") as LearnerAttempt[] : [];
   const taken = Math.max(attempts.length, Number(record.attemptCount) || 0);
   const maxAttempts = positiveNumber(draft.attempts);

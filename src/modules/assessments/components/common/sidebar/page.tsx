@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import "./sidebar.css";
-import {demoSignOut} from "@/modules/assessments/auth/demo-auth";
+import { getDemoSession, demoSignOut } from "@/modules/assessments/auth/demo-auth";
 
 const sidebarItems = [
   { title: "Dashboard", icon: "/assets/assessmenticons/dashboardsquare.svg", href: "/dashboard" },
@@ -21,7 +22,14 @@ const sidebarItems = [
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const [isLearner, setIsLearner] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    const learner = getDemoSession()?.role === "learner";
+    setIsLearner(learner);
+    if (learner) setCollapsed(pathname === "/assessments");
+  }, [pathname]);
 
   const closeMobileSidebar = () => {
     document.body.classList.remove("mobileSidebarOpen");
@@ -51,12 +59,13 @@ export default function Sidebar() {
           {sidebarItems.map((item) => {
             const currentPath = (pathname || "").replace(/\/+$/, "").toLowerCase();
             const itemPath = item.href.toLowerCase();
+            const destination = item.href;
             // Assessment stays highlighted across all pages, including MCQ.
             const isActive = (item.title === "Assessment" && currentPath.startsWith("/assessments")) || currentPath === itemPath;
 
             return (
               <Link
-                href={item.href}
+                href={destination}
                 key={item.title}
                 title={collapsed ? item.title : undefined}
                 className={`sidebarItem ${item.title === "Dashboard" ? "dashboardItem" : ""} ${isActive ? "sidebarItemActive" : ""}`}
@@ -79,14 +88,7 @@ export default function Sidebar() {
 
         <div className="sidebarBottom">
           <button type="button" className="logoutButton" title={collapsed ? "Logout" : undefined} onClick={handleLogout}>
-            <Image
-              src="/assets/assessmenticons/log-out.svg"
-              alt=""
-              aria-hidden="true"
-              width={16}
-              height={16}
-              className="sidebarIcon"
-            />
+            <Image src="/assets/assessmenticons/log-out.svg" alt="" aria-hidden="true" width={16} height={16} className="sidebarIcon" />
             <span>Logout</span>
           </button>
         </div>

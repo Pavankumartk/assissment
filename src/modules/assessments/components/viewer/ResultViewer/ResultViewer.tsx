@@ -151,6 +151,12 @@ export default function ViewResultPage({source="mcq"}:{source?:"mcq"|"fill-in-th
   const [isRetry, setIsRetry] = useState(false);
   const [retryNotice, setRetryNotice] = useState("");
 
+  // Results and review sections reuse a bounded scroll container. Reset its
+  // position after each screen change, including client-side navigation.
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  }, [isDetailedReview, isRevisionFolder, isRetry]);
+
   useEffect(() => {
     try {
       const text = assessmentStorage.getItem(source==="fill-in-the-blanks"?"fillBlanksViewerResult":source==="true-false"?"trueFalseViewerResult":"viewerAssessmentResult");

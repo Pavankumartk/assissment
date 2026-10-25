@@ -4,7 +4,7 @@ import {useRouter} from "next/navigation";
 import {getDemoSession,type DemoRole} from "@/modules/assessments/auth/demo-auth";
 import PortalShell from "@/modules/assessments/components/common/PortalShell";
 import CreatorAssessments from "@/modules/assessments/components/common/AssessmentDashboard/AssessmentDashboard";
-import LearnerAssessmentBrowser from "@/modules/assessments/components/learner/LearnerAssessmentBrowser";
+import PortalDashboard from "@/modules/assessments/components/common/PortalDashboard";
 
 export default function Page(){
  const router=useRouter();
@@ -15,6 +15,6 @@ export default function Page(){
   setRole(session.role);
  },[router]);
  if(role==="admin")return <CreatorAssessments/>;
- if(role==="learner")return <PortalShell footer><LearnerAssessmentBrowser/></PortalShell>;
+ if(role==="learner")return <PortalShell><PortalDashboard assessmentLanding/></PortalShell>;
  return null;
 }
