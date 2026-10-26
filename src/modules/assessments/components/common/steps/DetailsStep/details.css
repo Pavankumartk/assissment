@@ -1506,3 +1506,99 @@
 
 /* Error message shown only after invalid Save & Continue. */
 .mcqFooterInlineMessage.mcqValidationError{color:#BC1E2D;font-weight:600}
+
+/* Assessment Details only — fixed selected type and notification switch. */
+.mcqPageContent .mcqAssessmentTypeFixed .mcqAssessmentTypeValue {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 58px;
+  min-height: 58px;
+  padding: 0 24px;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+  color: #374151;
+  font-family: "Segoe UI", "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  overflow-wrap: anywhere;
+}
+.mcqPageContent .mcqNotifyOnly .mcqSwitchField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-inline: 14px;
+}
+.mcqPageContent .mcqNotifyOnly .mcqNotifyDescription {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: 400 14px/20px "Segoe UI", "Inter", sans-serif;
+  letter-spacing: normal;
+  color: #596574;
+}
+/* Center the ON/OFF words inside the two available switch halves, leaving edge padding. */
+.mcqPageContent .mcqDetailsFields .mcqSwitch .mcqSwitchState {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: auto;
+  right: 8px;
+  width: 24px;
+  height: 20px;
+  padding: 0;
+  transform: translateY(-50%);
+  font: 400 11px/20px "Segoe UI", "Inter", sans-serif;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.mcqPageContent .mcqDetailsFields .mcqSwitch.mcqSwitchOn .mcqSwitchState {
+  left: 8px;
+  right: auto;
+  width: 24px;
+}
+@media (max-width: 700px) {
+  .mcqPageContent .mcqAssessmentTypeFixed .mcqAssessmentTypeValue {
+    min-height: 50px;
+    height: auto;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  .mcqPageContent .mcqNotifyOnly .mcqNotifyDescription { font-size: 12px; line-height: 18px; }
+}
+
+
+/* Assessment Details notification toggle label centering — scoped, mobile and desktop. */
+.mcqPageContent .mcqDetailsFields .mcqSwitch .mcqSwitchState {
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 23px;
+  right: auto;
+  width: 27px;
+  height: 20px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  font-family: "Segoe UI", "Inter", sans-serif;
+  font-size: 10.5px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-align: center;
+}
+.mcqPageContent .mcqDetailsFields .mcqSwitch.mcqSwitchOn .mcqSwitchState {
+  left: 8px;
+  right: auto;
+  width: 24px;
+}

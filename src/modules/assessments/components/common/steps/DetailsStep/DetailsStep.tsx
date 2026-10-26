@@ -472,7 +472,7 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
   const flip = (key: string) => setToggles(previous => ({ ...previous, [key]: !previous[key] }));
   useEffect(()=>{
     if(!hydrated) return;
-    const data={...form,tags,markingScheme,negativeMarking,gradeToPass,partialCredit,toggles};
+    const data={...form,assessmentType:typeLabel,tags,markingScheme,negativeMarking,gradeToPass,partialCredit,toggles};
     try { assessmentStorage.setItem(draftKey,JSON.stringify(data)); }catch{}
     updateAssessment({ title:(form.assessmentName||form.assessmentTitle||"Untitled Assessment").trim(), course:form.course??"", questions:Number(form.questionCount)||0, marks:Number(form.totalMarks)||0 });
   },[hydrated,form,tags,markingScheme,negativeMarking,gradeToPass,partialCredit,toggles]);
@@ -597,7 +597,10 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
   const basicContent = () => (
     <div className="mcqDetailsFields mcqBasicFields">
       <MCQReferenceDropdown label="Assessment Name" kind="assessmentName" value={form.assessmentName ?? ""} onChange={v => update("assessmentName", v)} error={fieldErrors.assessmentName} wide />
-      <MCQReferenceDropdown label="Assessment Type" kind="assessmentType" value={form.assessmentType ?? ""} onChange={v => update("assessmentType", v)} />
+      <div className="mcqField mcqAssessmentTypeFixed">
+        <span>Assessment Type</span>
+        <div className="mcqAssessmentTypeValue" aria-label="Assessment Type">{typeLabel}</div>
+      </div>
       <MCQReferenceDropdown label="Course" kind="course" value={form.course ?? ""} onChange={v => update("course", v)} error={fieldErrors.course} />
       {basicField("Language", "language", ["English", "Hindi", "Kannada", "Tamil", "Telugu"])}
       <MCQReferenceDropdown label="Module/ Unit" kind="module" value={form.module ?? ""} onChange={v => update("module", v)} error={fieldErrors.module} />
@@ -728,6 +731,7 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
       <div className="mcqField mcqNotifyOnly">
         <span>Notify learners when published</span>
         <div className="mcqSwitchField">
+          <span className="mcqNotifyDescription">Notify learners</span>
           {toggle("Notify learners when published", toggles.notifyLearners, () => flip("notifyLearners"))}
         </div>
       </div>
@@ -735,7 +739,7 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
   );
 
   const saveAndContinue = () => {
-    const selectedForm={...form, assessmentType: form.assessmentType || typeLabel};
+    const selectedForm={...form, assessmentType: typeLabel};
     const errors = validateCompleteDetails(form, { markingScheme, negativeMarking, gradeToPass, toggles });
     setFieldErrors(errors);
     if (Object.keys(errors).length) {
