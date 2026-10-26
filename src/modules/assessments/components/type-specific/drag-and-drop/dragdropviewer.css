@@ -1,0 +1,622 @@
+/* True / False viewer — ONLY the exam screen from the supplied reference.
+   Uses the existing shared Header, Sidebar and /assets/viewericons/ assets. */
+
+
+.viewDragDropApp.dragvAppShell{
+  --viewer-bg:#DFE6E9;
+  --viewer-ink:#2F3547;
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100dvh;
+  min-height:0!important;
+  max-height:100dvh;
+  margin:0;
+  padding:0;
+  overflow:hidden!important;
+  background:var(--viewer-bg);
+  color:var(--viewer-ink);
+  font-family:"Segoe UI","Inter",sans-serif;
+}
+
+
+.viewDragDropApp.dragvAppShell *, .viewDragDropApp.dragvAppShell *::before, .viewDragDropApp.dragvAppShell *::after{box-sizing:border-box}
+
+
+html:has(.viewDragDropApp.dragvAppShell), body:has(.viewDragDropApp.dragvAppShell){height:100%;overflow:hidden!important;overscroll-behavior:none}
+
+
+body:has(.viewDragDropApp.dragvAppShell){margin:0}
+
+
+.viewDragDropApp .dragvLayout{display:flex;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden}
+
+
+.viewDragDropApp .dragvMain{display:flex;flex:1 1 0%;flex-direction:column;min-width:0;min-height:0;height:100%;overflow:hidden}
+
+
+.viewDragDropApp .dragvSharedHeader{flex:0 0 auto;min-width:0;width:100%}
+
+
+.viewDragDropApp.dragvAppShell .dragvSharedHeader .topHeader{width:100%;display:flex;justify-content:flex-end}
+
+
+.viewDragDropApp.dragvAppShell .dragvSharedHeader .topHeader .headerRight{margin-left:auto}
+
+
+.viewDragDropApp .dragvScroll{flex:1 1 0%;min-width:0;min-height:0;max-height:100%;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+
+
+.viewDragDropApp .dragvContent{width:100%;max-width:1260px;min-width:0;height:auto;min-height:0;margin:0 auto;padding:26px 24px 55px}
+
+
+
+/* Heading, breadcrumbs and countdown match the original Viewer sizing. */
+
+
+.viewDragDropApp .dragvExamTop{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+
+
+.viewDragDropApp .dragvBreadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:24px;margin:0;font-size:16px;line-height:24px;letter-spacing:.02em}
+
+
+.viewDragDropApp .dragvBreadcrumb a{color:var(--viewer-ink);text-decoration:none}
+
+
+.viewDragDropApp .dragvBreadcrumb img{flex:none;display:block;object-fit:contain}
+
+
+.viewDragDropApp .dragvBreadcrumb strong{color:#2D4CC8;font-weight:700;overflow-wrap:anywhere}
+
+
+.viewDragDropApp .dragvExamClock{display:flex;align-items:center;justify-content:center;gap:5px;padding:11px 12px;border-radius:8px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+
+
+.viewDragDropApp .dragvTimeGroup{display:flex;align-items:center;gap:4px}
+
+
+.viewDragDropApp .dragvTimeColon{font-weight:700;font-size:20px;margin-inline:2px}
+
+
+.viewDragDropApp .dragvTimeDigit{display:grid;place-items:center;width:26px;height:28px;border-radius:4px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;font-size:18px;font-weight:600}
+
+
+.viewDragDropApp .dragvPageHeading{margin-bottom:20px}
+
+
+.viewDragDropApp .dragvPageHeading h1{margin:0;color:#2D4CC8;font-size:24px;line-height:32px;font-weight:700;letter-spacing:.02em}
+
+
+
+/* Two exam cards (question + navigator), no instruction or summary landing page. */
+
+
+.viewDragDropApp .dragvExamGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,345px);gap:24px;align-items:stretch}
+
+
+.viewDragDropApp .dragvExamCard{min-width:0;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4}
+
+
+.viewDragDropApp .dragvQuestionCard{display:flex;flex-direction:column;gap:20px;min-height:765px;padding:24px}
+
+
+.viewDragDropApp .dragvProgressArea{width:100%}
+
+
+.viewDragDropApp .dragvProgressLabel{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:16px;line-height:22px;color:#374151}
+
+
+.viewDragDropApp .dragvProgressLabel strong{font-weight:700}
+
+
+.viewDragDropApp .dragvProgressLabel span{color:#374151}
+
+
+.viewDragDropApp .dragvProgressLabel .dragvMarks{font-size:15px}
+
+
+.viewDragDropApp .dragvProgressRow{display:flex;align-items:center;gap:12px;margin-top:7px;color:#2A7308}
+
+
+.viewDragDropApp .dragvProgressTrack{flex:1;min-width:0;height:18px;padding:4px;border-radius:40px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+
+
+.viewDragDropApp .dragvProgressTrack span{display:block;height:100%;min-width:0;border-radius:30px;background:#2A7308;transition:width .2s ease}
+
+
+.viewDragDropApp .dragvProgressRow strong{font-size:16px;font-weight:700}
+
+
+.viewDragDropApp .dragvQuestionHeading h2{margin:0 0 8px;font-size:18px;line-height:28px;color:#2D4CC8}
+
+
+.viewDragDropApp .dragvQuestionHeading p{margin:0;font-size:16px;line-height:26px;color:#374151}
+
+
+.viewDragDropApp .dragvBlankGroups{display:flex;flex-direction:column;gap:22px}
+
+
+.viewDragDropApp .dragvBlankGroup{min-width:0}
+
+
+.viewDragDropApp .dragvBlankGroup h3{margin:0 0 10px;color:#2D4CC8;font-size:15px;font-weight:600}
+
+
+.viewDragDropApp .dragvAnswerList{display:grid;gap:18px}
+
+
+.viewDragDropApp .dragvAnswer{display:flex;align-items:center;gap:12px;position:relative;min-height:54px;width:100%;padding:9px 15px;border:1px solid transparent;text-align:left;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4;color:#374151;font:400 17px/26px "Segoe UI","Inter",sans-serif;cursor:pointer}
+
+
+.viewDragDropApp .dragvAnswer:disabled{cursor:default}
+
+
+.viewDragDropApp .dragvAnswer:focus-visible, .viewDragDropApp .dragvQuestionTile:focus-visible, .viewDragDropApp .dragvExamButton:focus-visible, .viewDragDropApp .dragvFlagButton:focus-visible, .viewDragDropApp .dragvToolsList button:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+
+
+.viewDragDropApp .dragvAnswer.isSelected{border-color:transparent;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4}
+
+
+.viewDragDropApp .dragvAnswer.isCorrect, .viewDragDropApp .dragvAnswer.isIncorrect{box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4}
+
+
+.viewDragDropApp .dragvAnswer.isCorrect{border-color:#2A7308}
+
+
+.viewDragDropApp .dragvAnswer.isIncorrect{border-color:#A91E2C}
+
+
+.viewDragDropApp .dragvAnswerRadio{position:relative;display:grid;place-items:center;width:24px;height:24px;flex:0 0 24px;border-radius:50%;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+
+
+.viewDragDropApp .dragvAnswerRadio::before{content:"";width:16px;height:16px;border:1.5px solid #C6C6C9;border-radius:50%}
+
+
+/* Selected: 24px raised option with a centered 16px blue circle and white tick. */
+
+
+.viewDragDropApp .dragvAnswer.isSelected .dragvAnswerRadio{background:#DFE6E9;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF}
+
+
+.viewDragDropApp .dragvAnswer.isSelected .dragvAnswerRadio::before{width:16px;height:16px;background:#2D4CC8;border:1.5px solid #2D4CC8;border-radius:50%}
+
+
+.viewDragDropApp .dragvAnswer.isSelected .dragvAnswerRadio::after{content:"";position:absolute;top:8px;left:7px;width:10px;height:6px;border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;transform:rotate(-45deg)}
+
+
+.viewDragDropApp .dragvAnswer.isCorrect .dragvAnswerRadio, .viewDragDropApp .dragvAnswer.isIncorrect .dragvAnswerRadio{position:relative;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #fff}
+
+
+.viewDragDropApp .dragvAnswer.isCorrect .dragvAnswerRadio::before{background:#2A7308;border-color:#2A7308}
+
+
+.viewDragDropApp .dragvAnswer.isCorrect .dragvAnswerRadio::after{content:"";position:absolute;left:10px;top:10px;width:8px;height:5px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg)}
+
+
+.viewDragDropApp .dragvAnswer.isIncorrect .dragvAnswerRadio::before{background:transparent;border-color:#A91E2C}
+
+
+.viewDragDropApp .dragvAnswer.isIncorrect .dragvAnswerRadio::after{content:"×";position:absolute;left:7px;top:5px;color:#A91E2C;font:600 18px/18px "Segoe UI","Inter",sans-serif}
+
+
+.viewDragDropApp .dragvAnswerFeedback{margin-left:auto;font-size:13px;font-weight:600}
+
+
+.viewDragDropApp .dragvAnswer.isCorrect .dragvAnswerFeedback{color:#2A7308}
+
+
+.viewDragDropApp .dragvAnswer.isIncorrect .dragvAnswerFeedback{color:#A91E2C}
+
+
+
+/* Hint and Bloom's Taxonomy retain the supplied card's heights, type and shadows. */
+
+
+.viewDragDropApp .dragvHintBox{border-radius:8px;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}
+
+
+.viewDragDropApp .dragvHintToggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:66px;padding:10px 16px;background:transparent;border:0;text-align:left;cursor:pointer;color:#63560B;font:600 18px "Segoe UI","Inter",sans-serif}
+
+
+.viewDragDropApp .dragvHintTitle{display:flex;align-items:center;gap:14px;min-width:0}
+
+
+.viewDragDropApp .dragvHintIcon{display:grid;place-items:center;width:39px;height:39px;flex:0 0 39px;border-radius:50%;border:1px solid #63560B;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}
+
+
+.viewDragDropApp .dragvHintEye{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}
+
+
+.viewDragDropApp .dragvHintEye img{display:block;width:20px;height:20px;object-fit:contain}
+
+
+.viewDragDropApp .dragvHintTitle small{display:block;margin-top:5px;color:#374151;font-size:14px;font-weight:400;line-height:21px}
+
+
+.viewDragDropApp .dragvQuestionSettings{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+
+.viewDragDropApp .dragvQuestionSettings label{display:block;font-size:15px;font-weight:600;margin-bottom:8px}
+
+
+.viewDragDropApp .dragvBloomValue{display:block;min-width:175px;max-width:100%;padding:9px 14px;min-height:42px;border-radius:8px;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4}
+
+
+.viewDragDropApp .dragvFlagButton{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 16px;min-height:42px;border:0;border-radius:5px;color:#C05512;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4;cursor:pointer;font:600 15px "Segoe UI","Inter",sans-serif}
+
+
+.viewDragDropApp .dragvFlagButton.isFlagged{box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+
+
+.viewDragDropApp .dragvFlagButton:disabled{cursor:default;opacity:.6}
+
+
+.viewDragDropApp .dragvInlineNotice{margin:0;color:#C05512;font-size:14px;line-height:22px}
+
+
+/* Lift Previous / Submit further up within the desktop question card; all other styling unchanged. */
+
+
+.viewDragDropApp .dragvExamActions{display:flex;align-items:center;justify-content:flex-start;gap:16px;margin-top:auto;margin-bottom:106px;padding-top:12px}
+
+
+.viewDragDropApp .dragvExamButton{display:flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:10px 18px;border:0;border-radius:30px;background:#DFE6E9;color:#374151;font:600 16px "Segoe UI","Inter",sans-serif;box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4;cursor:pointer;white-space:nowrap}
+
+
+.viewDragDropApp .dragvExamButton:disabled{opacity:.5;cursor:not-allowed}
+
+
+.viewDragDropApp .dragvExamActions>.dragvNext{margin-left:auto}
+
+
+.viewDragDropApp .dragvExamButton.dragvNext{color:#2A7308;border:1px solid #2A7308}
+
+
+
+/* Right-hand question navigator, response counters and tools. */
+
+
+.viewDragDropApp .dragvNavigator{display:flex;flex-direction:column;gap:19px;padding:24px 19px}
+
+
+.viewDragDropApp .dragvNavigator h2{margin:0;color:#2D4CC8;font-size:18px;line-height:28px;font-weight:700}
+
+
+.viewDragDropApp .dragvQuestionTiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 12px}
+
+
+.viewDragDropApp .dragvQuestionTile{min-width:0;aspect-ratio:1/1;min-height:38px;border:1px solid #adb5bb;border-radius:5px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;color:#374151;font:600 16px "Segoe UI","Inter",sans-serif;cursor:pointer}
+
+
+.viewDragDropApp .dragvQuestionTile.is-answered{border-color:#2A7308;color:#2A7308}
+
+
+.viewDragDropApp .dragvQuestionTile.is-flagged, .viewDragDropApp .dragvQuestionTile.is-skipped{border-color:#C05512;color:#C05512}
+
+
+.viewDragDropApp .dragvQuestionTile.is-current{border-color:#2D4CC8;color:#2D4CC8;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+
+
+.viewDragDropApp .dragvStatusRows{display:grid;gap:14px;margin-top:4px}
+
+
+.viewDragDropApp .dragvStatusRows>div{display:flex;align-items:center;gap:11px;min-height:44px;padding:8px 12px;border-radius:6px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:15px}
+
+
+.viewDragDropApp .dragvStatusRows img{width:22px;height:22px;object-fit:contain}
+
+
+.viewDragDropApp .dragvStatusRows strong{margin-left:auto}
+
+
+.viewDragDropApp .dragvStatusRows>div:first-child strong{color:#2A7308}
+
+
+.viewDragDropApp .dragvStatusRows>div:last-child strong{color:#C05512}
+
+
+.viewDragDropApp .dragvRemainingCircle{display:block;flex:0 0 22px;width:22px;height:22px;border:1px solid #C4C4C4;border-radius:50%}
+
+
+.viewDragDropApp .dragvToolsHeading{margin-top:8px!important}
+
+
+.viewDragDropApp .dragvToolsList{display:grid;gap:13px}
+
+
+.viewDragDropApp .dragvToolsList button{display:flex;align-items:center;gap:12px;min-height:42px;width:100%;padding:8px 12px;border:0;border-radius:5px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;text-align:left;font:600 14px "Segoe UI","Inter",sans-serif;cursor:pointer}
+
+
+.viewDragDropApp .dragvToolsList button:nth-child(1){color:#005C60}
+
+
+.viewDragDropApp .dragvToolsList button:nth-child(2){color:#780A87}
+
+
+.viewDragDropApp .dragvToolsList button:nth-child(3){color:#2A7308}
+
+
+.viewDragDropApp .dragvToolsList button img{width:22px;height:22px;flex:0 0 22px;object-fit:contain}
+
+
+.viewDragDropApp .dragvToolsList button img:last-child{width:18px;height:18px;flex:0 0 18px;margin-left:auto}
+
+
+
+/* Responsiveness: desktop proportions remain the same, cards stack on mobile. */
+
+
+@media (max-width:1050px){.viewDragDropApp .dragvContent{padding:22px 20px 40px}
+.viewDragDropApp .dragvExamGrid{grid-template-columns:minmax(0,1fr) 265px;gap:16px}
+.viewDragDropApp .dragvQuestionCard{padding:18px;min-height:0}
+.viewDragDropApp .dragvNavigator{padding:18px 12px}
+.viewDragDropApp .dragvQuestionTiles{gap:9px}
+.viewDragDropApp .dragvExamActions{flex-wrap:wrap}}
+
+
+@media (max-width:780px){.viewDragDropApp .dragvExamActions{margin-bottom:16px}
+.viewDragDropApp .dragvExamGrid{grid-template-columns:minmax(0,1fr)}
+.viewDragDropApp .dragvNavigator{padding:20px}
+.viewDragDropApp .dragvQuestionTiles{grid-template-columns:repeat(5,minmax(0,1fr))}
+.viewDragDropApp .dragvExamTop{gap:14px}
+.viewDragDropApp .dragvQuestionCard{min-height:0}
+.viewDragDropApp .dragvExamActions{flex-wrap:nowrap}}
+
+
+@media (max-width:520px){.viewDragDropApp .dragvContent{padding:16px 12px 28px}
+.viewDragDropApp .dragvExamTop .dragvBreadcrumb{font-size:12px;line-height:20px;gap:5px}
+.viewDragDropApp .dragvBreadcrumb img{width:15px;height:15px}
+.viewDragDropApp .dragvExamTop{flex-direction:column;align-items:stretch;gap:12px}
+.viewDragDropApp .dragvExamClock{align-self:center;flex:none;width:max-content;max-width:100%;margin:0 auto;padding:11px 14px;gap:7px}
+.viewDragDropApp .dragvTimeGroup{gap:6px}
+.viewDragDropApp .dragvTimeColon{font-size:19px;margin-inline:3px}
+.viewDragDropApp .dragvPageHeading h1{font-size:20px;line-height:28px}
+.viewDragDropApp .dragvQuestionCard, .viewDragDropApp .dragvNavigator{padding:14px}
+.viewDragDropApp .dragvQuestionCard{gap:17px}
+.viewDragDropApp .dragvQuestionHeading p{font-size:14px;line-height:22px}
+.viewDragDropApp .dragvAnswer{font-size:14px;line-height:22px}
+.viewDragDropApp .dragvQuestionTiles{gap:8px}
+.viewDragDropApp .dragvQuestionTile{min-height:38px}
+.viewDragDropApp .dragvQuestionSettings{align-items:flex-start}
+.viewDragDropApp .dragvFlagButton{font-size:13px}
+.viewDragDropApp .dragvExamActions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.viewDragDropApp .dragvExamActions .dragvExamButton{min-height:44px;padding:8px;font-size:12px;gap:6px}
+.viewDragDropApp .dragvExamActions>.dragvExamButton:first-child{grid-column:1}
+.viewDragDropApp .dragvExamActions>.dragvNext{grid-column:2;margin-left:0}
+.viewDragDropApp .dragvTimeDigit{width:clamp(24px,7.4vw,28px);height:32px;font-size:17px}}
+
+
+@media (max-width:360px){.viewDragDropApp .dragvExamClock{padding:9px 10px;gap:5px}
+.viewDragDropApp .dragvTimeGroup{gap:4px}
+.viewDragDropApp .dragvTimeColon{font-size:17px;margin-inline:2px}
+.viewDragDropApp .dragvTimeDigit{width:23px;height:29px;font-size:15px}
+.viewDragDropApp .dragvStatusRows>div{padding:8px}}
+
+
+@media (prefers-reduced-motion:reduce){.viewDragDropApp .dragvProgressTrack span{transition:none}}
+
+
+
+/* ==============================================================
+   DRAG & DROP VIEWER ONLY
+   This extension does not change the original viewer layout,
+   header, navigator, timer, tools, button dimensions or shadows.
+   =============================================================== */
+
+
+.viewDragDropApp .dragvDDInstruction{
+  margin: -2px 0 0;
+  color: #64717B;
+  font: 400 14px/22px "Segoe UI", Arial, sans-serif;
+  letter-spacing: .02em;
+}
+
+
+.viewDragDropApp .dragvDDQuestionText{
+  display: block;
+  margin: 0;
+  color: #374151;
+  font: 400 16px/42px "Segoe UI", Arial, sans-serif;
+  letter-spacing: .012em;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+
+.viewDragDropApp .dragvDDZone{
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  max-width: min(240px, 100%);
+  min-height: 36px;
+  padding: 5px 12px;
+  margin: 2px 6px;
+  border: 1px dashed #A6B0B6;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: none;
+  color: #60666D;
+  font: 400 14px/22px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+
+.viewDragDropApp .dragvDDZone.is-filled, .viewDragDropApp .dragvDDZone.is-focused{
+  color: #2D4CC8;
+  border-color: #2D4CC8;
+  font-weight: 600;
+}
+
+
+.viewDragDropApp .dragvDDZone:focus-visible, .viewDragDropApp .dragvDDOption:focus-visible{
+  outline: 2px solid #2D4CC8;
+  outline-offset: 2px;
+}
+
+
+.viewDragDropApp .dragvDDItemsSection{ min-width: 0; }
+
+
+.viewDragDropApp .dragvDDItemsTitle{
+  margin: 0 0 12px;
+  color: #374151;
+  font: 600 15px/23px "Segoe UI", Arial, sans-serif;
+}
+
+
+.viewDragDropApp .dragvDDItemsList{
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+
+.viewDragDropApp .dragvDDOption.dragvAnswer{
+  min-width: 0;
+  min-height: 54px;
+  border: 1px solid transparent;
+  color: #374151;
+}
+
+
+.viewDragDropApp .dragvDDOptionText{ flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+
+
+.viewDragDropApp .dragvDDOption.isSelected{
+  color: #2D4CC8;
+  border-color: #2D4CC8;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+}
+
+
+.viewDragDropApp .dragvDDOption.isSelected .dragvAnswerRadio::before{
+  background: #2D4CC8;
+  border-color: #2D4CC8;
+}
+
+
+.viewDragDropApp .dragvDDOption.isSelected .dragvAnswerRadio::after{
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 7px;
+  width: 10px;
+  height: 6px;
+  border-left: 1.5px solid #FFFFFF;
+  border-bottom: 1.5px solid #FFFFFF;
+  transform: rotate(-45deg);
+}
+
+
+.viewDragDropApp .dragvDDOption.isPending{
+  outline: 1px dashed #2D4CC8;
+  outline-offset: 2px;
+}
+
+
+.viewDragDropApp .dragvDDImageChoice{
+  display: inline-block;
+  width: auto;
+  max-width: 130px;
+  max-height: 45px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+
+.viewDragDropApp .dragvDDInlineNotice{
+  margin: -5px 0 0;
+  color: #2D4CC8;
+  font: 400 13px/20px "Segoe UI", Arial, sans-serif;
+}
+
+
+@media  (max-width: 780px) {.viewDragDropApp .dragvDDQuestionText{ font-size: 15px; line-height: 38px; }
+.viewDragDropApp .dragvDDOption.dragvAnswer{ min-height: 54px; }}
+
+
+@media  (max-width: 520px) {.viewDragDropApp .dragvDDQuestionText{ font-size: 14px; line-height: 36px; }
+.viewDragDropApp .dragvDDZone{ min-width: 83px; max-width: 100%; min-height: 34px; margin: 2px 3px; padding: 5px 8px; font-size: 12px; }
+.viewDragDropApp .dragvDDItemsList{ gap: 12px; }
+.viewDragDropApp .dragvDDOption.dragvAnswer{ padding: 9px 11px; font-size: 14px; }
+.viewDragDropApp .dragvDDInstruction{ font-size: 13px; line-height: 20px; }}
+
+
+
+/* Drag & Drop viewer - selected option checkmark (24px Figma Frame 2095586206).
+   Keep the original answer-row dimensions, layout, and navigation unchanged. */
+
+
+.viewDragDropApp .dragvDDOption.isSelected .dragvAnswerRadio{
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #DFE6E9;
+  box-shadow: 4px 4px 4px #C4C4C4, -4px -4px 4px #FFFFFF;
+}
+
+
+/* 12px blue inner circle remains visible if the optional SVG is not present. */
+
+
+.viewDragDropApp .dragvDDOption.isSelected .dragvAnswerRadio::before{
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #2D4CC8;
+  border-radius: 50%;
+  background: #2D4CC8;
+}
+
+
+/* Fallback white tick centered inside the blue circle. */
+
+
+.viewDragDropApp .dragvDDOption.isSelected .dragvAnswerRadio::after{
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  width: 6px;
+  height: 4px;
+  border-left: 1.5px solid #FFFFFF;
+  border-bottom: 1.5px solid #FFFFFF;
+  transform: rotate(-45deg);
+}
+
+
+/* Use the creator-supplied asset whenever available, without resizing the control. */
+
+
+.viewDragDropApp .dragvDDOption.isSelected .dragvDDSelectedCheckIcon{
+  position: relative;
+  z-index: 1;
+  display: block;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+
+
+/* Dedicated Drag & Drop viewer: prevents question/header overlap on mobile. */
+
+
+@media (max-width:780px){.viewDragDropApp .dragvExamGrid{grid-template-columns:minmax(0,1fr);}
+.viewDragDropApp .dragvQuestionCard, .viewDragDropApp .dragvNavigator{min-width:0;max-width:100%;}
+.viewDragDropApp .dragvQuestionText{overflow-wrap:anywhere;}
+.viewDragDropApp .dragvDDItemsList{min-width:0;}
+.viewDragDropApp .dragvDDZone{max-width:100%;overflow-wrap:anywhere;}}
+

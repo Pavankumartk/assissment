@@ -78,7 +78,7 @@ export function duplicateAssessment(id: string) {
   }
   return saveAssessment(copy);
 }
-export const DRAFT_KEYS = ["mcqQuestionCount","mcqAssessmentDraft","mcqContentDraft","mcqAssessmentEvaluationDraft","viewerAssessmentResult","viewerRetryResult","viewerCurrentQuestion","viewerRetryQuestions","viewerRetryDurationMinutes","viewerScratchPads","viewerFormulaStars","viewerFlaggedQuestionIndexes","viewerBookmarkedQuestionIndexes","viewerReviewedQuestionIndexes","shortAnswerAssessmentDraft","shortAnswerContentDraft","shortAnswerEvaluationDraft","oneWordAssessmentDraft","oneWordContentDraft","oneWordPreviewDraft","oneWordEvaluationDraft","shortAnswerViewerResult","oneWordViewerResult","shortAnswerViewerScratchPads","viewerScratchPads","shortAnswerViewerFormulaStars","fillBlanksAssessmentDraft","fillBlanksQuestionCount","fillBlanksContentDraft","fillBlanksEvaluationDraft","fillBlanksViewerState","fillBlanksViewerResult","fillBlanksViewerStarted","trueFalseAssessmentDraft","trueFalseQuestionCount","trueFalseContentDraft","trueFalseEvaluationDraft","trueFalseViewerState","trueFalseViewerResult","trueFalseViewerStarted","trueFalsePreviewStarted","trueFalsePreviewViewerState","trueFalseRetryIndexes","trueFalseRetryViewerState","trueFalseRetryResult","trueFalseViewerAttempts","trueFalseRetryQuestions","trueFalseRetryDurationMinutes","trueFalseCurrentQuestion"];
+export const DRAFT_KEYS = ["dragDropAssessmentDraft","dragDropQuestionCount","dragDropContentDraft","dragDropEvaluationDraft","dragDropViewerState","dragDropViewerResult","mcqQuestionCount","mcqAssessmentDraft","mcqContentDraft","mcqAssessmentEvaluationDraft","viewerAssessmentResult","viewerRetryResult","viewerCurrentQuestion","viewerRetryQuestions","viewerRetryDurationMinutes","viewerScratchPads","viewerFormulaStars","viewerFlaggedQuestionIndexes","viewerBookmarkedQuestionIndexes","viewerReviewedQuestionIndexes","shortAnswerAssessmentDraft","shortAnswerContentDraft","shortAnswerEvaluationDraft","oneWordAssessmentDraft","oneWordContentDraft","oneWordPreviewDraft","oneWordEvaluationDraft","shortAnswerViewerResult","oneWordViewerResult","shortAnswerViewerScratchPads","viewerScratchPads","shortAnswerViewerFormulaStars","fillBlanksAssessmentDraft","fillBlanksQuestionCount","fillBlanksContentDraft","fillBlanksEvaluationDraft","fillBlanksViewerState","fillBlanksViewerResult","fillBlanksViewerStarted","trueFalseAssessmentDraft","trueFalseQuestionCount","trueFalseContentDraft","trueFalseEvaluationDraft","trueFalseViewerState","trueFalseViewerResult","trueFalseViewerStarted","trueFalsePreviewStarted","trueFalsePreviewViewerState","trueFalseRetryIndexes","trueFalseRetryViewerState","trueFalseRetryResult","trueFalseViewerAttempts","trueFalseRetryQuestions","trueFalseRetryDurationMinutes","trueFalseCurrentQuestion","longAnswerAssessmentDraft","longAnswerContentDraft","longAnswerEvaluationDraft","longAnswerQuestionCount","longAnswerViewerReturnState","longAnswerViewerCurrentQuestion","longAnswerViewerResult"];
 /** Drop-in replacement for legacy sessionStorage usage; data is isolated by assessmentId. */
 export const assessmentStorage = {
   getItem(key:string):string|null {
@@ -108,9 +108,9 @@ export function resultPath(id = getActiveAssessmentId()): string {
 }
 
 /** Publish an assessment using its type-specific draft, without a backend. */
-export function publishAssessment(typeCode: "short-answer" | "one-word") {
- const detailKey = typeCode === "one-word" ? "oneWordAssessmentDraft" : "shortAnswerAssessmentDraft";
- const contentKey = typeCode === "one-word" ? "oneWordContentDraft" : "shortAnswerContentDraft";
+export function publishAssessment(typeCode: "short-answer" | "one-word" | "long-answer") {
+ const detailKey = typeCode === "one-word" ? "oneWordAssessmentDraft" : typeCode === "long-answer" ? "longAnswerAssessmentDraft" : "shortAnswerAssessmentDraft";
+ const contentKey = typeCode === "one-word" ? "oneWordContentDraft" : typeCode === "long-answer" ? "longAnswerContentDraft" : "shortAnswerContentDraft";
  const detail = JSON.parse(assessmentStorage.getItem(detailKey) || "{}");
  const content = JSON.parse(assessmentStorage.getItem(contentKey) || "{}");
  const questions = Array.isArray(content.questions) ? content.questions : [];

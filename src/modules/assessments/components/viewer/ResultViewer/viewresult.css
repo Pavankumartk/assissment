@@ -496,3 +496,56 @@
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
 }
+
+
+/* Drag & Drop results: only the center Results/Review panel scrolls.
+   MCQ and all other assessment Results layouts are unchanged. */
+.vrAppShell.vrDragDropResult {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+.vrAppShell.vrDragDropResult .vrLayout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+}
+.vrAppShell.vrDragDropResult .vrMain {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+.vrAppShell.vrDragDropResult .vrHeader {
+  flex: 0 0 auto;
+}
+.vrAppShell.vrDragDropResult .vrScroll {
+  flex: 1 1 0%;
+  height: auto;
+  max-height: 100%;
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.vrAppShell.vrDragDropResult .vrContent {
+  height: auto;
+  min-height: 0;
+}
+html:has(.vrAppShell.vrDragDropResult),
+body:has(.vrAppShell.vrDragDropResult) {
+  height: 100%;
+  overflow: hidden;
+}

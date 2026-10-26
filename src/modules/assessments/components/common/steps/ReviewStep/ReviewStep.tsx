@@ -32,13 +32,28 @@ function ReadSetting({ label, value }: { label: string; value: React.ReactNode }
 function ReadSwitch({ label, on }: { label: string; on: boolean }) { return <ReadSetting label={label} value={<ReviewSwitch enabled={on} />} />; }
 function InnerCard({ heading, icon, children }: { heading: string; icon: string; children: React.ReactNode }) { return <section className="reviewInnerCard"><h3><span className="reviewSmallIcon"><Asset name={icon} size={18}/></span>{heading}</h3><div className="reviewInnerRows">{children}</div></section>; }
 function ReviewSection({ number, title, icon, editRoute, children }: { number: number; title: string; icon: string; editRoute: string; children: React.ReactNode }) { return <section className="reviewSection"><div className="reviewSectionHead"><div className="reviewSectionTitle"><span className="reviewNumber"><Asset name={icon} size={20}/></span><strong>{number}. {title}</strong></div><Link className="reviewEdit" href={editRoute}><Asset name="editbig.svg" size={24}/>Edit</Link></div><div className="reviewSectionBody">{children}</div></section>; }
-export default function MCQReviewPage({ detailsKey = "mcqAssessmentDraft", contentKey = "mcqContentDraft", evaluationKey = "mcqAssessmentEvaluationDraft", fillBlanks = false, trueFalse = false }: { detailsKey?: string; contentKey?: string; evaluationKey?: string; fillBlanks?: boolean; trueFalse?: boolean } = {}) {
+export default function MCQReviewPage({ detailsKey = "mcqAssessmentDraft", contentKey = "mcqContentDraft", evaluationKey = "mcqAssessmentEvaluationDraft", fillBlanks = false, trueFalse = false, dragAndDrop = false }: { detailsKey?: string; contentKey?: string; evaluationKey?: string; fillBlanks?: boolean; trueFalse?: boolean; dragAndDrop?: boolean } = {}) {
   const router = useRouter();
   const [publishError,setPublishError]=useState("");
   const publish=()=>{
     const validDetails=validateMcqDetails(details);
     if(validDetails.ok===false){setPublishError(validDetails.message);return;}
-    if(fillBlanks){
+    if(dragAndDrop){
+      const expected=Number(details.questionCount);
+      const zones=(text:string)=>[...new Set([...text.matchAll(/\[\[(\d+)\]\]/g)].map(m=>m[1]))];
+      const valid=expected>0&&questions.length===expected&&questions.every(q=>{
+        const row=q as typeof q & {items?:{id:string;text:string;role:string}[];mapping?:Record<string,string>};
+        const ids=zones(String(q.text||""));
+        const items=Array.isArray(row.items)?row.items:[];
+        return Boolean(row.text?.trim())&&ids.length>0&&items.length>=2&&items.every(item=>Boolean(item.text?.trim()))&&
+          ids.every(id=>items.some(item=>item.id===row.mapping?.[id]&&item.role==="Correct"))&&Number(q.points)>0;
+      });
+      const marks=questions.reduce((sum,q)=>sum+Number(q.points||0),0);
+      if(!valid || (Number(details.totalMarks)>0&&Math.abs(marks-Number(details.totalMarks))>0.001)){
+        setPublishError(`Complete all ${expected||"configured"} Drag & Drop questions and map each drop zone before publishing.`);
+        return;
+      }
+    }else if(fillBlanks){
       const count = Number(details.questionCount);
       const valid = questions.length === count && questions.every(q => {
         const text = String(q.text || "");

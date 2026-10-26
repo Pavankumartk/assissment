@@ -24,6 +24,15 @@ import TFDetails from "../type-specific/true-false/Details";
 import TFContent from "../type-specific/true-false/Content";
 import TFEvaluation from "../type-specific/true-false/Evaluation";
 import TFReview from "../type-specific/true-false/Review";
+import LongDetails from "../type-specific/long-answer/Details";
+import LongContent from "../type-specific/long-answer/Content";
+import LongEvaluation from "../type-specific/long-answer/Evaluation";
+import LongReview from "../type-specific/long-answer/Review";
+
+import DDDetails from "../type-specific/drag-and-drop/Details";
+import DDContent from "../type-specific/drag-and-drop/Content";
+import DDEvaluation from "../type-specific/drag-and-drop/Evaluation";
+import DDReview from "../type-specific/drag-and-drop/Review";
 
 /** A single shared Creator for every assessment type (no MCQ-only routes). */
 export type AssessmentFormStep = "details" | "content" | "evaluation" | "review";
@@ -34,10 +43,12 @@ const STEPS = {
   review: ReviewStep,
 };
 const TYPE_STEPS = {
+ "drag-and-drop": { details:DDDetails, content:DDContent, evaluation:DDEvaluation, review:DDReview },
  "short-answer": { details:ShortDetails, content:ShortContent, evaluation:ShortEvaluation, review:ShortReview },
  "one-word": { details:OneDetails, content:OneContent, evaluation:OneEvaluation, review:OneReview },
  "fill-in-the-blanks": { details:FillDetails, content:FillContent, evaluation:FillEvaluation, review:FillReview },
  "true-false": { details:TFDetails, content:TFContent, evaluation:TFEvaluation, review:TFReview },
+ "long-answer": { details:LongDetails, content:LongContent, evaluation:LongEvaluation, review:LongReview },
 };
 export default function AssessmentForm({ step }: { step: AssessmentFormStep }) {
   const router = useRouter();
@@ -60,6 +71,6 @@ export default function AssessmentForm({ step }: { step: AssessmentFormStep }) {
     return () => window.removeEventListener("one-word-step",onWizardStep);
   }, [router]);
   if (!typeCode) return null;
-  const Screen = typeCode === "short-answer" || typeCode === "one-word" || typeCode === "fill-in-the-blanks" || typeCode === "true-false" ? TYPE_STEPS[typeCode][step] : STEPS[step];
+  const Screen = typeCode === "short-answer" || typeCode === "one-word" || typeCode === "fill-in-the-blanks" || typeCode === "true-false" || typeCode === "long-answer" || typeCode === "drag-and-drop" ? TYPE_STEPS[typeCode][step] : STEPS[step];
   return <div className={`assessment-variant assessment-variant--${typeCode}`}><Screen /></div>;
 }

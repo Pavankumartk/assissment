@@ -1,10 +1,11 @@
 /** Shared submission adapter for text-response assessment types (frontend/localStorage only). */
-export type TextMode = "short-answer" | "one-word";
+export type TextMode = "short-answer" | "one-word" | "long-answer";
 export type TextQuestion = {type:string;text:string;options:string[];correct:number;bloom:string;hint:string;allowHint:boolean;points:number;expectedAnswer?:string;explanation?:string};
 export type TextMark = "correct" | "incorrect" | "pending" | "unanswered";
 export const normalizeResponse = (value:string) => value.toLocaleLowerCase().replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();
 export function textMark(mode:TextMode, response:string, expected:string, wasChecked=false, wasCorrect=false):TextMark {
   if (!response.trim()) return "unanswered";
+  if (mode === "long-answer") return "pending";
   if (!expected.trim()) return "pending";
   if (mode === "short-answer") {
     // Free-form answers can be valid paraphrases. Don't mark an unreviewed paraphrase wrong.

@@ -2,11 +2,13 @@
 export type AssessmentTypeGroup = {heading:string;items:string[]};
 export type AssessmentTypeDefinition = { code:string; label:string; category:string; implemented:boolean };
 export const DEFAULT_ASSESSMENT_TYPES: AssessmentTypeDefinition[] = [
+ {code:"drag-and-drop",label:"Drag & Drop",category:"Interactive Assessments",implemented:true},
  {code:"mcq",label:"Multiple Choice Question (MCQ)",category:"Academic assessment",implemented:true},
  {code:"short-answer",label:"Short Answer",category:"Academic assessment",implemented:true},
  {code:"one-word",label:"One-Word Answer",category:"Academic assessment",implemented:true},
  {code:"fill-in-the-blanks",label:"Fill in the Blank",category:"Academic assessment",implemented:true},
  {code:"true-false",label:"True / False",category:"Academic assessment",implemented:true},
+ {code:"long-answer",label:"Long Answer",category:"Academic assessment",implemented:true},
 ];
 const TYPES_KEY="neurolxp.assessment-types.v1";
 export function getAssessmentTypes():AssessmentTypeDefinition[] {
@@ -28,7 +30,7 @@ export function findAssessmentTypeByLabel(label:string) {return DEFAULT_ASSESSME
 
 export const typeGroups: AssessmentTypeGroup[] = [
 
-  { heading: "Academic assessment", items: ["Multiple Choice Question (MCQ)", "Multiple Response", "True / False", "Fill in the Blank", "One-Word Answer", "Short Answer", "Long Answer / Essay", "Numeric Response", "Formula Response", "Matrix Question", "Assertion & Reason", "Ranking Question", "Quick Quiz", "Timed Quiz", "Scenario Quiz"] },
+  { heading: "Academic assessment", items: ["Multiple Choice Question (MCQ)", "Multiple Response", "True / False", "Fill in the Blank", "One-Word Answer", "Short Answer", "Long Answer", "Numeric Response", "Formula Response", "Matrix Question", "Assertion & Reason", "Ranking Question", "Quick Quiz", "Timed Quiz", "Scenario Quiz"] },
 
   { heading: "Interactive Assessments", items: ["Drag & Drop", "Match the Following", "Sequence & Order", "Connect the Dots", "Clickable Hotspot", "Interactive Diagram", "Interactive Concept Map", "Puzzle Challenge", "Memory Game", "Interactive Story"] },
 

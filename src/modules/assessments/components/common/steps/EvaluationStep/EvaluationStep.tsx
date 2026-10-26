@@ -49,7 +49,7 @@ function EvaluationNeumoDropdown({ label, value, options, onChange, disabled = f
 }
 
 
-export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", evaluationKey = "mcqAssessmentEvaluationDraft" }: { detailsKey?: string; evaluationKey?: string } = {}) {
+export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", evaluationKey = "mcqAssessmentEvaluationDraft", typeLabel = "MCQ" }: { detailsKey?: string; evaluationKey?: string; typeLabel?: string } = {}) {
   const router = useRouter();
   const redirectRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [openPanels, setOpenPanels] = useState<PanelId[]>([]);
@@ -137,7 +137,7 @@ export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", eval
     <Sidebar /><section className="mainContent evaluationMainContent"><div className="evaluationHeaderSlot"><Header /></div><div className="institutionScrollArea evaluationScrollArea"><div className="pageContent institutionPageContent evaluationPageContent">
       <nav className="evaluationBreadcrumb" aria-label="Breadcrumb"><Link href="/assessments">Assessment</Link><span className="evaluationBreadcrumbChevrons" aria-hidden="true">»</span><span>Create Assessment</span></nav>
       <ol className="evaluationWizard" aria-label="Assessment creation progress">{steps.map((step, index) => <li key={step} className={`evaluationWizardStep ${index < 3 ? "is-complete" : index === 3 ? "is-current" : "is-upcoming"}`} aria-current={index === 3 ? "step" : undefined}><WizardStepLink index={index} current={3}/><span className="evaluationWizardNumber"><span className="evaluationWizardDigit">{index + 1}</span></span><span className="evaluationWizardLabel">{step}</span></li>)}</ol>
-      <div className="evaluationTitleGroup"><h1>Assessment Evaluation (MCQ)</h1><p>Set Evaluation, Feedback, Results, And Security.</p></div>
+      <div className="evaluationTitleGroup"><h1>Assessment Evaluation ({typeLabel})</h1><p>Set Evaluation, Feedback, Results, And Security.</p></div>
       <div className="evaluationQuestionLayout"><div className="evaluationQuestionMain">
       <div className="evaluationPanels">{categories.map(category => { const isOpen = openPanels.includes(category.id); return <section key={category.id} className={`evaluationPanel evaluationPanel--${category.id} ${isOpen ? "is-open" : ""}`}>
         <div className="evaluationPanelHeader"><div className="evaluationPanelIcon" aria-hidden="true"><img src={category.iconSrc} alt="" width={37} height={37} onError={event => { event.currentTarget.style.visibility = "hidden"; }} /></div><div className="evaluationPanelText"><h2>{category.heading}</h2><p>{category.subtitle}</p></div><button type="button" className="evaluationExpandButton" aria-label={`${isOpen ? "Collapse" : "Expand"} ${category.heading}`} aria-expanded={isOpen} aria-controls={`evaluation-content-${category.id}`} onClick={() => togglePanel(category.id)}><img className="evaluationChevronAsset" src="/assets/assessmenticons/arrow-down-01.svg" width={20} height={20} alt="" /></button></div>

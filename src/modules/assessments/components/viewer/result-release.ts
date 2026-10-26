@@ -43,7 +43,7 @@ function formatDate(raw: string): string {
 export function getTextResultRelease(type: TextMode | "fill-in-the-blanks", pendingCount = 0, now = Date.now()): ReleasePolicy {
   const data = type === "one-word"
     ? {...read("oneWordEvaluationDraft"), ...read("neurolxp-one-word-evaluation")}
-    : type === "fill-in-the-blanks" ? read("fillBlanksEvaluationDraft") : read("shortAnswerEvaluationDraft");
+    : type === "fill-in-the-blanks" ? read("fillBlanksEvaluationDraft") : type === "long-answer" ? read("longAnswerEvaluationDraft") : read("shortAnswerEvaluationDraft");
   const choice = String(pick(data, "resultAvailable", "reviewAvailability", "resultAvailability", "resultReleaseMode") ?? "Immediately").trim().toLowerCase();
   const enabled = truthy(pick(data, "showResult", "showResults", "resultAfter", "showResultAfterSubmission"), true);
   let mode: ReleaseMode = "immediate";

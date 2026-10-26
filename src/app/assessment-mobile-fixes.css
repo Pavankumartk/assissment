@@ -1,0 +1,372 @@
+/* Assessment creator and learner responsive fixes.
+   Loaded after globals.css; intentionally affects only viewport widths <= 900px.
+   Keeps desktop CSS, markup, data, navigation, Sidebar, and dialogs unchanged. */
+
+@media (max-width: 900px) {
+  /* Prevent flex/grid children from forcing the whole page past the viewport. */
+  :is(.mcqMainContent,.mcqcMainContent,.evaluationMainContent,.reviewMainContent,
+      .viewerMain,.vrMain,.fillqcMainContent,.tfqcMainContent,
+      .la-main,.la-scroll,.la-page,.institutionScrollArea,.institutionPageContent,
+      .learnerAssessmentRoot) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Creator Content: settings become a second, full-width block on mobile/tablet. */
+  :is(.mcqcBuilderGrid,.mcqcColumns,.fillqcBuilderGrid,.fillqcColumns,
+      .tfqcBuilderGrid,.tfqcColumns,.la-body,
+      .evaluationQuestionLayout,.evaluationSettingGrid,
+      .learnerAssessmentTwoColumn) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  :is(.mcqcBuilderAside,.mcqcBuilderMain,.mcqcLeftColumn,
+      .fillqcBuilderAside,.fillqcBuilderMain,
+      .tfqcBuilderAside,.tfqcBuilderMain,.la-aside,.la-builder,
+      .learnerAssessmentList,.learnerAssessmentDetail) {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .assessment-variant--long-answer .la-body {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 16px !important;
+  }
+  .assessment-variant--long-answer .la-aside {
+    position: static !important;
+  }
+}
+
+@media (max-width: 700px) {
+  /* Page shells: retain the existing scrollable area, avoid page-wide clipping. */
+  :is(.mcqScrollArea,.mcqcScrollArea,.evaluationScrollArea,.reviewScrollArea,
+      .viewerScroll,.vrScroll,.fillqcScrollArea,.tfqcScrollArea,.la-scroll,
+      .institutionScrollArea) {
+    min-height: 0 !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  :is(.mcqPageContent,.mcqcPageContent,.evaluationPageContent,.reviewPageContent,
+      .viewerContent,.vrContent,.fillqcPageContent,.tfqcPageContent,
+      .la-page,.learnerAssessmentRoot) {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Plain input boxes and text areas should stay inside their nearest card. */
+  :is(.mcqPageContent,.mcqcPageContent,.evaluationPageContent,.reviewPageContent,
+      .fillqcPageContent,.tfqcPageContent,.la-page,
+      .viewerContent,.vrContent) :is(input,select,textarea) {
+    max-width: 100%;
+    min-width: 0;
+  }
+  :is(.mcqcBuilder,.mcqcQuestionsPanel,.mcqcSummaryPanel,.mcqcBuilderMain,
+      .fillqcBuilder,.fillqcBuilderMain,.fillqcSummaryPanel,
+      .tfqcBuilder,.tfqcBuilderMain,.tfqcSummaryPanel,
+      .evaluationPanel,.reviewSection,.viewerQuestionCard,.vrCard) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* MCQ / One Word / Short Answer / Fill / True-False content & question settings. */
+  :is(.mcqcBuilderGrid,.fillqcBuilderGrid,.tfqcBuilderGrid) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 16px !important;
+  }
+  :is(.mcqcRichToolbar,.fillqcRichToolbar,.tfqcRichToolbar) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 7px !important;
+  }
+  :is(.mcqcRichToolbar,.fillqcRichToolbar,.tfqcRichToolbar) > button {
+    flex: 0 0 30px !important;
+    min-width: 30px !important;
+    width: 30px !important;
+    min-height: 30px !important;
+    padding: 3px !important;
+  }
+  :is(.mcqcToolbarFont,.fillqcToolbarFont,.tfqcToolbarFont) {
+    flex: 0 1 108px !important;
+    max-width: 108px !important;
+    min-width: 88px !important;
+  }
+  :is(.mcqcToolbarSize,.fillqcToolbarSize,.tfqcToolbarSize) {
+    flex: 0 0 62px !important;
+    width: 62px !important;
+    min-width: 58px !important;
+  }
+
+  /* Details: fields, mark-scheme, learner access, and dates remain readable. */
+  :is(.mcqDetailsFields,.mcqScoringFields,.mcqTimingFields,.mcqBasicFields,
+      .mcqAudienceFields,.mcqMarkingOptions,.mcqAddLearnersColumns) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .mcqFooter,.mcqcBuilderPageFooter,.evaluationFooter,.reviewFooter {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+  .mcqFooterRight,.evaluationFooterRight {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Evaluation, review, instructions, exam, and results use single-column cards. */
+  :is(.evaluationFieldGrid,.evaluationSettingGrid,.reviewFieldGrid,
+      .reviewFieldGrid.three,.reviewInnerGrid,
+      .viewerColumns,.viewerExamGrid,.vrCardGrid,
+      .fillStartColumns,.learnerScheduleGrid) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .evaluationPanelHeader,.reviewSectionHead {
+    min-width: 0 !important;
+    gap: 10px !important;
+  }
+  .evaluationPanelText,.reviewSectionTitle {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  :is(.evaluationPanelText,.reviewSectionTitle) strong {
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+  }
+
+  /* Leave lengthy result/review tables scrollable INSIDE their cards. */
+  :is(.vrDetailTableScroll,.vrRevisionTableWrap,.learnerTableScroll,
+      .mcqAddLearnersTableScroll,.reviewTableWrap,.la-preview-rubrics) {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .learnerMetricGrid {
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  }
+
+  /* Long Answer editor: primary and settings cards stack without pushing each other. */
+  .assessment-variant--long-answer .la-app {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+  .assessment-variant--long-answer .la-page {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: 14px 12px 28px !important;
+  }
+  .assessment-variant--long-answer .la-body {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) !important;
+    gap: 16px !important;
+  }
+  .assessment-variant--long-answer :is(.la-builder,.la-aside,.la-question-area,
+     .la-rich,.la-field,.la-collapse,.la-collapse-body,.la-criterion,.la-level) {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .assessment-variant--long-answer .la-builder {
+    padding: 14px !important;
+  }
+  .assessment-variant--long-answer .la-aside {
+    position: static !important;
+    padding: 16px 14px !important;
+  }
+  .assessment-variant--long-answer .la-question-area {
+    padding: 12px !important;
+  }
+  .assessment-variant--long-answer :is(.la-fieldgrid,.la-levelgrid,
+     .la-preview-fieldgrid) {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) !important;
+    gap: 12px !important;
+  }
+  .assessment-variant--long-answer .la-preview-settings {
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  }
+  .assessment-variant--long-answer .la-level {
+    padding: 13px !important;
+  }
+  .assessment-variant--long-answer .la-rich-toolbar {
+    display: flex !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 7px !important;
+    overflow: visible !important;
+  }
+  .assessment-variant--long-answer .la-rich-toolbar > button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 28px !important;
+    width: 28px !important;
+    min-width: 28px !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+  }
+  .assessment-variant--long-answer .la-rich-toolbar .la-toolbar-dropdown {
+    display: block !important;
+    flex: 0 0 110px !important;
+    width: 110px !important;
+    min-width: 110px !important;
+    max-width: 110px !important;
+    height: 30px !important;
+  }
+  .assessment-variant--long-answer .la-rich-toolbar .la-toolbar-dropdown.la-toolbar-size {
+    flex: 0 0 60px !important;
+    width: 60px !important;
+    min-width: 60px !important;
+    max-width: 60px !important;
+  }
+  .assessment-variant--long-answer .la-rich-toolbar .la-dropdown-trigger {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    gap: 4px !important;
+    padding: 0 6px !important;
+  }
+  .assessment-variant--long-answer .la-rich-toolbar .la-dropdown-trigger > span {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+  .assessment-variant--long-answer .la-rich-toolbar .la-dropdown-trigger > img {
+    position: static !important;
+    flex: 0 0 13px !important;
+    width: 13px !important;
+    height: 13px !important;
+    margin: 0 !important;
+  }
+  .assessment-variant--long-answer .la-rich textarea {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 100px !important;
+    padding: 12px !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+  }
+
+  /* Key mobile fix: long accordion titles must NEVER be squeezed to one letter/line. */
+  .assessment-variant--long-answer .la-collapse-head {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 48px !important;
+    padding: 10px !important;
+    text-align: left !important;
+  }
+  .assessment-variant--long-answer .la-collapse-label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+  }
+  .assessment-variant--long-answer .la-collapse-label > strong {
+    display: block !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.4 !important;
+    font-size: 13px !important;
+  }
+  .assessment-variant--long-answer .la-collapse-end {
+    display: flex !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 7px !important;
+    flex: none !important;
+  }
+  .assessment-variant--long-answer .la-collapse-end small {
+    max-width: calc(100% - 34px) !important;
+    width: auto !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    text-align: right !important;
+    font-size: 11px !important;
+  }
+  .assessment-variant--long-answer .la-collapse-chevron,
+  .assessment-variant--long-answer .la-icon-round {
+    flex-shrink: 0 !important;
+  }
+  .assessment-variant--long-answer .la-welcome {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .assessment-variant--long-answer .la-page-footer {
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+  .assessment-variant--long-answer .la-page-footer > span:empty { display: none !important; }
+  .assessment-variant--long-answer .la-page-footer > button {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 10px 7px !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    text-align: center !important;
+    font-size: 13px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  :is(.mcqPageContent,.mcqcPageContent,.evaluationPageContent,.reviewPageContent,
+      .viewerContent,.vrContent,.fillqcPageContent,.tfqcPageContent,
+      .la-page,.learnerAssessmentRoot) {
+    padding-left: 9px !important;
+    padding-right: 9px !important;
+  }
+  .assessment-variant--long-answer .la-builder { padding: 10px !important; }
+  .assessment-variant--long-answer .la-question-area { padding: 9px !important; }
+  .assessment-variant--long-answer .la-collapse-body { padding: 11px 9px !important; }
+  .assessment-variant--long-answer .la-criterion { padding: 10px 0 !important; }
+  .assessment-variant--long-answer .la-rich-toolbar { gap: 5px !important; }
+  .assessment-variant--long-answer .la-preview-settings { grid-template-columns: minmax(0,1fr) !important; }
+  .learnerMetricGrid { grid-template-columns: minmax(0,1fr) !important; }
+}

@@ -7,7 +7,9 @@ import Screen from "@/modules/assessments/components/viewer/AssessmentViewer/Ass
 import ShortViewer from "@/modules/assessments/components/type-specific/short-answer/Viewer";
 import OneViewer from "@/modules/assessments/components/type-specific/one-word/Viewer";
 import FillViewer from "@/modules/assessments/components/type-specific/fill-in-the-blanks/Viewer";
+import DragDropViewer from "@/modules/assessments/components/type-specific/drag-and-drop/Viewer";
 import TrueFalseViewer from "@/modules/assessments/components/type-specific/true-false/Viewer";
+import LongViewer from "@/modules/assessments/components/type-specific/long-answer/Viewer";
 export default function Page(){
  const {assessmentId}=useParams<{assessmentId:string}>();const router=useRouter();const [ready,setReady]=useState(false);
  const isPreview=typeof window!=="undefined" && new URLSearchParams(window.location.search).get("preview")==="true";
@@ -21,6 +23,6 @@ export default function Page(){
   setActiveAssessmentId(assessmentId);setReady(true);
  },[assessmentId,isPreview,router]);
  const type=ready?getAssessment(assessmentId)?.typeCode:null;
- const Viewer=type==="short-answer"?ShortViewer:type==="one-word"?OneViewer:type==="fill-in-the-blanks"?FillViewer:type==="true-false"?TrueFalseViewer:Screen;
+ const Viewer=type==="drag-and-drop"?DragDropViewer:type==="short-answer"?ShortViewer:type==="one-word"?OneViewer:type==="fill-in-the-blanks"?FillViewer:type==="true-false"?TrueFalseViewer:type==="long-answer"?LongViewer:Screen;
  return ready&&type?<div className={`assessment-variant assessment-variant--${type}`}><Viewer/></div>:null;
 }

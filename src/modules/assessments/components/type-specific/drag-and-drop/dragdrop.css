@@ -1,0 +1,2078 @@
+/* MCQ Content — standalone Step 3; uses existing Header and Sidebar components. */
+.dragcAppShell { width: 100%; min-width: 0; height: 100dvh; background: #DFE6E9; color: #374151; font-family: "Segoe UI", "Inter", sans-serif; }
+.dragcAppShell *, .dragcAppShell *::before, .dragcAppShell *::after { box-sizing: border-box; }
+.dragcLayout { display: flex; height: 100dvh; min-width: 0; overflow: hidden; }
+.dragcMainContent { flex: 1 1 auto; display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
+.dragcHeader { flex: 0 0 auto; }
+.dragcScrollArea { flex: 1 1 auto; min-height: 0; min-width: 0; overflow-x: hidden; overflow-y: auto; }
+.dragcPageContent { width: 100%; min-width: 0; padding: 22px 24px 32px; }
+.dragcIcon { display: block; flex: 0 0 auto; object-fit: contain; }
+.dragcBreadcrumb { min-height: 30px; display: flex; align-items: center; gap: 14px; margin-bottom: 24px; font-size: 16px; line-height: 24px; letter-spacing: .02em; }
+.dragcBreadcrumb a { text-decoration: none; color: #2F3547; }
+.dragcBreadcrumb .dragcBreadcrumbCurrent { color: #2D4CC8; font-weight: 700; }
+.dragcWizard { display: flex; width: min(100%, 900px); height: 50px; margin: 0 0 36px; padding: 0; list-style: none; isolation: isolate; }
+.dragcWizardStep { --tip: 23px; position: relative; flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-width: 0; height: 50px; gap: 10px; margin-left: calc(-1 * var(--tip)); padding: 0 10px 0 26px; clip-path: polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%,var(--tip) 50%); background: #c5cdd1; color: #374151; font-size: 14px; font-weight: 600; letter-spacing: .03em; white-space: nowrap; }
+.dragcWizardStep::before { content: ""; position: absolute; inset: 1px; background: #DFE6E9; box-shadow: inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; clip-path: inherit; z-index: 0; }
+.dragcWizardStep > span { z-index: 1; position: relative; }
+.dragcWizardStep:first-child { margin-left: 0; padding-left: 8px; clip-path: polygon(0 0,calc(100% - var(--tip)) 0,100% 50%,calc(100% - var(--tip)) 100%,0 100%); }
+.dragcWizardStep:nth-child(1) { z-index: 5; }.dragcWizardStep:nth-child(2) { z-index: 4; }.dragcWizardStep:nth-child(3) { z-index: 3; }.dragcWizardStep:nth-child(4) { z-index: 2; }.dragcWizardStep:nth-child(5) { z-index: 1; }
+.dragcWizardDone { background: #2A7308; color: #2A7308; }.dragcWizardActive { background: #2D4CC8; color: #2D4CC8; font-weight: 700; }
+.dragcWizardNumber { display: grid; place-items: center; width: 21px; height: 21px; flex: 0 0 21px; border-radius: 50%; background: #DFE6E9; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px rgba(196,196,196,.8); }
+.dragcWizardNumber > span { display: grid; place-items: center; width: 13px; height: 13px; border-radius: 50%; background: #DFE6E9; box-shadow: 2px 2px 2px #C6C6C9,-2px -2px 2px #fff; font-size: 12px; color: #374151; }
+.dragcWizardDone .dragcWizardNumber > span { color: #2A7308; }.dragcWizardActive .dragcWizardNumber > span { color: #2D4CC8; }
+.dragcPageTitle { margin: 0 0 34px; }.dragcPageTitle h1 { margin: 0 0 8px; font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: .02em; }.dragcPageTitle p { margin: 0; font-size: 16px; line-height: 24px; letter-spacing: .03em; }
+.dragcColumns { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,304px); align-items: stretch; gap: 24px; min-width: 0; }.dragcLeftColumn { display: flex; flex-direction: column; gap: 32px; min-width: 0; }
+.dragcQuestionsPanel { min-height: 656px; min-width: 0; padding: 24px; border-radius: 16px; background: #DFE6E9; box-shadow: -4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.dragcQuestionsPanel h2 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; }
+.dragcEmptyState { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 555px; width: 100%; text-align: center; }.dragcEmptyIcon { margin: 5px 0 30px; width: min(129px,30vw); height: auto; aspect-ratio: 1; filter: drop-shadow(0 4px 14px rgba(0,0,0,.2)); }
+.dragcEmptyState h3 { margin: 0 0 14px; font-size: clamp(23px,2.5vw,32px); font-weight: 700; line-height: 1.25; color: #2D4CC8; letter-spacing: .02em; }.dragcEmptyState p { margin: 0 0 42px; font-size: clamp(17px,1.8vw,24px); line-height: 32px; }
+.dragcActions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; width: 100%; margin-bottom: 32px; }.dragcActions button,.dragcCreateButton,.dragcBack,.dragcConfigure { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 50px; padding: 10px 20px; border: 0; border-radius: 36px; background: #DFE6E9; box-shadow: -4px -4px 8px #fff,4px 4px 8px rgba(196,196,196,.8); color: #374151; font: 600 16px/24px "Segoe UI", "Inter", sans-serif; white-space: nowrap; cursor: pointer; transition: box-shadow .18s ease; }.dragcActions button:active,.dragcCreateButton:active,.dragcBack:active,.dragcConfigure:active { box-shadow: inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.dragcBack { width: 150px; min-height: 48px; border-radius: 24px; font-size: 18px; font-weight: 700; }
+.dragcSummaryPanel { display: flex; flex-direction: column; align-self: stretch; gap: 22px; min-width: 0; padding: 16px 14px; border-radius: 16px; background: #DFE6E9; box-shadow: -4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.dragcSummarySection,.dragcSettingsSection { border: 1px solid #ced4d8; border-radius: 5px; padding: 16px 12px; }.dragcSummaryPanel h2 { margin: 0 0 18px; font-size: 16px; line-height: 24px; font-weight: 600; }
+.dragcSummaryRow,.dragcSettingRow { display: flex; gap: 12px; min-width: 0; align-items: center; min-height: 42px; color: #374151; font-size: 14px; line-height: 20px; }.dragcSummaryRow span,.dragcSettingRow > span { flex: 1 1 auto; min-width: 0; }.dragcSummaryRow strong { font-size: 14px; font-weight: 600; white-space: nowrap; }
+.dragcSettingsSection { display: flex; flex-direction: column; gap: 8px; }.dragcSettingsSection h2 { margin-bottom: 8px; }.dragcSettingRow { min-height: 44px; gap: 10px; }
+.dragcSwitch { position: relative; width: 61px; height: 28px; flex: 0 0 61px; border: 0; border-radius: 32px; padding: 0; background: #DFE6E9; box-shadow: -4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4; cursor: pointer; }.dragcSwitch::before { content: ""; position: absolute; left: 4px; top: 4px; width: 53px; height: 20px; border-radius: 32px; background: #DFE6E9; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; }.dragcSwitchOn::before { background: linear-gradient(113.24deg,#2D4CC8 21.1%,#E01E5A 65.02%); box-shadow: none; }
+.dragcSwitchText { position: absolute; top: 4px; right: 9px; z-index: 1; color: #2F3547; font: 400 12px/20px "Segoe UI", "Inter", sans-serif; letter-spacing: .03em; }.dragcSwitchOn .dragcSwitchText { right: auto; left: 11px; color: #fff; }.dragcSwitchKnob { position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; z-index: 2; background: #606162; border-radius: 50%; }.dragcSwitchOn .dragcSwitchKnob { left: 37px; background: #DFE6E9; box-shadow: 0 -2px 4px rgba(0,0,0,.1),0 4px 4px rgba(0,0,0,.25); }
+.dragcConfigure { width: 170px; max-width: 100%; margin: 20px auto 4px; font-weight: 700; }.dragcMessage { margin: 14px 0 0; font-size: 14px; color: #2D4CC8; }
+@media (max-width: 1200px) { .dragcPageContent { padding: 20px 18px 28px; }.dragcColumns { grid-template-columns: minmax(0,1fr) minmax(235px,275px); gap: 18px; }.dragcQuestionsPanel { padding: 20px; }.dragcActions { gap: 12px; }.dragcActions button { font-size: 14px; padding-inline: 14px; } }
+@media (max-width: 950px) { .dragcColumns { grid-template-columns: minmax(0,1fr); }.dragcSummaryPanel { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }.dragcEmptyState { min-height: 470px; }.dragcQuestionsPanel { min-height: 570px; }.dragcWizardStep { --tip: 15px; gap: 6px; padding-left: 17px; font-size: 12px; } }
+@media (max-width: 700px) { .dragcPageContent { padding: 18px 14px 25px; }.dragcBreadcrumb { gap: 8px; font-size: 14px; margin-bottom: 20px; }.dragcWizard { width: 100%; height: 44px; margin-bottom: 30px; }.dragcWizardStep { --tip: 10px; height: 44px; gap: 3px; padding: 0 2px 0 11px; font-size: clamp(9px,2.2vw,11px); letter-spacing: 0; }.dragcWizardStep:first-child { padding-left: 3px; }.dragcWizardNumber { width: 18px; height: 18px; flex-basis: 18px; }.dragcWizardNumber > span { width: 12px; height: 12px; font-size: 10px; }.dragcPageTitle h1 { font-size: 19px; }.dragcPageTitle p { font-size: 14px; }.dragcQuestionsPanel { min-height: 460px; padding: 16px; }.dragcQuestionsPanel h2 { font-size: 18px; }.dragcEmptyState { min-height: 395px; }.dragcEmptyIcon { width: 86px; }.dragcEmptyState h3 { font-size: 22px; }.dragcEmptyState p { margin-bottom: 22px; font-size: 16px; line-height: 22px; }.dragcActions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }.dragcActions button { min-width: 0; min-height: 44px; padding: 8px; white-space: normal; font-size: 12px; gap: 5px; }.dragcCreateButton { min-height: 44px; font-size: 14px; }.dragcSummaryPanel { grid-template-columns: minmax(0,1fr); }.dragcBack { width: 140px; min-height: 46px; }.dragcLeftColumn { gap: 22px; } }
+@media (max-width: 380px) { .dragcWizardStep { --tip: 8px; gap: 2px; padding-left: 9px; font-size: 8px; }.dragcWizardNumber { width: 15px; height: 15px; flex-basis: 15px; }.dragcWizardNumber > span { width: 10px; height: 10px; font-size: 9px; } }
+@media (prefers-reduced-motion: reduce) { .dragcActions button,.dragcCreateButton,.dragcBack,.dragcConfigure { transition: none; } }
+/* Create Questions extension — the existing Content screen rules above are unchanged. */
+.dragcBuilder { min-width: 0; }.dragcBuilderTop { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; margin-bottom:24px; }.dragcBuilderCrumb { display:flex; flex-wrap:wrap; align-items:center; gap:10px; min-height:32px; font-size:16px; }.dragcBuilderCrumb a,.dragcBuilderCrumb button { color:#2F3547; text-decoration:none; background:none; border:0; padding:0; font:inherit; cursor:pointer; }.dragcBuilderCrumb strong { color:#2D4CC8; }.dragcBuilderWelcome { display:flex; align-items:center; justify-content:center; gap:12px; min-width:0; padding:16px 18px; background:#DFE6E9; border-radius:10px; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; text-align:center; }.dragcBuilderWelcome h2 { margin:0 0 6px; font-size:22px; line-height:28px; font-weight:700; background:linear-gradient(90deg,#2D4CC8,#E01E5A); color:transparent; background-clip:text; }.dragcBuilderWelcome p { margin:0; font-size:16px; line-height:24px; }
+.dragcBuilderGrid { display:grid; grid-template-columns:minmax(0,1fr) 304px; gap:24px; align-items:start; }.dragcBuilderMain,.dragcBuilderAside { min-width:0; background:#DFE6E9; border-radius:16px; padding:24px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }.dragcBuilderMain { display:flex; flex-direction:column; gap:24px; }.dragcQuestionNumbers { display:flex; align-items:center; gap:12px; overflow-x:auto; overscroll-behavior-x:contain; max-width:100%; padding:7px 4px 12px; scrollbar-width:thin; scrollbar-color:#b0bfc7 #dfe6e9; }.dragcQuestionNumber { width:42px; height:42px; flex:0 0 42px; border:0; border-radius:9px; color:#374151; background:#D5DADC; box-shadow:inset 2px 2px 3px #bfc5c8,inset -2px -2px 3px #fff; font:700 15px "Segoe UI", "Inter", sans-serif; cursor:pointer; }.dragcQuestionNumber.is-partial { background:#F1B566; color:#604019; }.dragcQuestionNumber.is-complete { background:#2A7308; color:#fff; }.dragcQuestionNumber.is-active { background:#2D4CC8; color:#fff; box-shadow:-3px -3px 4px #fff,3px 3px 5px #b0b6bb; }
+.dragcQuestionForm { display:flex; flex-direction:column; gap:24px; border:1px solid #AEAEAE; padding:18px; border-radius:16px; min-width:0; }.dragcBuilderField { display:flex; flex-direction:column; gap:12px; min-width:0; position:relative; }.dragcBuilderField > label,.dragcFormHeading > label { font-size:16px; line-height:24px; font-weight:600; letter-spacing:.02em; }.dragcBuilderField small { font-size:12px; font-weight:400; margin-left:8px; }.dragcBuilderField textarea,.dragcBuilderField input,.dragcSelectTrigger { width:100%; min-width:0; background:#DFE6E9; border:0; border-radius:8px; color:#374151; font:400 16px/24px "Segoe UI", "Inter", sans-serif; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; outline:0; }.dragcBuilderField textarea { display:block; resize:vertical; min-height:150px; padding:18px 20px; }.dragcBuilderField input { min-height:50px; padding:12px 16px; }.dragcBuilderField textarea:focus-visible,.dragcBuilderField input:focus-visible,.dragcSelectTrigger:focus-visible { outline:2px solid #2D4CC8; outline-offset:2px; }
+.dragcSelectRoot { position:relative; min-width:0; }.dragcSelectTrigger { min-height:58px; padding:12px 18px 12px 24px; display:flex; align-items:center; justify-content:space-between; gap:12px; text-align:left; cursor:pointer; }.dragcSelectTrigger > span { min-width:0; overflow-wrap:anywhere; }.dragcSelectList { position:absolute; top:calc(100% + 8px); left:0; width:100%; max-height:260px; overflow-y:auto; z-index:50; padding:10px; border-radius:12px; background:#DFE6E9; box-shadow:-4px -4px 8px #fff,5px 5px 12px #b8c1c6; scrollbar-width:thin; }.dragcSelectItem { display:flex; align-items:center; width:100%; min-height:42px; gap:12px; padding:9px 11px; border:0; border-radius:7px; background:transparent; text-align:left; color:#374151; font:400 14px/20px "Segoe UI", "Inter", sans-serif; cursor:pointer; }.dragcSelectItem:hover { box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }.dragcOptionRadio { width:24px; height:24px; flex:0 0 24px; display:grid; place-items:center; border-radius:50%; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }.dragcOptionRadio::after { content:''; width:12px; height:12px; border:1px solid #C6C6C9; border-radius:50%; }.dragcOptionSelected { box-shadow:-3px -3px 3px #fff,3px 3px 4px #C4C4C4; }.dragcOptionSelected::after { background:#2D4CC8; border-color:#2D4CC8; }
+.dragcRichToolbar { display:flex; flex-wrap:nowrap; gap:7px; overflow-x:auto; padding:8px; border-radius:6px; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; scrollbar-width:thin; }.dragcRichToolbar button { width:36px; height:36px; flex:0 0 36px; display:grid; place-items:center; padding:4px; border:0; border-radius:5px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 3px #C4C4C4; cursor:pointer; }.dragcFormHeading { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; }.dragcFormHeading span { font-size:13px; font-weight:400; }.dragcAnswerOptions { display:flex; flex-direction:column; gap:12px; }.dragcAnswerRow { display:flex; align-items:center; gap:12px; min-width:0; }.dragcAnswerRow input { flex:1; width:0; }.dragcAnswerRadio { flex:0 0 24px; width:24px; height:24px; border:0; border-radius:50%; display:grid; place-items:center; background:#DFE6E9; box-shadow:inset 2px 2px 2px #C4C4C4,inset -2px -2px 2px #fff; cursor:pointer; }.dragcAnswerRadio span { width:12px; height:12px; border:1px solid #C6C6C9; border-radius:50%; }.dragcAnswerRadio.selected span { background:#2D4CC8; border-color:#2D4CC8; }.dragcIconButton { flex:0 0 32px; width:32px; height:32px; display:grid; place-items:center; border:0; border-radius:7px; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; cursor:pointer; }.dragcIconButton:disabled { opacity:.4; cursor:not-allowed; }.dragcBuilderAction { display:inline-flex; justify-content:center; align-items:center; gap:8px; border:0; border-radius:28px; background:#DFE6E9; min-height:46px; padding:10px 18px; font:600 15px "Segoe UI", "Inter", sans-serif; color:#374151; box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4; cursor:pointer; white-space:nowrap; }.dragcBuilderFooter { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:14px; }.dragcBuilderFooter > button:first-child { margin-right:auto; }.dragcAddMenu { position:relative; }.dragcAddMenuList { position:absolute; bottom:calc(100% + 8px); right:0; min-width:220px; max-width:calc(100vw - 32px); padding:8px; z-index:20; background:#DFE6E9; border-radius:10px; box-shadow:-4px -4px 8px #fff,5px 5px 10px #B8C1C6; }.dragcAddMenuList button { display:block; width:100%; border:0; border-radius:6px; padding:12px; background:transparent; color:#374151; font:400 14px "Segoe UI", "Inter", sans-serif; text-align:left; cursor:pointer; }.dragcAddMenuList button:hover { box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }
+.dragcBuilderAside { display:flex; flex-direction:column; gap:24px; }.dragcBuilderAside h3 { margin:0; font-size:20px; line-height:28px; }.dragcDifficulty { display:flex; flex-wrap:wrap; gap:9px; }.dragcDifficulty button { flex:1 1 auto; padding:10px; min-height:42px; border:0; border-radius:8px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; font:600 14px "Segoe UI", "Inter", sans-serif; cursor:pointer; }.dragcDifficulty button.chosen { color:#2D4CC8; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 4px #C4C4C4; }.dragcTagRow { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:8px; border-radius:8px; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; }.dragcTagRow button { border:0; border-radius:5px; padding:5px 7px; background:#DFE6E9; color:#2D4CC8; cursor:pointer; }.dragcTagRow input { flex:1 1 80px; width:85px; min-height:32px; padding:5px; box-shadow:none; }.dragcMandatory { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:15px; font-weight:600; }
+@media (max-width:1100px) { .dragcBuilderGrid { grid-template-columns:minmax(0,1fr) 255px; gap:15px; }.dragcBuilderMain,.dragcBuilderAside { padding:17px; }.dragcBuilderWelcome { width:100%; } }
+@media (max-width:850px) { .dragcBuilderGrid { grid-template-columns:minmax(0,1fr); }.dragcBuilderAside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }.dragcBuilderAside h3 { grid-column:1/-1; }.dragcBuilderTop { flex-direction:column; }.dragcBuilderWelcome { order:2; } }
+@media (max-width:600px) { .dragcBuilderCrumb { font-size:12px; gap:5px; }.dragcBuilderCrumb .dragcIcon { width:15px; height:15px; }.dragcBuilderWelcome { padding:12px; }.dragcBuilderWelcome h2 { font-size:18px; line-height:24px; }.dragcBuilderWelcome p { font-size:13px; }.dragcBuilderMain,.dragcBuilderAside { padding:13px; border-radius:12px; }.dragcQuestionForm { padding:12px; gap:20px; }.dragcBuilderAside { grid-template-columns:minmax(0,1fr); gap:20px; }.dragcBuilderField > label,.dragcFormHeading > label { font-size:14px; }.dragcSelectTrigger { min-height:50px; padding:9px 13px; font-size:14px; }.dragcBuilderField textarea { font-size:14px; }.dragcQuestionNumbers { gap:8px; }.dragcQuestionNumber { width:38px; height:38px; flex-basis:38px; }.dragcBuilderFooter { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }.dragcBuilderFooter > button:first-child { margin:0; }.dragcBuilderAction { min-width:0; width:100%; padding:9px; font-size:13px; }.dragcAnswerRow { gap:7px; }.dragcAnswerRow input { min-height:44px; padding:8px; font-size:13px; } }
+
+/* Question builder: Figma-proportioned additions, original Content CSS above retained. */
+.dragcBuilderTop { margin-bottom:20px; }.dragcBuilderCrumb { flex:1 1 400px; }.dragcBuilderWelcome { width:min(372px,100%); min-height:104px; border:1px solid #2D4CC8; border-right-color:#E01E5A; padding:13px; }.dragcBuilderWelcome h2 { background:linear-gradient(90deg,#2D4CC8,#E01E5A); background-clip:text; -webkit-background-clip:text; color:transparent; font-size:21px; white-space:normal; }.dragcBuilderWelcome p { font-size:14px; }.dragcBuilderGrid { grid-template-columns:minmax(0,1fr) 304px; align-items:start; }.dragcBuilderMain { gap:22px; }.dragcQuestionsHeading { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }.dragcQuestionsHeading h2 { margin:0 0 6px; font-size:20px; line-height:28px; }.dragcQuestionsHeading p { margin:0; font-size:16px; }.dragcTopAdd { display:flex; align-items:center; justify-content:center; gap:9px; min-width:120px; height:48px; border:1px solid #2D4CC8; border-radius:30px; background:#DFE6E9; color:#2D4CC8; box-shadow:-3px -3px 6px #fff,3px 3px 5px #C4C4C4; font:600 18px "Segoe UI", "Inter", sans-serif; cursor:pointer; }.dragcNumberNavigation { min-width:0; display:flex; align-items:center; gap:14px; }.dragcNumberScroller { flex:1; min-width:0; overflow:hidden; }.dragcQuestionNumbers { padding:5px 3px 11px; gap:12px; }.dragcQuestionNumber { position:relative; width:67px; height:54px; flex:0 0 67px; border:1px solid #939da4; border-radius:4px; background:#DFE6E9; color:#606162; font-size:20px; box-shadow:-2px -2px 3px #fff,2px 2px 4px #aeb5b9; }.dragcQuestionNumber .dragcNumberValue { display:block; }.dragcQuestionNumber small { display:block; font-size:11px; line-height:14px; color:inherit; }.dragcQuestionNumber.is-complete { border-color:#2A7308; color:#2A7308; }.dragcQuestionNumber.is-partial { border-color:#cf560e; color:#cf560e; }.dragcQuestionNumber.is-active { border-color:#2D4CC8; color:#2D4CC8; background:#d7e0fc; }.dragcNumberStatus { position:absolute; right:3px; top:2px; display:grid; place-items:center; width:13px; height:13px; color:#fff; border-radius:50%; background:#2A7308; font-size:10px; line-height:1; }.is-partial .dragcNumberStatus { background:#c9560e; }.dragcRoundNav { display:grid; place-items:center; flex:0 0 42px; width:42px; height:42px; border:0; border-radius:50%; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4; cursor:pointer; }.dragcQuestionProgress { height:16px; padding:3px 7px; margin-top:-10px; border-radius:20px; box-shadow:inset 2px 2px 3px #c4c4c4,inset -2px -2px 3px #fff; }.dragcQuestionProgress span { display:block; height:100%; border-radius:20px; background:#2A7308; }.dragcQuestionForm { padding:16px; gap:28px; }.dragcBuilderField > label { font-size:16px; }.dragcEditorSurface { padding:10px; border-radius:8px; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 5px #C4C4C4; }.dragcEditorSurface textarea { margin-top:14px; padding:12px 4px; box-shadow:none; min-height:60px; height:75px; resize:vertical; }.dragcRichToolbar { padding:7px; }.dragcBuilderField > label small { float:right; }.dragcAnswerOptions { gap:14px; }.dragcAnswerSection { min-width:0; }.dragcAnswerExpand,.dragcAddOptions { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:12px 20px; border:0; border-radius:7px; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #c4c4c4; color:#374151; font:600 16px "Segoe UI", "Inter", sans-serif; cursor:pointer; }.dragcRotated { transform:rotate(180deg); }.dragcAnswerContent { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:10px 0 5px; padding:13px; border-radius:8px; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }.dragcAnswerContent input:not([type=radio]) { flex:1 1 150px; padding:9px 12px; min-height:42px; }.dragcCorrectOption { display:flex; align-items:center; gap:7px; font-size:13px; cursor:pointer; }.dragcCorrectOption input { accent-color:#2D4CC8; }.dragcRemoveOption { border:0; color:#c9560e; background:transparent; cursor:pointer; }.dragcAddOptions { justify-content:center; min-height:48px; margin-top:24px; }.dragcBuilderBottom { display:flex; justify-content:center; align-items:center; position:relative; min-height:52px; }.dragcBuilderArrows { position:absolute; right:0; display:flex; gap:12px; }.dragcSubmitQuestion { min-width:204px; color:#2D4CC8; border:1px solid #2D4CC8!important; font-size:18px; }.dragcBuilderAside { display:flex; flex-direction:column; gap:14px; padding:16px; }.dragcAsideSection { padding:14px 12px; border:1px solid #cbd3d8; border-radius:5px; display:flex; flex-direction:column; gap:12px; }.dragcAsideSection h3 { margin:0; font-size:16px; line-height:24px; }.dragcBuilderAside .dragcBuilderField { gap:6px; }.dragcBuilderAside .dragcBuilderField > label { font-size:14px; line-height:20px; }.dragcBuilderAside .dragcSelectTrigger,.dragcBuilderAside input { min-height:38px; padding:7px 12px; font-size:14px; }.dragcBuilderAside .dragcSelectItem { font-size:14px; }.dragcBuilderAside .dragcSelectList { max-height:325px; padding:9px; }.dragcBuilderAside .dragcOptionRadio { width:24px; height:24px; flex:0 0 24px; }.dragcTagHolder { display:flex; flex-wrap:wrap; gap:8px; }.dragcAddTag { display:flex; align-items:center; gap:5px; border:0; padding:7px; border-radius:5px; color:#2A7308; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #c4c4c4; cursor:pointer; }.dragcTagInput { width:100%; }.dragcTagRow { display:flex; flex-wrap:wrap; gap:7px; }.dragcTagRow button { font-size:11px; padding:4px 8px; color:#2A7308; border:1px solid #91b67f; border-radius:4px; background:#e1ecd8; }.dragcMandatory { margin-top:3px; font-size:14px; font-weight:600; }.dragcAsideHint { margin:-10px 0 0; font-size:11px; }.dragcBuilderSummary { margin-top:0; }.dragcStatGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }.dragcStatGrid div { min-width:0; text-align:center; }.dragcStatGrid strong { display:grid; place-items:center; height:48px; box-shadow:-2px -2px 3px #fff,2px 2px 3px #c4c4c4; border-radius:7px; color:#2D4CC8; font-size:24px; }.dragcStatGrid div:first-child strong { color:#67096E; }.dragcStatGrid div:last-child strong { color:#2A7308; }.dragcStatGrid span { display:block; margin-top:6px; font-size:12px; color:#2D4CC8; }.dragcSummaryProgress { height:4px; background:#b8c0c5; }.dragcSummaryProgress span { display:block; height:100%; background:linear-gradient(90deg,#2D4CC8,#E01E5A); }.dragcBuilderSummary > p { margin:0; font-size:11px; line-height:17px; }.dragcBuilderPageFooter { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:36px; }.dragcBuilderPageFooter > div { display:flex; gap:24px; }.dragcFooterPill { min-width:135px; height:48px; border:0; border-radius:28px; background:#DFE6E9; box-shadow:-4px -4px 5px #fff,4px 4px 6px #c4c4c4; font:600 16px "Segoe UI", "Inter", sans-serif; color:#374151; cursor:pointer; }.dragcFooterContinue { color:#2A7308; }.dragcBuilderNotice { margin:12px 0; font-size:14px; color:#2D4CC8; }.dragcAddMenuList { min-width:230px; }.dragcAddMenuList button { display:flex; align-items:center; gap:10px; }.dragcAddMenuList .dragcOptionRadio { flex:0 0 24px; }
+@media (max-width:1100px) { .dragcBuilderGrid { grid-template-columns:minmax(0,1fr) 270px; gap:17px; }.dragcBuilderMain { padding:16px; }.dragcBuilderAside { padding:12px; } }
+@media (max-width:850px) { .dragcBuilderGrid { grid-template-columns:minmax(0,1fr); }.dragcBuilderAside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }.dragcBuilderWelcome { margin-left:auto; }.dragcBuilderPageFooter { margin-top:24px; } }
+@media (max-width:600px) { .dragcBuilderTop { gap:14px; }.dragcBuilderWelcome { min-height:84px; }.dragcBuilderWelcome h2 { font-size:18px; line-height:24px; }.dragcBuilderCrumb { flex-basis:100%; font-size:12px; gap:7px; }.dragcBuilderMain { padding:12px; gap:16px; }.dragcBuilderAside { display:flex; padding:12px; }.dragcQuestionsHeading h2 { font-size:17px; line-height:24px; }.dragcQuestionsHeading p { font-size:12px; }.dragcTopAdd { min-width:88px; height:42px; font-size:15px; }.dragcNumberNavigation { gap:6px; }.dragcRoundNav { width:32px; height:32px; flex-basis:32px; }.dragcQuestionNumber { width:55px; height:53px; flex-basis:55px; }.dragcQuestionNumbers { gap:8px; }.dragcQuestionForm { padding:12px; gap:22px; }.dragcBuilderField > label { font-size:14px; }.dragcBuilderBottom { justify-content:flex-start; padding-bottom:56px; }.dragcBuilderArrows { right:0; bottom:0; }.dragcSubmitQuestion { min-width:0; padding:10px 14px; font-size:15px; }.dragcBuilderPageFooter { flex-direction:column; align-items:stretch; }.dragcBuilderPageFooter > div { gap:10px; }.dragcFooterPill { flex:1; min-width:0; padding:0 12px; font-size:14px; }.dragcAnswerExpand,.dragcAddOptions { min-height:46px; font-size:14px; padding:8px 12px; }.dragcBuilderAside .dragcSelectList { max-height:245px; } }
+
+/* Reference refinements: preserve all existing MCQ Content markup, assets and layout. */
+.dragcBuilder .dragcPointsControl { position:relative; display:flex; align-items:center; width:100%; min-width:0; height:44px; border-radius:7px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.dragcBuilder .dragcPointsControl input { flex:1; width:100%; height:100%; min-height:0; padding:7px 39px 7px 13px; border:0; border-radius:7px; box-shadow:none; background:transparent; outline:0; }
+.dragcBuilder .dragcPointsControl:focus-within { outline:2px solid #2D4CC8; outline-offset:2px; }
+.dragcPointsControl input::-webkit-inner-spin-button,.dragcPointsControl input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+.dragcPointsControl input[type=number] { -moz-appearance:textfield; appearance:textfield; }
+.dragcPointsSteppers { position:absolute; right:8px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center; width:24px; height:34px; gap:0; border-radius:3px; background:#DFE6E9; box-shadow:-1px -1px 2px #fff,1px 1px 2px #C4C4C4; }
+.dragcPointsSteppers button { display:grid; place-items:center; flex:1; width:100%; min-height:0; padding:0; border:0; background:transparent; cursor:pointer; }
+.dragcPointsSteppers .dragcArrowUp { transform:rotate(180deg); }
+.dragcPointsSteppers button:active { box-shadow:inset 1px 1px 2px #C4C4C4,inset -1px -1px 2px #fff; }
+/* Tag chips: no outside border; inset tag area and pale green chip fill. */
+.dragcBuilder .dragcTagRow { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-height:44px; padding:7px 9px; border:0; outline:0; border-radius:8px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.dragcBuilder .dragcTagRow button { display:inline-flex; gap:6px; align-items:center; min-height:26px; padding:4px 10px; border:1px solid #8cb66c; border-radius:5px; background:#E2EED9; color:#2A7308; font:400 13px/18px "Segoe UI", "Inter", sans-serif; box-shadow:none; }
+.dragcBuilder .dragcTagRow button span { color:#2A7308; font-size:16px; line-height:14px; }
+/* Summary figures and labels share the same purple, blue and green. */
+.dragcBuilderSummary .dragcStatGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.dragcBuilderSummary .dragcStatGrid > div { min-width:0; text-align:center; }
+.dragcBuilderSummary .dragcStatGrid strong { display:grid; place-items:center; height:52px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; border-radius:7px; font-size:25px; font-weight:700; }
+.dragcBuilderSummary .dragcStatGrid span { display:block; margin-top:9px; font:500 14px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilderSummary .dragcStatGrid > div:nth-child(1) strong,.dragcBuilderSummary .dragcStatGrid > div:nth-child(1) span { color:#67096E; }
+.dragcBuilderSummary .dragcStatGrid > div:nth-child(2) strong,.dragcBuilderSummary .dragcStatGrid > div:nth-child(2) span { color:#2D4CC8; }
+.dragcBuilderSummary .dragcStatGrid > div:nth-child(3) strong,.dragcBuilderSummary .dragcStatGrid > div:nth-child(3) span { color:#2A7308; }
+.dragcBuilderSummary .dragcSummaryProgress { position:relative; height:4px; margin-top:10px; background:linear-gradient(90deg,#67096E 0%,#2D4CC8 51%,#E01E5A 100%); border-radius:8px; overflow:hidden; }
+.dragcBuilderSummary .dragcSummaryProgress > span { position:absolute; left:0; top:0; height:100%; background:#2A7308; border-radius:8px; }
+/* Raised circular arrows stay legible on navigation and become subdued only when disabled. */
+.dragcBuilder .dragcRoundNav { display:grid; place-items:center; border:1px solid rgba(255,255,255,.6); border-radius:50%; background:#DFE6E9; color:#2F3547; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; cursor:pointer; opacity:1; }
+.dragcBuilder .dragcRoundNav .dragcIcon { opacity:1; visibility:visible; filter:contrast(1.4); }
+.dragcBuilder .dragcRoundNav:disabled { opacity:.48; cursor:not-allowed; }
+.dragcBuilder .dragcRoundNav:not(:disabled):hover { box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+/* Neumorphic scroll tracks for all editor scrollable areas. */
+.dragcBuilder .dragcQuestionNumbers,.dragcBuilder .dragcNumberScroller,.dragcBuilder .dragcRichToolbar,.dragcBuilder .dragcSelectList { scrollbar-width:thin; scrollbar-color:#a3b2bc #DFE6E9; }
+.dragcBuilder .dragcQuestionNumbers::-webkit-scrollbar,.dragcBuilder .dragcNumberScroller::-webkit-scrollbar,.dragcBuilder .dragcRichToolbar::-webkit-scrollbar { height:9px; }
+.dragcBuilder .dragcSelectList::-webkit-scrollbar { width:8px; }
+.dragcBuilder .dragcQuestionNumbers::-webkit-scrollbar-track,.dragcBuilder .dragcNumberScroller::-webkit-scrollbar-track,.dragcBuilder .dragcRichToolbar::-webkit-scrollbar-track,.dragcBuilder .dragcSelectList::-webkit-scrollbar-track { background:#DFE6E9; border-radius:12px; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #fff; }
+.dragcBuilder .dragcQuestionNumbers::-webkit-scrollbar-thumb,.dragcBuilder .dragcNumberScroller::-webkit-scrollbar-thumb,.dragcBuilder .dragcRichToolbar::-webkit-scrollbar-thumb,.dragcBuilder .dragcSelectList::-webkit-scrollbar-thumb { border:1px solid #DFE6E9; border-radius:12px; background:#a3b2bc; box-shadow:inset -1px -1px 2px #8c9ca6,inset 1px 1px 2px #fff; }
+@media (max-width:600px) { .dragcBuilderSummary .dragcStatGrid { gap:8px; }.dragcBuilderSummary .dragcStatGrid strong { height:46px; font-size:21px; }.dragcBuilderSummary .dragcStatGrid span { font-size:12px; }.dragcBuilder .dragcTagRow { padding:7px; }.dragcBuilder .dragcRoundNav { flex-shrink:0; } }
+/* Create Questions: reference screenshot proportions (scaled naturally with the available width). */
+.dragcBuilder { font:400 14px/20px "Segoe UI", "Inter", sans-serif; color:#374151; }
+.dragcBuilderTop { gap:16px; margin-bottom:16px; align-items:flex-start; }
+.dragcBuilderCrumb { gap:8px; min-height:32px; font-size:14px; line-height:20px; letter-spacing:.02em; }
+.dragcBuilderWelcome { width:min(320px,100%); min-height:90px; padding:12px 15px; gap:9px; border:1px solid #2D4CC8; border-right-color:#E01E5A; border-radius:9px; }
+.dragcBuilderWelcome h2 { font-size:18px; line-height:25px; letter-spacing:.02em; }
+.dragcBuilderWelcome p { font-size:13px; line-height:20px; }
+.dragcBuilderGrid { grid-template-columns:minmax(0,1fr) minmax(230px,264px); align-items:start; gap:16px; }
+.dragcBuilderMain { padding:20px 21px; gap:18px; border-radius:15px; }
+.dragcBuilderAside { padding:12px; gap:12px; border-radius:12px; }
+.dragcQuestionsHeading { align-items:center; }
+.dragcQuestionsHeading h2 { font-size:17px; line-height:23px; margin-bottom:6px; }
+.dragcQuestionsHeading p { font-size:13px; line-height:19px; }
+.dragcTopAdd { min-width:112px; height:44px; font-size:16px; }
+.dragcNumberNavigation { gap:10px; }
+.dragcQuestionNumbers { gap:12px; padding:5px 3px 11px; }
+.dragcQuestionNumber { flex:0 0 66px; width:66px; height:48px; background:#DFE6E9; color:#606162; border:1px solid #A6AFB5; border-radius:4px; font-size:17px; box-shadow:-2px -2px 3px #fff,2px 2px 4px #AEB5B9; }
+.dragcQuestionNumber.is-complete { background:#DFE6E9; border-color:#2A7308; color:#2A7308; }
+.dragcQuestionNumber.is-partial { background:#DFE6E9; border-color:#CE580B; color:#CE580B; }
+.dragcQuestionNumber.is-active { background:#D9E2FB; border-color:#2D4CC8; color:#2D4CC8; }
+.dragcQuestionNumber small { font-size:10px; line-height:13px; }
+.dragcBuilder .dragcRoundNav { width:38px; height:38px; flex:0 0 38px; background:#DFE6E9; border:1px solid #fff; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.dragcBuilder .dragcRoundNav:disabled { opacity:.46; }
+.dragcBuilder .dragcRoundNav:not(:disabled) .dragcIcon { filter:contrast(1.7); opacity:1; }
+.dragcQuestionProgress { height:15px; margin-top:-8px; }
+.dragcQuestionForm { padding:18px 14px 22px; gap:24px; border:1px solid #AEAEAE; border-radius:15px; }
+.dragcBuilderField { gap:12px; }
+.dragcBuilder .dragcBuilderField > label,.dragcBuilder .dragcFormHeading > label { font:600 14px/20px "Segoe UI", "Inter", sans-serif; letter-spacing:.02em; }
+.dragcBuilder .dragcSelectTrigger { min-height:50px; padding:9px 15px 9px 20px; font:400 14px/22px "Segoe UI", "Inter", sans-serif; border-radius:7px; box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4; }
+.dragcEditorSurface { padding:9px; border-radius:7px; }
+.dragcBuilder .dragcRichToolbar { gap:6px; padding:6px; }
+.dragcBuilder .dragcRichToolbar button { width:32px; height:32px; flex-basis:32px; }
+.dragcEditorSurface textarea { min-height:58px; height:62px; margin-top:9px; padding:10px 4px; font-size:13px; line-height:20px; }
+.dragcBuilder .dragcAnswerExpand { min-height:51px; padding:10px 18px; font:600 14px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcAnswerOptions { gap:11px; }
+.dragcBuilder .dragcAddOptions { min-height:44px; margin-top:18px; font:600 14px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilderBottom { min-height:48px; }
+.dragcSubmitQuestion { min-width:180px; height:44px; min-height:44px; font-size:15px; }
+.dragcBuilder .dragcAsideSection { padding:13px 11px; gap:11px; }
+.dragcBuilder .dragcAsideSection h3 { font:600 16px/23px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilderAside .dragcBuilderField { gap:6px; }
+.dragcBuilderAside .dragcBuilderField > label { font:600 13px/19px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilderAside .dragcSelectTrigger { min-height:33px; height:33px; padding:4px 11px; font-size:13px; line-height:19px; }
+.dragcBuilder .dragcPointsControl { min-height:33px; height:33px; }
+.dragcBuilder .dragcPointsControl input { min-height:0; height:100%; font-size:13px; padding:4px 35px 4px 10px; }
+.dragcPointsSteppers { height:27px; right:5px; width:22px; }
+.dragcBuilder .dragcSelectItem { min-height:38px; font-size:13px; line-height:20px; }
+.dragcBuilder .dragcSelectList { max-height:245px; }
+.dragcBuilder .dragcTagRow { min-height:34px; padding:5px 7px; gap:6px; }
+.dragcBuilder .dragcTagRow button { font-size:11px; min-height:22px; padding:2px 7px; }
+.dragcBuilderSummary .dragcStatGrid { gap:12px; }
+.dragcBuilderSummary .dragcStatGrid strong { height:48px; font-size:23px; }
+.dragcBuilderSummary .dragcStatGrid span { margin-top:7px; font:500 12px/18px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilderPageFooter { margin-top:36px; }
+.dragcBuilderPageFooter .dragcFooterPill { min-width:135px; height:44px; padding:8px 17px; border-radius:25px; font:700 15px/22px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcQuestionNumbers,.dragcBuilder .dragcNumberScroller,.dragcBuilder .dragcRichToolbar,.dragcBuilder .dragcSelectList { scrollbar-width:thin; scrollbar-color:#A3B2BC #DFE6E9; }
+@media (max-width:1100px) { .dragcBuilderGrid { grid-template-columns:minmax(0,1fr) 244px; gap:14px; }.dragcBuilderMain { padding:16px; }.dragcBuilderAside { padding:11px; } }
+@media (max-width:850px) { .dragcBuilderGrid { grid-template-columns:minmax(0,1fr); }.dragcBuilderAside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }.dragcBuilderTop { flex-direction:column; }.dragcBuilderWelcome { margin-left:0; }.dragcBuilderPageFooter { margin-top:24px; } }
+@media (max-width:600px) { .dragcBuilderTop { gap:12px; }.dragcBuilderCrumb { flex-basis:auto; font-size:12px; gap:5px; }.dragcBuilderWelcome { min-height:75px; padding:11px; width:100%; }.dragcBuilderWelcome h2 { font-size:17px; line-height:22px; }.dragcBuilderWelcome p { font-size:12px; line-height:18px; }.dragcBuilderMain,.dragcBuilderAside { padding:12px; gap:14px; }.dragcQuestionsHeading h2 { font-size:16px; }.dragcTopAdd { min-width:85px; height:39px; font-size:14px; }.dragcNumberNavigation { gap:6px; }.dragcQuestionNumber { width:54px; height:47px; flex-basis:54px; }.dragcQuestionNumbers { gap:8px; }.dragcBuilder .dragcRoundNav { width:33px; height:33px; flex-basis:33px; }.dragcQuestionForm { padding:12px; gap:20px; }.dragcBuilderAside { display:flex; }.dragcBuilderPageFooter { margin-top:22px; }.dragcBuilderPageFooter .dragcFooterPill { min-width:0; height:42px; font-size:13px; padding:7px 11px; }.dragcBuilder .dragcAnswerExpand { min-height:46px; }.dragcBuilder .dragcSelectTrigger { min-height:46px; }.dragcBuilderAside .dragcSelectTrigger { min-height:36px; height:36px; }.dragcBuilderBottom { padding-bottom:48px; } }
+
+/* Targeted corrections: dropdown direction, responsive settings and options. */
+.dragcBuilder .dragcAddMenu { position:relative; z-index:30; }
+.dragcBuilder .dragcAddMenuList { top:calc(100% + 8px); bottom:auto; right:0; left:auto; width:max-content; min-width:228px; max-width:min(310px,calc(100vw - 28px)); max-height:min(280px,50dvh); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#aab8c1 #dfe6e9; box-sizing:border-box; }
+.dragcBuilder .dragcAddMenuList button { min-height:43px; white-space:normal; overflow-wrap:break-word; }
+.dragcBuilder .dragcBuilderAside { min-width:0; width:100%; }
+.dragcBuilder .dragcAsideSection { min-width:0; width:100%; box-sizing:border-box; }
+.dragcBuilderAside .dragcBuilderField,.dragcBuilderAside .dragcSelectRoot,.dragcBuilderAside .dragcSelectTrigger,.dragcBuilderAside .dragcPointsControl { min-width:0; width:100%; max-width:100%; box-sizing:border-box; }
+.dragcBuilderAside .dragcSelectTrigger { display:flex; gap:8px; justify-content:space-between; }
+.dragcBuilderAside .dragcSelectTrigger > span { min-width:0; flex:1; overflow-wrap:anywhere; }
+.dragcBuilderAside .dragcSelectTrigger > .dragcIcon { flex:0 0 auto; }
+@media (max-width:850px) { .dragcBuilder .dragcBuilderAside { display:flex; flex-direction:column; gap:14px; }.dragcBuilder .dragcAsideSection { width:100%; }.dragcBuilderGrid { grid-template-columns:minmax(0,1fr); }.dragcBuilder .dragcAddMenuList { right:0; } }
+@media (max-width:600px) { .dragcBuilder .dragcBuilderAside { padding:12px; gap:13px; }.dragcBuilder .dragcAsideSection { padding:14px 12px; gap:12px; }.dragcBuilderAside .dragcBuilderField { gap:7px; }.dragcBuilderAside .dragcBuilderField > label { font-size:14px; line-height:20px; }.dragcBuilderAside .dragcSelectTrigger { min-height:42px; height:auto; padding:9px 12px; font-size:14px; line-height:20px; }.dragcBuilderAside .dragcPointsControl { min-height:42px; height:42px; }.dragcBuilder .dragcAddMenuList { right:0; left:auto; max-width:min(260px,calc(100vw - 36px)); } }
+
+/* Bottom Add Questions: same dropdown as the upper Add button, positioned below. */
+.dragcBuilder .dragcBottomAddMenu { position:relative; z-index:35; display:inline-flex; justify-content:center; }
+.dragcBuilder .dragcBottomAddMenu .dragcAddMenuList { top:calc(100% + 8px); bottom:auto; left:50%; right:auto; transform:translateX(-50%); }
+@media (max-width:600px) { .dragcBuilder .dragcBottomAddMenu .dragcAddMenuList { left:0; right:auto; transform:none; } }
+
+/* Expanded answer sections: Figma reference, scoped to question builder only. */
+.dragcBuilder .dragcAnswerSection { min-width:0; border-radius:8px; }
+.dragcBuilder .dragcAnswerContent { display:flex; flex-direction:column; gap:11px; min-width:0; padding:12px 11px 14px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; border-radius:0 0 8px 8px; }
+.dragcBuilder .dragcOptionSubLabel { display:flex; align-items:center; justify-content:space-between; gap:10px; font:600 14px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcOptionSubLabel small { font-size:12px; font-weight:400; }
+.dragcBuilder .dragcOptionEditor { min-width:0; padding:8px; border-radius:7px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; }
+.dragcBuilder .dragcOptionEditor .dragcOptionToolbar { padding:5px; gap:7px; min-height:45px; }
+.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button { width:32px; height:32px; flex:0 0 32px; }
+.dragcBuilder .dragcOptionEditor textarea { display:block; width:100%; height:70px; min-height:70px; resize:vertical; margin:8px 0 0; padding:10px 7px; background:transparent; color:#374151; border:0; border-radius:4px; box-shadow:none; outline:0; font:400 13px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcCorrectOption { display:flex; align-items:center; gap:8px; font:600 13px/19px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcCorrectOption input,.dragcBuilder .dragcHintChecks input { width:16px; height:16px; min-height:0; margin:0; accent-color:#2A7308; box-shadow:none; }
+.dragcBuilder .dragcOptionDetail { min-width:0; border-radius:6px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4; }
+.dragcBuilder .dragcOptionDetailHead { display:flex; align-items:center; gap:10px; width:100%; min-height:41px; padding:8px 12px; background:transparent; border:0; border-radius:6px; color:#374151; font:600 13px/19px "Segoe UI", "Inter", sans-serif; cursor:pointer; text-align:left; }
+.dragcBuilder .dragcDetailHeading { display:flex; align-items:center; flex:1; gap:8px; min-width:0; }
+.dragcBuilder .dragcOptionDetailHead small { margin-left:auto; font:400 11px/16px "Segoe UI", "Inter", sans-serif; white-space:nowrap; }
+.dragcBuilder .dragcOptionDetailBody { padding:6px 10px 12px; min-width:0; }
+.dragcBuilder .dragcHintChecks { display:grid; gap:8px; margin-top:10px; }
+.dragcBuilder .dragcHintChecks label { display:flex; align-items:center; gap:8px; font:400 12px/18px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcAnswerExpand[aria-expanded="true"] { border-radius:7px 7px 0 0; }
+.dragcBuilder .dragcOptionToolbar,.dragcBuilder .dragcOptionEditor textarea { scrollbar-width:thin; scrollbar-color:#a3b2bc #dfe6e9; }
+@media (max-width:600px) { .dragcBuilder .dragcAnswerContent { padding:10px 8px; }.dragcBuilder .dragcOptionDetailHead { padding:8px; }.dragcBuilder .dragcOptionEditor .dragcOptionToolbar { overflow-x:auto; }.dragcBuilder .dragcOptionEditor textarea { font-size:13px; } }
+
+/* Option accordion: full-width vertical sections, matching the supplied reference. */
+.dragcBuilder .dragcAnswerContent { display:flex; flex-direction:column; flex-wrap:nowrap; align-items:stretch; justify-content:flex-start; width:100%; margin:0; padding:14px 12px 16px; gap:14px; border-radius:0 0 8px 8px; }
+.dragcBuilder .dragcAnswerContent > * { width:100%; max-width:100%; min-width:0; flex:0 0 auto; align-self:stretch; }
+.dragcBuilder .dragcOptionSubLabel { justify-content:space-between; font-size:14px; line-height:22px; }
+.dragcBuilder .dragcOptionSubLabel small { margin-left:auto; font-size:12px; }
+.dragcBuilder .dragcOptionEditor { display:flex; flex-direction:column; width:100%; padding:8px 10px 10px; box-sizing:border-box; }
+.dragcBuilder .dragcOptionEditor .dragcOptionToolbar { width:100%; max-width:100%; min-width:0; min-height:46px; overflow-x:auto; overflow-y:hidden; flex-wrap:nowrap; }
+.dragcBuilder .dragcOptionEditor textarea { box-sizing:border-box; width:100%; max-width:100%; min-width:0; height:95px; min-height:95px; margin:8px 0 0; padding:12px 8px; font-size:14px; line-height:21px; }
+.dragcBuilder .dragcCorrectOption { display:flex; align-items:center; justify-content:flex-start; width:100%; gap:10px; white-space:normal; font-size:14px; line-height:22px; }
+.dragcBuilder .dragcCorrectOption input { display:block; flex:0 0 18px; width:18px; height:18px; min-width:18px; min-height:18px; margin:0; padding:0; }
+.dragcBuilder .dragcOptionDetail { display:block; width:100%; min-width:0; margin:0; border-radius:7px; }
+.dragcBuilder .dragcOptionDetailHead { width:100%; min-height:44px; padding:10px 14px; justify-content:space-between; font-size:14px; }
+.dragcBuilder .dragcDetailHeading { flex:1 1 auto; min-width:0; justify-content:flex-start; }
+.dragcBuilder .dragcOptionDetailHead small { margin-left:auto; }
+.dragcBuilder .dragcOptionDetailBody { width:100%; padding:10px 12px 14px; }
+.dragcBuilder .dragcHintChecks { width:100%; }
+@media (max-width:600px) { .dragcBuilder .dragcAnswerContent { padding:10px 8px 12px; gap:12px; }.dragcBuilder .dragcOptionEditor { padding:7px; }.dragcBuilder .dragcOptionDetailHead { padding:9px 10px; gap:7px; }.dragcBuilder .dragcOptionDetailHead small { font-size:11px; }.dragcBuilder .dragcOptionEditor textarea { min-height:85px; height:85px; }.dragcBuilder .dragcOptionEditor .dragcOptionToolbar { gap:5px; } }
+
+/* Option editors: Figma typography, compact toolbar and square selection controls. */
+.dragcBuilder .dragcOptionEditor .dragcOptionToolbar { display:flex; align-items:center; gap:7px; padding:6px 8px; min-height:48px; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; }
+.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button { flex:0 0 34px; width:34px; height:34px; min-width:34px; padding:5px; font:600 16px/22px "Segoe UI", "Inter", sans-serif; border-radius:4px; }
+.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button.dragcToolbarSelect { display:inline-flex; align-items:center; justify-content:space-between; flex:0 0 auto; width:auto; gap:9px; padding:5px 9px; font:400 14px/22px "Segoe UI", "Inter", sans-serif; white-space:nowrap; }
+.dragcBuilder .dragcOptionEditor .dragcOptionToolbar .dragcToolbarFont { min-width:84px; }
+.dragcBuilder .dragcOptionEditor .dragcOptionToolbar .dragcToolbarSize { min-width:53px; }
+.dragcBuilder .dragcOptionEditor .dragcOptionToolbar .dragcIcon { width:18px; height:18px; }
+.dragcBuilder .dragcOptionEditor textarea { resize:none; font:400 16px/24px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcOptionSubLabel { font:600 16px/24px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcOptionSubLabel small { font:400 12px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcCorrectOption,.dragcBuilder .dragcHintChecks label { font:600 14px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcCorrectOption input[type="checkbox"],.dragcBuilder .dragcHintChecks input[type="checkbox"] { appearance:none; -webkit-appearance:none; display:grid; place-items:center; flex:0 0 24px; width:24px; height:24px; min-width:24px; min-height:24px; padding:0; margin:0; border:0; border-radius:4px; background:#DFE6E9; box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px rgba(196,196,196,.8); cursor:pointer; }
+.dragcBuilder .dragcCorrectOption input[type="checkbox"]:checked,.dragcBuilder .dragcHintChecks input[type="checkbox"]:checked { box-shadow:-4px -4px 4px #fff,4px 4px 4px rgba(196,196,196,.8); }
+.dragcBuilder .dragcCorrectOption input[type="checkbox"]:checked::after,.dragcBuilder .dragcHintChecks input[type="checkbox"]:checked::after { content:""; display:block; width:16px; height:16px; border-radius:3px; background:#2D4CC8; clip-path:polygon(0 0,100% 0,100% 100%,0 100%); }
+.dragcBuilder .dragcCorrectOption input[type="checkbox"]:checked::after { background:#2A7308; }
+.dragcBuilder .dragcCorrectOption input[type="checkbox"]:checked,.dragcBuilder .dragcHintChecks input[type="checkbox"]:checked { position:relative; }
+.dragcBuilder .dragcCorrectOption input[type="checkbox"]:checked::before,.dragcBuilder .dragcHintChecks input[type="checkbox"]:checked::before { content:""; position:absolute; left:8px; top:6px; width:6px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); z-index:1; }
+.dragcBuilder .dragcOptionDetailHead { font:600 16px/24px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcOptionDetailHead small { font:400 12px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcOptionDetailHead .dragcIcon { flex-shrink:0; }
+@media (max-width:700px) { .dragcBuilder .dragcOptionEditor .dragcOptionToolbar { gap:5px; padding:5px; }.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button { flex-basis:30px; width:30px; min-width:30px; height:30px; }.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button.dragcToolbarSelect { padding-inline:7px; font-size:12px; }.dragcBuilder .dragcOptionEditor .dragcOptionToolbar .dragcToolbarFont { min-width:74px; }.dragcBuilder .dragcOptionEditor .dragcOptionToolbar .dragcToolbarSize { min-width:46px; }.dragcBuilder .dragcOptionEditor textarea { font-size:14px; line-height:22px; }.dragcBuilder .dragcOptionDetailHead { font-size:14px; } }
+
+/* Main question editor: same Segoe UI, family and size controls as option editors. */
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar { display:flex; align-items:center; gap:6px; min-width:0; min-height:45px; padding:5px 7px; overflow-x:auto; overflow-y:hidden; flex-wrap:nowrap; scrollbar-width:thin; scrollbar-color:#aab8c1 #DFE6E9; }
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar button { flex:0 0 32px; width:32px; height:32px; min-width:32px; padding:5px; border:0; border-radius:3px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:600 16px/22px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar button.dragcToolbarSelect { flex:0 0 auto; width:auto; display:inline-flex; align-items:center; justify-content:space-between; gap:8px; padding:4px 9px; font:400 14px/22px "Segoe UI", "Inter", sans-serif; white-space:nowrap; }
+.dragcBuilder .dragcEditorSurface .dragcToolbarFont { min-width:83px; }
+.dragcBuilder .dragcEditorSurface .dragcToolbarSize { min-width:52px; }
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar .dragcIcon { width:18px; height:18px; }
+.dragcBuilder .dragcEditorSurface textarea { font:400 16px/24px "Segoe UI", "Inter", sans-serif; resize:none; }
+.dragcBuilder .dragcDetailHeading { gap:9px; font:600 16px/24px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcOptionDetailHead { gap:12px; }
+/* Uniform rich-text editors: question, option text, feedback, explanation and hint. */
+.dragcBuilder .dragcEditorSurface,.dragcBuilder .dragcOptionEditor { width:100%; min-width:0; padding:8px; border-radius:8px; background:#DFE6E9; box-shadow:inset 3px 3px 5px #C4C4C4,inset -3px -3px 5px #fff; }
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar { display:flex; align-items:center; flex-wrap:wrap; gap:7px; width:100%; min-width:0; min-height:46px; padding:6px 8px; overflow:visible; border-radius:5px; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar button,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button { display:inline-flex; align-items:center; justify-content:center; flex:0 0 32px; width:32px; min-width:32px; height:32px; padding:5px; border:0; border-radius:4px; background:#DFE6E9; box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4; font:600 16px/22px "Segoe UI", "Inter", sans-serif; cursor:pointer; }
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar button.dragcToolbarSelect,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button.dragcToolbarSelect { display:inline-flex; justify-content:space-between; align-items:center; flex:0 0 auto; width:auto; gap:8px; padding:4px 9px; font:400 14px/22px "Segoe UI", "Inter", sans-serif; white-space:nowrap; }
+.dragcBuilder .dragcEditorSurface .dragcToolbarFont,.dragcBuilder .dragcOptionEditor .dragcToolbarFont { min-width:84px; }
+.dragcBuilder .dragcEditorSurface .dragcToolbarSize,.dragcBuilder .dragcOptionEditor .dragcToolbarSize { min-width:52px; }
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar .dragcIcon,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar .dragcIcon { width:18px; height:18px; }
+.dragcBuilder .dragcEditorSurface textarea,.dragcBuilder .dragcOptionEditor textarea { display:block; box-sizing:border-box; width:100%; max-width:100%; min-width:0; height:95px; min-height:95px; margin:8px 0 0; padding:12px 8px; border:0; border-radius:4px; background:transparent; box-shadow:none; outline:0; resize:none; color:#374151; font:400 16px/24px "Segoe UI", "Inter", sans-serif; }
+.dragcBuilder .dragcEditorSurface textarea:focus-visible,.dragcBuilder .dragcOptionEditor textarea:focus-visible { outline:2px solid #2D4CC8; outline-offset:-2px; }
+@media (max-width:700px) { .dragcBuilder .dragcEditorSurface,.dragcBuilder .dragcOptionEditor { padding:6px; } .dragcBuilder .dragcEditorSurface .dragcOptionToolbar,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar { gap:5px; padding:5px; } .dragcBuilder .dragcEditorSurface .dragcOptionToolbar button,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button { width:30px; min-width:30px; height:30px; flex-basis:30px; } .dragcBuilder .dragcEditorSurface .dragcOptionToolbar button.dragcToolbarSelect,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button.dragcToolbarSelect { padding:4px 7px; font-size:12px; flex-basis:auto; } .dragcBuilder .dragcEditorSurface textarea,.dragcBuilder .dragcOptionEditor textarea { min-height:90px; height:90px; font-size:14px; line-height:22px; } }
+/* Keep every rich-text toolbar on exactly one row, including Hint. */
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar { display:flex; flex-direction:row; flex-wrap:nowrap; align-items:center; justify-content:flex-start; gap:10px; min-width:0; width:100%; min-height:44px; padding:5px 6px; overflow-x:auto; overflow-y:hidden; white-space:nowrap; scrollbar-width:thin; }
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar button,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button { flex:0 0 31px; width:31px; min-width:31px; height:32px; padding:4px; }
+.dragcBuilder .dragcEditorSurface .dragcOptionToolbar button.dragcToolbarSelect,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button.dragcToolbarSelect { flex:0 0 auto; width:auto; white-space:nowrap; }
+.dragcBuilder .dragcEditorSurface .dragcToolbarFont,.dragcBuilder .dragcOptionEditor .dragcToolbarFont { min-width:80px; }
+.dragcBuilder .dragcEditorSurface .dragcToolbarSize,.dragcBuilder .dragcOptionEditor .dragcToolbarSize { min-width:50px; }
+@media (max-width:700px) { .dragcBuilder .dragcEditorSurface .dragcOptionToolbar,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar { flex-wrap:nowrap; gap:4px; padding:5px; } .dragcBuilder .dragcEditorSurface .dragcOptionToolbar button,.dragcBuilder .dragcOptionEditor .dragcOptionToolbar button { flex:0 0 30px; min-width:30px; width:30px; } }
+/* Remove Option: raised action aligned to the right edge of the expanded answer. */
+.dragcBuilder .dragcAnswerContent .dragcRemoveOption { display:inline-flex; align-items:center; justify-content:center; align-self:flex-end; width:max-content; max-width:100%; min-height:36px; margin:6px 0 0 auto; padding:7px 16px; border:1px solid #d95e23; border-radius:8px; background:#DFE6E9; color:#c9560e; box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4; font:600 14px/20px "Segoe UI", "Inter", sans-serif; white-space:nowrap; cursor:pointer; }
+.dragcBuilder .dragcAnswerContent .dragcRemoveOption:active { box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+/* Available previous/next arrows must be dark and visible; only disabled arrows are faded. */
+.dragcBuilder .dragcRoundNav:not(:disabled) { opacity:1; color:#141B34; }
+.dragcBuilder .dragcRoundNav:not(:disabled) .dragcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(1258%) hue-rotate(190deg) brightness(95%) contrast(93%)!important; }
+.dragcBuilder .dragcRoundNav:disabled { opacity:.43; cursor:not-allowed; }
+.dragcBuilder .dragcRoundNav:disabled .dragcIcon { opacity:.5; filter:grayscale(1); }
+@media(max-width:600px) { .dragcBuilder .dragcAnswerContent .dragcRemoveOption { min-height:34px; padding:6px 12px; font-size:13px; } }
+/* Question navigation: first question has a softly dimmed Previous arrow;
+   from question 2 onward Previous and Next have identical enabled contrast. */
+.dragcBuilder .dragcRoundNav:disabled { opacity:1; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; cursor:not-allowed; }
+.dragcBuilder .dragcRoundNav:disabled .dragcIcon { opacity:.58!important; visibility:visible!important; filter:grayscale(1) brightness(0) saturate(100%) invert(65%) sepia(6%) saturate(320%) hue-rotate(165deg)!important; }
+.dragcBuilder .dragcRoundNav:not(:disabled) { opacity:1; background:#DFE6E9; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }
+.dragcBuilder .dragcRoundNav:not(:disabled) .dragcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(1258%) hue-rotate(190deg) brightness(95%) contrast(93%)!important; }
+/* Previous arrow on Question 1: same clearly visible dark icon as the Next arrow; button stays disabled. */
+.dragcBuilder .dragcRoundNav:disabled .dragcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+/* Once Previous is enabled it gets the same dark arrow treatment as Next. */
+.dragcBuilder .dragcRoundNav:not(:disabled) .dragcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+
+/* Both navigation arrows always use the same visible appearance. */
+.dragcBuilder .dragcRoundNav,.dragcBuilder .dragcRoundNav:not(:disabled) { opacity:1!important; color:#141B34; cursor:pointer; }
+.dragcBuilder .dragcRoundNav .dragcIcon,.dragcBuilder .dragcRoundNav:not(:disabled) .dragcIcon { opacity:1!important; visibility:visible!important; filter:brightness(0) saturate(100%) invert(9%) sepia(16%) saturate(1102%) hue-rotate(183deg) brightness(94%) contrast(95%)!important; }
+
+/* Create Questions breadcrumb: no preceding back-icon button; links remain responsive. */
+.dragcAppShell .dragcBuilderCrumb > .dragcBreadcrumbReturn,
+.dragcAppShell .dragcBreadcrumb > .dragcBreadcrumbReturn { display:none!important; }
+.dragcBuilderCrumb { min-width:0; flex-wrap:wrap; }
+@media (max-width:600px) { .dragcBuilderCrumb { column-gap:6px; row-gap:8px; } }
+
+/* Connected Preview Questions — scoped so the original builder remains unchanged. */
+.dragcPreview { color:#374151; font:400 14px/1.5 "Segoe UI", "Inter", sans-serif; min-width:0; }
+.dragcPreviewCrumb { display:flex; align-items:center; flex-wrap:wrap; gap:9px; margin:0 0 18px; font-size:14px; }
+.dragcPreviewCrumb a,.dragcPreviewCrumb button { border:0; padding:0; background:transparent; color:#374151; text-decoration:none; font:inherit; cursor:pointer; }
+.dragcPreviewCrumb strong { color:#2D4CC8; }
+.dragcPreviewCard { padding:20px; border-radius:16px; background:#DFE6E9; box-shadow:-4px -4px 5px #fff,4px 4px 5px #C4C4C4; min-width:0; }
+.dragcPreviewCard>header h2 { font-size:18px; margin:0 0 4px; }.dragcPreviewCard>header p { margin:0 0 14px; }
+.dragcPreviewControls { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; margin-bottom:16px; }
+.dragcPreviewTotals { display:flex; flex-wrap:wrap; gap:10px; padding:10px; border-radius:9px; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; }
+.dragcPreviewTotals>div { min-width:100px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:1px solid #D0D7DB; border-radius:5px; padding:6px 10px; }
+.dragcPreviewTotals strong { font-size:14px; }.dragcPreviewTotals span { font-size:12px; }.dragcPreviewTotals .dragcPreviewReady { min-width:155px; flex-direction:row; gap:8px; justify-content:flex-start; }
+.dragcPreviewReady strong,.dragcGreen { color:#2A7308; }.dragcPreviewReady small { display:block; }.dragcOrange { color:#CC670D; }
+.dragcPreviewTools { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }.dragcPreviewFilter { position:relative; }.dragcPreviewFilter>button,.dragcPreviewLearner { display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:38px; padding:7px 14px; border:0; border-radius:6px; background:#DFE6E9; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font:inherit; color:#374151; cursor:pointer; }
+.dragcPreviewLearner { box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; color:#2D4CC8; font-weight:600; }.dragcPreviewFilter>div { position:absolute; top:100%; left:0; z-index:20; min-width:160px; padding:6px; border-radius:8px; background:#DFE6E9; box-shadow:3px 3px 7px #C4C4C4,-3px -3px 7px #fff; }.dragcPreviewFilter>div button { display:block; width:100%; border:0; padding:9px; text-align:left; background:transparent; cursor:pointer; }
+.dragcPreviewQuestion { padding:16px; border:1px solid #B4BDC2; border-radius:16px; min-width:0; }.dragcPreviewMeta { display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px; }.dragcPreviewMeta>span,.dragcPreviewMeta>button { min-height:31px; padding:6px 12px; border:1px solid #C6CFD4; border-radius:22px; background:#DFE6E9; font-size:12px; }.dragcPreviewMeta>button { display:flex; align-items:center; gap:6px; cursor:pointer; color:#374151; }
+.dragcPreviewPanel { margin-bottom:17px; border-radius:6px; overflow:hidden; box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4; }.dragcPreviewPanel>h3,.dragcPreviewSectionHead { width:100%; margin:0; padding:12px 16px; text-align:left; font:600 14px/21px "Segoe UI", "Inter", sans-serif; background:#DFE6E9; border:0; box-shadow:0 2px 4px #C4C4C4; color:#374151; }.dragcPreviewPanel>p { margin:0; min-height:58px; padding:18px 16px; font-size:14px; }.dragcPreviewSectionHead { display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+.dragcPreviewAnswers,.dragcPreviewLearning { padding:12px; display:grid; gap:8px; }.dragcPreviewAnswer { display:flex; gap:9px; align-items:center; min-width:0; padding:8px 12px; border:1px solid #D3DBD9; border-radius:5px; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; }.dragcPreviewAnswer.correct { border-color:#6C9C58; color:#28750B; }.dragcPreviewAnswer.incorrect { color:#A4333D; }.dragcAnswerLetter { padding:1px 6px; box-shadow:inset 1px 1px 2px #C4C4C4,inset -1px -1px 2px #fff; }.dragcPreviewAnswerText { flex:1; min-width:0; overflow-wrap:anywhere; }.dragcPreviewAnswer small { padding:3px 8px; border:1px solid currentColor; border-radius:15px; white-space:nowrap; }
+.dragcPreviewLearning section { padding:12px; border-radius:6px; box-shadow:-2px -2px 4px #fff,2px 2px 4px #C4C4C4; }.dragcPreviewLearning h4 { display:flex; align-items:center; gap:8px; margin:0 0 12px; font-size:14px; }.dragcPreviewLearning section>p { margin:8px 0; padding:0 24px; white-space:pre-wrap; }.dragcPreviewFeedbackItem { margin:7px 0 7px 26px; border:1px solid #D0D7DB; }.dragcPreviewFeedbackItem>button { width:100%; display:flex; align-items:center; gap:9px; border:0; padding:8px 10px; background:#DFE6E9; color:#374151; font:inherit; text-align:left; cursor:pointer; }.dragcPreviewFeedbackItem>button .dragcIcon:last-child { margin-left:auto; }.dragcPreviewFeedbackItem p { padding:12px 14px; margin:0; white-space:pre-wrap; }
+.dragcPreviewSettings { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; padding:14px; }.dragcPreviewSettings>div { min-width:0; }.dragcPreviewSettings>div>span { display:block; margin-bottom:7px; font-size:13px; }.dragcPreviewSettings strong { display:flex; align-items:center; gap:8px; min-height:38px; padding:7px 9px; border-radius:5px; box-shadow:inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font-size:13px; font-weight:600; overflow-wrap:anywhere; }.dragcPreviewSettings .dragcIcon { flex-shrink:0; }
+.dragcPreviewBottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-top:20px; }.dragcPreviewBottom button,.dragcPreviewEmpty button { min-height:40px; border:0; border-radius:25px; padding:9px 18px; background:#DFE6E9; box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4; color:#374151; font:600 14px "Segoe UI", "Inter", sans-serif; cursor:pointer; }.dragcPreviewBottom .dragcPreviewSave { color:#2D4CC8; }.dragcPreviewPager { display:flex; align-items:center; gap:10px; }.dragcPreviewPager button:disabled { opacity:.45; cursor:default; }.dragcPreviewEmpty { text-align:center; padding:25px; }
+@media(max-width:850px) { .dragcPreviewSettings { grid-template-columns:repeat(2,minmax(0,1fr)); }.dragcPreviewControls { align-items:flex-start; } }
+@media(max-width:600px) { .dragcPreviewCard { padding:12px; }.dragcPreviewQuestion { padding:10px; }.dragcPreviewCrumb { font-size:12px; gap:5px; }.dragcPreviewControls { gap:12px; }.dragcPreviewTotals { width:100%; }.dragcPreviewTotals>div { flex:1 1 75px; min-width:0; }.dragcPreviewTotals .dragcPreviewReady { flex:1 1 135px; }.dragcPreviewTools { width:100%; gap:9px; }.dragcPreviewSettings { gap:10px; }.dragcPreviewAnswer small { font-size:10px; white-space:normal; }.dragcPreviewAnswer { padding:8px 6px; gap:5px; }.dragcPreviewBottom { justify-content:center; }.dragcPreviewFeedbackItem { margin-left:0; }.dragcPreviewLearning,.dragcPreviewAnswers { padding:8px; }.dragcPreviewLearning section { padding:9px; } }
+
+/* Figma Preview Questions corrections — scoped to preview; builder and shared layout untouched. */
+.dragcPreview { font-family:"Segoe UI", "Inter", sans-serif; font-size:16px; line-height:1.5; color:#374151; }
+.dragcPreviewCrumb { font-size:16px; line-height:24px; gap:8px; margin-bottom:20px; letter-spacing:.02em; }
+.dragcPreviewCard { border-radius:16px; padding:24px; box-shadow:-8px -8px 16px #FFFFFF,8px 8px 16px #C4C4C4; }
+.dragcPreviewCard>header h2 { font-size:20px; line-height:28px; font-weight:700; margin-bottom:7px; }
+.dragcPreviewCard>header p { font-size:16px; line-height:24px; margin-bottom:18px; }
+.dragcPreviewControls { margin-bottom:20px; gap:20px; }
+.dragcPreviewTotals { padding:8px 12px; gap:12px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.dragcPreviewTotals>div { min-height:55px; }.dragcPreviewTotals strong { font-size:16px; }.dragcPreviewTotals span { font-size:14px; }
+.dragcPreviewQuestion { padding:18px; border:1px solid #B7C1C5; border-radius:16px; }
+.dragcPreviewMeta { gap:16px; margin-bottom:20px; }.dragcPreviewMeta>span,.dragcPreviewMeta>button { font-size:14px; }
+.dragcPreviewPanel { margin-bottom:20px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.dragcPreviewPanel>h3,.dragcPreviewSectionHead { font:600 18px/26px "Segoe UI", "Inter", sans-serif; padding:13px 16px; box-shadow:0 3px 5px #C4C4C4; }
+.dragcPreviewPanel>p { font-size:16px; line-height:24px; padding:18px 16px; }
+.dragcPreviewAnswers,.dragcPreviewLearning { padding:14px; gap:12px; }
+.dragcPreviewAnswer { min-height:45px; padding:9px 13px; font-size:16px; gap:12px; box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4; }
+.dragcPreviewAnswer.correct { border-color:#6A994E; color:#267208; }.dragcPreviewAnswer.incorrect { color:#B62B38; }
+.dragcPreviewAnswer small { font-size:12px; line-height:18px; }
+.dragcPreviewLearning section { padding:15px; box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4; }
+.dragcPreviewLearning h4 { font-size:18px; font-weight:600; line-height:26px; gap:10px; }
+.dragcPreviewFeedbackItem { margin:9px 0 9px 26px; border:1px solid #D1D6D9; }
+.dragcPreviewFeedbackItem>button { padding:12px; gap:11px; font:400 16px/24px "Segoe UI", "Inter", sans-serif; }
+.dragcPreviewFeedbackItem p,.dragcPreviewLearning section>p { font-size:16px; line-height:24px; }
+.dragcPreviewSettings { gap:16px; padding:16px; }.dragcPreviewSettings>div>span { font-size:16px; margin-bottom:9px; }
+.dragcPreviewSettings strong { min-height:48px; font:600 16px/24px "Segoe UI", "Inter", sans-serif; padding:9px 12px; box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4; }
+.dragcPreviewBottom { justify-content:space-between; margin-top:22px; }.dragcPreviewBottom button { min-height:48px; padding:10px 22px; font-size:18px; box-shadow:-4px -4px 4px #FFFFFF,4px 4px 8px #C4C4C4; }
+.dragcPreviewStatusIcon { display:inline-grid; place-items:center; flex:0 0 auto; border:2px solid currentColor; border-radius:50%; font-family:"Segoe UI", "Inter", sans-serif; font-weight:800; line-height:1; background:#DFE6E9; box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4; }
+.dragcPreviewStatusIcon.is-correct { color:#287B10; }.dragcPreviewStatusIcon.is-wrong { color:#C12A3A; }
+.dragcPreviewFeedbackItem .dragcPreviewStatusIcon,.dragcPreviewLearning h4 .dragcPreviewStatusIcon { opacity:1; }
+@media(max-width:850px) { .dragcPreviewSettings { grid-template-columns:repeat(2,minmax(0,1fr)); }.dragcPreviewCard { padding:18px; } }
+@media(max-width:600px) { .dragcPreviewCard { padding:12px; }.dragcPreviewQuestion { padding:10px; }.dragcPreviewCrumb { font-size:12px; line-height:20px; }.dragcPreviewPanel>h3,.dragcPreviewSectionHead { font-size:15px; line-height:22px; padding:11px 12px; }.dragcPreviewLearning h4 { font-size:15px; line-height:22px; }.dragcPreviewAnswer,.dragcPreviewFeedbackItem>button,.dragcPreviewFeedbackItem p,.dragcPreviewLearning section>p { font-size:13px; line-height:19px; }.dragcPreviewAnswer { gap:6px; padding:7px; }.dragcPreviewAnswer small { font-size:10px; }.dragcPreviewSettings { grid-template-columns:minmax(0,1fr); gap:10px; }.dragcPreviewSettings>div>span,.dragcPreviewSettings strong { font-size:14px; }.dragcPreviewBottom button { font-size:14px; min-height:44px; }.dragcPreviewMeta { gap:7px; }.dragcPreviewMeta>span,.dragcPreviewMeta>button { font-size:11px; }.dragcPreviewTotals>div { min-width:0; }.dragcPreviewLearning section { padding:10px; } }
+
+/* Preview-only Figma measurements: compact settings, pills, status glyphs. */
+.dragcPreview, .dragcPreview button {font-family:"Segoe UI", "Inter", sans-serif;}
+.dragcPreviewReadyCheck {display:grid;place-items:center;flex:0 0 18px;width:18px;height:18px;border-radius:2px;color:#fff;background:#2A7308;font:700 13px/18px "Segoe UI", "Inter", sans-serif;box-shadow:-2px -2px 2px #fff,2px 2px 2px rgba(196,196,196,.8);}
+.dragcPreviewReady {display:flex;align-items:center;gap:8px;}
+.dragcPreviewReady strong {font-weight:600;color:#2A7308;}
+.dragcPreviewMeta {display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:24px;}
+.dragcPreviewMeta > span,.dragcPreviewMeta > button {display:inline-flex;align-items:center;justify-content:center;min-height:40px;height:40px;padding:0 14px;border:0;border-radius:32px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;color:#2F3547;font:400 14px/20px "Segoe UI", "Inter", sans-serif;letter-spacing:.03em;white-space:nowrap;}
+.dragcPreviewMeta > span:first-child {min-width:142px;}.dragcPreviewMeta > span:nth-child(2) {min-width:165px;gap:4px;}.dragcPreviewMeta > button {min-width:81px;gap:8px;cursor:pointer;}
+.dragcPreviewMeta b.dragcGreen {color:#2A7308;font-weight:600;}.dragcPreviewMeta b.dragcOrange {font-weight:600;}
+.dragcPreviewStatusIcon {width:24px!important;height:24px!important;border:0!important;border-radius:50%;background:#DFE6E9;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #fff;font:800 15px/24px "Segoe UI", "Inter", sans-serif!important;text-align:center;opacity:1!important;}
+.dragcPreviewStatusIcon.is-correct {color:#fff;background:radial-gradient(circle at center,#2A7308 0 49%,#DFE6E9 53% 100%);}
+.dragcPreviewStatusIcon.is-wrong {color:#fff;background:radial-gradient(circle at center,#A91E2C 0 49%,#DFE6E9 53% 100%);}
+.dragcPreviewAnswer.incorrect .dragcPreviewStatusIcon {background:#DFE6E9;color:#C6C6C9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:0!important;}
+.dragcPreviewAnswer.incorrect .dragcPreviewStatusIcon::after {content:"";width:12px;height:12px;border:1.5px solid #C6C6C9;border-radius:50%;display:block;margin:6px auto;}
+.dragcPreviewFeedbackItem {margin:8px 0 8px 26px;border:0;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;overflow:hidden;}
+.dragcPreviewFeedbackItem > button {display:flex;align-items:center;min-height:44px;width:100%;padding:8px 14px;gap:12px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font:600 16px/24px "Segoe UI", "Inter", sans-serif;}
+.dragcPreviewFeedbackItem > button .dragcIcon {margin-left:auto;opacity:1;}
+.dragcPreviewFeedbackItem > p {margin:0;padding:15px 30px;font:400 14px/22px "Segoe UI", "Inter", sans-serif;letter-spacing:.02em;}
+.dragcPreviewSettings {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding:14px 16px;align-items:start;}
+.dragcPreviewSettings > div {min-width:0;}.dragcPreviewSettings > div > span {font:400 14px/20px "Segoe UI", "Inter", sans-serif;margin-bottom:7px;letter-spacing:.02em;}
+.dragcPreviewSettings strong {min-height:40px;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font:600 14px/20px "Segoe UI", "Inter", sans-serif;overflow-wrap:anywhere;}
+.dragcPreviewSettings strong .dragcIcon {width:18px;height:18px;flex:0 0 18px;visibility:visible;opacity:1;}
+@media(max-width:900px) {.dragcPreviewSettings {grid-template-columns:repeat(3,minmax(0,1fr));}.dragcPreviewMeta {gap:10px;}}
+@media(max-width:600px) {.dragcPreviewSettings {grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px;}.dragcPreviewSettings > div > span {font-size:12px;}.dragcPreviewSettings strong {font-size:12px;min-height:40px;padding:7px;}.dragcPreviewMeta {justify-content:flex-start;gap:8px;}.dragcPreviewMeta > span,.dragcPreviewMeta > button {font-size:12px;min-height:36px;height:36px;padding:0 10px;min-width:0!important;}.dragcPreviewFeedbackItem {margin-left:0;}.dragcPreviewFeedbackItem > button {font-size:13px;padding:8px;}.dragcPreviewFeedbackItem > p {padding:12px;font-size:13px;}}
+@media(max-width:370px) {.dragcPreviewSettings {grid-template-columns:minmax(0,1fr);}}
+
+/* Figma status marks: raised 24px circle, green tick / red cross; 18px Ready square. */
+.dragcPreview .dragcPreviewStatusIcon {position:relative;display:inline-grid;place-items:center;width:24px!important;height:24px!important;flex:0 0 24px;border:0!important;border-radius:50%;background:#DFE6E9!important;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF!important;opacity:1!important;font-size:0!important;}
+.dragcPreview .dragcPreviewStatusIcon::before {content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#2A7308;}
+.dragcPreview .dragcPreviewStatusIcon.is-correct::after {content:"";position:absolute;width:7px;height:4px;border-left:1.8px solid #fff;border-bottom:1.8px solid #fff;transform:translateY(-1px) rotate(-45deg);}
+.dragcPreview .dragcPreviewStatusIcon.is-wrong::before {background:#A91E2C;}
+.dragcPreview .dragcPreviewStatusIcon.is-wrong::after {content:"×";position:absolute;inset:0;display:grid;place-items:center;color:#FFFFFF;font:700 14px/24px "Segoe UI", "Inter", sans-serif;}
+.dragcPreview .dragcPreviewAnswer.incorrect .dragcPreviewStatusIcon {background:#DFE6E9!important;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4!important;}
+.dragcPreview .dragcPreviewAnswer.incorrect .dragcPreviewStatusIcon::before {width:12px;height:12px;background:transparent;border:1.5px solid #C6C6C9;}
+.dragcPreview .dragcPreviewAnswer.incorrect .dragcPreviewStatusIcon::after {content:none;}
+.dragcPreview .dragcPreviewReadyCheck {position:relative;display:inline-grid;place-items:center;width:18px;height:18px;flex:0 0 18px;border-radius:2px;background:#DFE6E9;box-shadow:-2px -2px 2px #fff,2px 2px 2px rgba(196,196,196,.8);font-size:0;}
+.dragcPreview .dragcPreviewReadyCheck::before {content:"";width:14px;height:14px;background:#2A7308;border-radius:2px;}
+.dragcPreview .dragcPreviewReadyCheck::after {content:"";position:absolute;width:7px;height:4px;border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;transform:translateY(-1px) rotate(-45deg);}
+
+/* Preview Question Settings: four fields on row one; Tags on row two. */
+.dragcPreviewSettings { grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.dragcPreviewSettings > div:nth-child(4) { grid-column:1 / span 2; grid-row:2; } /* Tags */
+.dragcPreviewSettings > div:nth-child(5) { grid-column:4; grid-row:1; } /* Mandatory */
+@media (max-width:900px) {
+  .dragcPreviewSettings { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .dragcPreviewSettings > div:nth-child(4) { grid-column:1 / -1; grid-row:3; }
+  .dragcPreviewSettings > div:nth-child(5) { grid-column:2; grid-row:2; }
+}
+@media (max-width:480px) {
+  .dragcPreviewSettings { grid-template-columns:minmax(0,1fr); }
+  .dragcPreviewSettings > div:nth-child(4) { grid-column:1; grid-row:5; }
+  .dragcPreviewSettings > div:nth-child(5) { grid-column:1; grid-row:4; }
+}
+
+/* Center the wrong-feedback cross geometrically inside its raised circle. */
+.dragcPreview .dragcPreviewStatusIcon.is-wrong::after {content:"";inset:auto;left:50%;top:50%;display:block;width:10px;height:10px;transform:translate(-50%,calc(-30% - 2px));background:linear-gradient(45deg,transparent calc(50% - 1px),#fff calc(50% - 1px),#fff calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(-45deg,transparent calc(50% - 1px),#fff calc(50% - 1px),#fff calc(50% + 1px),transparent calc(50% + 1px));}
+
+/* Smaller wrong-answer X only; circle and shadow remain unchanged. */
+.dragcPreview .dragcPreviewStatusIcon.is-wrong::after {width:9px;height:9px;}
+
+/* Question-number scrollbar only: fixed short thumb, while the numbers remain horizontally scrollable. */
+.dragcBuilder .dragcQuestionNumbers { scrollbar-width:none; padding-bottom:5px; }
+.dragcBuilder .dragcQuestionNumbers::-webkit-scrollbar { display:none; height:0; }
+.dragcNumberShortTrack { position:relative; width:100%; height:9px; margin-top:9px; border-radius:12px; background:#DFE6E9; box-shadow:inset 2px 2px 3px #C4C4C4,inset -2px -2px 3px #FFFFFF; }
+.dragcNumberShortThumb { position:absolute; top:0; width:var(--dragc-scroll-thumb, min(67px,26%)); height:9px; border-radius:12px; background:#7C878D; transition:left .08s linear; }
+@media(max-width:600px) { .dragcNumberScroller { --dragc-scroll-thumb:min(38px,26%); } }
+
+/* Question Type dropdown: matching field width, expandable reference groups. */
+.dragcTypeRoot { width:100%; min-width:0; }
+.dragcTypeDropdown { position:absolute; z-index:100; left:0; right:0; top:calc(100% + 7px); width:100%; min-width:0; max-height:min(490px,65vh); overflow-y:auto; overscroll-behavior:contain; padding:12px 14px; border-radius:12px; background:#DFE6E9; box-shadow:-4px -4px 8px #FFFFFF,5px 5px 10px #B8C1C6; scrollbar-width:thin; scrollbar-color:#ABB7BF #DFE6E9; }
+.dragcTypeSearch { display:flex; align-items:center; gap:12px; min-width:0; min-height:52px; padding:8px 13px; border-radius:8px; background:#DFE6E9; box-shadow:inset -3px -3px 4px #FFFFFF,inset 3px 3px 4px #C4C4C4; }
+.dragcTypeSearch input { flex:1 1 0; min-width:0; width:100%; height:34px; padding:0; border:0; outline:0; background:transparent; box-shadow:none!important; font:400 16px/24px "Segoe UI", "Inter", sans-serif; color:#374151; }
+.dragcTypeSearch input::-webkit-search-cancel-button { cursor:pointer; }
+.dragcTypeGroups { margin-top:12px; }
+.dragcTypeGroup { border-top:1px solid #C8D2D7; }
+.dragcTypeHeading { display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%; min-height:61px; padding:12px 10px; border:0; background:transparent; text-align:left; color:#2D4CC8; font:700 17px/24px "Segoe UI", "Inter", sans-serif; cursor:pointer; }
+.dragcTypeHeading > span { min-width:0; overflow-wrap:anywhere; }
+.dragcTypeHeading > .dragcIcon { margin-left:auto; }
+.dragcTypeOptions { padding:0 0 12px; }
+.dragcTypeOption { display:flex; align-items:center; gap:14px; min-height:49px; width:100%; padding:9px 10px; border:0; border-radius:6px; background:transparent; text-align:left; color:#2F3547; font:400 16px/24px "Segoe UI", "Inter", sans-serif; cursor:pointer; }
+.dragcTypeOption:hover,.dragcTypeOption:focus-visible { background:rgba(255,255,255,.3); outline:0; }
+.dragcTypeOption > span:last-child { min-width:0; overflow-wrap:anywhere; }
+.dragcTypeOption .dragcOptionRadio { flex:0 0 26px; width:26px; height:26px; border-radius:50%; }
+.dragcTypeOption .dragcOptionSelected::after { width:13px; height:13px; background:#2D4CC8; border-color:#2D4CC8; }
+.dragcTypeEmpty { padding:12px; margin:0; font-size:14px; }
+@media(max-width:600px) { .dragcTypeDropdown { max-height:min(440px,60vh); padding:10px; }.dragcTypeSearch { min-height:45px; }.dragcTypeSearch input { font-size:14px; }.dragcTypeHeading { font-size:15px; min-height:52px; }.dragcTypeOption { font-size:14px; line-height:21px; gap:10px; padding:8px; }.dragcTypeOption .dragcOptionRadio { flex-basis:24px; width:24px; height:24px; } }
+
+/* Question Type only: slightly shorter search input and visible selected tick. */
+.dragcTypeSearch { min-height:44px; padding:5px 13px; }
+.dragcTypeSearch input { height:30px; min-height:0; }
+.dragcTypeOption .dragcOptionSelected { position:relative; }
+.dragcTypeOption .dragcOptionSelected::after { width:17px; height:17px; border:0; background:#2D4CC8; border-radius:50%; }
+.dragcTypeOption .dragcOptionSelected::before { content:""; position:absolute; z-index:1; top:9px; left:10px; width:7px; height:5px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg); pointer-events:none; }
+@media(max-width:600px) { .dragcTypeSearch { min-height:42px; padding:5px 11px; }.dragcTypeSearch input { height:28px; }.dragcTypeOption .dragcOptionSelected::before { top:8px; left:9px; } }
+
+/* Combined Content save and continue, compact inline success popup. */
+.dragcBuilderPageFooter .dragcSaveContinueGroup {display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap;}
+.dragcSaveSuccessToast {display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:7px 18px;border:1.5px solid #C05512;border-radius:24px;color:#C05512;background:#DFE6E9;font:600 14px/20px "Segoe UI", "Inter", sans-serif;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;white-space:nowrap;}
+.dragcBuilderPageFooter .dragcSaveContinueGroup .dragcFooterContinue {min-width:190px;color:#2A7308;}
+.dragcBuilderPageFooter .dragcSaveContinueGroup .dragcFooterContinue:disabled {opacity:.75;cursor:default;}
+@media(max-width:600px){.dragcBuilderPageFooter .dragcSaveContinueGroup{justify-content:stretch;gap:9px;}.dragcSaveSuccessToast{font-size:12px;min-height:36px;padding:7px 12px;}.dragcBuilderPageFooter .dragcSaveContinueGroup .dragcFooterContinue{min-width:0;flex:1 1 170px;}}
+
+/* Functional rich editing toolbar. Existing layout and controls are unchanged. */
+.dragcRichEditorRoot { min-width:0; position:relative; }
+.dragcRichEditorRoot .dragcRichToolbar { overflow:visible; flex-wrap:wrap; position:relative; z-index:4; }
+.dragcRichMenuRoot { position:relative; flex:0 0 auto; }
+.dragcRichEditorRoot .dragcRichToolbar .dragcToolbarSelect { display:flex; align-items:center; justify-content:space-between; gap:9px; width:auto; min-width:75px; padding:5px 9px; font:400 14px "Segoe UI", "Inter", sans-serif; }
+.dragcRichEditorRoot .dragcRichToolbar .dragcToolbarFont { min-width:115px; }
+.dragcRichEditorRoot .dragcRichToolbar .dragcToolbarSize { min-width:62px; }
+.dragcRichDropdown { position:absolute; top:calc(100% + 7px); left:0; z-index:30; width:max-content; min-width:100%; max-width:min(300px,85vw); border-radius:9px; padding:6px; background:#DFE6E9; box-shadow:-4px -4px 8px #fff,5px 5px 9px #b8c1c6; }
+.dragcRichEditorRoot .dragcRichToolbar .dragcRichDropdown button { width:100%; min-width:105px; height:auto; min-height:36px; display:block; text-align:left; padding:8px 12px; box-shadow:none; font:400 14px "Segoe UI", "Inter", sans-serif; }
+.dragcRichEditorRoot .dragcRichToolbar .dragcRichDropdown button:hover,.dragcRichEditorRoot .dragcRichToolbar .dragcRichDropdown button:focus-visible { box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; }
+.dragcRichEditorRoot .dragcRichToolbar .dragcRichSymbols { display:grid; grid-template-columns:repeat(6,36px); gap:4px; left:auto; right:0; max-width:260px; }
+.dragcRichEditorRoot .dragcRichToolbar .dragcRichSymbols button { min-width:0; width:36px; min-height:34px; text-align:center; padding:4px; font-size:18px; }
+.dragcRichEditable { margin-top:12px; width:100%; min-height:75px; max-width:100%; padding:12px 6px; color:#374151; font:400 16px/24px "Segoe UI", "Inter", sans-serif; white-space:pre-wrap; overflow-wrap:anywhere; outline:none; }
+.dragcRichEditable:empty::before { content:attr(data-placeholder); color:#8b969d; pointer-events:none; }
+.dragcRichEditable:focus-visible { outline:2px solid #2D4CC8; outline-offset:2px; border-radius:6px; }
+.dragcRichEditable img { max-width:100%; max-height:260px; height:auto; border-radius:5px; vertical-align:middle; }
+.dragcRichEditable a { color:#2D4CC8; overflow-wrap:anywhere; }
+@media(max-width:600px) { .dragcRichEditorRoot .dragcRichToolbar { gap:6px; padding:6px; } .dragcRichEditorRoot .dragcRichToolbar button { min-height:34px; } .dragcRichEditorRoot .dragcRichToolbar .dragcToolbarFont { min-width:94px; } .dragcRichEditorRoot .dragcRichSymbols { max-width:230px; } .dragcRichEditable { font-size:14px; } }
+
+/* Font/size lists mount at document level to avoid toolbar and card overflow clipping. */
+.dragcFloatingFormatMenu {
+  position: fixed;
+  z-index: 2147483000;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: min(230px, 70dvh);
+  overflow-y: auto;
+  padding: 7px;
+  border: 1px solid #ced5d9;
+  border-radius: 10px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 8px #FFFFFF, 5px 5px 10px #b8c1c6;
+  scrollbar-width: thin;
+}
+.dragcFloatingFormatMenu button {
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 37px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: #DFE6E9;
+  color: #374151;
+  text-align: left;
+  font: 400 14px/20px "Segoe UI", "Inter", sans-serif;
+  cursor: pointer;
+}
+.dragcFloatingFormatMenu button:hover,
+.dragcFloatingFormatMenu button[aria-selected="true"] {
+  color: #2D4CC8;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+}
+
+/* Consistent responsive formatting-tool spacing in every rich-text editor.
+   Keep this at the end of content.css so older question/option overrides cannot
+   apply different button sizes and gaps to otherwise identical toolbars. */
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 8px;
+  overflow: visible;
+  box-sizing: border-box;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > button,
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot {
+  flex: 1 1 42px;
+  width: auto;
+  min-width: 38px;
+  max-width: none;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot:has(.dragcToolbarFont) {
+  flex: 2.4 1 112px;
+  min-width: 105px;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot:has(.dragcToolbarSize) {
+  flex: 1.4 1 68px;
+  min-width: 65px;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  min-height: 42px;
+  margin: 0;
+  box-sizing: border-box;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot > button.dragcToolbarSelect {
+  justify-content: space-between;
+  padding: 6px 10px;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > button {
+  display: grid;
+  place-items: center;
+  min-height: 42px;
+}
+@media (max-width: 700px) {
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar { gap: 7px; padding: 7px; }
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > button,
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot {
+    flex-basis: 36px;
+    min-width: 34px;
+    height: 36px;
+  }
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot:has(.dragcToolbarFont) { flex-basis: 98px; min-width: 95px; }
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot:has(.dragcToolbarSize) { flex-basis: 60px; min-width: 56px; }
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > button,
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot > button { height: 36px; min-height: 36px; }
+}
+
+/* Keep every rich editor toolbar on exactly one horizontal row. */
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > button,
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot {
+  flex: 0 0 42px;
+  width: 42px;
+  min-width: 42px;
+  max-width: 42px;
+  height: 42px;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot:has(.dragcToolbarFont) {
+  flex: 0 0 124px;
+  width: 124px;
+  min-width: 124px;
+  max-width: 124px;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot:has(.dragcToolbarSize) {
+  flex: 0 0 76px;
+  width: 76px;
+  min-width: 76px;
+  max-width: 76px;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot > button,
+.dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > button {
+  height: 42px;
+  min-height: 42px;
+}
+@media (max-width: 700px) {
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar { flex-wrap: nowrap; gap: 7px; padding: 7px; }
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > button,
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot {
+    flex: 0 0 36px; width: 36px; min-width: 36px; max-width: 36px; height: 36px;
+  }
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot:has(.dragcToolbarFont) {
+    flex: 0 0 106px; width: 106px; min-width: 106px; max-width: 106px;
+  }
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot:has(.dragcToolbarSize) {
+    flex: 0 0 65px; width: 65px; min-width: 65px; max-width: 65px;
+  }
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > .dragcRichMenuRoot > button,
+  .dragcBuilder .dragcRichEditorRoot .dragcRichToolbar.dragcOptionToolbar > button { height: 36px; min-height: 36px; }
+}
+
+/* Keep list markers INSIDE the editable surface: no dots overlapping its outer frame. */
+.dragcRichEditorRoot .dragcRichEditable { padding-left: 18px; padding-right: 18px; overflow-x: hidden; }
+.dragcRichEditorRoot .dragcRichEditable ul,
+.dragcRichEditorRoot .dragcRichEditable ol { padding-left: 26px; margin: 6px 0 8px; list-style-position: outside; }
+.dragcRichEditorRoot .dragcRichEditable li { padding-left: 3px; margin: 3px 0; }
+.dragcRichEditorRoot .dragcRichEditable ul { list-style-type: disc; }
+.dragcRichEditorRoot .dragcRichEditable ol { list-style-type: decimal; }
+.dragcRichEditorRoot .dragcRichEditable:focus-visible { outline: none; }
+
+/* Bullet/numbered list visibility: put markers inside the text box (not under its border). */
+.dragcBuilder .dragcRichEditorRoot .dragcRichEditable ul,
+.dragcBuilder .dragcRichEditorRoot .dragcRichEditable ol {
+  display: block;
+  list-style-position: inside;
+  padding: 0 8px;
+  margin: 8px 0;
+  overflow: visible;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichEditable ul { list-style-type: disc; }
+.dragcBuilder .dragcRichEditorRoot .dragcRichEditable ol { list-style-type: decimal; }
+.dragcBuilder .dragcRichEditorRoot .dragcRichEditable li {
+  display: list-item;
+  list-style-position: inside;
+  padding: 2px 0;
+  margin: 2px 0;
+  overflow-wrap: anywhere;
+}
+.dragcBuilder .dragcRichEditorRoot .dragcRichEditable li::marker { color: #2F3547; }
+
+/* Portal-based special-character picker: remains visible outside toolbar scrolling
+   and above all editor cards; same neumorphic treatment as font/size menus. */
+.dragcFloatingFormatMenu.dragcFloatingSymbols {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-content: start;
+  gap: 5px;
+  max-height: min(280px, 65dvh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px;
+  z-index: 2147483000;
+}
+.dragcFloatingFormatMenu.dragcFloatingSymbols > button {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  text-align: center;
+  font: 500 19px/1 "Segoe UI", "Inter", sans-serif;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+@media(max-width: 460px) {
+  .dragcFloatingFormatMenu.dragcFloatingSymbols {grid-template-columns: repeat(5, minmax(0, 1fr));}
+}
+
+/* Question count navigation: no unnecessary track for seven or fewer questions. */
+.dragcBuilder .dragcFewQuestions .dragcNumberShortTrack { display:none; }
+.dragcBuilder .dragcFewQuestions .dragcQuestionNumbers { width:max-content; max-width:100%; gap:8px; padding-bottom:5px; }
+.dragcBuilder .dragcFewQuestions .dragcNumberScroller { overflow:visible; }
+.dragcBuilder .dragcFewQuestions .dragcQuestionNumbers { overflow-x:auto; scrollbar-width:none; }
+.dragcBuilder .dragcFewQuestions .dragcQuestionNumbers::-webkit-scrollbar { display:none; }
+/* For more questions, keep horizontal movement available without a visible scrollbar. */
+.dragcBuilder .dragcManyQuestions .dragcQuestionNumbers { overflow-x:auto; scrollbar-width:none; }
+.dragcBuilder .dragcManyQuestions .dragcQuestionNumbers::-webkit-scrollbar { display:none; }
+@media (max-width:700px) {
+  .dragcBuilder .dragcFewQuestions .dragcNumberScroller { overflow:hidden; }
+}
+
+/* Question-number navigation only: compact for short sets; invisible scrolling for long sets. */
+.dragcBuilder .dragcNumberNavigation { justify-content:flex-start; }
+.dragcBuilder .dragcNumberShortTrack { display:none !important; }
+.dragcBuilder .dragcNumberScroller { min-width:0; }
+.dragcBuilder .dragcQuestionNumbers { overflow-x:auto; overflow-y:hidden; scrollbar-width:none !important; -ms-overflow-style:none; scroll-behavior:smooth; }
+.dragcBuilder .dragcQuestionNumbers::-webkit-scrollbar { display:none !important; width:0; height:0; }
+.dragcBuilder .dragcFewQuestions .dragcNumberScroller { flex:0 1 auto; width:max-content; max-width:calc(100% - 112px); overflow:hidden; }
+.dragcBuilder .dragcFewQuestions .dragcQuestionNumbers { width:max-content; max-width:100%; gap:8px; }
+.dragcBuilder .dragcManyQuestions .dragcNumberScroller { flex:1 1 0; width:auto; overflow:hidden; }
+.dragcBuilder .dragcManyQuestions .dragcQuestionNumbers { width:100%; }
+@media (max-width:600px) {
+  .dragcBuilder .dragcFewQuestions .dragcNumberScroller { max-width:calc(100% - 78px); }
+}
+
+/* Fill in the Blanks functionality only. Existing Figma dimensions and shadows stay intact. */
+.dragcValidationErrors { margin:6px 0 0; color:#B42318; font:400 13px/21px "Segoe UI", "Inter", sans-serif; }
+.dragcValidationErrors p { margin:3px 0; }
+.dragcValidationError { color:#B42318!important; }
+.dragcBlankTarget { display:flex;align-items:center;gap:12px;min-width:0;flex-wrap:wrap; }
+.dragcBlankTarget label { font:600 14px/21px "Segoe UI", "Inter", sans-serif; }
+.dragcBlankTarget .dragcSelectRoot { flex:1 1 150px;max-width:260px; }
+.dragcNumberStatus .dragcIcon { width:13px;height:13px; }
+@media(max-width:600px){ .dragcBlankTarget { align-items:stretch;flex-direction:column;gap:7px; }.dragcBlankTarget .dragcSelectRoot { flex-basis:auto;max-width:100%;width:100%; } }
+
+/* Interactive learner preview is displayed only after selecting Learner Preview. */
+.dragcLearnerBlanks { padding:12px 16px 17px;display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px; }
+.dragcLearnerBlanks label { flex:1 1 190px;min-width:0;display:flex;flex-direction:column;gap:7px;font:600 14px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcLearnerBlanks input { width:100%;min-width:0;min-height:44px;padding:8px 12px;border:0;border-radius:6px;background:#DFE6E9;color:#374151;font:400 15px/22px "Segoe UI", "Inter", sans-serif;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4; }
+.dragcLearnerBlanks small.is-correct { color:#267208; }.dragcLearnerBlanks small.is-wrong { color:#B42318; }
+.dragcLearnerBlanks button { flex:0 0 auto; }
+@media(max-width:600px){.dragcLearnerBlanks{padding:10px;gap:10px}.dragcLearnerBlanks label{flex-basis:100%}.dragcLearnerBlanks button{width:100%}}
+
+/* Only dropdown-arrow appearance: 12% larger and slightly stronger.
+   SVGs still come from the existing assessmenticons folder; no control sizes or shadows change. */
+.dragcBuilder .dragcSelectTrigger > .dragcIcon,
+.dragcBuilder .dragcAnswerExpand > .dragcIcon,
+.dragcBuilder .dragcOptionDetailHead > .dragcIcon,
+.dragcBuilder .dragcTypeHeading > .dragcIcon {
+  scale: 1.12;
+  filter: drop-shadow(0 0 .5px #2F3547);
+}
+
+/* Keep all special-character choices, including the three-dot ellipsis,
+   contained in the Sigma dropdown without changing toolbar/icon dimensions. */
+.dragcFloatingFormatMenu.dragcFloatingSymbols {
+  box-sizing: border-box;
+  overscroll-behavior: contain;
+}
+.dragcFloatingFormatMenu.dragcFloatingSymbols > button {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Targeted spacing adjustments: no other page, toggle dimensions, or shadows changed. */
+.dragcAppShell .dragcSwitch { margin-right: 8px; }
+.dragcAppShell .dragcSwitch:not(.dragcSwitchOn) .dragcSwitchText { right: 12px; }
+.dragcAppShell .dragcPreviewEmpty button { margin-top: 16px; }
+.dragcAppShell .dragcPreviewBottom { margin-top: 30px; }
+
+/* True / False creator — screenshot-specific visibility and small responsive fixes.
+   The existing dimensions, shadows, typography and shared Header/Sidebar stay unchanged. */
+.dragcAppShell .dragcFirstQuestion .dragcQuestionsHeading,
+.dragcAppShell .dragcFirstQuestion .dragcNumberNavigation,
+.dragcAppShell .dragcFirstQuestion .dragcQuestionProgress,
+.dragcAppShell .dragcBuilderSummary,
+.dragcAppShell .dragcBuilderArrows{display:none;}
+.dragcAppShell .dragcBuilderMain{min-width:0;}
+.dragcAppShell .dragcBuilderAside{align-self:start;}
+.dragcAppShell .dragcSaveContinueGroup{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.dragcAppShell .dragcAnswerExpand{justify-content:space-between;}
+.dragcAppShell .dragcLearnerTFAnswer{width:100%;text-align:left;cursor:pointer;border:0;background:#DFE6E9;color:#374151;}
+.dragcAppShell .dragcLearnerTFAnswer.is-selected{box-shadow:-3px -3px 4px #fff,3px 3px 5px #C4C4C4;outline:1px solid #2D4CC8;}
+@media(max-width:850px){.dragcAppShell .dragcBuilderGrid{grid-template-columns:minmax(0,1fr);}.dragcAppShell .dragcBuilderAside{width:100%;}}
+@media(max-width:600px){
+ .dragcAppShell .dragcSaveContinueGroup{gap:10px;width:100%;justify-content:flex-end;}
+ .dragcAppShell .dragcBuilderPageFooter{display:flex;flex-wrap:wrap;gap:14px;}
+ .dragcAppShell .dragcBuilderPageFooter > .dragcFooterPill{margin-right:auto;}
+ .dragcAppShell .dragcAnswerSection,.dragcAppShell .dragcOptionEditor{min-width:0;}
+ .dragcAppShell .dragcRichToolbar{max-width:100%;overflow-x:auto;}
+}
+
+/* Show question navigation only when the preview contains multiple questions. */
+.dragcAppShell .dragcTrueFalsePreviewPaging{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0 6px;}
+.dragcAppShell .dragcTrueFalsePreviewPaging button{border:0;border-radius:24px;padding:9px 16px;background:#DFE6E9;box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4;color:#374151;font:600 14px "Segoe UI", "Inter", sans-serif;cursor:pointer;}
+.dragcAppShell .dragcTrueFalsePreviewPaging button:disabled{opacity:.45;cursor:default;}
+.dragcAppShell .dragcTrueFalsePreviewPaging span{font:600 14px "Segoe UI", "Inter", sans-serif;}
+@media(max-width:600px){.dragcAppShell .dragcTrueFalsePreviewPaging{gap:8px}.dragcAppShell .dragcTrueFalsePreviewPaging button{padding:8px 10px;font-size:12px;}}
+
+/* Drag & Drop / Match the Following: add only content-specific rules.
+   Existing page grid, cards, toolbar, radius, neumorphic shadows and font sizes above are untouched. */
+.dragcDDPanel { min-width: 0; position: relative; }
+.dragcDDPanelHead { width: 100%; }
+.dragcDDPanelHeading { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; min-width: 0; text-align: left; }
+.dragcDDPanelHeading strong { font-size: inherit; font-weight: 600; }
+.dragcDDPanelHeading small { font-size: 13px; font-weight: 400; }
+.dragcDDPanelIcon { display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px; border-radius: 50%; background: #DFE6E9; box-shadow: -2px -2px 3px #fff,2px 2px 3px #C4C4C4; }
+.dragcDDPanelBody { display: flex; flex-direction: column; gap: 16px; min-width: 0; padding: 16px 12px; border-radius: 0 0 7px 7px; background: #DFE6E9; border: 1px solid #D2DADC; border-top: 0; }
+.dragcDDPanelBody .dragcBuilderField { min-width: 0; }
+.dragcDDPanelBody .dragcEditorSurface { min-width: 0; }
+.dragcDDPanelBody .dragcRichEditable { min-width: 0; }
+.dragcDDZones { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; min-width: 0; }
+.dragcDDZonePlaceholder { display: grid; place-items: center; flex: 1 1 95px; min-width: 70px; min-height: 42px; border: 1px dashed #A8B5BD; border-radius: 7px; color: #5A6875; background: #DFE6E9; font: 500 13px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcDDZoneHint { font-size: 13px; color: #63727C; }
+.dragcDDAddSmall { align-self: flex-start; min-height: 36px; padding: 7px 13px; font-size: 13px; color: #2D4CC8; }
+.dragcDDTwo { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; align-items: end; }
+.dragcDDToggleRow { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; min-height: 45px; padding: 9px 11px; border-radius: 6px; box-shadow: inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4; color: #374151; font-size: 13px; }
+.dragcDDToggleRow span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.dragcDDToggleRow > .dragcSwitch { flex-shrink: 0; }
+.dragcDDItemRow { display: grid; grid-template-columns: 34px minmax(90px,1fr) minmax(82px,110px) minmax(90px,120px) 32px; align-items: center; gap: 8px; min-width: 0; padding: 8px; border: 1px solid #CFD8DC; border-radius: 7px; }
+.dragcDDItems { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.dragcDDLetter { display: grid; place-items: center; align-self: stretch; border-radius: 4px; color: #2D4CC8; background: #DFE6E9; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; font-weight: 600; }
+.dragcDDItemRow > input, .dragcDDCustomZone input { width: 100%; min-width: 0; min-height: 40px; padding: 8px 11px; border: 0; border-radius: 5px; color: #374151; background: #DFE6E9; box-shadow: inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font: 400 14px/21px "Segoe UI", "Inter", sans-serif; }
+.dragcDDItemRow .dragcSelectTrigger { min-height: 40px; padding: 7px 9px; font-size: 13px; }
+.dragcDDItemRow .dragcSelectRoot { min-width: 0; }
+.dragcDDItemRow .dragcSelectList { min-width: 108px; }
+.dragcDDMapping { display: flex; flex-direction: column; gap: 10px; }
+.dragcDDMapRow { display: grid; grid-template-columns: minmax(78px, 100px) minmax(0,1fr); align-items: center; gap: 10px; }
+.dragcDDMapRow > span { padding: 12px 7px; border: 1px solid #C6D0D6; border-radius: 5px; text-align: center; font-size: 13px; }
+.dragcDDMapRow .dragcSelectTrigger { min-height: 44px; font-size: 14px; padding: 9px 13px; }
+.dragcDDPanelBody textarea { display: block; width: 100%; min-height: 74px; resize: vertical; border: 0; padding: 13px; border-radius: 7px; background: #DFE6E9; box-shadow: inset -3px -3px 3px #fff,inset 3px 3px 3px #C4C4C4; font: 400 14px/22px "Segoe UI", "Inter", sans-serif; }
+.dragcDDThree { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); align-items: end; gap: 12px; min-width: 0; }
+.dragcDDThree .dragcBuilderField label { font-size: 12px; line-height: 18px; }
+.dragcDDThree .dragcSelectTrigger { min-height: 42px; padding: 8px; font-size: 13px; }
+.dragcDDCustomZone { display: flex; align-items: center; justify-content: space-between; gap: 14px; font-size: 13px; }
+.dragcDDCustomZone > input { width: 110px; flex-shrink: 0; }
+.dragcDDScoreCheck { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px; color: #6E2677; border: 1px solid #8D4398; border-radius: 5px; font-weight: 600; font-size: 13px; }
+.dragcDDScoreCheck strong { padding: 6px 10px; border-radius: 20px; color: #fff; }
+.dragcDDCorrect { background: #2A7308; color: #fff; }
+.dragcDDDistractor { background: #B31B2A; color: #fff; }
+.dragcDDScoreTable { display: flex; flex-direction: column; gap: 7px; }
+.dragcDDScoreHead, .dragcDDScoreRow { display: grid; grid-template-columns: minmax(0,1fr) minmax(70px,95px); gap: 10px; align-items: center; font-size: 13px; }
+.dragcDDScoreHead { font-weight: 600; }
+.dragcDDScoreRow > span, .dragcDDScoreRow output { min-width: 0; padding: 9px; border: 1px solid #F9FCFE; border-radius: 5px; background: #DFE6E9; }
+.dragcDDFeedbackField { width: 100%; }
+.dragcDDFeedbackField .dragcRichEditable { min-height: 48px; }
+.dragcDDFeedbackField > label small { float: right; }
+.dragcDDPreviewSentence { line-height: 2.4; white-space: pre-wrap; overflow-wrap: anywhere; }
+.dragcDDDropZone { display: inline-flex; align-items: center; justify-content: center; min-width: 86px; min-height: 30px; margin: 0 5px; padding: 5px 12px; background: #DFE6E9; color: #6D7783; border: 1px dashed #BAC5CB; border-radius: 7px; vertical-align: middle; font: 400 13px/18px "Segoe UI", "Inter", sans-serif; }
+.dragcDDDropZone:not(:disabled) { cursor: pointer; }
+.dragcDDDropZone.has-answer { color: #2D4CC8; border-color: #2D4CC8; }
+.dragcDDPreviewChoices { display: flex; gap: 10px; flex-wrap: wrap; min-width: 0; padding: 12px; }
+.dragcDDChoice { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; max-width: 100%; padding: 7px 10px; color: #374151; background: #DFE6E9; border: 0; border-radius: 6px; box-shadow: -2px -2px 3px #fff,2px 2px 3px #C4C4C4; cursor: pointer; font: 400 13px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcDDChoice b { border-radius: 18px; padding: 4px 8px; font-size: 11px; }
+.dragcDDChoice.is-selected { outline: 2px solid #2D4CC8; }
+.dragcDDPreviewMapping { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.dragcDDPreviewMapping > div { display: grid; grid-template-columns: minmax(88px,160px) minmax(0,1fr); gap: 10px; }
+.dragcDDPreviewMapping > div > span { padding: 9px; background: #DFE6E9; border: 1px solid #C6D0D6; border-radius: 4px; font-size: 13px; }
+.dragcDDPreviewMapping h4 { margin: 14px 0 0; font-size: 14px; }
+.dragcDDPreviewMapping p { margin: 0; padding: 12px; background: #DFE6E9; border-radius: 5px; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; white-space: pre-wrap; }
+.dragcDDGradingDetails { display: flex; flex-direction: column; gap: 10px; padding: 12px; }
+.dragcDDGradingDetails .dragcDDThree label { display: flex; flex-direction: column; gap: 8px; min-width: 0; font-size: 12px; }
+.dragcDDGradingDetails .dragcDDThree strong { padding: 10px; border-radius: 5px; box-shadow: inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4; font-size: 13px; }
+.dragcDDGradingDetails > p { font-size: 14px; }
+.dragcDDLearnerControls { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 10px; }
+.dragcDDLearnerControls small { color: #596D7A; }
+.dragcDDPanelBody .dragcRichToolbar { max-width: 100%; }
+@media (max-width: 850px) {
+  .dragcDDItemRow { grid-template-columns: 32px minmax(90px,1fr) minmax(75px,95px) minmax(80px,100px) 32px; gap: 5px; }
+}
+@media (max-width: 600px) {
+  .dragcDDPanelBody { padding: 11px 8px; }
+  .dragcDDTwo, .dragcDDThree { grid-template-columns: minmax(0,1fr); }
+  .dragcDDItemRow { grid-template-columns: 29px minmax(0,1fr) 29px; gap: 7px; }
+  .dragcDDItemRow > input { grid-column: 2; }
+  .dragcDDItemRow > .dragcSelectRoot { grid-column: 2; }
+  .dragcDDItemRow > .dragcIconButton { grid-column: 3; grid-row: 1; }
+  .dragcDDMapRow { grid-template-columns: minmax(75px,90px) minmax(0,1fr); gap: 6px; }
+  .dragcDDPreviewMapping > div { grid-template-columns: minmax(76px,110px) minmax(0,1fr); }
+  .dragcDDPreviewChoices { padding: 7px; }
+  .dragcDDPanelHeading small { font-size: 11px; }
+}
+
+/* Drag & Drop: Figma accordion controls only. Outer card/grid sizes and shadows stay unchanged. */
+.dragcAppShell .dragcDDPanelHead {
+  width: 100%;
+  min-height: 57px;
+  padding: 10px 16px 10px 20px;
+  border: 0;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+  color: #2F3547;
+  font: 600 16px/28px "Segoe UI", sans-serif;
+  letter-spacing: .02em;
+}
+.dragcAppShell .dragcDDPanelHead > .dragcIcon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+}
+.dragcAppShell .dragcDDPanelHead[aria-expanded="true"] > .dragcIcon {
+  transform: rotate(180deg);
+}
+.dragcAppShell .dragcDDPanelHead .dragcDDPanelHeading {
+  gap: 10px;
+}
+.dragcAppShell .dragcDDPanelHead .dragcDDPanelIcon {
+  width: 30px;
+  height: 30px;
+  flex-basis: 30px;
+}
+/* Exact Figma question type field: 58px inset surface; full list appears below it. */
+.dragcAppShell .dragcDDQuestionForm .dragcTypeRoot .dragcSelectTrigger {
+  width: 100%;
+  min-height: 58px;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcTypeDropdown {
+  max-height: min(480px, 60dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #A4B0B8 #DFE6E9;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcTypeDropdown::-webkit-scrollbar {
+  width: 10px;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcTypeDropdown::-webkit-scrollbar-track {
+  background: #DFE6E9;
+  border-radius: 12px;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcTypeDropdown::-webkit-scrollbar-thumb {
+  background: #9DAEB8;
+  border: 2px solid #DFE6E9;
+  border-radius: 12px;
+}
+@media (max-width: 600px) {
+  .dragcAppShell .dragcDDPanelHead {
+    min-height: 57px;
+    padding: 9px 11px;
+    font-size: 14px;
+    line-height: 23px;
+  }
+  .dragcAppShell .dragcDDPanelHead > .dragcIcon {
+    width: 23px;
+    height: 23px;
+    flex-basis: 23px;
+  }
+  .dragcAppShell .dragcDDPanelHead .dragcDDPanelIcon {
+    width: 26px;
+    height: 26px;
+    flex-basis: 26px;
+  }
+  .dragcAppShell .dragcDDQuestionForm .dragcTypeDropdown {
+    max-height: min(400px, 55dvh);
+  }
+}
+
+
+/* Drag & Drop Figma refinements: scoped to section controls only. */
+.dragcAppShell .dragcDDQuestionForm {
+  border: 1px solid #AEAEAE;
+  border-radius: 16px;
+}
+.dragcAppShell .dragcDDPanel.is-open {
+  border: 1px solid #AEAEAE;
+  border-radius: 7px;
+  padding: 0;
+  background: #DFE6E9;
+}
+.dragcAppShell .dragcDDPanel.is-open .dragcDDPanelHead {
+  position: relative;
+  border-radius: 4px 4px 0 0;
+  box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDPanel.is-open .dragcDDPanelBody {
+  border: 0;
+  border-top: 1px solid #CBD4D9;
+  border-radius: 0 0 6px 6px;
+  overflow: visible;
+}
+.dragcAppShell .dragcDDPanel:has(.dragcSelectList),
+.dragcAppShell .dragcDDPanel:has(.dragcTypeDropdown) { z-index: 30; }
+.dragcAppShell .dragcDDPanel .dragcSelectRoot:has(.dragcSelectList),
+.dragcAppShell .dragcDDQuestionForm .dragcTypeRoot:has(.dragcTypeDropdown) { z-index: 40; }
+.dragcAppShell .dragcDDPanel .dragcSelectList {
+  border: 1px solid #CBD4D9;
+  box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 8px #B7C1C6;
+}
+/* Figma 24px raised circular remove, image itself is 16px. */
+.dragcAppShell .dragcDDItemRow .dragcDDRemoveDrag {
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 4px;
+  border: 0;
+  border-radius: 50%;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 2px #FFFFFF, 2px 2px 2px #C4C4C4;
+}
+.dragcAppShell .dragcDDItemRow .dragcDDRemoveDrag .dragcIcon { width: 16px; height: 16px; }
+/* Figma raised pill with the blue-to-pink outline and label. */
+.dragcAppShell .dragcDDPanelBody .dragcDDAddSmall {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 36px;
+  padding: 7px 14px;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background: linear-gradient(#DFE6E9,#DFE6E9) padding-box,
+              linear-gradient(95deg,#2D4CC8,#E01E5A) border-box;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+  font-family: "Segoe UI", "Inter", sans-serif;
+  font-weight: 600;
+}
+.dragcAppShell .dragcDDPanelBody .dragcDDAddSmall > span {
+  background: linear-gradient(90deg,#2D4CC8,#E01E5A);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dragcAppShell .dragcDDPanelBody .dragcDDAddSmall .dragcIcon { width: 16px; height: 16px; }
+/* Mapping rows: their Zone label and selected answer stay one connected row. */
+.dragcAppShell .dragcDDMapping { display: flex; flex-direction: column; gap: 10px; }
+.dragcAppShell .dragcDDMapRow {
+  display: grid;
+  grid-template-columns: minmax(78px,100px) minmax(0,1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 7px 9px;
+  border-radius: 6px;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDMapRow > span {
+  min-width: 0;
+  padding: 10px 7px;
+  border: 1px solid #CAD1D6;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.dragcAppShell .dragcDDMapRow .dragcSelectTrigger { width: 100%; }
+/* Feedback subsection headings match the compact inner raised rows in Figma. */
+.dragcAppShell .dragcDDFeedbackSubpanel {
+  min-width: 0;
+  border-radius: 7px;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDFeedbackSubhead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: #DFE6E9;
+  color: #374151;
+  font: 600 14px/22px "Segoe UI", "Inter", sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+.dragcAppShell .dragcDDFeedbackSubhead .dragcDDPanelHeading { flex: 1 1 auto; }
+.dragcAppShell .dragcDDFeedbackSubhead small { font-size: 11px; font-weight: 400; }
+.dragcAppShell .dragcDDFeedbackSubbody { display: flex; flex-direction: column; gap: 10px; padding: 8px 10px 12px; }
+.dragcAppShell .dragcDDFeedbackField > label { font-weight: 600; }
+.dragcAppShell .dragcDDFeedbackfeedbackFull > label { color: #2A7308; }
+.dragcAppShell .dragcDDFeedbackfeedbackPartial > label { color: #B85B0A; }
+.dragcAppShell .dragcDDFeedbackfeedbackZero > label { color: #A91E2C; }
+@media (max-width: 600px) {
+  .dragcAppShell .dragcDDMapRow { grid-template-columns: minmax(75px,90px) minmax(0,1fr); gap: 6px; padding: 6px; }
+  .dragcAppShell .dragcDDFeedbackSubhead { padding: 7px 9px; min-height: 44px; }
+  .dragcAppShell .dragcDDPanelBody .dragcDDAddSmall { width: auto; min-height: 36px; font-size: 12px; padding: 6px 11px; }
+}
+
+
+/* ==========================================================
+   DRAG & DROP / MATCH THE FOLLOWING - FIVE FIGMA PANELS
+   These rules only style the existing Drag & Drop controls.
+   App shell, Header, Sidebar, main card widths and footer stay.
+   ========================================================== */
+.dragcAppShell .dragcDDQuestionForm {
+  border: 1px solid #AEAEAE;
+  border-radius: 16px;
+}
+
+/* SECTION 1-5: raised white panel outline, connected header + body */
+.dragcAppShell .dragcDDPanel {
+  min-width: 0;
+  isolation: isolate;
+}
+.dragcAppShell .dragcDDPanel.is-open {
+  border: 3px solid #F8FCFD;
+  border-radius: 8px;
+  padding: 0;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDPanel .dragcDDPanelHead {
+  width: 100%;
+  min-height: 57px;
+  padding: 10px 14px 10px 14px;
+  background: #DFE6E9;
+  border: 0;
+  border-radius: 4px;
+  color: #2F3547;
+  font: 600 16px/28px "Segoe UI", "Inter", sans-serif;
+  letter-spacing: .02em;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDPanel.is-open .dragcDDPanelHead {
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 2px 3px #C4C4C4;
+}
+.dragcAppShell .dragcDDPanel.is-open .dragcDDPanelBody {
+  border: 0;
+  padding: 16px 12px 17px;
+  border-radius: 0 0 5px 5px;
+  background: #DFE6E9;
+  gap: 20px;
+  overflow: visible;
+}
+.dragcAppShell .dragcDDPanelIcon {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 50%;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+.dragcAppShell .dragcDDPanel .dragcDDPanelHead > .dragcIcon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+}
+
+/* All inset input and dropdown frames, including their open menus. */
+.dragcAppShell .dragcDDQuestionForm .dragcSelectTrigger,
+.dragcAppShell .dragcDDQuestionForm .dragcDDItemRow > input,
+.dragcAppShell .dragcDDQuestionForm .dragcDDLetter {
+  border: 3px solid #F8FCFD;
+  border-radius: 6px;
+  background: #DFE6E9;
+  color: #374151;
+  box-shadow: inset 2px 2px 3px #C4C4C4,
+              inset -2px -2px 3px #FFFFFF;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcSelectRoot {
+  position: relative;
+  min-width: 0;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcSelectList {
+  top: calc(100% - 1px);
+  border: 2px solid #F8FCFD;
+  border-radius: 0 0 7px 7px;
+  padding: 6px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 8px #B7C1C6;
+  max-height: min(260px, 45dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #A0ADB6 #DFE6E9;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcSelectList::-webkit-scrollbar { width: 10px; }
+.dragcAppShell .dragcDDQuestionForm .dragcSelectList::-webkit-scrollbar-track {
+  border-radius: 12px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcSelectList::-webkit-scrollbar-thumb {
+  border: 2px solid #DFE6E9;
+  border-radius: 12px;
+  background: #A0ADB6;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcSelectItem {
+  min-height: 39px;
+  border-radius: 4px;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcSelectItem:hover,
+.dragcAppShell .dragcDDQuestionForm .dragcSelectItem:focus-visible {
+  background: #E9EEF1;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+}
+.dragcAppShell .dragcDDPanel:has(.dragcSelectList) { z-index: 70; }
+.dragcAppShell .dragcDDPanel .dragcSelectRoot:has(.dragcSelectList) { z-index: 80; }
+
+/* SECTION 1: sentence editor, four evenly-sized dashed placeholders. */
+.dragcAppShell .dragcDDZones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(145px, 100%), 1fr));
+  gap: 14px;
+}
+.dragcAppShell .dragcDDZonePlaceholder {
+  min-width: 0;
+  min-height: 44px;
+  border: 1px dashed #AAB7BF;
+  border-radius: 6px;
+  font: 400 14px/22px "Segoe UI", "Inter", sans-serif;
+}
+.dragcAppShell .dragcDDTwo {
+  align-items: end;
+  gap: 24px;
+}
+.dragcAppShell .dragcDDShuffleField > label {
+  font-size: 14px;
+  font-weight: 600;
+}
+.dragcAppShell .dragcDDShuffleField .dragcDDToggleRow {
+  min-height: 50px;
+  border: 3px solid #F8FCFD;
+  border-radius: 6px;
+  padding: 6px 11px 6px 14px;
+  box-shadow: inset 2px 2px 3px #C4C4C4, inset -2px -2px 3px #FFFFFF;
+}
+.dragcAppShell .dragcDDTwo .dragcSelectTrigger { min-height: 50px; }
+
+/* SECTION 2: individual raised draggable rows, inset A/B/C text fields. */
+.dragcAppShell .dragcDDItems { gap: 12px; }
+.dragcAppShell .dragcDDItemRow {
+  grid-template-columns: 58px minmax(90px, 1fr) minmax(100px, 140px) minmax(100px, 150px) 34px;
+  gap: 14px;
+  min-height: 86px;
+  padding: 12px;
+  border: 3px solid #F8FCFD;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 3px #FFFFFF, 3px 3px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDItemRow .dragcDDLetter { min-height: 55px; color: #374151; font-weight: 600; }
+.dragcAppShell .dragcDDItemRow > input,
+.dragcAppShell .dragcDDItemRow .dragcSelectTrigger {
+  min-height: 55px;
+  padding: 10px 12px;
+  font: 400 15px/23px "Segoe UI", "Inter", sans-serif;
+}
+.dragcAppShell .dragcDDItemRow .dragcDDRemoveDrag {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 4px;
+  border: none;
+  border-radius: 50%;
+  justify-self: center;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 2px #FFFFFF, 2px 2px 2px #C4C4C4;
+}
+.dragcAppShell .dragcDDItemRow .dragcDDRemoveDrag .dragcIcon { width: 16px; height: 16px; }
+.dragcAppShell .dragcDDPanelBody .dragcDDAddSmall {
+  min-height: 38px;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background: linear-gradient(#DFE6E9,#DFE6E9) padding-box,
+              linear-gradient(90deg,#2D4CC8,#E01E5A) border-box;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+.dragcAppShell .dragcDDPanelBody .dragcDDAddSmall > span {
+  background: linear-gradient(90deg,#2D4CC8,#E01E5A);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* SECTION 3: same raised Answer Correct mapping rows and inset dropdowns. */
+.dragcAppShell .dragcDDMapping { gap: 12px; }
+.dragcAppShell .dragcDDMapRow {
+  grid-template-columns: 94px minmax(0, 1fr);
+  gap: 14px;
+  min-height: 82px;
+  padding: 10px 12px;
+  border: 3px solid #F8FCFD;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 3px #FFFFFF, 3px 3px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDMapRow > span {
+  min-width: 0;
+  min-height: 50px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  border: 3px solid #F8FCFD;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 14px;
+  background: #DFE6E9;
+  box-shadow: inset 2px 2px 3px #C4C4C4, inset -2px -2px 3px #FFFFFF;
+}
+.dragcAppShell .dragcDDMapRow .dragcSelectTrigger {
+  min-height: 50px;
+  padding: 9px 14px;
+  font-size: 14px;
+}
+
+/* SECTION 4: inset scoring selectors, pill switches and dropdown mark frames. */
+.dragcAppShell .dragcDDThree { gap: 20px; }
+.dragcAppShell .dragcDDThree .dragcSelectTrigger { min-height: 46px; padding: 9px 13px; }
+.dragcAppShell .dragcDDPanelBody > .dragcDDToggleRow {
+  min-height: 46px;
+  border: 3px solid #F8FCFD;
+  padding: 8px 12px;
+  box-shadow: inset 2px 2px 3px #C4C4C4,
+              inset -2px -2px 3px #FFFFFF;
+}
+.dragcAppShell .dragcDDScoreCheck { min-height: 42px; }
+.dragcAppShell .dragcDDScoreTable { gap: 9px; }
+.dragcAppShell .dragcDDScoreHead,
+.dragcAppShell .dragcDDScoreRow {
+  grid-template-columns: minmax(0, 1fr) minmax(90px, 116px);
+  gap: 12px;
+}
+.dragcAppShell .dragcDDScoreRow > span {
+  min-height: 42px;
+  border: 2px solid #F8FCFD;
+  padding: 9px 10px;
+}
+.dragcAppShell .dragcDDScoreRow .dragcSelectTrigger {
+  min-height: 42px;
+  padding: 7px 9px;
+  font-size: 13px;
+}
+.dragcAppShell .dragcDDScoreRow .dragcSelectList { z-index: 90; }
+
+/* SECTION 5: feedback field borders, color labels and nested subpanels. */
+.dragcAppShell .dragcDDFeedbackField > label { font: 600 14px/20px "Segoe UI", "Inter", sans-serif; }
+.dragcAppShell .dragcDDFeedbackfeedbackFull > label { color: #2A7308; }
+.dragcAppShell .dragcDDFeedbackfeedbackPartial > label { color: #B85B0A; }
+.dragcAppShell .dragcDDFeedbackfeedbackZero > label { color: #A91E2C; }
+.dragcAppShell .dragcDDFeedbackField .dragcEditorSurface,
+.dragcAppShell .dragcDDFeedbackSubbody .dragcEditorSurface,
+.dragcAppShell .dragcDDPanelBody .dragcWriteField .dragcEditorSurface {
+  padding: 6px;
+  border: 3px solid #F8FCFD;
+  border-radius: 7px;
+  background: #DFE6E9;
+  box-shadow: inset 2px 2px 4px #C4C4C4, inset -2px -2px 4px #FFFFFF;
+}
+.dragcAppShell .dragcDDFeedbackField .dragcRichToolbar,
+.dragcAppShell .dragcDDFeedbackSubbody .dragcRichToolbar,
+.dragcAppShell .dragcDDPanelBody .dragcWriteField .dragcRichToolbar {
+  border-radius: 3px;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+.dragcAppShell .dragcDDFeedbackField .dragcRichEditable,
+.dragcAppShell .dragcDDFeedbackSubbody .dragcRichEditable { min-height: 45px; margin-top: 6px; }
+.dragcAppShell .dragcDDFeedbackSubpanel {
+  border: 3px solid #F8FCFD;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+.dragcAppShell .dragcDDFeedbackSubhead {
+  min-height: 43px;
+  border-radius: 4px;
+  padding: 6px 10px;
+  box-shadow: 0 2px 3px #C4C4C4;
+}
+.dragcAppShell .dragcDDFeedbackSubbody { padding: 10px 11px 13px; }
+.dragcAppShell .dragcDDPanelHead .dragcDDPanelHeading small {
+  font: 400 11px/17px "Segoe UI", "Inter", sans-serif;
+  margin-left: 2px;
+}
+
+/* Preserve desktop proportions; only wrap internals on narrower screens. */
+@media (max-width: 1040px) {
+  .dragcAppShell .dragcDDItemRow { grid-template-columns: 46px minmax(85px,1fr) minmax(75px,115px) minmax(80px,115px) 28px; gap: 8px; padding: 9px; }
+  .dragcAppShell .dragcDDItemRow > input,
+  .dragcAppShell .dragcDDItemRow .dragcSelectTrigger { min-height: 48px; font-size: 13px; }
+  .dragcAppShell .dragcDDItemRow .dragcDDLetter { min-height: 48px; }
+}
+@media (max-width: 700px) {
+  .dragcAppShell .dragcDDPanel.is-open .dragcDDPanelBody { padding: 12px 9px 14px; gap: 15px; }
+  .dragcAppShell .dragcDDZones { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  .dragcAppShell .dragcDDTwo,
+  .dragcAppShell .dragcDDThree { grid-template-columns: minmax(0,1fr); gap: 12px; }
+  .dragcAppShell .dragcDDItemRow { grid-template-columns: 40px minmax(0,1fr) 28px; gap: 8px; padding: 8px; }
+  .dragcAppShell .dragcDDItemRow .dragcDDLetter { min-height: 44px; grid-column: 1; grid-row: 1; }
+  .dragcAppShell .dragcDDItemRow > input { min-height: 44px; grid-column: 2; grid-row: 1; }
+  .dragcAppShell .dragcDDItemRow > .dragcSelectRoot:nth-of-type(1) { grid-column: 2; grid-row: 2; }
+  .dragcAppShell .dragcDDItemRow > .dragcSelectRoot:nth-of-type(2) { grid-column: 2; grid-row: 3; }
+  .dragcAppShell .dragcDDItemRow .dragcDDRemoveDrag { grid-column: 3; grid-row: 1; }
+  .dragcAppShell .dragcDDMapRow { grid-template-columns: minmax(73px,90px) minmax(0,1fr); min-height: 70px; gap: 6px; padding: 7px; }
+  .dragcAppShell .dragcDDMapRow > span { font-size: 12px; min-height: 45px; padding: 5px; }
+  .dragcAppShell .dragcDDMapRow .dragcSelectTrigger { min-height: 45px; font-size: 12px; padding: 7px; }
+  .dragcAppShell .dragcDDScoreHead,
+  .dragcAppShell .dragcDDScoreRow { grid-template-columns: minmax(0,1fr) minmax(76px,104px); }
+  .dragcAppShell .dragcDDPanel .dragcDDPanelHead { min-height: 57px; padding: 8px 10px; font-size: 13px; line-height: 21px; }
+}
+@media (max-width: 400px) {
+  .dragcAppShell .dragcDDItemRow { grid-template-columns: 32px minmax(0,1fr) 26px; gap: 5px; padding: 6px; }
+  .dragcAppShell .dragcDDZones { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .dragcAppShell .dragcDDPanel .dragcDDPanelHead { padding: 7px; }
+  .dragcAppShell .dragcDDMapRow { grid-template-columns: minmax(64px,74px) minmax(0,1fr); }
+}
+
+/* Counter at far right of Feedback header, preceding the arrow. */
+.dragcAppShell .dragcDDPanelHead .dragcDDPanelHeading { flex: 1 1 auto; }
+.dragcAppShell .dragcDDPanelHead .dragcDDPanelCount {
+  flex: 0 0 auto;
+  margin-left: auto;
+  margin-right: 13px;
+  color: #4B5563;
+  font: 400 11px/17px "Segoe UI", "Inter", sans-serif;
+}
+
+
+/* ===============================================================
+   DRAG & DROP FINAL CORRECTIONS — Figma sizes and shadows retained
+   Only remove bright border strokes; no Header / Sidebar changes.
+   =============================================================== */
+
+/* 1. QUESTION AND DROP ZONE — no solid white outline on an open panel.
+   The natural raised shadow remains around the 57px section heading. */
+.dragcAppShell .dragcDDPanel.is-open {
+  border: 1px solid #CCD5DA;
+  border-radius: 7px;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDPanel.is-open .dragcDDPanelBody {
+  border: 0;
+  background: #DFE6E9;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcDDZonePlaceholder {
+  border: 1px dashed #AAB5BC;
+  background: #DFE6E9;
+  box-shadow: none;
+  outline: none;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcDDShuffleField .dragcDDToggleRow {
+  border: 1px solid #CBD4D9;
+}
+
+/* 2. DRAG ITEMS — neutral inset field edges instead of a thick white line. */
+.dragcAppShell .dragcDDItemRow,
+.dragcAppShell .dragcDDMapRow,
+.dragcAppShell .dragcDDFeedbackSubpanel {
+  border: 1px solid #D2DBDF;
+}
+.dragcAppShell .dragcDDQuestionForm .dragcSelectTrigger,
+.dragcAppShell .dragcDDQuestionForm .dragcDDItemRow > input,
+.dragcAppShell .dragcDDQuestionForm .dragcDDLetter,
+.dragcAppShell .dragcDDMapRow > span {
+  border: 1px solid #CCD6DC;
+  box-shadow: inset 2px 2px 3px #C4C4C4,
+              inset -2px -2px 3px #FFFFFF;
+}
+
+/* 3. ANSWER CORRECT MAPPING — options come from live Drag Items.
+   Raise the active row above its siblings so the menu does not hide. */
+.dragcAppShell .dragcDDMapRow {
+  position: relative;
+  overflow: visible;
+}
+.dragcAppShell .dragcDDMapRow:has(.dragcDDMappingList) { z-index: 120; }
+.dragcAppShell .dragcDDMappingSelect { min-width: 0; }
+.dragcAppShell .dragcDDMappingSelect:has(.dragcDDMappingList) { z-index: 125; }
+.dragcAppShell .dragcDDMappingSelect .dragcSelectTrigger > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dragcAppShell .dragcDDMappingSelect .dragcDDMappingList {
+  z-index: 130;
+  top: calc(100% - 1px);
+  max-height: min(260px, 42dvh);
+  border: 1px solid #CCD5DA;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 5px #FFFFFF, 4px 4px 7px #B9C4C9;
+}
+.dragcAppShell .dragcDDMappingList .dragcSelectItem:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+.dragcAppShell .dragcDDMappingList .dragcSelectItem > span:nth-child(2) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.dragcAppShell .dragcDDMappingList .dragcSelectItem > small {
+  margin-left: auto;
+  font-size: 11px;
+}
+.dragcAppShell .dragcDDMappingEmpty {
+  margin: 0;
+  padding: 12px;
+  color: #596672;
+  font: 400 13px/20px "Segoe UI", "Inter", sans-serif;
+}
+
+/* 4. SCORE SIMULATOR — aligned input and dropdown frames, no white strokes. */
+.dragcAppShell .dragcDDPanelBody > .dragcDDToggleRow,
+.dragcAppShell .dragcDDScoreRow > span,
+.dragcAppShell .dragcDDScoreRow .dragcSelectTrigger {
+  border: 1px solid #CBD5DB;
+}
+.dragcAppShell .dragcDDScoreRow { min-width: 0; }
+.dragcAppShell .dragcDDScoreRow .dragcSelectRoot:has(.dragcSelectList) { z-index: 140; }
+.dragcAppShell .dragcDDScoreRow:has(.dragcSelectList) { position: relative; z-index: 130; }
+
+/* 5. FEEDBACK — inset editor frames without a thick white border. */
+.dragcAppShell .dragcDDFeedbackField .dragcEditorSurface,
+.dragcAppShell .dragcDDFeedbackSubbody .dragcEditorSurface,
+.dragcAppShell .dragcDDPanelBody .dragcWriteField .dragcEditorSurface {
+  border: 1px solid #CBD4D9;
+}
+
+/* Mobile: preserve original section heights, but avoid horizontal overflow. */
+@media (max-width: 700px) {
+  .dragcAppShell .dragcDDQuestionForm,
+  .dragcAppShell .dragcDDPanel,
+  .dragcAppShell .dragcDDPanelBody,
+  .dragcAppShell .dragcDDMapRow,
+  .dragcAppShell .dragcDDScoreRow { min-width: 0; }
+  .dragcAppShell .dragcDDMappingSelect .dragcSelectTrigger > span {
+    max-width: 100%;
+    font-size: 13px;
+  }
+  .dragcAppShell .dragcDDMapRow {
+    grid-template-columns: minmax(73px, 90px) minmax(0,1fr);
+  }
+  .dragcAppShell .dragcDDScoreRow {
+    grid-template-columns: minmax(0,1fr) minmax(76px,104px);
+  }
+  .dragcAppShell .dragcDDMappingSelect .dragcDDMappingList {
+    max-height: min(220px, 40dvh);
+  }
+}
+@media (max-width: 400px) {
+  .dragcAppShell .dragcDDMapRow { grid-template-columns: 64px minmax(0,1fr); gap: 6px; }
+  .dragcAppShell .dragcDDMapRow > span { padding: 5px 2px; font-size: 11px; }
+  .dragcAppShell .dragcDDMapRow .dragcSelectTrigger { padding: 7px; }
+}
+
+
+/* ================================================================
+   DRAG & DROP — Figma score simulator and checked dropdown state
+   The main cards, header/sidebar, section dimensions, and shadows
+   are deliberately unchanged.
+   ================================================================ */
+
+/* 1. Score simulator: same outcome/marks frames as the 4-zone Figma.
+      Rows are supplied dynamically by the TSX: n+1 rows for n zones. */
+.dragcAppShell .dragcDDScoreTable {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+.dragcAppShell .dragcDDScoreHead,
+.dragcAppShell .dragcDDScoreRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 116px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+.dragcAppShell .dragcDDScoreHead {
+  font: 600 14px/20px "Segoe UI", "Inter", sans-serif;
+  color: #374151;
+  padding: 0 10px;
+  margin-bottom: 1px;
+}
+.dragcAppShell .dragcDDScoreRow > span {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 45px;
+  min-height: 45px;
+  padding: 9px 12px;
+  background: #DFE6E9;
+  border: 1px solid #CBD5DA;
+  border-radius: 5px;
+  box-shadow: none;
+  font: 400 13px/20px "Segoe UI", "Inter", sans-serif;
+  color: #374151;
+}
+.dragcAppShell .dragcDDScoreRow .dragcSelectRoot {
+  width: 100%;
+  min-width: 0;
+}
+.dragcAppShell .dragcDDScoreRow .dragcSelectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 45px;
+  min-height: 45px;
+  padding: 9px 11px;
+  background: #DFE6E9;
+  border: 1px solid #CED8DE;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 3px #C4C4C4,
+              inset -2px -2px 3px #FFFFFF;
+  font: 400 13px/20px "Segoe UI", "Inter", sans-serif;
+}
+.dragcAppShell .dragcDDScoreRow .dragcSelectTrigger .dragcIcon {
+  width: 18px;
+  height: 18px;
+}
+.dragcAppShell .dragcDDScoreRow:has(.dragcSelectList) {
+  position: relative;
+  z-index: 220;
+}
+.dragcAppShell .dragcDDScoreRow .dragcSelectList {
+  top: calc(100% - 1px);
+  z-index: 230;
+  max-height: min(250px, 45dvh);
+  border: 1px solid #CBD5DA;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 5px #FFFFFF,
+               4px 4px 7px #B9C4C9;
+}
+
+/* 2. Checked image: Figma 24px circle, 16px checkmark-circle-02.svg. */
+.dragcAppShell .dragcDDSelectedCheck {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border: 0;
+  border-radius: 50%;
+  background: #DFE6E9;
+  box-shadow: 4px 4px 4px #C4C4C4,
+             -4px -4px 4px #FFFFFF;
+}
+.dragcAppShell .dragcDDSelectedCheck > .dragcIcon {
+  display: block;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+.dragcAppShell .dragcDDMappingList .dragcSelectItem,
+.dragcAppShell .dragcDDItemRow .dragcSelectItem,
+.dragcAppShell .dragcDDScoreRow .dragcSelectItem {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  gap: 12px;
+}
+.dragcAppShell .dragcDDMappingList .dragcSelectItem[aria-selected='true'] {
+  color: #2D4CC8;
+  font-weight: 600;
+}
+
+/* 3. The active mapping dropdown opens over following rows, not behind them. */
+.dragcAppShell .dragcDDMapRow:has(.dragcDDMappingList) { z-index: 240; }
+.dragcAppShell .dragcDDMappingSelect:has(.dragcDDMappingList) { z-index: 250; }
+.dragcAppShell .dragcDDMappingList {
+  top: calc(100% - 1px);
+  z-index: 260;
+  border: 1px solid #CAD5DA;
+}
+
+/* 4. Keep mobile frames in two columns, without horizontal scrolling. */
+@media (max-width: 700px) {
+  .dragcAppShell .dragcDDScoreHead,
+  .dragcAppShell .dragcDDScoreRow {
+    grid-template-columns: minmax(0, 1fr) minmax(80px, 104px);
+    gap: 8px;
+  }
+  .dragcAppShell .dragcDDScoreHead { font-size: 12px; padding: 0 5px; }
+  .dragcAppShell .dragcDDScoreRow > span {
+    min-height: 42px;
+    height: 42px;
+    padding: 7px 8px;
+    font-size: 12px;
+  }
+  .dragcAppShell .dragcDDScoreRow .dragcSelectTrigger {
+    min-height: 42px;
+    height: 42px;
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 375px) {
+  .dragcAppShell .dragcDDScoreHead,
+  .dragcAppShell .dragcDDScoreRow {
+    grid-template-columns: minmax(0, 1fr) minmax(72px, 84px);
+    gap: 6px;
+  }
+}
+
+
+/* ============================================================
+   DRAG & DROP — SELECTED CHECKMARK (24px Figma circle)
+   Scoped to the selected dropdown item: no changes to panel,
+   editor, dropdown, or mobile dimensions.
+   ============================================================ */
+.dragcAppShell .dragcDDSelectedCheck {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #DFE6E9;
+  box-shadow: 4px 4px 4px #C4C4C4,
+             -4px -4px 4px #FFFFFF;
+  isolation: isolate;
+}
+
+/* Visible fallback when the SVG hasn't been added to assessmenticons. */
+.dragcAppShell .dragcDDSelectedCheck::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 6px;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #2D4CC8;
+}
+
+.dragcAppShell .dragcDDSelectedCheck::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 9px;
+  left: 9px;
+  width: 6px;
+  height: 4px;
+  border-left: 1.5px solid #FFFFFF;
+  border-bottom: 1.5px solid #FFFFFF;
+  transform: rotate(-45deg);
+}
+
+/* When present, the creator's SVG takes priority over the fallback. */
+.dragcAppShell .dragcDDSelectedCheck > .dragcIcon {
+  position: relative;
+  z-index: 2;
+  display: block;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  max-width: 16px;
+  max-height: 16px;
+  margin: 0;
+  object-fit: contain;
+}
+
+/* Match the 24px selected state within the full Question Type list. */
+.dragcAppShell .dragcTypeOption .dragcDDSelectedCheck {
+  flex-basis: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 600px) {
+  .dragcAppShell .dragcDDSelectedCheck,
+  .dragcAppShell .dragcTypeOption .dragcDDSelectedCheck {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
+/* =====================================================================
+   DRAG & DROP — Creator Preview (reference 2026-10-26)
+   Styles are confined to the preview; builder frame sizes stay unchanged.
+   ===================================================================== */
+
+/* Drag Items: raised outer section, inset 56px item frames, one row at desktop. */
+.dragcAppShell .dragcDDPreviewItemsPanel {
+  min-width: 0;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDPreviewItemsPanel .dragcPreviewSectionHead {
+  width: 100%;
+  min-height: 54px;
+  background: #DFE6E9;
+  box-shadow: 0 3px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDPreviewItemsPanel .dragcDDPreviewChoices {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  padding: 14px;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1 1 190px;
+  width: 233px;
+  min-width: 0;
+  max-width: 233px;
+  height: 56px;
+  min-height: 56px;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  color: #374151;
+  background: #DFE6E9;
+  box-shadow: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+  font: 400 16px/24px "Segoe UI", "Inter", sans-serif;
+}
+.dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice > b {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 78px;
+  height: 30px;
+  min-height: 30px;
+  padding: 3px 13px;
+  border-radius: 24px;
+  font: 600 14px/22px "Segoe UI", "Inter", sans-serif;
+  letter-spacing: .02em;
+  color: #FFFFFF;
+}
+.dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice > b.dragcDDCorrect { background: #2A7308; }
+.dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice > b.dragcDDDistractor {
+  min-width: 93px;
+  background: #A91E2C;
+}
+.dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice.is-selected { outline: 2px solid #2D4CC8; }
+
+/* Information for Graders: specifically RAISED in preview, not inset. */
+.dragcAppShell .dragcDDPreviewMapping > p.dragcDDGraderNote {
+  min-height: 56px;
+  padding: 14px 16px;
+  background: #DFE6E9;
+  border: 0;
+  border-radius: 6px;
+  color: #374151;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+  font: 400 14px/24px "Segoe UI", "Inter", sans-serif;
+  overflow-wrap: anywhere;
+}
+
+/* Preview-only read-only 66x36 Figma neumorphic switches. */
+.dragcAppShell .dragcDDGradingDetails .dragcDDPreviewSwitch {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 66px;
+  align-items: center;
+  justify-content: center;
+  width: 66px;
+  height: 36px;
+  padding: 4px 5px;
+  border-radius: 32px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 4px rgba(255,255,255,.5), 4px 4px 4px #C4C4C4;
+}
+.dragcAppShell .dragcDDGradingDetails .dragcDDPreviewSwitchTrack {
+  position: relative;
+  display: block;
+  width: 56px;
+  height: 28px;
+  border-radius: 32px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+}
+.dragcAppShell .dragcDDGradingDetails .dragcDDPreviewSwitchText {
+  position: absolute;
+  z-index: 1;
+  top: 4px;
+  left: 8px;
+  font: 600 12px/20px "Segoe UI", "Inter", sans-serif;
+  letter-spacing: .03em;
+  background: linear-gradient(180deg, #2D4CC8, #E01E5A);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dragcAppShell .dragcDDGradingDetails .dragcDDPreviewSwitchKnob {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 4px #B2BCC2;
+}
+.dragcAppShell .dragcDDGradingDetails .dragcDDPreviewSwitch.is-off .dragcDDPreviewSwitchText {
+  left: auto;
+  right: 6px;
+  background: none;
+  -webkit-text-fill-color: #60666D;
+  color: #60666D;
+}
+.dragcAppShell .dragcDDGradingDetails .dragcDDPreviewSwitch.is-off .dragcDDPreviewSwitchKnob {
+  right: auto;
+  left: 0;
+}
+
+/* Score simulator: structured Outcome / Marks columns, actual framed fields. */
+.dragcAppShell .dragcDDPreviewScore {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  width: 100%;
+  margin-top: 8px;
+}
+.dragcAppShell .dragcDDPreviewScore h4 {
+  margin: 0;
+  color: #374151;
+  font: 600 15px/24px "Segoe UI", "Inter", sans-serif;
+}
+.dragcAppShell .dragcDDPreviewScore .dragcDDScoreTable { gap: 12px; }
+.dragcAppShell .dragcDDPreviewScore .dragcDDScoreHead,
+.dragcAppShell .dragcDDPreviewScore .dragcDDScoreRow {
+  grid-template-columns: minmax(0, 1fr) minmax(90px, 116px);
+  gap: 12px;
+}
+.dragcAppShell .dragcDDPreviewScore .dragcDDScoreHead {
+  margin-bottom: 0;
+  padding: 0 10px;
+  font: 600 14px/20px "Segoe UI", "Inter", sans-serif;
+}
+.dragcAppShell .dragcDDPreviewScore .dragcDDScoreRow > span {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 45px;
+  min-height: 45px;
+  padding: 9px 12px;
+  border: 1px solid #CAD5DA;
+  border-radius: 5px;
+  background: #DFE6E9;
+  color: #374151;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  font: 400 13px/20px "Segoe UI", "Inter", sans-serif;
+}
+.dragcAppShell .dragcDDPreviewScore .dragcDDScoreRow > span.dragcDDPreviewScoreMark {
+  justify-content: space-between;
+  box-shadow: inset -3px -3px 3px #FFFFFF, inset 3px 3px 3px #C4C4C4;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Keep the creator preview fully usable at phone widths without overflow. */
+@media (max-width: 720px) {
+  .dragcAppShell .dragcDDPreviewItemsPanel .dragcDDPreviewChoices { gap: 10px; padding: 10px; }
+  .dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice {
+    flex: 1 1 185px;
+    width: auto;
+    max-width: none;
+  }
+  .dragcAppShell .dragcDDPreviewScore .dragcDDScoreHead,
+  .dragcAppShell .dragcDDPreviewScore .dragcDDScoreRow {
+    grid-template-columns: minmax(0, 1fr) minmax(78px, 104px);
+    gap: 8px;
+  }
+}
+@media (max-width: 430px) {
+  .dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice {
+    flex-basis: 100%;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 52px;
+    min-height: 52px;
+    font-size: 14px;
+    padding: 8px 11px;
+  }
+  .dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice > b {
+    min-width: 66px;
+    height: 28px;
+    min-height: 28px;
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+  .dragcAppShell .dragcDDPreviewItemsPanel .dragcDDChoice > b.dragcDDDistractor { min-width: 85px; }
+  .dragcAppShell .dragcDDPreviewScore .dragcDDScoreHead,
+  .dragcAppShell .dragcDDPreviewScore .dragcDDScoreRow {
+    grid-template-columns: minmax(0, 1fr) 80px;
+    gap: 7px;
+  }
+  .dragcAppShell .dragcDDPreviewScore .dragcDDScoreRow > span { padding: 8px; font-size: 12px; }
+  .dragcAppShell .dragcDDPreviewScore .dragcDDScoreHead { font-size: 12px; }
+}
+
+/* ==========================================================
+   TOGGLE CORRECTION — NO CIRCULAR KNOB
+   Keep existing outer dimensions and neumorphic shadows.
+   ON has gradient text, OFF has neutral text.
+   Applies to creator toggles and read-only preview toggles.
+   ========================================================== */
+.dragcAppShell .dragcSwitch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.dragcAppShell .dragcSwitch::before,
+.dragcAppShell .dragcSwitchOn::before {
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+}
+.dragcAppShell .dragcSwitch .dragcSwitchText,
+.dragcAppShell .dragcSwitchOn .dragcSwitchText,
+.dragcAppShell .dragcSwitch:not(.dragcSwitchOn) .dragcSwitchText {
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font: 600 12px/20px "Segoe UI", "Inter", sans-serif;
+  letter-spacing: .03em;
+  color: #60666D;
+  background: none;
+  -webkit-text-fill-color: #60666D;
+}
+.dragcAppShell .dragcSwitchOn .dragcSwitchText {
+  background: linear-gradient(180deg, #2D4CC8 0%, #E01E5A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #2D4CC8;
+}
+.dragcAppShell .dragcSwitchKnob,
+.dragcAppShell .dragcDDPreviewSwitchKnob {
+  display: none !important;
+}
+.dragcAppShell .dragcDDGradingDetails .dragcDDPreviewSwitchText,
+.dragcAppShell .dragcDDGradingDetails .dragcDDPreviewSwitch.is-off .dragcDDPreviewSwitchText {
+  left: 0;
+  right: 0;
+  top: 4px;
+  width: 100%;
+  text-align: center;
+}
+.dragcAppShell .dragcDDGradingDetails .dragcDDPreviewSwitch.is-on .dragcDDPreviewSwitchText {
+  background: linear-gradient(180deg, #2D4CC8 0%, #E01E5A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #2D4CC8;
+}
+
+/* Drag & Drop-only mobile protection; does not modify shared pages. */
+@media(max-width:780px){
+ .dragcBuilderMain,.dragcBuilderAside,.dragcQuestionForm,.dragcDDPanel,.dragcDDItemRow{min-width:0;max-width:100%;}
+ .dragcDDItemRow{grid-template-columns:minmax(0,1fr)!important;}
+ .dragcDDTwo,.dragcDDThree,.dragcDDMapping{grid-template-columns:minmax(0,1fr)!important;}
+ .dragcRichToolbar{display:flex;flex-wrap:wrap;gap:5px;max-width:100%;}
+ .dragcRichMenuRoot{min-width:0;}
+ .dragcRichMenuRoot button{white-space:nowrap;}
+ .dragcBuilderPageFooter{flex-wrap:wrap;}
+}
