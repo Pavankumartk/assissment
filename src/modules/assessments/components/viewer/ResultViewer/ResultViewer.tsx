@@ -21,7 +21,7 @@ type ResultQuestion = {
   selected: number | null;
   answerText?: string | null;
   expectedAnswer?: string;
-  questionType?: "mcq" | "short-answer" | "one-word" | "fill-in-the-blanks" | "true-false" | "long-answer" | "drag-and-drop";
+  questionType?: "mcq" | "short-answer" | "one-word" | "fill-in-the-blanks" | "true-false" | "long-answer" | "drag-and-drop" | "memory-game";
   gradingStatus?: "correct" | "incorrect" | "pending" | "unanswered";
   points: number;
   hint?: string;
@@ -61,7 +61,7 @@ const previewReviewQuestions: ResultQuestion[] = Array.from({length:20},(_,i) =>
 type SavedResult = {
   title?: string;
   questions?: ResultQuestion[];
-  assessmentType?: "mcq" | "short-answer" | "one-word" | "fill-in-the-blanks" | "true-false" | "long-answer" | "drag-and-drop";
+  assessmentType?: "mcq" | "short-answer" | "one-word" | "fill-in-the-blanks" | "true-false" | "long-answer" | "drag-and-drop" | "memory-game";
   pendingCount?: number;
   scorePercent?: number | null;
   totalQuestions?: number;

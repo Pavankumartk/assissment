@@ -32,13 +32,25 @@ function ReadSetting({ label, value }: { label: string; value: React.ReactNode }
 function ReadSwitch({ label, on }: { label: string; on: boolean }) { return <ReadSetting label={label} value={<ReviewSwitch enabled={on} />} />; }
 function InnerCard({ heading, icon, children }: { heading: string; icon: string; children: React.ReactNode }) { return <section className="reviewInnerCard"><h3><span className="reviewSmallIcon"><Asset name={icon} size={18}/></span>{heading}</h3><div className="reviewInnerRows">{children}</div></section>; }
 function ReviewSection({ number, title, icon, editRoute, children }: { number: number; title: string; icon: string; editRoute: string; children: React.ReactNode }) { return <section className="reviewSection"><div className="reviewSectionHead"><div className="reviewSectionTitle"><span className="reviewNumber"><Asset name={icon} size={20}/></span><strong>{number}. {title}</strong></div><Link className="reviewEdit" href={editRoute}><Asset name="editbig.svg" size={24}/>Edit</Link></div><div className="reviewSectionBody">{children}</div></section>; }
-export default function MCQReviewPage({ detailsKey = "mcqAssessmentDraft", contentKey = "mcqContentDraft", evaluationKey = "mcqAssessmentEvaluationDraft", fillBlanks = false, trueFalse = false, dragAndDrop = false }: { detailsKey?: string; contentKey?: string; evaluationKey?: string; fillBlanks?: boolean; trueFalse?: boolean; dragAndDrop?: boolean } = {}) {
+export default function MCQReviewPage({ detailsKey = "mcqAssessmentDraft", contentKey = "mcqContentDraft", evaluationKey = "mcqAssessmentEvaluationDraft", fillBlanks = false, trueFalse = false, dragAndDrop = false, memoryGame = false }: { detailsKey?: string; contentKey?: string; evaluationKey?: string; fillBlanks?: boolean; trueFalse?: boolean; dragAndDrop?: boolean; memoryGame?: boolean } = {}) {
   const router = useRouter();
   const [publishError,setPublishError]=useState("");
   const publish=()=>{
     const validDetails=validateMcqDetails(details);
     if(validDetails.ok===false){setPublishError(validDetails.message);return;}
-    if(dragAndDrop){
+    if(memoryGame){
+      const expected=Number(details.questionCount);
+      const memoryQuestions=questions as (typeof questions[number] & {pairs?:{id?:string;left?:string;right?:string;leftImage?:string;rightImage?:string}[]})[];
+      const countValid=expected>0&&memoryQuestions.length===expected&&memoryQuestions.every(q=>{
+        const pairs=Array.isArray(q.pairs)?q.pairs:[];
+        return Boolean(q.text?.trim()) && pairs.length>=2 && pairs.every(p=>(Boolean(p.left?.trim())||Boolean(p.leftImage))&&(Boolean(p.right?.trim())||Boolean(p.rightImage))) && Number(q.points)>0;
+      });
+      const sum=memoryQuestions.reduce((total,q)=>total+Number(q.points||0),0);
+      if(!countValid || (Number(details.totalMarks)>0&&Math.abs(sum-Number(details.totalMarks))>0.001)){
+        setPublishError(`Complete all ${expected||"configured"} Memory Game questions, match at least two card pairs per question, and confirm the total marks before publishing.`);
+        return;
+      }
+    }else if(dragAndDrop){
       const expected=Number(details.questionCount);
       const zones=(text:string)=>[...new Set([...text.matchAll(/\[\[(\d+)\]\]/g)].map(m=>m[1]))];
       const valid=expected>0&&questions.length===expected&&questions.every(q=>{

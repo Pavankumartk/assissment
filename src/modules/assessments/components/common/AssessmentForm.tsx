@@ -34,6 +34,11 @@ import DDContent from "../type-specific/drag-and-drop/Content";
 import DDEvaluation from "../type-specific/drag-and-drop/Evaluation";
 import DDReview from "../type-specific/drag-and-drop/Review";
 
+import MemoryGameDetails from "../type-specific/memory-game/Details";
+import MemoryGameContent from "../type-specific/memory-game/Content";
+import MemoryGameEvaluation from "../type-specific/memory-game/Evaluation";
+import MemoryGameReview from "../type-specific/memory-game/Review";
+
 /** A single shared Creator for every assessment type (no MCQ-only routes). */
 export type AssessmentFormStep = "details" | "content" | "evaluation" | "review";
 const STEPS = {
@@ -43,6 +48,7 @@ const STEPS = {
   review: ReviewStep,
 };
 const TYPE_STEPS = {
+ "memory-game": { details:MemoryGameDetails, content:MemoryGameContent, evaluation:MemoryGameEvaluation, review:MemoryGameReview },
  "drag-and-drop": { details:DDDetails, content:DDContent, evaluation:DDEvaluation, review:DDReview },
  "short-answer": { details:ShortDetails, content:ShortContent, evaluation:ShortEvaluation, review:ShortReview },
  "one-word": { details:OneDetails, content:OneContent, evaluation:OneEvaluation, review:OneReview },
@@ -71,6 +77,6 @@ export default function AssessmentForm({ step }: { step: AssessmentFormStep }) {
     return () => window.removeEventListener("one-word-step",onWizardStep);
   }, [router]);
   if (!typeCode) return null;
-  const Screen = typeCode === "short-answer" || typeCode === "one-word" || typeCode === "fill-in-the-blanks" || typeCode === "true-false" || typeCode === "long-answer" || typeCode === "drag-and-drop" ? TYPE_STEPS[typeCode][step] : STEPS[step];
+  const Screen = typeCode === "short-answer" || typeCode === "one-word" || typeCode === "fill-in-the-blanks" || typeCode === "true-false" || typeCode === "long-answer" || typeCode === "drag-and-drop" || typeCode === "memory-game" ? TYPE_STEPS[typeCode][step] : STEPS[step];
   return <div className={`assessment-variant assessment-variant--${typeCode}`}><Screen /></div>;
 }

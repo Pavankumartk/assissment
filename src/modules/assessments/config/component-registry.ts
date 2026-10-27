@@ -1,7 +1,7 @@
 /** Frontend-only *runtime* capabilities, independent of localStorage metadata. */
 import { mcqAssessmentAdapter } from "../components/type-specific/mcq";
 
-export type QuestionMode = "single-choice" | "short-answer" | "one-word" | "fill-in-the-blanks" | "true-false" | "long-answer" | "drag-and-drop";
+export type QuestionMode = "single-choice" | "short-answer" | "one-word" | "fill-in-the-blanks" | "true-false" | "long-answer" | "drag-and-drop" | "memory-game";
 export interface AssessmentAdapter {
   code: string;
   questionMode: QuestionMode;
@@ -10,6 +10,7 @@ export interface AssessmentAdapter {
 
 /** Add another adapter here when its Creator, Viewer, evaluation and results are implemented. */
 export const ASSESSMENT_ADAPTERS: Record<string, AssessmentAdapter> = {
+ "memory-game": {code:"memory-game",questionMode:"memory-game",draftKeys:{details:"memoryGameAssessmentDraft",content:"memoryGameContentDraft",evaluation:"memoryGameEvaluationDraft"}},
  "drag-and-drop": {code:"drag-and-drop",questionMode:"drag-and-drop",draftKeys:{details:"dragDropAssessmentDraft",content:"dragDropContentDraft",evaluation:"dragDropEvaluationDraft"}},
   [mcqAssessmentAdapter.code]: mcqAssessmentAdapter,
   "short-answer": {code:"short-answer",questionMode:"short-answer",draftKeys:{details:"shortAnswerAssessmentDraft",content:"shortAnswerContentDraft",evaluation:"shortAnswerEvaluationDraft"}},

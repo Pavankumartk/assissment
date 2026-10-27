@@ -1,0 +1,35 @@
+/* Memory Game Viewer: existing shared MCQ instructions and popups remain unchanged. */
+.memViewer{height:100dvh;width:100%;min-width:0;overflow:hidden;background:#DFE6E9;color:#374151;font-family:"Segoe UI","Inter",sans-serif}
+.memViewer *,.memViewer *::before,.memViewer *::after{box-sizing:border-box}
+.memViewerLayout{height:100%;min-width:0;display:flex;overflow:hidden}
+.memViewerMain{flex:1;min-width:0;min-height:0;height:100%;display:flex;flex-direction:column;overflow:hidden}
+.memViewerHeader{flex:0 0 auto}
+.memViewerScroll{flex:1;min-height:0;min-width:0;overflow-y:auto!important;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.memViewerContent{min-width:0;padding:24px 26px 45px}
+.memViewerCrumb{display:flex;align-items:center;gap:11px;flex-wrap:wrap;font-size:15px;margin-bottom:20px}
+.memViewerCrumb a{color:#374151;text-decoration:none}.memViewerCrumb strong{color:#2D4CC8}
+.memViewerContent>h1{font-size:24px;margin:12px 0 8px}.memViewerSubtitle{margin:0 0 22px}
+.memViewerTitle{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 23px}
+.memViewerTitle h1{font-size:24px;margin:0 0 8px}.memViewerTitle p{margin:0;font-size:15px}
+.memViewerTitle>div:last-child{padding:12px 16px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;border-radius:9px;color:#2D4CC8;font-weight:700;font-size:20px;white-space:nowrap}
+.memViewerGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,270px);align-items:start;gap:22px}
+.memViewerGame,.memViewerNavigator{padding:24px;background:#DFE6E9;border-radius:16px;box-shadow:-4px -4px 5px #fff,4px 4px 5px #C4C4C4;min-width:0}
+.memViewerGame>header{display:flex;justify-content:space-between;align-items:center;gap:12px}.memViewerGame h2,.memViewerNavigator h2{font-size:18px;margin:0}.memViewerGame>header span{font-weight:600;color:#2A7308}
+.memViewerQuestion{font-size:18px;line-height:1.5;margin:22px 0 14px}.memViewerQuestionImage{display:block;max-width:100%;max-height:260px;object-fit:contain;margin-bottom:16px}
+.memViewerHint{font-size:14px;color:#5A6976;margin-bottom:14px}
+.memViewerCards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.memViewerCard{aspect-ratio:1/1;min-height:90px;min-width:0;border:1px solid #b9c1c9;border-radius:10px;background:#DFE6E9;box-shadow:-3px -3px 5px #fff,3px 3px 5px #C4C4C4;display:grid;place-items:center;padding:10px;font-size:14px;font-weight:600;text-align:center;overflow-wrap:anywhere;cursor:pointer;transition:transform .18s ease}
+.memViewerCard.revealed{background:#EBEFF8;box-shadow:inset -3px -3px 5px #fff,inset 3px 3px 5px #C4C4C4;border-color:#2D4CC8;color:#2D4CC8}
+.memViewerCard.matched{background:#E4F0E2;border-color:#2A7308;color:#2A7308}
+.memViewerCard img{max-height:90%;max-width:100%;object-fit:contain}.memCardBack{font-size:36px;color:#2D4CC8}
+.memViewerProgress{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:20px}.memViewerDone{color:#2A7308;font-weight:700}.memViewerHintDetails{margin-top:14px;font-size:14px}
+.memViewerActions{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:26px}.memViewerWarning{font-size:13px;color:#BD2434}
+.memViewerNavigator h2{margin-bottom:18px}.memViewerTiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
+.memViewerTiles button{aspect-ratio:1;border:0;border-radius:6px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 4px #C4C4C4;font-weight:700}
+.memViewerTiles button.current{outline:1px solid #2D4CC8;color:#2D4CC8}.memViewerTiles button.answered{background:#E4F0E2;color:#2A7308}
+.memViewerStats{margin:20px 0;border-top:1px solid #cbd2d7;padding-top:12px;font-size:14px}.memViewerStats p{display:flex;justify-content:space-between}
+.memViewerFlag{display:flex;align-items:center;justify-content:center;gap:8px;min-height:40px;background:#DFE6E9;box-shadow:-2px -2px 4px #fff,2px 2px 4px #C4C4C4;border:0;border-radius:8px;width:100%;font-weight:600}
+.memViewerSubmit{width:100%;margin-top:18px}
+.memViewer .viewerSubmitOverlay,.memViewer .viewerSuccessOverlay{position:fixed;inset:0;z-index:10000}
+@media(max-width:980px){.memViewerGrid{grid-template-columns:minmax(0,1fr)}.memViewerNavigator{order:2}.memViewerCards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:600px){.memViewerContent{padding:15px 12px 28px}.memViewerTitle{flex-wrap:wrap}.memViewerTitle h1{font-size:20px}.memViewerGame,.memViewerNavigator{padding:16px 12px}.memViewerCards{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.memViewerCard{min-height:80px;font-size:12px}.memViewerActions button{padding:8px 15px;font-size:13px}.memViewerTiles{grid-template-columns:repeat(6,minmax(0,1fr))}}

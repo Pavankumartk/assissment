@@ -1,0 +1,577 @@
+/* Memory Game Content and Preview only. Figma values are adapted to responsive layout. */
+.memFigmaApp {
+  --mem-bg: #DFE6E9;
+  --mem-ink: #374151;
+  --mem-blue: #2D4CC8;
+  --mem-green: #2A7308;
+  --mem-raised: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+  --mem-soft: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+  --mem-inset: inset -4px -4px 4px #FFFFFF, inset 4px 4px 4px #C4C4C4;
+  background: var(--mem-bg);
+  color: var(--mem-ink);
+  font-family: "Segoe UI", "Inter", sans-serif;
+  width: 100%; height: 100dvh; overflow: hidden; min-width: 0;
+}
+.memFigmaApp, .memFigmaApp *, .memFigmaApp *::before, .memFigmaApp *::after { box-sizing: border-box; }
+.memFigmaApp button, .memFigmaApp input, .memFigmaApp textarea, .memFigmaApp select { font-family: "Segoe UI", "Inter", sans-serif; }
+.memFigmaApp button { cursor: pointer; }
+.memFigmaApp button:disabled { cursor: not-allowed; opacity: .42; }
+.memFigmaApp button:focus-visible, .memFigmaApp input:focus-visible, .memFigmaApp textarea:focus-visible, .memFigmaApp select:focus-visible { outline: 2px solid var(--mem-blue); outline-offset: 2px; }
+.memFigmaApp .memLayout { width: 100%; height: 100%; min-width: 0; display: flex; overflow: hidden; }
+.memFigmaApp .memMain { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.memFigmaApp .memScroll { flex: 1; min-height: 0; min-width: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.memFigmaApp .memFigmaWrap { padding: 22px 24px 40px; width: 100%; min-width: 0; max-width: 1470px; margin: 0 auto; }
+.memNewBreadcrumb { display: flex; align-items: center; gap: 10px; min-height: 32px; font-size: 15px; white-space: normal; flex-wrap: wrap; }
+.memNewBreadcrumb button { padding: 0; border: 0; color: #374151; background: none; font-size: inherit; }
+.memNewBreadcrumb strong { font-size: inherit; color: var(--mem-blue); font-weight: 700; }
+.memNewBreadcrumb img { display: block; flex-shrink: 0; }
+.memFigmaTop { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 23px; }
+.memFigmaTop > div:first-child { flex: 1; min-width: 280px; }
+.memFigmaApp .memWelcome { width: min(372px, 100%); min-height: 104px; display: flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 8px; padding: 14px 18px; margin: 0 0 0 auto; background: #DFE6E9; border-radius: 10px; box-shadow: var(--mem-inset); }
+.memWelcome img { flex: 0 0 auto; }
+.memWelcome h2 { font-size: 22px; font-weight: 700; line-height: 26px; margin: 0 0 7px; letter-spacing: .01em; color: var(--mem-blue); }
+.memWelcome h2 span { color: #D21D60; }
+.memWelcome p { font-size: 14px; line-height: 21px; font-weight: 400; text-align: center; color: #2F3547; margin: 0; }
+.memFigmaColumns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(258px, 286px); gap: 24px; align-items: start; min-width: 0; }
+.memFigmaEditorColumn { min-width: 0; }
+.memFigmaMainCard { background: #DFE6E9; box-shadow: var(--mem-raised); border-radius: 16px; padding: 24px; min-width: 0; }
+.memFigmaQuestionHeader { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 26px; }
+.memFigmaQuestionHeader h1 { margin: 0 0 7px; font-size: 20px; line-height: 28px; font-weight: 700; }
+.memFigmaQuestionHeader p { margin: 0; font-size: 14px; line-height: 20px; }
+.memFigmaButton { min-height: 40px; display: inline-flex; justify-content: center; align-items: center; gap: 9px; padding: 9px 17px; background: #DFE6E9; box-shadow: var(--mem-raised); border: 0; border-radius: 999px; font-weight: 600; color: #374151; font-size: 14px; line-height: 21px; white-space: nowrap; }
+.memFigmaButtonBlue { color: #2D4CC8; border: 1px solid #2D4CC8; }
+.memFigmaButtonPink { color: #2D4CC8; border: 1px solid #E01E5A; }
+.memFigmaButtonGreen { color: #2A7308; }
+.memFigmaRound { height: 37px; width: 37px; flex: 0 0 37px; background: #DFE6E9; box-shadow: var(--mem-soft); border-radius: 50%; border: 0; display: grid; place-items: center; }
+.memFigmaNavigator { display: flex; align-items: center; gap: 17px; justify-content: center; min-width: 0; margin: 0 0 16px; }
+.memFigmaTiles { display: flex; flex: 1; min-width: 0; justify-content: center; align-items: center; gap: 10px; overflow-x: auto; padding: 5px 3px 10px; scrollbar-width: thin; }
+.memFigmaTile { display: grid; place-items: center; gap: 0; position: relative; min-width: 66px; height: 60px; border: 1px solid #2A7308; background: #DFE6E9; border-radius: 4px; color: #2A7308; box-shadow: var(--mem-soft); }
+.memFigmaTile strong { font-size: 18px; line-height: 24px; font-weight: 700; }
+.memFigmaTile small { font-size: 10px; line-height: 17px; }
+.memFigmaTile i { position: absolute; top: 5px; right: 7px; height: 7px; width: 7px; border-radius: 50%; background: #2A7308; }
+.memFigmaTile.selected { border-color: #2D4CC8; color: #2D4CC8; background: #E0E8F4; }
+.memFigmaTile.selected i { background: #2D4CC8; }
+.memFigmaProgress { margin: 0 42px 24px; height: 15px; border-radius: 15px; background: #DFE6E9; box-shadow: var(--mem-inset); padding: 3px 4px; }
+.memFigmaProgress div { height: 9px; max-width: 100%; background: #2A7308; border-radius: 10px; transition: width .15s; }
+.memFigmaQuestionBox { padding: 15px 16px; border: 1px solid #AEB7BC; border-radius: 16px; min-width: 0; }
+.memFigmaField, .memFigmaSettingsGrid > label, .memFigmaSettingsGrid > div, .memFigmaAside > label { display: flex; flex-direction: column; gap: 10px; min-width: 0; margin-bottom: 15px; font-size: 13px; line-height: 20px; font-weight: 600; }
+.memFigmaApp .memFigmaField input, .memFigmaApp .memFigmaSettingsGrid input, .memFigmaApp .memFigmaAside input, .memFigmaApp .memFigmaPairInputs input, .memFigmaInset { width: 100%; min-width: 0; border: 0; background: #DFE6E9; box-shadow: var(--mem-inset); border-radius: 6px; font-weight: 400; color: #374151; padding: 9px 15px; font-size: 14px; min-height: 40px; }
+.memFigmaReadOnly { display: flex; justify-content: space-between; align-items: center; }
+.memNewAccordion { min-width: 0; background: #DFE6E9; border-radius: 5px; box-shadow: var(--mem-raised); margin-top: 16px; }
+.memNewAccordionHead { border: 0; background: transparent; padding: 10px 13px; width: 100%; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #374151; text-align: left; font-size: 16px; line-height: 23px; font-weight: 600; }
+.memNewAccordionTitle { display: flex; align-items: center; gap: 10px; min-width: 0; overflow-wrap: anywhere; }
+.memNewCircle { width: 34px; height: 34px; flex: 0 0 34px; display: grid; place-items: center; box-shadow: var(--mem-soft); border-radius: 50%; }
+.memNewAccordionRight { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+.memNewAccordionRight small { font-size: 11px; font-weight: 400; }
+.memNewChevron img { transition: transform .2s; display: block; }
+.memNewChevron.up img { transform: rotate(180deg); }
+.memNewAccordionBody { padding: 18px 15px 20px; border-top: 1px solid #CAD1D4; min-width: 0; }
+.memNewEditor { min-width: 0; margin-bottom: 18px; }
+.memNewEditorLabel { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 13px; line-height: 21px; }
+.memNewEditorLabel small { font-size: 12px; font-weight: 400; color: #596577; }
+.memNewToolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; background: #DFE6E9; padding: 5px 6px; box-shadow: var(--mem-inset); border-radius: 5px 5px 0 0; min-width: 0; }
+.memNewToolbar button { padding: 0; flex: 0 0 30px; width: 30px; height: 30px; display: grid; place-items: center; background: #DFE6E9; box-shadow: var(--mem-soft); border: 0; border-radius: 3px; font-size: 14px; line-height: 1; }
+.memNewToolbar button[aria-pressed="true"] { box-shadow: var(--mem-inset); color: #2D4CC8; }
+.memNewToolbar select { display: block; appearance: auto; flex: 0 0 105px; width: 105px; min-height: 30px; min-width: 0; padding: 0 20px 0 7px; font-size: 12px; line-height: 20px; color: #374151; border: 0; border-radius: 3px; background: #DFE6E9; box-shadow: var(--mem-inset); }
+.memNewToolbar select.memNewFontSize { flex-basis: 65px; width: 65px; }
+.memFigmaApp .memNewEditor textarea { display: block; min-width: 0; width: 100%; min-height: 92px; resize: vertical; padding: 12px 14px; background: #DFE6E9; box-shadow: var(--mem-inset); border: 0; border-radius: 0 0 5px 5px; line-height: 1.5; }
+.memFigmaSubpanel { margin: 15px 0 21px; padding: 18px 14px; border: 1px solid #BBC4CA; border-radius: 7px; }
+.memFigmaSubpanel h3, .memFigmaSettings h3 { margin: 0 0 15px; font-size: 15px; font-weight: 700; }
+.memFigmaMuted { font-size: 12px; line-height: 18px; color: #566577; margin: -4px 0 14px; }
+.memFigmaCardPairs { display: grid; grid-template-columns: minmax(0,1fr); gap: 12px; }
+.memFigmaPair { min-width: 0; padding-bottom: 15px; border-bottom: 1px solid #B8C3C8; }
+.memFigmaPair:last-child { border-bottom: 0; }
+.memFigmaPairHeader { display: flex; align-items: center; justify-content: space-between; gap: 15px; font-size: 12px; margin-bottom: 10px; }
+.memFigmaPairHeader button { border: 0; background: transparent; color: #BD2434; font-size: 12px; }
+.memFigmaPairInputs { display: grid; grid-template-columns: minmax(0,1fr) minmax(132px, 165px); align-items: end; gap: 12px; margin-bottom: 9px; }
+.memFigmaPairInputs > label { display: grid; gap: 6px; font-size: 12px; font-weight: 600; min-width: 0; }
+.memNewImageSlot { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; min-width: 0; }
+.memNewImageName { position: absolute; overflow: hidden; clip: rect(0 0 0 0); width: 1px; height: 1px; }
+.memNewImagePreview { display: grid; place-items: center; width: 42px; height: 38px; border-radius: 5px; box-shadow: var(--mem-inset); flex: 0 0 42px; }
+.memNewImagePreview > img { display: block; height: 30px; width: 34px; object-fit: contain; }
+.memNewImageSlot > button { height: 36px; width: 37px; flex: 0 0 37px; border: 0; border-radius: 5px; background: #DFE6E9; box-shadow: var(--mem-soft); display: grid; place-items: center; }
+.memNewImageSlot > .memNewImagePath { flex: 1 1 100%; font-size: 12px; padding: 7px; margin-top: 3px; width: 100%; }
+.memFigmaCenter { display: flex; justify-content: center; align-items: center; margin: 18px 0 0; }
+.memFigmaSettings { padding: 17px 15px; background: #DFE6E9; box-shadow: var(--mem-soft); border-radius: 6px; }
+.memFigmaSettingsGrid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px 16px; }
+.memFigmaSettingsGrid > label, .memFigmaSettingsGrid > div { font-size: 12px; margin: 0; }
+.memFigmaSettingsGrid input { height: 40px; }
+.memDropdown { width: 100%; min-width: 0; position: relative; }
+.memDropdownTrigger { display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 0; gap: 8px; min-height: 40px; padding: 9px 12px; border: 0; border-radius: 6px; box-shadow: var(--mem-inset); color: #374151; background: #DFE6E9; text-align: left; font-size: 14px; line-height: 20px; font-weight: 400; }
+.memDropdownTrigger span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.memDropdownTrigger img { flex: 0 0 auto; }
+.memDropdownMenu { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 50; max-height: 205px; overflow-y: auto; padding: 5px; background: #DFE6E9; border-radius: 6px; box-shadow: var(--mem-raised); }
+.memDropdownMenu button { border: 0; background: transparent; width: 100%; padding: 9px; text-align: left; font-size: 13px; border-radius: 4px; }
+.memDropdownMenu button:hover, .memDropdownMenu button[aria-selected="true"] { background: #D2DEF2; color: #2D4CC8; }
+.memFigmaSwitchRow { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 9px; min-height: 40px; background: #DFE6E9; box-shadow: var(--mem-inset); border-radius: 5px; font-size: 12px; font-weight: 400; }
+.memNewToggle { width: 59px; height: 25px; flex: 0 0 59px; padding: 0 5px; border: 0; border-radius: 20px; display: flex; align-items: center; justify-content: flex-end; position: relative; background: #DFE6E9; box-shadow: var(--mem-soft); }
+.memNewToggle span { font-size: 10px; line-height: 14px; position: relative; z-index: 2; margin: 0 2px 0 0; }
+.memNewToggle i { position: absolute; top: 3px; left: 4px; height: 19px; width: 19px; background: #60656A; border-radius: 50%; box-shadow: 0 1px 3px #AAAAAA; }
+.memNewToggle.active { background: linear-gradient(110deg,#2D4CC8,#E01E5A); color: #FFFFFF; justify-content: flex-start; }
+.memNewToggle.active span { margin: 0 0 0 3px; color: #FFFFFF; }
+.memNewToggle.active i { left: auto; right: 4px; background: #DFE6E9; }
+.memFigmaGradeGrid { margin-bottom: 16px; }
+.memFigmaWideSetting { margin: 12px 0; }
+.memFigmaCheckbox { display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 20px; margin: 8px 0; }
+.memFigmaCheckbox input { accent-color: #2D4CC8; }
+.memFigmaAddQuestions { margin: 30px 0 5px; }
+.memFigmaAside { min-width: 0; padding: 17px 15px 20px; border-radius: 12px; box-shadow: var(--mem-raised); background: #DFE6E9; }
+.memFigmaAside h2 { margin: 0 0 20px; font-size: 18px; font-weight: 700; }
+.memFigmaAside > label { margin-bottom: 18px; font-size: 13px; }
+.memFigmaAside > label input { height: 40px; }
+.memFigmaTags { display: grid; gap: 9px; font-size: 13px; }
+.memFigmaTags > button { display: inline-flex; justify-self: start; align-items: center; gap: 6px; padding: 7px 12px; color: #2A7308; border: 0; background: #DFE6E9; box-shadow: var(--mem-soft); border-radius: 5px; font-size: 12px; }
+.memFigmaTags > div { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.memFigmaTagEditor input { width: 100px; min-width: 0; }
+.memFigmaTagEditor button { border: 0; background: transparent; color: #2D4CC8; }
+.memFigmaTag { padding: 5px 8px; font-size: 11px; border: 1px solid #8AB47E; border-radius: 4px; background: #E2EED9; color: #2A7308; }
+.memFigmaMandatory { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 20px 0 8px; padding: 9px; box-shadow: var(--mem-inset); border-radius: 6px; font-size: 13px; font-weight: 600; }
+.memFigmaAside > small { font-size: 11px; color: #647087; }
+.memFigmaFooter { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 30px 0 7px; }
+.memFigmaFooter > div { display: flex; align-items: center; gap: 20px; }
+.memFigmaApp .memErrors, .memFigmaApp .memNotice { color: #B4232F; font-size: 13px; line-height: 20px; padding: 8px 0; }
+.memFigmaApp .memErrors p { margin: 3px 0; }
+.memFigmaApp .memOk { color: #2A7308; font-size: 13px; }
+/* Preview Questions: same figure's raised panels and inset fields. */
+.memPrevPage { width: 100%; min-width: 0; }
+.memPrevTop { margin: 28px 0 20px; }
+.memPrevTop h1 { font-size: 20px; font-weight: 700; line-height: 28px; margin: 0 0 7px; }
+.memPrevTop p { font-size: 13px; margin: 0; }
+.memPrevControls { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.memPrevSummary { display: flex; align-items: stretch; flex-wrap: wrap; gap: 15px; padding: 10px 14px; box-shadow: var(--mem-raised); border-radius: 6px; background: #DFE6E9; }
+.memPrevSummary .memPrevInset { width: 135px; display: grid; place-items: center; padding: 9px; text-align: center; }
+.memPrevSummary .memPrevInset strong { display: block; font-weight: 600; }
+.memPrevSummary .memPrevInset span { display: block; font-size: 12px; }
+.memPrevInset { min-width: 0; padding: 12px 14px; border-radius: 4px; background: #DFE6E9; box-shadow: var(--mem-inset); overflow-wrap: anywhere; font-size: 13px; line-height: 21px; }
+.memPrevReadiness { display: flex; gap: 9px; align-items: center; padding: 5px 14px; box-shadow: var(--mem-inset); border-radius: 5px; min-width: 160px; }
+.memPrevReadiness strong { color: #2A7308; font-size: 12px; display: block; }
+.memPrevReadiness span { font-size: 12px; }
+.memPrevTools { display: flex; align-items: center; gap: 17px; flex-wrap: wrap; }
+.memPrevFilter { display: flex; align-items: center; justify-content: space-between; position: relative; min-width: 157px; padding: 0 12px; height: 41px; box-shadow: var(--mem-inset); border-radius: 4px; }
+.memPrevFilter select { width: 100%; height: 100%; border: 0; appearance: none; outline: 0; padding-right: 19px; background: transparent; font-size: 13px; color: #374151; }
+.memPrevFilter img { position: absolute; right: 9px; pointer-events: none; }
+.memSrOnly { position: absolute; width: 1px; height: 1px; clip: rect(0,0,0,0); overflow: hidden; }
+.memPrevLearnerButton { display: flex; align-items: center; justify-content: center; gap: 10px; min-width: 167px; min-height: 41px; padding: 9px 14px; border: 0; border-radius: 7px; color: #2D4CC8; background: #DFE6E9; box-shadow: var(--mem-raised); font-size: 13px; font-weight: 600; }
+.memPrevLearnerButton.selected { box-shadow: var(--mem-inset); }
+.memPrevQuestion { margin: 0 0 25px; padding: 25px 18px 18px; border-radius: 16px; box-shadow: var(--mem-raised); min-width: 0; }
+.memPrevQuestionTop { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 14px; margin-bottom: 22px; font-size: 12px; }
+.memPrevQuestionTop > span { border: 1px solid #C9D1D3; border-radius: 99px; padding: 7px 13px; }
+.memPrevQuestionTop button { border: 0; background: #DFE6E9; border-radius: 20px; box-shadow: var(--mem-soft); padding: 7px 12px; display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.memPrevGreen { color: #2A7308; }.memPrevRed { color: #B4232F; }
+.memPrevSection { margin-bottom: 13px; box-shadow: var(--mem-raised); padding-bottom: 13px; border-radius: 5px; overflow: hidden; }
+.memPrevSection h2 { margin: 0; font-size: 14px; font-weight: 600; min-height: 45px; padding: 13px 14px; box-shadow: var(--mem-inset); }
+.memPrevSection .memPrevInset { margin: 12px 14px 0; }
+.memPrevQuestionImage { max-width: 100%; max-height: 240px; object-fit: contain; padding: 10px 15px; }
+.memPrevAccordion { min-width: 0; padding: 0 0 15px; margin: 13px 0; border-radius: 5px; box-shadow: var(--mem-raised); }
+.memPrevAccordionHeading { min-height: 46px; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 15px; text-align: left; font-size: 14px; border: 0; padding: 10px 14px; background: #DFE6E9; box-shadow: var(--mem-inset); border-radius: 4px; }
+.memPrevAccordionHeading strong { font-weight: 600; }
+.memPrevAccordionHeading span { display: block; transition: transform .2s; }
+.memPrevAccordionHeading .memPrevArrowOpen { transform: rotate(180deg); }
+.memPrevAccordionBody { min-width: 0; padding: 15px 13px 2px; }
+.memPrevBoard { margin: 0 auto 20px; width: min(100%, 580px); padding: 12px; box-shadow: var(--mem-inset); border-radius: 7px; }
+.memPrevCardGrid { display: grid; gap: 8px; min-width: 0; }
+.memPrevCard { display: grid; place-items: center; min-width: 0; min-height: 97px; padding: 9px; background: #DFE6E9; border: 1px solid #AFB8BB; border-radius: 5px; font-size: 14px; text-align: center; overflow-wrap: anywhere; }
+.memPrevCard img { width: 72px; max-width: 100%; max-height: 72px; object-fit: contain; }
+.memPrevCard.isHidden { background: #D2DBE5; color: #2D4CC8; font-weight: 700; }
+.memPrevSettings { padding: 16px; box-shadow: var(--mem-raised); border-radius: 5px; }
+.memPrevSettings h3 { margin: 0 0 18px; font-size: 15px; }
+.memPrevSettingsGrid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 15px; min-width: 0; }
+.memPrevSettingsGrid > div { min-width: 0; }
+.memPrevSettingsGrid label { display: block; margin-bottom: 10px; font-size: 12px; line-height: 17px; }
+.memPrevSettingsGrid .memPrevInset { display: flex; align-items: center; justify-content: space-between; gap: 7px; min-height: 39px; }
+.memPrevToggle { display: inline-flex; flex: 0 0 48px; align-items: center; justify-content: flex-end; position: relative; width: 48px; height: 24px; border-radius: 15px; padding: 0 5px; box-shadow: var(--mem-soft); font-size: 10px; line-height: 20px; }
+.memPrevToggle i { position: absolute; left: 3px; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: #626669; }
+.memPrevToggle.active { color: #FFFFFF; background: linear-gradient(90deg,#2D4CC8,#E01E5A); justify-content: flex-start; }.memPrevToggle.active i { left: auto; right: 3px; background: #DFE6E9; }
+.memPrevToggleSetting { margin: 14px 0 0; padding: 10px 13px; box-shadow: var(--mem-inset); display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; border-radius: 4px; }
+.memPrevFeedbackItem { padding: 12px 13px; margin-bottom: 12px; box-shadow: var(--mem-raised); border-radius: 5px; }
+.memPrevFeedbackItem h4 { margin: 0 0 13px; display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; }
+.memPrevFeedbackItem h4.green { color: #2A7308; }.memPrevFeedbackItem h4.orange { color: #D65D00; }.memPrevFeedbackItem h4.red { color: #B4232F; }
+.memPrevMiniCircle { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; box-shadow: var(--mem-soft); }
+.memPrevQuestionSettings { grid-template-columns: repeat(5, minmax(0,1fr)); }
+.memPrevFooter { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 0 0; }
+.memPrevFooter button { border: 0; box-shadow: var(--mem-raised); border-radius: 40px; min-height: 41px; padding: 9px 18px; background: #DFE6E9; font-size: 13px; font-weight: 600; }
+.memPrevFooter button.memPrevContinue { color: #2D4CC8; }
+.memPrevEmpty { padding: 50px; text-align: center; box-shadow: var(--mem-raised); border-radius: 12px; }
+@media (max-width: 1100px) {
+  .memFigmaColumns { grid-template-columns: minmax(0,1fr) 248px; gap: 16px; }
+  .memFigmaMainCard { padding: 17px; }
+  .memFigmaPairInputs { grid-template-columns: minmax(0,1fr) minmax(122px,135px); }
+}
+@media (max-width: 880px) {
+  .memFigmaColumns { grid-template-columns: minmax(0,1fr); }
+  .memFigmaAside { max-width: none; }
+  .memFigmaAside { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 18px; }
+  .memFigmaAside h2, .memFigmaTags, .memFigmaAside > small { grid-column: 1/-1; }
+  .memPrevQuestionSettings { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+@media (max-width: 620px) {
+  .memFigmaApp .memFigmaWrap { padding: 15px 12px 25px; }
+  .memNewBreadcrumb { gap: 5px; font-size: 12px; }
+  .memNewBreadcrumb img { width: 15px; height: 15px; }
+  .memFigmaTop { gap: 18px; }
+  .memFigmaTop > div:first-child { min-width: 0; }
+  .memFigmaApp .memWelcome { min-height: 78px; padding: 11px; }
+  .memWelcome h2 { font-size: 16px; line-height: 21px; }
+  .memWelcome p { font-size: 12px; }
+  .memFigmaMainCard { padding: 13px 10px; }
+  .memFigmaQuestionHeader h1 { font-size: 17px; }
+  .memFigmaQuestionHeader p { font-size: 12px; }
+  .memFigmaQuestionBox { padding: 11px 9px; }
+  .memFigmaNavigator { gap: 8px; }
+  .memFigmaTiles { gap: 7px; }
+  .memFigmaTile { min-width: 51px; height: 49px; }
+  .memFigmaTile strong { font-size: 15px; }
+  .memFigmaRound { width: 31px; height: 31px; flex-basis: 31px; }
+  .memFigmaProgress { margin: 0 15px 17px; }
+  .memNewAccordionHead { padding: 9px; font-size: 13px; }
+  .memNewAccordionBody { padding: 13px 10px 16px; }
+  .memFigmaPairInputs { grid-template-columns: minmax(0,1fr); }
+  .memNewImageSlot { justify-content: flex-start; }
+  .memFigmaSettingsGrid, .memFigmaGradeGrid { grid-template-columns: minmax(0,1fr); }
+  .memFigmaAside { display: flex; flex-direction: column; }
+  .memFigmaFooter { align-items: stretch; flex-wrap: wrap; }
+  .memFigmaFooter > div { flex: 1; justify-content: flex-end; }
+  .memPrevControls { align-items: stretch; }
+  .memPrevSummary { width: 100%; }
+  .memPrevSummary .memPrevInset { min-width: 92px; width: auto; flex: 1; }
+  .memPrevReadiness { flex: 1; }
+  .memPrevQuestion { padding: 15px 10px; }
+  .memPrevSettingsGrid, .memPrevQuestionSettings { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .memPrevCard { min-height: 65px; font-size: 11px; }
+  .memPrevBoard { padding: 6px; }
+  .memPrevCardGrid { gap: 5px; }
+  .memPrevTop { margin-top: 18px; }
+}
+@media (max-width: 375px) {
+  .memNewToolbar { gap: 3px; }
+  .memNewToolbar button { flex-basis: 27px; width: 27px; }
+  .memNewToolbar select { flex-basis: 96px; width: 96px; }
+  .memNewToolbar select.memNewFontSize { flex-basis: 58px; width: 58px; }
+  .memPrevQuestionSettings, .memPrevSettingsGrid { grid-template-columns: minmax(0,1fr); }
+  .memFigmaFooter > div { gap: 10px; }
+  .memFigmaButton { padding-left: 12px; padding-right: 12px; }
+}
+
+/* MEMORY GAME FIGMA POLISH START */
+/* MEMORY GAME CONTENT + PREVIEW: Figma icon, editor and panel finishes.
+   Scope: memory-game only; no shared Creator/Viewer CSS is changed. */
+.memFigmaApp .memNewToolbar {
+  min-height: 42px;
+  padding: 5px 8px;
+  gap: 5px;
+  background: #DFE6E9;
+  border: 1px solid #EDF2F4;
+  border-radius: 4px 4px 0 0;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+.memFigmaApp .memNewToolbar button {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: inline-grid;
+  place-items: center;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 2px #FFFFFF, 2px 2px 2px #C4C4C4;
+  border: 1px solid #D4DBDE;
+  border-radius: 3px;
+  color: #2F3547;
+}
+.memFigmaApp .memNewToolbar select {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 105px;
+  width: 105px;
+  height: 30px;
+  padding: 4px 22px 4px 9px;
+  background-color: #DFE6E9;
+  background-image: url('/assets/assessmenticons/arrow-down-01.svg');
+  background-repeat: no-repeat;
+  background-size: 15px 15px;
+  background-position: right 5px center;
+  border: 1px solid #F6F9FA;
+  border-radius: 4px;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+  color: #374151;
+  font-family: "Segoe UI", "Inter", sans-serif;
+  line-height: 21px;
+}
+.memFigmaApp .memNewToolbar select.memNewFontSize {
+  flex: 0 0 62px;
+  width: 62px;
+  padding-right: 18px;
+}
+.memFigmaApp .memNewEditor textarea {
+  border: 1px solid #F5F7F8;
+  border-radius: 0 0 5px 5px;
+  box-shadow: inset -3px -3px 3px #FFFFFF, inset 3px 3px 3px #C4C4C4;
+  background-color: #DFE6E9;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+.memFigmaApp .memNewCircle { box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4; }
+
+/* Preview layout: raised outer sheet and read-only fields from Figma. */
+.memFigmaApp .memPrevPage { color: #374151; font-family: "Segoe UI", "Inter", sans-serif; }
+.memFigmaApp .memPrevTop { margin: 29px 0 24px; }
+.memFigmaApp .memPrevTop h1 { font-size: 20px; line-height: 28px; letter-spacing: .02em; color: #374151; }
+.memFigmaApp .memPrevTop p { font-size: 14px; line-height: 21px; }
+.memFigmaApp .memPrevControls { margin-bottom: 33px; align-items: flex-end; }
+.memFigmaApp .memPrevSummary {
+  min-height: 79px;
+  gap: 16px;
+  padding: 12px 15px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+  border: 1px solid #F7F9FA;
+  border-radius: 6px;
+}
+.memFigmaApp .memPrevSummary .memPrevInset {
+  width: 135px;
+  min-height: 49px;
+  padding: 6px 10px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+}
+.memFigmaApp .memPrevSummary .memPrevInset strong { font-size: 15px; font-weight: 600; line-height: 20px; }
+.memFigmaApp .memPrevSummary .memPrevInset span { font-size: 13px; line-height: 20px; }
+.memFigmaApp .memPrevReadiness {
+  min-height: 49px;
+  min-width: 177px;
+  gap: 9px;
+  padding: 6px 10px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+}
+.memFigmaApp .memPrevReadiness img { flex: 0 0 auto; }
+.memFigmaApp .memPrevReadiness strong { font-size: 13px; line-height: 21px; }
+.memFigmaApp .memPrevReadiness span { font-size: 12px; line-height: 19px; }
+.memFigmaApp .memPrevFilter {
+  min-width: 158px;
+  height: 43px;
+  border: 1px solid #F4F6F7;
+  box-shadow: inset -3px -3px 3px #FFFFFF, inset 3px 3px 3px #C4C4C4;
+  background: #DFE6E9;
+}
+.memFigmaApp .memPrevLearnerButton {
+  min-width: 191px;
+  min-height: 43px;
+  font-size: 14px;
+  border: 1px solid #F8FAFA;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+}
+.memFigmaApp .memPrevQuestion {
+  padding: 26px 22px 23px;
+  background: #DFE6E9;
+  border-radius: 16px;
+  box-shadow: -8px -8px 16px #FFFFFF, 8px 8px 16px #C4C4C4;
+}
+.memFigmaApp .memPrevQuestionTop { margin-bottom: 23px; gap: 23px; }
+.memFigmaApp .memPrevQuestionTop > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  background: #DFE6E9;
+  border: 0;
+  border-radius: 32px;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+  font-size: 14px;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+.memFigmaApp .memPrevQuestionTop button {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 32px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+  font-size: 13px;
+}
+.memFigmaApp .memPrevSection {
+  background: #DFE6E9;
+  padding-bottom: 15px;
+  margin-bottom: 18px;
+  border-radius: 5px;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+}
+.memFigmaApp .memPrevSection h2 {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  padding: 15px 23px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #31344B;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+}
+.memFigmaApp .memPrevSection .memPrevInset { margin: 12px 13px 0; min-height: 59px; padding: 15px 18px; }
+.memFigmaApp .memPrevInset {
+  border-radius: 5px;
+  color: #374151;
+  background: #DFE6E9;
+  box-shadow: inset -3px -3px 3px #FFFFFF, inset 3px 3px 3px #C4C4C4;
+  font-size: 14px;
+  line-height: 22px;
+}
+.memFigmaApp .memPrevAccordion {
+  margin: 17px 0;
+  padding: 0 0 16px;
+  background: #DFE6E9;
+  border: 1px solid #F7F9FA;
+  border-radius: 5px;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+}
+.memFigmaApp .memPrevAccordionHeading {
+  min-height: 57px;
+  padding: 11px 20px;
+  font-size: 16px;
+  line-height: 23px;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 3px #FFFFFF, 3px 3px 3px #C4C4C4;
+  border-radius: 4px;
+}
+.memFigmaApp .memPrevHeadingTitle { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.memFigmaApp .memPrevHeadingIcon, .memFigmaApp .memPrevMiniCircle {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 3px #FFFFFF, 3px 3px 3px #C4C4C4;
+}
+.memFigmaApp .memPrevAccordionHeading strong { font-size: 16px; font-weight: 600; letter-spacing: .01em; }
+.memFigmaApp .memPrevAccordionBody { padding: 18px 16px 0; }
+.memFigmaApp .memPrevBoard {
+  width: min(100%, 570px);
+  margin: 4px auto 24px;
+  padding: 16px;
+  background: #DFE6E9;
+  border-radius: 5px;
+  box-shadow: inset -3px -3px 3px #FFFFFF, inset 3px 3px 3px #C4C4C4;
+}
+.memFigmaApp .memPrevCardGrid {
+  padding: 12px;
+  gap: 10px;
+  border: 1px solid #BCC5CA;
+  border-radius: 4px;
+  background: #DFE6E9;
+}
+.memFigmaApp .memPrevCard {
+  min-height: 99px;
+  border: 1px solid #A5B2BA;
+  border-radius: 5px;
+  background: #DFE6E9;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: #374151;
+  overflow: hidden;
+}
+.memFigmaApp .memPrevCard.hasImage img {
+  width: 86px;
+  height: 83px;
+  padding: 7px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 7px;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+}
+.memFigmaApp .memPrevSettings {
+  padding: 19px 18px;
+  background: #DFE6E9;
+  border: 1px solid #F8FAFA;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+  border-radius: 4px;
+}
+.memFigmaApp .memPrevSettings h3 { font-size: 16px; font-weight: 700; line-height: 24px; margin-bottom: 20px; }
+.memFigmaApp .memPrevSettingsGrid { gap: 21px 20px; }
+.memFigmaApp .memPrevSettingsGrid label { font-size: 14px; font-weight: 600; line-height: 22px; margin-bottom: 10px; }
+.memFigmaApp .memPrevSettingsGrid .memPrevInset { min-height: 50px; padding: 12px 15px; }
+.memFigmaApp .memPrevToggle {
+  width: 53px;
+  height: 25px;
+  flex: 0 0 53px;
+  padding: 0 7px;
+  font-size: 11px;
+  color: #756280;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+.memFigmaApp .memPrevToggle i { width: 18px; height: 18px; }
+.memFigmaApp .memPrevToggle.active { color: #9E168A; background: #DFE6E9; }
+.memFigmaApp .memPrevToggle.active i { background: #DFE6E9; box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4; }
+.memFigmaApp .memPrevToggleSetting {
+  min-height: 52px;
+  padding: 10px 15px;
+  background: #DFE6E9;
+  box-shadow: inset -3px -3px 3px #FFFFFF, inset 3px 3px 3px #C4C4C4;
+  font-size: 14px;
+}
+.memFigmaApp .memPrevFeedbackItem {
+  margin-bottom: 17px;
+  padding: 17px 19px;
+  min-height: 116px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 8px #FFFFFF, 4px 4px 8px #C4C4C4;
+}
+.memFigmaApp .memPrevFeedbackItem h4 { margin-bottom: 15px; gap: 13px; font-size: 17px; line-height: 23px; }
+.memFigmaApp .memPrevFeedbackItem h4.green { color: #2A7308; }
+.memFigmaApp .memPrevFeedbackItem h4.orange { color: #D65D00; }
+.memFigmaApp .memPrevFeedbackItem h4.red { color: #BE1630; }
+.memFigmaApp .memPrevFeedbackItem .memPrevInset { margin-left: 46px; min-height: 49px; padding: 11px 15px; }
+.memFigmaApp .memPrevPlainFeedback { margin: 4px 0 4px 46px; line-height: 25px; font-size: 14px; }
+.memFigmaApp .memPrevFeedback-neutral { min-height: 104px; }
+.memFigmaApp .memPrevQuestionSettings { grid-template-columns: repeat(5, minmax(0,1fr)); }
+.memFigmaApp .memPrevIconValue { min-width: 0; display: inline-flex; align-items: center; gap: 9px; overflow-wrap: anywhere; font-size: 14px; font-weight: 600; }
+.memFigmaApp .memPrevIconValue img { flex: 0 0 auto; }
+.memFigmaApp .memPrevFooter { margin-top: 19px; padding: 0 0 4px; }
+.memFigmaApp .memPrevFooter button {
+  min-height: 44px;
+  padding: 10px 23px;
+  background: #DFE6E9;
+  border: 1px solid #F5F9FA;
+  border-radius: 40px;
+  box-shadow: -4px -4px 4px #FFFFFF, 4px 4px 4px #C4C4C4;
+  font-size: 14px;
+  font-weight: 600;
+}
+@media (max-width: 880px) {
+  .memFigmaApp .memPrevQuestionSettings { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .memFigmaApp .memPrevQuestion { padding: 21px 15px; }
+}
+@media (max-width: 620px) {
+  .memFigmaApp .memPrevSummary { width: 100%; gap: 9px; }
+  .memFigmaApp .memPrevSummary .memPrevInset { min-width: 90px; flex: 1 1 90px; width: auto; }
+  .memFigmaApp .memPrevReadiness { flex: 1 1 155px; }
+  .memFigmaApp .memPrevQuestion { padding: 15px 10px; }
+  .memFigmaApp .memPrevQuestionTop { justify-content: flex-start; gap: 10px; }
+  .memFigmaApp .memPrevQuestionTop > span { min-height: 35px; font-size: 11px; white-space: normal; }
+  .memFigmaApp .memPrevAccordionHeading { padding: 10px 12px; min-height: 50px; }
+  .memFigmaApp .memPrevAccordionHeading strong { font-size: 14px; }
+  .memFigmaApp .memPrevAccordionBody { padding: 13px 10px 0; }
+  .memFigmaApp .memPrevSection h2 { font-size: 16px; }
+  .memFigmaApp .memPrevBoard { padding: 7px; }
+  .memFigmaApp .memPrevCardGrid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap: 7px; padding: 7px; }
+  .memFigmaApp .memPrevCard { min-height: 91px; font-size: 12px; }
+  .memFigmaApp .memPrevSettingsGrid, .memFigmaApp .memPrevQuestionSettings { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+  .memFigmaApp .memPrevFeedbackItem { padding: 13px 10px; }
+  .memFigmaApp .memPrevFeedbackItem h4 { font-size: 14px; }
+  .memFigmaApp .memPrevFeedbackItem .memPrevInset, .memFigmaApp .memPrevPlainFeedback { margin-left: 0; }
+  .memFigmaApp .memPrevFooter { gap: 11px; flex-wrap: wrap; }
+  .memFigmaApp .memPrevFooter button { flex: 1 1 auto; }
+}
+@media (max-width: 375px) {
+  .memFigmaApp .memPrevSettingsGrid, .memFigmaApp .memPrevQuestionSettings { grid-template-columns: minmax(0,1fr); }
+  .memFigmaApp .memNewToolbar button { flex-basis: 27px; width: 27px; }
+  .memFigmaApp .memNewToolbar select { flex: 0 0 95px; width: 95px; }
+  .memFigmaApp .memNewToolbar select.memNewFontSize { flex-basis: 58px; width: 58px; }
+}
+
+/* MEMORY GAME FIGMA POLISH END */

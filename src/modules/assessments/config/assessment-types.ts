@@ -2,6 +2,7 @@
 export type AssessmentTypeGroup = {heading:string;items:string[]};
 export type AssessmentTypeDefinition = { code:string; label:string; category:string; implemented:boolean };
 export const DEFAULT_ASSESSMENT_TYPES: AssessmentTypeDefinition[] = [
+ {code:"memory-game",label:"Memory Game",category:"Interactive Assessments",implemented:true},
  {code:"drag-and-drop",label:"Drag & Drop",category:"Interactive Assessments",implemented:true},
  {code:"mcq",label:"Multiple Choice Question (MCQ)",category:"Academic assessment",implemented:true},
  {code:"short-answer",label:"Short Answer",category:"Academic assessment",implemented:true},

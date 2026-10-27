@@ -1,0 +1,1117 @@
+/* Memory Game learner Viewer — scoped to this assessment type only. */
+.mgvApp {
+  --mgv-bg: #DFE6E9;
+  --mgv-ink: #374151;
+  --mgv-blue: #2D4CC8;
+  --mgv-green: #24740B;
+  --mgv-red: #BC2233;
+  --mgv-raised: -4px -4px 6px #FFFFFF, 4px 4px 6px #C4C4C4;
+  --mgv-raised-soft: -2px -2px 4px #FFFFFF, 2px 2px 4px #C4C4C4;
+  --mgv-inset: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  color: var(--mgv-ink);
+  background: var(--mgv-bg);
+  font-family: 'Segoe UI', Inter, Arial, sans-serif;
+}
+
+.mgvApp *,
+.mgvApp *::before,
+.mgvApp *::after {
+  box-sizing: border-box;
+}
+
+.mgvApp button {
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.mgvApp button:focus-visible {
+  outline: 2px solid var(--mgv-blue);
+  outline-offset: 3px;
+}
+
+.mgvApp button:disabled {
+  cursor: not-allowed;
+  opacity: 0.53;
+}
+
+.mgvContent {
+  width: 100%;
+  max-width: 1180px;
+  padding: 23px 22px 50px;
+}
+
+/* Instructions remain the existing learner entry step before the game board. */
+.mgvInstructionHeading {
+  margin-bottom: 20px;
+}
+
+.mgvInstructionHeading h1 {
+  margin: 0 0 8px;
+  color: var(--mgv-blue);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.02em;
+}
+
+.mgvInstructionHeading p {
+  margin: 0;
+  color: var(--mgv-ink);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+}
+
+.mgvInstructionColumns {
+  align-items: stretch;
+}
+
+.mgvInstructionSummary {
+  min-height: 100%;
+}
+
+.mgvInstructionColumns .viewerInstructions {
+  min-height: 390px;
+}
+
+.mgvInstructionColumns .viewerConfirmation {
+  align-items: center;
+}
+
+.mgvInstructionColumns .viewerStartNote {
+  margin-top: -4px;
+}
+
+.mgvInstructionColumns .viewerCheckboxIcon {
+  color: var(--mgv-blue);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.mgvPageHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 94px;
+  margin-bottom: 18px;
+}
+
+.mgvBreadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0 0 23px !important;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.mgvBreadcrumb strong {
+  color: var(--mgv-blue);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.mgvPageHead h1,
+.mgvEmptyTitle {
+  margin: 0;
+  color: var(--mgv-blue);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.02em;
+}
+
+.mgvClock {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 5px;
+  min-width: 190px;
+  height: 46px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-inset);
+}
+
+.mgvClockGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mgvDigit {
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 25px;
+  border-radius: 4px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised-soft);
+  color: #111111;
+  font: 600 18px/1 'Segoe UI', Arial, sans-serif;
+}
+
+.mgvClockGroup:first-child .mgvDigit {
+  color: #9E9E9E;
+}
+
+.mgvColon {
+  margin: 0 1px;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.mgvColumns {
+  display: grid;
+  grid-template-columns: minmax(0, 2.25fr) minmax(275px, 1fr);
+  align-items: start;
+  gap: 23px;
+  min-width: 0;
+}
+
+.mgvMainCard,
+.mgvSideCard {
+  min-width: 0;
+  min-height: 840px;
+  padding: 24px 24px 34px;
+  border-radius: 9px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised);
+}
+
+.mgvProgressTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 23px;
+  letter-spacing: 0.015em;
+}
+
+.mgvProgressTop b {
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.mgvProgress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 22px;
+}
+
+.mgvProgress > span {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 16px;
+  padding: 3px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-inset);
+}
+
+.mgvProgress i {
+  display: block;
+  height: 10px;
+  border-radius: 12px;
+  background: #28740A;
+  box-shadow: 1px 1px 2px #C4C4C4;
+  transition: width 0.25s ease;
+}
+
+.mgvProgress strong {
+  color: var(--mgv-green);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.mgvQuestionHead {
+  margin: 0 0 20px;
+}
+
+.mgvQuestionHead h2 {
+  margin: 0 0 6px;
+  color: var(--mgv-blue);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+}
+
+.mgvQuestionHead h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+}
+
+.mgvQuestionHead p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+}
+
+.mgvBoardOuter {
+  margin: 0 0 20px;
+  padding: 17px;
+  border-radius: 5px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-inset);
+}
+
+.mgvBoardInner {
+  min-width: 0;
+  padding: 15px 15px 12px;
+  border: 1px solid #D3D6D6;
+  border-radius: 4px;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+
+.mgvCardGrid {
+  display: grid;
+  grid-template-columns: repeat(var(--mgv-cols, 4), minmax(0, 1fr));
+  gap: 12px 13px;
+}
+
+.mgvCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 94px;
+  padding: 10px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 7px;
+  aspect-ratio: 1.2 / 1;
+  box-shadow: none;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.mgvCard:not(:disabled):active {
+  transform: scale(0.975);
+}
+
+.mgvCardBack {
+  background: linear-gradient(125deg, #3A64D3 0%, #8450A5 47%, #E3246A 100%);
+}
+
+.mgvCardBack img {
+  width: 43px;
+  height: 43px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.mgvCardFace {
+  border: 1px solid #3C8A2B;
+  background: #E4E9E2;
+  box-shadow: inset -1px -1px 2px #FFFFFF, inset 1px 1px 2px #CED2CE;
+  color: #3A4858;
+}
+
+.mgvFaceText {
+  overflow-wrap: anywhere;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.mgvFacePicture {
+  display: block;
+  width: min(95%, 104px);
+  height: 72px;
+  max-height: 84%;
+  padding: 9px;
+  border-radius: 10px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised-soft);
+  object-fit: contain;
+}
+
+.mgvCardWrong {
+  border-color: #D83C48;
+  background: #F7E9EA;
+}
+
+.mgvCardCorrect {
+  border-color: #2D841E;
+  background: #E3EBE0;
+}
+
+.mgvGameFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 28px;
+  margin-top: 18px;
+}
+
+.mgvGameButtons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.mgvGameButtons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 80px;
+  height: 29px;
+  padding: 3px 11px;
+  border: 1px solid #D4A3DA;
+  border-radius: 18px;
+  background: var(--mgv-bg);
+  color: #9D3396;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.mgvGameButtons button img {
+  flex: none;
+}
+
+.mgvStart {
+  border-color: #954DC2 !important;
+  background: linear-gradient(130deg, #E4E8E9, #DFE6E9) !important;
+  color: #A9288E !important;
+}
+
+.mgvRestart {
+  opacity: 1;
+}
+
+.mgvGameButtons .mgvRestart:disabled {
+  border-color: #B9BFC5;
+  color: #A3A5A6;
+  opacity: 0.65;
+}
+
+.mgvMoveCount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 27px;
+  padding: 3px 8px;
+  border: 1px solid #637387;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 17px;
+  white-space: nowrap;
+}
+
+.mgvHint {
+  min-height: 66px;
+  margin: 0 0 20px;
+  border-radius: 7px;
+  box-shadow: var(--mgv-raised-soft);
+}
+
+.mgvHintButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 66px;
+  padding: 9px 14px;
+  border: 0;
+  background: transparent;
+  color: #715F0F !important;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.mgvHintButton > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.mgvHintCircle {
+  display: grid;
+  place-items: center;
+  width: 37px;
+  height: 37px;
+  border: 1px solid #AEA16C;
+  border-radius: 50%;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised-soft);
+}
+
+.mgvShow {
+  min-width: 80px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised-soft);
+  color: #354052;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.mgvHint > p {
+  margin: 0;
+  padding: 0 20px 15px 66px;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.mgvQuestionMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 61px;
+  margin: 0 0 35px;
+}
+
+.mgvQuestionMeta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.mgvQuestionMeta label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19px;
+}
+
+.mgvQuestionMeta > div > span {
+  display: block;
+  min-width: 166px;
+  max-width: 250px;
+  min-height: 37px;
+  padding: 7px 15px;
+  border-radius: 7px;
+  box-shadow: var(--mgv-inset);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.mgvFlag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 9px 13px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised-soft);
+  color: #CD5C0A !important;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.mgvFlagActive {
+  box-shadow: var(--mgv-inset);
+}
+
+.mgvActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mgvActions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-width: 120px;
+  min-height: 52px;
+  padding: 11px 20px;
+  border: 0;
+  border-radius: 28px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised-soft);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.mgvActions .mgvNext {
+  min-width: 142px;
+  border: 1px solid #38861E;
+  color: #236E08;
+}
+
+.mgvSideCard {
+  min-height: 770px;
+  padding: 25px 18px 18px;
+}
+
+.mgvSideCard > h2 {
+  margin: 0 0 22px;
+  color: var(--mgv-blue);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.mgvNavigatorGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 17px 13px;
+  margin: 0 0 26px;
+}
+
+.mgvNavigatorGrid button {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 40px;
+  padding: 4px 0;
+  border: 0;
+  border-radius: 5px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised-soft);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.mgvNavigatorGrid .mgvNavCurrent {
+  border: 1px solid #FFFFFF;
+  color: var(--mgv-blue);
+}
+
+.mgvNavigatorGrid .mgvNavAnswered {
+  border: 1px solid #4B9B37;
+  color: #247B0A;
+}
+
+.mgvNavigatorGrid .mgvNavFlagged {
+  border: 1px solid #D55B0A;
+  color: #C95C11;
+}
+
+.mgvStats {
+  display: grid;
+  gap: 15px;
+  margin: 10px 4px 26px;
+}
+
+.mgvStats > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 7px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-inset);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 23px;
+}
+
+.mgvStats > div > span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mgvStats strong {
+  font-size: 15px;
+}
+
+.mgvStats > div:nth-child(1) strong {
+  color: var(--mgv-green);
+}
+
+.mgvStats > div:nth-child(3) strong {
+  color: #CC5F0C;
+}
+
+.mgvEmptyCircle {
+  display: block;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid #B4BEC6;
+  border-radius: 50%;
+}
+
+.mgvSideCard .mgvToolsTitle {
+  margin: 0 4px 16px;
+}
+
+.mgvTools {
+  display: grid;
+  gap: 13px;
+  margin: 0 4px;
+}
+
+.mgvTools button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 43px;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised-soft);
+  color: #10535B;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.mgvTools button:nth-child(2) {
+  color: #85278B;
+}
+
+.mgvTools button:nth-child(3) {
+  color: #287713;
+}
+
+.mgvTools button img:last-child {
+  margin-left: auto;
+}
+
+.mgvSideResult {
+  min-height: 1004px;
+  padding: 26px 14px 18px;
+}
+
+.mgvResultHero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 258px;
+  isolation: isolate;
+  text-align: center;
+}
+
+/* The success illustration sits lower beneath the confetti; the failure state
+   intentionally starts near the top of the panel, as in the Figma frames. */
+.mgvSuccess .mgvResultHero {
+  height: 285px;
+  justify-content: flex-end;
+  padding-bottom: 18px;
+}
+
+.mgvFailure .mgvResultHero {
+  height: 117px;
+  justify-content: flex-start;
+  padding-top: 14px;
+}
+
+.mgvSuccess .mgvResultRound {
+  margin-bottom: 19px;
+}
+
+.mgvFailure .mgvResultRound {
+  margin-bottom: 10px;
+}
+
+.mgvResultRound {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 0 12px;
+  border-radius: 50%;
+}
+
+.mgvSuccess .mgvResultRound {
+  background: #227B12;
+}
+
+.mgvFailure .mgvResultRound {
+  background: #B21E32;
+}
+
+.mgvResultRound img {
+  filter: brightness(0) invert(1);
+}
+
+.mgvResultHero h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 30px;
+}
+
+.mgvSuccess .mgvResultHero h2 {
+  color: #24760D;
+}
+
+.mgvFailure .mgvResultHero h2 {
+  color: #B31E31;
+}
+
+.mgvConfetti {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 225px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.mgvResult > h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.mgvAnswerList {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 24px;
+}
+
+.mgvAnswerRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 46px;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+}
+
+.mgvAnswerRow > span:first-child {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  height: 39px;
+  padding: 6px 12px;
+  overflow-wrap: anywhere;
+  border-radius: 5px;
+  box-shadow: var(--mgv-inset);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.mgvAnswerImage {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 39px;
+  min-width: 0;
+  border-radius: 6px;
+  box-shadow: var(--mgv-raised-soft);
+}
+
+.mgvAnswerImage img {
+  max-width: 38px;
+  max-height: 31px;
+  object-fit: contain;
+}
+
+.mgvAnswerImage > span {
+  overflow: hidden;
+  font-size: 10px;
+  line-height: 13px;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.mgvWhy {
+  display: flex;
+  flex-direction: column;
+  min-height: 245px;
+  margin: 30px 0 0;
+  padding: 18px 14px 16px;
+  border: 1px solid #5358D4;
+  border-bottom-color: #FF2777;
+  border-radius: 8px;
+}
+
+.mgvWhy h3 {
+  margin: 0 0 12px;
+  color: #8E299C;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.mgvWhy p {
+  margin: 0;
+  color: #111111;
+  font-size: 12px;
+  line-height: 19px;
+  overflow-wrap: anywhere;
+}
+
+.mgvWhy > img {
+  display: block;
+  align-self: center;
+  width: 90px;
+  height: 90px;
+  margin: auto 0 3px;
+  object-fit: contain;
+}
+
+.mgvNoQuestions {
+  margin: 25px 0;
+  padding: 30px;
+  border-radius: 10px;
+  background: var(--mgv-bg);
+  box-shadow: var(--mgv-raised);
+  font-size: 15px;
+  line-height: 23px;
+}
+
+@media (max-width: 1120px) {
+  .mgvColumns {
+    grid-template-columns: minmax(0, 1.9fr) minmax(245px, 1fr);
+    gap: 18px;
+  }
+
+  .mgvMainCard {
+    padding: 18px 14px 30px;
+  }
+
+  .mgvSideCard {
+    padding: 18px 12px;
+  }
+
+  .mgvCardGrid {
+    gap: 10px;
+  }
+
+  .mgvBoardOuter,
+  .mgvBoardInner {
+    padding: 12px;
+  }
+
+  .mgvNavigatorGrid {
+    gap: 12px 8px;
+  }
+
+  .mgvActions button {
+    min-width: 0;
+    padding: 9px 12px;
+    font-size: 14px;
+    gap: 9px;
+  }
+
+  .mgvActions .mgvNext {
+    min-width: 92px;
+  }
+}
+
+@media (max-width: 940px) {
+  .mgvColumns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mgvMainCard,
+  .mgvSideCard {
+    min-height: 0;
+  }
+
+  .mgvSideCard {
+    margin-bottom: 24px;
+  }
+
+  .mgvNavigatorGrid {
+    grid-template-columns: repeat(5, minmax(0, 52px));
+    gap: 13px;
+  }
+
+  .mgvSideResult {
+    min-height: 0;
+  }
+
+  .mgvResultHero {
+    height: 220px;
+  }
+
+  .mgvSuccess .mgvResultHero {
+    height: 260px;
+    padding-bottom: 14px;
+  }
+
+  .mgvFailure .mgvResultHero {
+    height: 117px;
+    padding-top: 14px;
+  }
+
+  .mgvWhy {
+    min-height: 205px;
+  }
+
+  .mgvCard {
+    min-height: 95px;
+  }
+}
+
+@media (max-width: 780px) {
+  .mgvInstructionColumns .viewerInstructions {
+    min-height: 0;
+  }
+
+  .mgvInstructionSummary {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .mgvContent {
+    padding: 16px 12px 32px;
+  }
+
+  .mgvPageHead {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .mgvPageHead h1,
+  .mgvEmptyTitle,
+  .mgvInstructionHeading h1 {
+    font-size: 21px;
+    line-height: 28px;
+  }
+
+  .mgvBreadcrumb {
+    gap: 4px !important;
+    margin-bottom: 13px !important;
+    font-size: 12px !important;
+  }
+
+  .mgvClock {
+    min-width: 0;
+    height: 39px;
+    padding: 6px 9px;
+  }
+
+  .mgvDigit {
+    width: 19px;
+    height: 22px;
+    font-size: 16px;
+  }
+
+  .mgvColumns {
+    gap: 16px;
+  }
+
+  .mgvCardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px;
+  }
+
+  .mgvCard {
+    min-height: 100px;
+  }
+
+  .mgvBoardOuter {
+    padding: 8px;
+  }
+
+  .mgvBoardInner {
+    padding: 10px;
+  }
+
+  .mgvGameFooter,
+  .mgvActions {
+    flex-wrap: wrap;
+  }
+
+  .mgvActions {
+    gap: 10px;
+  }
+
+  .mgvActions button {
+    flex: 1 1 95px;
+    min-height: 43px;
+    padding: 9px 12px;
+    gap: 7px;
+    font-size: 13px;
+  }
+
+  .mgvActions .mgvNext {
+    flex: 1 1 95px;
+  }
+
+  .mgvQuestionMeta {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .mgvHintButton {
+    min-height: 57px;
+  }
+
+  .mgvNavigatorGrid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .mgvMainCard {
+    padding: 16px 12px 24px;
+  }
+
+  .mgvSideCard {
+    padding: 20px 14px;
+  }
+
+  .mgvQuestionHead h3 {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .mgvCard {
+    min-height: 78px;
+  }
+
+  .mgvFaceText {
+    font-size: 12px;
+  }
+
+  .mgvActions button {
+    padding: 8px;
+  }
+
+  .mgvNavigatorGrid {
+    gap: 9px 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mgvApp * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
