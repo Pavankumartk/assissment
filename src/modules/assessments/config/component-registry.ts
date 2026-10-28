@@ -1,7 +1,7 @@
 /** Frontend-only *runtime* capabilities, independent of localStorage metadata. */
 import { mcqAssessmentAdapter } from "../components/type-specific/mcq";
 
-export type QuestionMode = "single-choice" | "short-answer" | "one-word" | "matching";
+export type QuestionMode = "single-choice" | "short-answer" | "one-word" | "matching" | "image-based" | "true-false" | "fill-in-the-blanks" | "long-answer" | "drag-and-drop" | "memory-game";
 export interface AssessmentAdapter {
   code: string;
   questionMode: QuestionMode;
@@ -10,6 +10,12 @@ export interface AssessmentAdapter {
 
 /** Add another adapter here when its Creator, Viewer, evaluation and results are implemented. */
 export const ASSESSMENT_ADAPTERS: Record<string, AssessmentAdapter> = {
+  "true-false": { code:"true-false", questionMode:"true-false", draftKeys:{details:"trueFalseAssessmentDraft",content:"trueFalseContentDraft",evaluation:"trueFalseEvaluationDraft"} },
+  "fill-in-the-blanks": { code:"fill-in-the-blanks", questionMode:"fill-in-the-blanks", draftKeys:{details:"fillBlanksAssessmentDraft",content:"fillBlanksContentDraft",evaluation:"fillBlanksEvaluationDraft"} },
+  "long-answer": { code:"long-answer", questionMode:"long-answer", draftKeys:{details:"longAnswerAssessmentDraft",content:"longAnswerContentDraft",evaluation:"longAnswerEvaluationDraft"} },
+  "drag-and-drop": { code:"drag-and-drop", questionMode:"drag-and-drop", draftKeys:{details:"dragDropAssessmentDraft",content:"dragDropContentDraft",evaluation:"dragDropEvaluationDraft"} },
+  "memory-game": { code:"memory-game", questionMode:"memory-game", draftKeys:{details:"memoryGameAssessmentDraft",content:"memoryGameContentDraft",evaluation:"memoryGameEvaluationDraft"} },
+  "image-based": {code:"image-based",questionMode:"image-based",draftKeys:{details:"mcqAssessmentDraft",content:"imageBasedContentDraft",evaluation:"mcqAssessmentEvaluationDraft"}},
   "match-the-following": {code:"match-the-following",questionMode:"matching",draftKeys:{details:"mcqAssessmentDraft",content:"matchFollowingContentDraft",evaluation:"mcqAssessmentEvaluationDraft"}},
   [mcqAssessmentAdapter.code]: mcqAssessmentAdapter,
   "short-answer": {code:"short-answer",questionMode:"short-answer",draftKeys:{details:"shortAnswerAssessmentDraft",content:"shortAnswerContentDraft",evaluation:"shortAnswerEvaluationDraft"}},

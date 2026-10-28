@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
+import ImageBasedViewer from "@/modules/assessments/components/type-specific/image-based/Viewer";
 import MatchViewer from "@/modules/assessments/components/type-specific/match-the-following/Viewer";
 import MemoryViewer from "@/modules/assessments/components/type-specific/memory-game/Viewer";
 import Screen from "@/modules/assessments/components/viewer/AssessmentViewer/AssessmentViewer";
@@ -69,7 +70,9 @@ export default function PageClient() {
     : null;
 
   const Viewer =
-    type === "match-the-following"
+    type === "image-based"
+      ? ImageBasedViewer
+      : type === "match-the-following"
       ? MatchViewer
       : type === "memory-game"
       ? MemoryViewer

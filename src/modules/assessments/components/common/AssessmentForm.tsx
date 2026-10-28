@@ -16,8 +16,26 @@ import OneDetails from "../type-specific/one-word/Details";
 import OneContent from "../type-specific/one-word/Content";
 import OneEvaluation from "../type-specific/one-word/Evaluation";
 import OneReview from "../type-specific/one-word/Review";
+import TrueFalseDetails from "../type-specific/true-false/Details";
+import TrueFalseContent from "../type-specific/true-false/Content";
+import TrueFalseEvaluation from "../type-specific/true-false/Evaluation";
+import TrueFalseReview from "../type-specific/true-false/Review";
+import FillDetails from "../type-specific/fill-in-the-blanks/Details";
+import FillContent from "../type-specific/fill-in-the-blanks/Content";
+import FillEvaluation from "../type-specific/fill-in-the-blanks/Evaluation";
+import FillReview from "../type-specific/fill-in-the-blanks/Review";
+import LongDetails from "../type-specific/long-answer/Details";
+import LongContent from "../type-specific/long-answer/Content";
+import LongEvaluation from "../type-specific/long-answer/Evaluation";
+import LongReview from "../type-specific/long-answer/Review";
+import DragDetails from "../type-specific/drag-and-drop/Details";
+import DragContent from "../type-specific/drag-and-drop/Content";
+import MemoryDetails from "../type-specific/memory-game/Details";
+import MemoryContent from "../type-specific/memory-game/Content";
 import MatchContent from "../type-specific/match-the-following/Content";
 import MatchReview from "../type-specific/match-the-following/Review";
+import ImageContent from "../type-specific/image-based/Content";
+import ImageReview from "../type-specific/image-based/Review";
 
 /** A single shared Creator for every assessment type (no MCQ-only routes). */
 export type AssessmentFormStep = "details" | "content" | "evaluation" | "review";
@@ -28,9 +46,15 @@ const STEPS = {
   review: ReviewStep,
 };
 const TYPE_STEPS = {
+ "true-false": { details:TrueFalseDetails, content:TrueFalseContent, evaluation:TrueFalseEvaluation, review:TrueFalseReview },
+ "fill-in-the-blanks": { details:FillDetails, content:FillContent, evaluation:FillEvaluation, review:FillReview },
+ "long-answer": { details:LongDetails, content:LongContent, evaluation:LongEvaluation, review:LongReview },
+ "drag-and-drop": { details:DragDetails, content:DragContent, evaluation:EvaluationStep, review:ReviewStep },
+ "memory-game": { details:MemoryDetails, content:MemoryContent, evaluation:EvaluationStep, review:ReviewStep },
  "short-answer": { details:ShortDetails, content:ShortContent, evaluation:ShortEvaluation, review:ShortReview },
  "one-word": { details:OneDetails, content:OneContent, evaluation:OneEvaluation, review:OneReview },
  "match-the-following": { details:DetailsStep, content:MatchContent, evaluation:EvaluationStep, review:MatchReview },
+ "image-based": {details:DetailsStep, content:ImageContent, evaluation:EvaluationStep, review:ImageReview},
 };
 export default function AssessmentForm({ step }: { step: AssessmentFormStep }) {
   const router = useRouter();
@@ -53,6 +77,7 @@ export default function AssessmentForm({ step }: { step: AssessmentFormStep }) {
     return () => window.removeEventListener("one-word-step",onWizardStep);
   }, [router]);
   if (!typeCode) return null;
-  const Screen = (typeCode === "short-answer" || typeCode === "one-word" || typeCode === "match-the-following") ? TYPE_STEPS[typeCode][step] : STEPS[step];
+  const configured = TYPE_STEPS[typeCode as keyof typeof TYPE_STEPS];
+  const Screen = configured ? configured[step] : STEPS[step];
   return <div className={`assessment-variant assessment-variant--${typeCode}`}><Screen /></div>;
 }

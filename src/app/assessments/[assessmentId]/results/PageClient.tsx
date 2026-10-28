@@ -1,4 +1,5 @@
 "use client";
+import ImageBasedResult from "@/modules/assessments/components/type-specific/image-based/Result";
 import MatchResult from "@/modules/assessments/components/type-specific/match-the-following/Result";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
@@ -11,6 +12,7 @@ export default function Page() {
  const params = useParams<{assessmentId:string}>();
  const [ready,setReady] = useState(false);const router=useRouter();
  useEffect(() => {const session=getDemoSession(),record=getAssessment(params.assessmentId);if(!session){router.replace("/login");return;}if(!record||(record.tenantId||"north")!==session.tenantId || session.role!=="learner"){router.replace(session.role==="admin"?"/assessments":"/learner");return;}setActiveAssessmentId(params.assessmentId);setReady(true);},[params.assessmentId,router]);
- const ResultScreen = getAssessment(params.assessmentId)?.typeCode === "match-the-following" ? MatchResult : Screen;
+ const type = getAssessment(params.assessmentId)?.typeCode;
+ const ResultScreen = type === "image-based" ? ImageBasedResult : type === "match-the-following" ? MatchResult : Screen;
  return ready ? <ResultScreen /> : null;
 }

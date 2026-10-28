@@ -1,14 +1,28 @@
-FIX: DetailsStep compatibility for Drag & Drop, Fill in the Blank, Memory Game, True / False.
+IMAGE MATCHING — FIGMA STYLE CORRECTION (UPDATED FILES ONLY)
 
-Only existing src/modules/assessments/components/common/steps/DetailsStep/DetailsStep.tsx is updated.
+Scope: Image-Based Assessment > Sub type > Image Matching.
+Only Content.tsx and the two Image-Based CSS files are included.
+This patch does not change assessment registration, route selection,
+question storage types, grading, the learner viewer or other assessment types.
 
-Mac installation (run after downloading the ZIP):
+Updates: Figma 58px subtype input; 57px accordion headers retained;
+56px inset matching text and image fields; 42px raised image thumbnail;
+60x56px raised remove-button housing with 32px inset circle;
+156x40px raised gradient Add Pairs/Add Extra; 58px inset shuffle track;
+692px centered preview rows, 118x70px image wells, 70px select dropdowns.
+Segoe UI and #DFE6E9, white/#C4C4C4 raised/inset shadows.
+The matching upload control uses your assessmenticons paths, with an
+ImageIcon fallback if the corresponding SVG is not present.
+
+INSTALL (Mac):
   cd ~/Desktop/assessments/web
-  unzip -o ~/Downloads/Assessment_Details_Props_Build_Fix.zip -d .
+  unzip -o ~/Downloads/Image_Matching_Figma_Design_Shadow_Fix_Only.zip -d .
   npm run build
+  npm run dev
 
-Fix restores optional draftKey, countKey and typeLabel props used by existing question-type Details wrappers.
-It also persists each wrapper's Details and question count under that assessment type's existing keys rather than hard-coded MCQ keys.
-No CSS, navigation, viewer or other assessment files change.
+Open Assessment > Image-Based > Create Questions > Sub type: Image Matching.
+Then Preview Questions.
 
-Verification: static TypeScript check in provided project snapshot shows no errors relating to the DetailsStep wrapper props. The snapshot contains unrelated type/module errors; the user Mac project is the final production build check.
+IMPORTANT: This patch was checked for TSX syntax and CSS parsing, but a
+full production Next.js build on the user's latest Mac project and a
+pixel-by-pixel browser screenshot comparison were not available here.
