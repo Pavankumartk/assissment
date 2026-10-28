@@ -1,7 +1,7 @@
 "use client";
 import WizardStepLink from "@/modules/assessments/components/common/WizardStepLink";
-import {validateCompleteDetails, detailsFieldSections, type DetailsFieldErrors} from "@/modules/assessments/validation/details-full-validation";
-import { assessmentStorage,updateAssessment } from "@/modules/assessments/storage/assessment-storage";
+import {validateMcqDetails} from "@/modules/assessments/validation/mcq-validation";
+import { assessmentStorage,updateAssessment,getActiveAssessmentId,getAssessment } from "@/modules/assessments/storage/assessment-storage";
 import { getAssessmentTypeGroups } from "@/modules/assessments/config/assessment-types";
 
 import Image from "next/image";
@@ -12,7 +12,6 @@ import { createPortal } from "react-dom";
 import Sidebar from "../../sidebar/page";
 import Header from "../../header/Header";
 import "./details.css";
-import "@/modules/assessments/validation/details-validation.css";
 
 const sections = [
   { title: "Basic Information", fields: [
@@ -151,9 +150,9 @@ const moduleDropdownGroups = [
 ];
 
 type MCQDropdownKind = "assessmentName" | "assessmentType" | "course" | "module" | "simple";
-function MCQReferenceDropdown({ label, kind, value, onChange, wide = false, options = [], disabled = false, compact = false, hideLabel = false, error }: {
+function MCQReferenceDropdown({ label, kind, value, onChange, wide = false, options = [], disabled = false, compact = false, hideLabel = false }: {
   label: string; kind: MCQDropdownKind; value: string;
-  onChange: (value: string) => void; wide?: boolean; options?: string[]; disabled?: boolean; compact?: boolean; hideLabel?: boolean; error?: string;
+  onChange: (value: string) => void; wide?: boolean; options?: string[]; disabled?: boolean; compact?: boolean; hideLabel?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -170,14 +169,14 @@ function MCQReferenceDropdown({ label, kind, value, onChange, wide = false, opti
   const groups = kind === "assessmentType" ? getAssessmentTypeGroups(true) : kind === "course" ? courseDropdownGroups : moduleDropdownGroups;
   const single = kind === "assessmentName" || kind === "simple";
   const singleItems = kind === "simple" ? options : assessmentNames;
-  const display = value ? (kind === "assessmentType" && value === "Multiple Choice Question (MCQ)" ? "MCQ" : value) : `Select ${label.toLowerCase()}`;
+  const display = kind === "assessmentType" && value === "Multiple Choice Question (MCQ)" ? "MCQ" : value;
   const selected = (item: string) => value === item || (kind === "assessmentType" && value === "MCQ" && item === "Multiple Choice Question (MCQ)");
   const choose = (item: string) => { onChange(item); setOpen(false); setQuery(""); };
   const matches = (item: string) => item.toLowerCase().includes(query.toLowerCase());
   return (
     <div className={`${hideLabel ? "" : "mcqField"} ${wide ? "mcqFieldWide" : ""} mcqReferenceField ${compact ? "mcqReferenceCompact" : ""}`} ref={ref}>
       {!hideLabel && <span>{label}</span>}
-      <button type="button" disabled={disabled} className={`mcqReferenceTrigger ${error ? "mcqDetailsInvalid" : ""}`} aria-label={label} aria-invalid={Boolean(error)} aria-expanded={open} onClick={() => setOpen(v => !v)}>
+      <button type="button" disabled={disabled} className="mcqReferenceTrigger" aria-label={label} aria-expanded={open} onClick={() => setOpen(v => !v)}>
         <span>{display}</span><Image src="/assets/assessmenticons/arrow-down-01.svg" width={20} height={20} alt="" unoptimized />
       </button>
       {open && <div className="mcqReferenceMenu" role="group" aria-label={`${label} options`}>
@@ -210,7 +209,6 @@ function MCQReferenceDropdown({ label, kind, value, onChange, wide = false, opti
           </div>;
         })}
       </div>}
-      {error && <p className="mcqDetailsError" role="alert">{error}</p>}
     </div>
   );
 }
@@ -268,7 +266,7 @@ function MCQTimePicker({ label, value, onChange, disabled }: {
     <div className="mcqSeparateTime" ref={rootRef}>
       <button type="button" className="mcqSingleTimeTrigger" aria-label={label}
         aria-expanded={open} disabled={disabled} onClick={() => setOpen(previous => !previous)}>
-        <span>{value || label}</span>
+        <span>{value}</span>
         <svg viewBox="0 0 24 24" width="19" height="19" fill="none" aria-hidden="true">
           <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7" />
           <path d="M12 6.5v6l4 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
@@ -410,7 +408,9 @@ function AccommodationManager({ rows, setRows, assessmentTitle, duration, totalM
   </div></div>, document.body) : null;
 }
 
-export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countKey = "mcqQuestionCount", typeLabel = "MCQ" }: { draftKey?: string; countKey?: string; typeLabel?: string } = {}) {
+type DetailsPageProps = { draftKey?: string; countKey?: string; typeLabel?: string };
+
+export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countKey = "mcqQuestionCount", typeLabel = "MCQ" }: DetailsPageProps) {
   const router = useRouter();
   const [expanded, setExpanded] = useState<number[]>([]);
   // Review Edit: open the exact Details accordion, then scroll it into view.
@@ -429,53 +429,67 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
 
   const [form, setForm] = useState<FormData>({});
   const [message, setMessage] = useState("");
-  const [fieldErrors, setFieldErrors] = useState<DetailsFieldErrors>({});
-  const [invalidSection, setInvalidSection] = useState<number | null>(null);
+  const [assessmentTypeLabel, setAssessmentTypeLabel] = useState(typeLabel);
   const [hydrated,setHydrated] = useState(false);
   useEffect(()=>{
+    const active = getAssessment(getActiveAssessmentId() || "");
+    if (active) setAssessmentTypeLabel(active.typeCode === "mcq" ? "MCQ" : active.typeLabel);
+    const recordFields: FormData = active ? {
+      ...(active.title && active.title !== "Untitled Assessment" ? {assessmentName:active.title}:{}),
+      ...(active.course ? {course:active.course}:{}),
+      ...(active.questions > 0 ? {questionCount:String(active.questions)}:{}),
+      ...(active.marks > 0 ? {totalMarks:String(active.marks)}:{}),
+    } : {};
     try {
       const saved=JSON.parse(assessmentStorage.getItem(draftKey)||"null");
       if(saved && typeof saved==="object") {
-        const {tags:savedTags,markingScheme:savedMarking,negativeMarking:savedNegative,gradeToPass:savedGrade,partialCredit:savedPartial,toggles:savedToggles,...fields}=saved;
-        setForm(fields);
+        const {tags:savedTags,markingScheme:savedMarking,negativeMarking:savedNegative,gradeToPass:savedGrade,partialCredit:savedPartial,toggles:savedToggles,accommodationRows:savedAccommodation,...fields}=saved;
+        if(Array.isArray(savedAccommodation)) setAccommodationRows(savedAccommodation);
+        setForm({...recordFields,...fields});
         if(Array.isArray(savedTags)) setTags(savedTags);
         if(typeof savedMarking==="string") setMarkingScheme(savedMarking);
         if(typeof savedNegative==="boolean") setNegativeMarking(savedNegative);
         if(typeof savedGrade==="boolean") setGradeToPass(savedGrade);
         if(typeof savedPartial==="boolean") setPartialCredit(savedPartial);
         if(savedToggles && typeof savedToggles==="object") setToggles(previous=>({...previous,...savedToggles}));
-      }
-    } catch { /* Keep unchanged defaults. */ }
+      } else if (active) setForm(recordFields);
+    } catch { if (active) setForm(recordFields); }
     setHydrated(true);
   },[]);
 
-  const [accommodationRows, setAccommodationRows] = useState<{learner:string;id:string;extraTime:string;accommodation:string}[]>([]);
-  const [markingScheme, setMarkingScheme] = useState("");
+  const [accommodationRows, setAccommodationRows] = useState([
+    { learner: "Ananya Sharma", id: "S001", extraTime: "+50%", accommodation: "Extended Time" },
+    { learner: "Rahul Kumar", id: "S002", extraTime: "+25%", accommodation: "Extra Breaks" },
+    { learner: "Priya Nair", id: "S003", extraTime: "+60%", accommodation: "Extended Time" },
+  ]);
+  const [markingScheme, setMarkingScheme] = useState("Fixed marks per question");
   const [negativeMarking, setNegativeMarking] = useState(true);
   const [gradeToPass, setGradeToPass] = useState(true);
   const [partialCredit, setPartialCredit] = useState(false);
   const [addingTag, setAddingTag] = useState(false);
   const [tagText, setTagText] = useState("");
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState(["Artificial Intelligence", "Fundamentals"]);
   const editorRef = useRef<HTMLDivElement>(null);
-  // Restore saved rich text only when its accordion becomes visible.
-  useEffect(() => {
-    if (expanded.includes(0) && editorRef.current && !editorRef.current.innerHTML && form.descriptionInstructions) {
-      editorRef.current.innerHTML = form.descriptionInstructions;
-    }
-  }, [expanded, form.descriptionInstructions]);
   const [toggles, setToggles] = useState<Record<string, boolean>>({
     timeLimit: true, perQuestionTimer: false, availableFrom: true, availableUntil: true,
     lateSubmission: true, accessCode: true, browserLockdown: true,
     webcamProctoring: true, prerequisite: true, notifyLearners: true,
   });
+  // The rich-text editor mounts only when Basic Information is expanded.
+  // Restore the saved HTML after the editor appears without replacing live edits.
+  useEffect(() => {
+    if (expanded.includes(0) && editorRef.current && !editorRef.current.innerHTML && form.descriptionInstructions) {
+      editorRef.current.innerHTML = form.descriptionInstructions;
+    }
+  }, [expanded, form.descriptionInstructions]);
+
   const flip = (key: string) => setToggles(previous => ({ ...previous, [key]: !previous[key] }));
   useEffect(()=>{
     if(!hydrated) return;
-    const data={...form,assessmentType:typeLabel,tags,markingScheme,negativeMarking,gradeToPass,partialCredit,toggles};
+    const data={...form,assessmentType:assessmentTypeLabel,totalMarks:form.totalMarks??"20",questionCount:form.questionCount??"20",marksPerQuestion:form.marksPerQuestion??"1",tags,markingScheme,negativeMarking,gradeToPass,partialCredit,toggles,accommodationRows};
     try { assessmentStorage.setItem(draftKey,JSON.stringify(data)); }catch{}
-    updateAssessment({ title:(form.assessmentName||form.assessmentTitle||"Untitled Assessment").trim(), course:form.course??"", questions:Number(form.questionCount)||0, marks:Number(form.totalMarks)||0 });
-  },[hydrated,form,tags,markingScheme,negativeMarking,gradeToPass,partialCredit,toggles]);
+    updateAssessment({ title:(form.assessmentName||form.assessmentTitle||getAssessment(getActiveAssessmentId()||"")?.title||"Untitled Assessment").trim(), course:form.course??getAssessment(getActiveAssessmentId()||"")?.course??"", ...(form.questionCount!==undefined?{questions:Number(form.questionCount)||0}:{}), ...(form.totalMarks!==undefined?{marks:Number(form.totalMarks)||0}:{}) });
+  },[hydrated,form,tags,markingScheme,negativeMarking,gradeToPass,partialCredit,toggles,accommodationRows,assessmentTypeLabel]);
 
 
 
@@ -483,17 +497,7 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
     setForm((previous) => ({ ...previous, [name]: value }));
     if (name === "questionCount" && /^\d+$/.test(value) && Number(value) >= 1) { try { assessmentStorage.setItem(countKey, String(Number(value))); } catch {} }
     setMessage("");
-    setFieldErrors(previous => { if (!previous[name]) return previous; const next = {...previous}; delete next[name]; return next; });
-    setInvalidSection(null);
   };
-
-  const fieldError = (name: string) => fieldErrors[name] ? <p className="mcqDetailsError" role="alert">{fieldErrors[name]}</p> : null;
-  const clearFieldErrors = (...names: string[]) => setFieldErrors(previous => {
-    if (!names.some(name => previous[name])) return previous;
-    const next = { ...previous };
-    names.forEach(name => delete next[name]);
-    return next;
-  });
 
   const toggleSection = (index: number) => {
     setExpanded((previous) => previous.includes(index) ? [] : [index]);
@@ -501,17 +505,17 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
 
   const basicField = (label: string, name: string, values: string[], wide = false) => (
     <MCQReferenceDropdown key={name} label={label} kind="simple"
-      value={form[name] ?? ""} options={values}
-      onChange={value => update(name, value)} wide={wide} error={fieldErrors[name]} />
+      value={form[name] ?? values[0]} options={values}
+      onChange={value => update(name, value)} wide={wide} />
   );
 
   // A single inset control with stacked up/down buttons; unlike a dropdown,
   // numeric values can be typed or stepped without changing the field layout.
   const numberField = (label: string, name: string, initial: number, min = 0) => {
-    const current = form[name] ?? "";
+    const current = form[name] ?? String(initial);
     const stepValue = (direction: number) => {
-      const numeric = current === "" ? 0 : Number(current);
-      update(name, String(Math.max(min, (Number.isFinite(numeric) ? numeric : 0) + direction)));
+      const numeric = Number(current);
+      update(name, String(Math.max(min, (Number.isFinite(numeric) ? numeric : initial) + direction)));
     };
     return (
       <div className="mcqField mcqNumericField" key={name}>
@@ -525,7 +529,6 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
             value={current}
             onChange={(event) => update(name, event.target.value)}
             aria-label={label}
-            aria-invalid={Boolean(fieldErrors[name])}
           />
           <div className="mcqNumberSteppers">
             <button type="button" aria-label={`Increase ${label}`} onClick={() => stepValue(1)}>
@@ -536,7 +539,6 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
             </button>
           </div>
         </div>
-        {fieldError(name)}
       </div>
     );
   };
@@ -550,8 +552,8 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
   const selectField = (label: string, name: string, choices: string[], extraClass = "") => (
     <div key={name} className={`mcqField mcqSelectField ${extraClass}`}>
       <MCQReferenceDropdown label={label} kind="simple"
-        value={form[name] ?? ""} options={choices}
-        onChange={value => update(name, value)} error={fieldErrors[name]} />
+        value={form[name] ?? choices[0]} options={choices}
+        onChange={value => update(name, value)} />
     </div>
   );
 
@@ -560,11 +562,10 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
       <span>{label}</span>
       <div className="mcqSwitchField">
         <MCQReferenceDropdown label={label} kind="simple" compact hideLabel
-          disabled={!toggles[key]} value={form[key] ?? ""} options={choices}
+          disabled={!toggles[key]} value={form[key] ?? defaultValue} options={choices}
           onChange={value => update(key, value)} />
-        {toggle(label, toggles[key], () => { flip(key); clearFieldErrors(key); })}
+        {toggle(label, toggles[key], () => flip(key))}
       </div>
-      {toggles[key] && fieldError(key)}
     </div>
   );
 
@@ -596,14 +597,11 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
 
   const basicContent = () => (
     <div className="mcqDetailsFields mcqBasicFields">
-      <MCQReferenceDropdown label="Assessment Name" kind="assessmentName" value={form.assessmentName ?? ""} onChange={v => update("assessmentName", v)} error={fieldErrors.assessmentName} wide />
-      <div className="mcqField mcqAssessmentTypeFixed">
-        <span>Assessment Type</span>
-        <div className="mcqAssessmentTypeValue" aria-label="Assessment Type">{typeLabel}</div>
-      </div>
-      <MCQReferenceDropdown label="Course" kind="course" value={form.course ?? ""} onChange={v => update("course", v)} error={fieldErrors.course} />
+      <MCQReferenceDropdown label="Assessment Name" kind="assessmentName" value={form.assessmentName ?? "Select assessment name"} onChange={v => update("assessmentName", v)} wide />
+      <MCQReferenceDropdown label="Assessment Type" kind="assessmentType" value={assessmentTypeLabel} onChange={() => {}} disabled />
+      <MCQReferenceDropdown label="Course" kind="course" value={form.course ?? "Select course"} onChange={v => update("course", v)} />
       {basicField("Language", "language", ["English", "Hindi", "Kannada", "Tamil", "Telugu"])}
-      <MCQReferenceDropdown label="Module/ Unit" kind="module" value={form.module ?? ""} onChange={v => update("module", v)} error={fieldErrors.module} />
+      <MCQReferenceDropdown label="Module/ Unit" kind="module" value={form.module ?? "MODULE 3 — AI Fundamentals"} onChange={v => update("module", v)} />
       <div className="mcqField">
         <span>Category / tags</span>
         <div className="mcqTagInput">
@@ -649,9 +647,8 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
               reader.readAsDataURL(file);
             }} /></label>
           </div>
-          <div className="mcqEditorBody" ref={editorRef} contentEditable suppressContentEditableWarning role="textbox" aria-invalid={Boolean(fieldErrors.descriptionInstructions)} aria-label="Description and instructions" data-placeholder="Assess learner understanding of core Java concepts...." onInput={(event) => update("descriptionInstructions", event.currentTarget.innerHTML)} />
+          <div className="mcqEditorBody" ref={editorRef} contentEditable suppressContentEditableWarning role="textbox" aria-label="Description and instructions" data-placeholder="Assess learner understanding of core Java concepts...." onInput={(event) => update("descriptionInstructions", event.currentTarget.innerHTML)} />
         </div>
-        {fieldError("descriptionInstructions")}
       </div>
     </div>
   );
@@ -665,23 +662,22 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
         <span>Marking Scheme</span>
         <div className="mcqMarkingOptions">
           {["Fixed marks per question", "Weighted questions", "Custom marking"].map((option) => (
-            <button key={option} type="button" className={`mcqMarkingOption ${markingScheme === option ? "mcqMarkingSelected" : ""}`} onClick={() => { setMarkingScheme(option); update("markingScheme", option); clearFieldErrors("markingScheme"); }}>
+            <button key={option} type="button" className={`mcqMarkingOption ${markingScheme === option ? "mcqMarkingSelected" : ""}`} onClick={() => { setMarkingScheme(option); update("markingScheme", option); }}>
               <span className={`mcqChoiceCircle ${markingScheme === option ? "mcqChoiceChecked" : ""}`} aria-hidden="true" />
               <span>{option}</span>
             </button>
           ))}
         </div>
-        {fieldError("markingScheme")}
       </div>
       <div className="mcqField"><span>Negative Marking</span><div className="mcqSwitchField">
-        <MCQReferenceDropdown label="Negative Marking" kind="simple" compact hideLabel disabled={!negativeMarking} value={form.negativeMarkingValue ?? ""} options={["-0.25", "-0.5", "-1"]} onChange={value => update("negativeMarkingValue", value)} />
-        {toggle("Negative Marking", negativeMarking, (enabled) => {setNegativeMarking(enabled); clearFieldErrors("negativeMarkingValue");})}
-      </div>{negativeMarking && fieldError("negativeMarkingValue")}</div>
+        <MCQReferenceDropdown label="Negative Marking" kind="simple" compact hideLabel disabled={!negativeMarking} value={form.negativeMarkingValue ?? "-0.25"} options={["-0.25", "-0.5", "-1"]} onChange={value => update("negativeMarkingValue", value)} />
+        {toggle("Negative Marking", negativeMarking, setNegativeMarking)}
+      </div></div>
       {basicField("Passing Score", "passingScore", ["60%", "50%", "70%", "80%"])}
       <div className="mcqField"><span>Grade to Pass</span><div className="mcqSwitchField">
-        <MCQReferenceDropdown label="Grade to Pass" kind="simple" compact hideLabel disabled={!gradeToPass} value={form.gradeToPass ?? ""} options={["A", "B", "C", "D"]} onChange={value => update("gradeToPass", value)} />
-        {toggle("Grade to Pass", gradeToPass, (enabled) => {setGradeToPass(enabled); clearFieldErrors("gradeToPass");})}
-      </div>{gradeToPass && fieldError("gradeToPass")}</div>
+        <MCQReferenceDropdown label="Grade to Pass" kind="simple" compact hideLabel disabled={!gradeToPass} value={form.gradeToPass ?? "C"} options={["A", "B", "C", "D"]} onChange={value => update("gradeToPass", value)} />
+        {toggle("Grade to Pass", gradeToPass, setGradeToPass)}
+      </div></div>
       {basicField("Grade category", "gradeCategory", ["A - 90-100%", "B - 75-89%", "C - 60-74%", "D - Below 60%"])}
       {basicField("Rounding Rule", "roundingRule", ["No rounding", "Round to nearest integer", "Round to 2 decimals", "Module 3 Assessment"])}
     </div>
@@ -694,14 +690,14 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
       {selectField("Time Zone", "timeZone", ["Asia/Kolkata", "UTC", "Asia/Dubai", "Europe/London"])}
       <div className="mcqField mcqDateField"><span>Available from</span><div className="mcqDateRow">
         <MCQCalendar label="Start Date" value={form.availableFromDate ?? ""} onChange={v => update("availableFromDate", v)} disabled={!toggles.availableFrom} />
-        <MCQTimePicker label="Start Time" value={form.availableFromTime ?? ""} onChange={value => update("availableFromTime", value)} disabled={!toggles.availableFrom} />
-        {toggle("Available from",toggles.availableFrom,() => {flip("availableFrom");clearFieldErrors("availableFromDate", "availableFromTime");})}
-      </div>{toggles.availableFrom && <>{fieldError("availableFromDate")}{fieldError("availableFromTime")}</>}</div>
+        <MCQTimePicker label="Start Time" value={form.availableFromTime ?? "09:00"} onChange={value => update("availableFromTime", value)} disabled={!toggles.availableFrom} />
+        {toggle("Available from",toggles.availableFrom,() => flip("availableFrom"))}
+      </div></div>
       <div className="mcqField mcqDateField"><span>Available from</span><div className="mcqDateRow">
         <MCQCalendar label="End Date" value={form.availableUntilDate ?? ""} onChange={v => update("availableUntilDate", v)} disabled={!toggles.availableUntil} />
-        <MCQTimePicker label="End Time" value={form.availableUntilTime ?? ""} onChange={value => update("availableUntilTime", value)} disabled={!toggles.availableUntil} />
-        {toggle("Available Until",toggles.availableUntil,() => {flip("availableUntil");clearFieldErrors("availableUntilDate", "availableUntilTime");})}
-      </div>{toggles.availableUntil && <>{fieldError("availableUntilDate")}{fieldError("availableUntilTime")}</>}</div>
+        <MCQTimePicker label="End Time" value={form.availableUntilTime ?? "23:00"} onChange={value => update("availableUntilTime", value)} disabled={!toggles.availableUntil} />
+        {toggle("Available Until",toggles.availableUntil,() => flip("availableUntil"))}
+      </div></div>
       {switchField("Late Submission", "lateSubmission", "Select", ["Select", "Grace Period - 10 Min", "Grace Period - 20 Min", "Grace Period - 30 Min", "No Grace Period"], "mcqLateSubmissionField")}
     </div>
   );
@@ -728,40 +724,25 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
       {selectField("Program", "program", ["B.Tech Computer Science", "BCA", "MCA"])}
       {selectField("Section / Class", "section", ["Section A", "Section B", "All Sections"])}
       {selectField("Excluded Learners", "excludedLearners", ["Add learners", "None"])}
-      <div className="mcqField mcqNotifyOnly">
-        <span>Notify learners when published</span>
-        <div className="mcqSwitchField">
-          <span className="mcqNotifyDescription">Notify learners</span>
-          {toggle("Notify learners when published", toggles.notifyLearners, () => flip("notifyLearners"))}
-        </div>
-      </div>
+      {switchField("Notify learners when published", "notifyLearners", "Notify Learners", ["Notify Learners", "Email Notification", "In-App Notification"])}
     </div>
   );
 
   const saveAndContinue = () => {
-    const selectedForm={...form, assessmentType: typeLabel};
-    const errors = validateCompleteDetails(form, { markingScheme, negativeMarking, gradeToPass, toggles });
-    setFieldErrors(errors);
-    if (Object.keys(errors).length) {
-      const invalidSections = [...new Set(Object.keys(errors).map(name => detailsFieldSections[name] ?? 0))];
-      const first = invalidSections[0];
-      setInvalidSection(first);
-      setMessage("Please complete the required fields highlighted in red before continuing.");
-      setExpanded(previous => [...new Set([...previous, ...invalidSections])]);
-      window.requestAnimationFrame(() => window.requestAnimationFrame(() =>
-        document.getElementById(`mcq-review-target-${first}`)?.scrollIntoView({ behavior: "smooth", block: "start" })
-      ));
-      return;
-    }
-    setInvalidSection(null);
-    const count = Number(form.questionCount);
+    // The original Figma dropdowns display these actual default selections.
+    const selectedForm={...form};
+    const result=validateMcqDetails(selectedForm);
+    if(result.ok===false){setMessage(result.message);setExpanded([result.section??0]);return;}
+    const count = Number(form.questionCount ?? 20);
     try {
       assessmentStorage.setItem(countKey, String(count));
-      assessmentStorage.setItem(draftKey, JSON.stringify({ ...selectedForm, tags, markingScheme, negativeMarking, gradeToPass, partialCredit, toggles }));
-      updateAssessment({title:(form.assessmentName||form.assessmentTitle||"").trim(),course:form.course||"",questions:count,marks:Number(form.totalMarks)});
+      assessmentStorage.setItem(draftKey, JSON.stringify({ ...selectedForm, assessmentType:assessmentTypeLabel, totalMarks: form.totalMarks ?? "20", questionCount: String(count), marksPerQuestion: form.marksPerQuestion ?? "1", tags, markingScheme, negativeMarking, gradeToPass, partialCredit, toggles, accommodationRows }));
+      updateAssessment({title:(form.assessmentName||form.assessmentTitle||"Untitled Assessment").trim(),course:form.course||"",questions:count,marks:Number(form.totalMarks)||0});
       setMessage("Successfully saved");
       window.setTimeout(() => router.push("/assessments/create/content"), 1100);
-    } catch { setMessage("Unable to save the assessment. Please allow browser storage and try again."); }
+    } catch {
+      setMessage("Unable to save the assessment. Please allow browser storage and try again.");
+    }
   };
 
   return (
@@ -788,7 +769,7 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
               </ol>
 
               <div className="mcqTitleGroup">
-                <h1>Assessment Details (MCQ)</h1>
+                <h1>Assessment Details ({assessmentTypeLabel})</h1>
                 <p>Provide The Essential Details And Settings For Your Assessment.</p>
               </div>
 
@@ -803,7 +784,6 @@ export default function MCQDetailsPage({ draftKey = "mcqAssessmentDraft", countK
                       </button>
                       {isOpen && (
                         <div className="mcqAccordionContent mcqAccordionContentDesigned" id={`mcq-section-${index}`}>
-                          {invalidSection === index && message && <p role="alert" style={{ color: "#BC1E2D", fontWeight: 600, margin: "0 0 14px" }}>{message}</p>}
                           {index === 0 ? basicContent() : index === 1 ? scoringContent() : index === 2 ? timingContent() : index === 3 ? attemptsContent() : index === 4 ? audienceContent() : section.fields.map((field) => (
                             <label className="mcqField" key={field.name}>
                               <span>{field.label}</span>

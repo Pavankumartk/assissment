@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
+import MatchViewer from "@/modules/assessments/components/type-specific/match-the-following/Viewer";
 import MemoryViewer from "@/modules/assessments/components/type-specific/memory-game/Viewer";
 import Screen from "@/modules/assessments/components/viewer/AssessmentViewer/AssessmentViewer";
 import ShortViewer from "@/modules/assessments/components/type-specific/short-answer/Viewer";
@@ -16,7 +17,10 @@ import {
 import { getDemoSession } from "@/modules/assessments/auth/demo-auth";
 
 export default function PageClient() {
-  const { assessmentId } = useParams<{ assessmentId: string }>();
+  const { assessmentId } = useParams<{
+    assessmentId: string;
+  }>();
+
   const router = useRouter();
   const [ready, setReady] = useState(false);
 
@@ -65,7 +69,9 @@ export default function PageClient() {
     : null;
 
   const Viewer =
-    type === "memory-game"
+    type === "match-the-following"
+      ? MatchViewer
+      : type === "memory-game"
       ? MemoryViewer
       : type === "short-answer"
         ? ShortViewer

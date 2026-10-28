@@ -1,7 +1,7 @@
 "use client";
 import {validateCompleteDetails, detailsFieldSections, type DetailsFieldErrors} from "@/modules/assessments/validation/details-full-validation";
 import WizardStepLink from "@/modules/assessments/components/common/WizardStepLink";
-import { assessmentStorage, updateAssessment, publishAssessment, viewerPath, resultPath } from "@/modules/assessments/storage/assessment-storage";
+import { assessmentStorage, updateAssessment, getAssessment, getActiveAssessmentId, publishAssessment, viewerPath, resultPath } from "@/modules/assessments/storage/assessment-storage";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -426,6 +426,8 @@ export default function MCQDetailsPage() {
   const [expanded, setExpanded] = useState<number[]>([]);
   const [form, setForm] = useState<FormData>({});
   const [message, setMessage] = useState("");
+  const [hydrated,setHydrated] = useState(false);
+  const [assessmentTypeLabel,setAssessmentTypeLabel] = useState("Long Answer / Essay");
   const [fieldErrors, setFieldErrors] = useState<DetailsFieldErrors>({});
   const [invalidSection, setInvalidSection] = useState<number | null>(null);
   const [accommodationRows, setAccommodationRows] = useState<{learner:string;id:string;extraTime:string;accommodation:string}[]>([]);
@@ -449,19 +451,36 @@ export default function MCQDetailsPage() {
     webcamProctoring: true, prerequisite: true, notifyLearners: true,
   });
   useEffect(() => {
+    const active=getAssessment(getActiveAssessmentId() || "");
+    if (active) setAssessmentTypeLabel(active.typeLabel);
+    const recordFields: FormData = active ? {
+      ...(active.title && active.title !== "Untitled Assessment" ? {assessmentName:active.title}:{}),
+      ...(active.course ? {course:active.course}:{}),
+      ...(active.questions > 0 ? {questionCount:String(active.questions)}:{}),
+      ...(active.marks > 0 ? {totalMarks:String(active.marks)}:{}),
+    } : {};
     try {
       const saved=JSON.parse(assessmentStorage.getItem("longAnswerAssessmentDraft")||"null");
-      if (!saved || typeof saved!=="object") return;
-      const {tags:savedTags,markingScheme:savedScheme,negativeMarking:savedNegative,gradeToPass:savedGrade,partialCredit:savedPartial,toggles:savedToggles,...fields}=saved;
-      setForm(fields);
+      if (!saved || typeof saved!=="object") { if(active) setForm(recordFields); return; }
+      const {tags:savedTags,markingScheme:savedScheme,negativeMarking:savedNegative,gradeToPass:savedGrade,partialCredit:savedPartial,toggles:savedToggles,accommodationRows:savedRows,...fields}=saved;
+      if(Array.isArray(savedRows)) setAccommodationRows(savedRows);
+      setForm({...recordFields,...fields});
       if (Array.isArray(savedTags)) setTags(savedTags);
       if (typeof savedScheme==="string") setMarkingScheme(savedScheme);
       if (typeof savedNegative==="boolean") setNegativeMarking(savedNegative);
       if (typeof savedGrade==="boolean") setGradeToPass(savedGrade);
       if (typeof savedPartial==="boolean") setPartialCredit(savedPartial);
       if (savedToggles && typeof savedToggles==="object") setToggles(prev=>({...prev,...savedToggles}));
-    } catch { /* New assessment stays empty. */ }
+    } catch { if(active) setForm(recordFields); }
+    finally { setHydrated(true); }
   },[]);
+  useEffect(()=>{
+    if(!hydrated) return;
+    try {
+      assessmentStorage.setItem("longAnswerAssessmentDraft",JSON.stringify({...form,assessmentType:assessmentTypeLabel,tags,markingScheme,negativeMarking,gradeToPass,partialCredit,toggles,accommodationRows}));
+      updateAssessment({title:(form.assessmentName||form.assessmentTitle||getAssessment(getActiveAssessmentId()||"")?.title||"Untitled Assessment").trim(),course:form.course??getAssessment(getActiveAssessmentId()||"")?.course??"",...(form.questionCount!==undefined?{questions:Number(form.questionCount)||0}:{}),...(form.totalMarks!==undefined?{marks:Number(form.totalMarks)||0}:{})});
+    } catch { /* Storage may be unavailable. */ }
+  },[hydrated,form,assessmentTypeLabel,tags,markingScheme,negativeMarking,gradeToPass,partialCredit,toggles,accommodationRows]);
   const flip = (key: string) => setToggles(previous => ({ ...previous, [key]: !previous[key] }));
 
 
@@ -583,10 +602,7 @@ export default function MCQDetailsPage() {
   const basicContent = () => (
     <div className="mcqDetailsFields mcqBasicFields">
       <MCQReferenceDropdown label="Assessment Name" kind="assessmentName" value={form.assessmentName ?? ""} onChange={v => update("assessmentName", v)} error={fieldErrors.assessmentName} wide />
-      <div className="mcqField mcqAssessmentTypeFixed">
-        <span>Assessment Type</span>
-        <div className="mcqAssessmentTypeValue" aria-label="Assessment Type">{"Long Answer"}</div>
-      </div>
+      <MCQReferenceDropdown label="Assessment Type" kind="assessmentType" value={assessmentTypeLabel} onChange={() => {}} disabled />
       <MCQReferenceDropdown label="Course" kind="course" value={form.course ?? ""} onChange={v => update("course", v)} error={fieldErrors.course} />
       {basicField("Language", "language", ["English", "Hindi", "Kannada", "Tamil", "Telugu"])}
       <MCQReferenceDropdown label="Module/ Unit" kind="module" value={form.module ?? ""} onChange={v => update("module", v)} error={fieldErrors.module} />
@@ -717,7 +733,6 @@ export default function MCQDetailsPage() {
       <div className="mcqField mcqNotifyOnly">
         <span>Notify learners when published</span>
         <div className="mcqSwitchField">
-          <span className="mcqNotifyDescription">Notify learners</span>
           {toggle("Notify learners when published", toggles.notifyLearners, () => flip("notifyLearners"))}
         </div>
       </div>
@@ -743,7 +758,7 @@ export default function MCQDetailsPage() {
     const count = Number(form.questionCount);
     try {
       assessmentStorage.setItem("longAnswerQuestionCount", String(count));
-      assessmentStorage.setItem("longAnswerAssessmentDraft", JSON.stringify({ ...selectedForm, tags, markingScheme, negativeMarking, gradeToPass, partialCredit, toggles }));
+      assessmentStorage.setItem("longAnswerAssessmentDraft", JSON.stringify({ ...selectedForm, accommodationRows, assessmentType:assessmentTypeLabel, tags, markingScheme, negativeMarking, gradeToPass, partialCredit, toggles }));
       updateAssessment({title:(form.assessmentName||form.assessmentTitle||"").trim(),course:form.course||"",questions:count,marks:Number(form.totalMarks)});
       setMessage("Successfully saved");
       window.setTimeout(() => router.push("/assessments/create/content"), 1100);
@@ -774,7 +789,7 @@ export default function MCQDetailsPage() {
               </ol>
 
               <div className="mcqTitleGroup">
-                <h1>Assessment Details (Long Answers)</h1>
+                <h1>Assessment Details ({assessmentTypeLabel})</h1>
                 <p>Provide The Essential Details And Settings For Your Assessment.</p>
               </div>
 
