@@ -1,0 +1,1790 @@
+/* Connect the Dots — rebuilt from the supplied matching-question CSS and Figma sizes.
+   This sheet is deliberately self-contained: no duplicate/overriding legacy frames.
+   Raised: -4px -4px 4px white, +4px +4px 4px #C4C4C4.
+   Inset:  inset -4px -4px 4px white, inset +4px +4px 4px #C4C4C4. */
+.mcqcAppShell{--cd-bg:#DFE6E9;--cd-text:#374151;--cd-raise:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;--cd-inset:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;width:100%;min-width:0;height:100dvh;background:var(--cd-bg);color:var(--cd-text);font-family:"Segoe UI",Arial,sans-serif}
+.mcqcAppShell *, .mcqcAppShell *::before,.mcqcAppShell *::after{box-sizing:border-box}
+.mcqcAppShell button,.mcqcAppShell input,.mcqcAppShell textarea{font-family:"Segoe UI",Arial,sans-serif}
+.mcqcAppShell button{cursor:pointer}
+.mcqcAppShell button:disabled{opacity:.48;cursor:not-allowed}
+.mcqcAppShell :focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+.mcqcLayout{display:flex;width:100%;height:100dvh;min-width:0;overflow:hidden}
+.mcqcMainContent{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
+.mcqcHeader{flex:0 0 auto}
+.mcqcScrollArea{flex:1 1 auto;min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden}
+.mcqcPageContent{width:100%;min-width:0;padding:22px 24px 32px}
+.mcqcIcon{display:block;flex:0 0 auto;object-fit:contain}
+.mcqcRotated{transform:rotate(180deg)}
+
+/* Breadcrumb and greeting: same visual proportions as supplied screenshot. */
+.mcqcBuilder{min-width:0;width:100%}
+.mcqcBuilderTop{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;margin-bottom:20px}
+.mcqcBuilderCrumb{display:flex;flex-wrap:wrap;align-items:center;gap:10px;min-height:34px;font-size:16px;line-height:24px;letter-spacing:.02em}
+.mcqcBuilderCrumb a,.mcqcBuilderCrumb button{border:0;background:none;padding:0;color:#2F3547;text-decoration:none;font:inherit}
+.mcqcBuilderCrumb strong{color:#2D4CC8;font-weight:700}
+.mcqcBuilderWelcome{display:flex;align-items:center;justify-content:center;gap:12px;width:min(100%,328px);min-height:92px;padding:14px 16px;border:1px solid #2D4CC8;border-right-color:#E01E5A;border-radius:10px;background:var(--cd-bg);text-align:center}
+.mcqcBuilderWelcome h2{margin:0 0 5px;background:linear-gradient(90deg,#2D4CC8,#E01E5A);background-clip:text;-webkit-background-clip:text;color:transparent;font-size:20px;line-height:26px;font-weight:700}
+.mcqcBuilderWelcome p{margin:0;font-size:14px;line-height:22px}
+
+/* The two main frames use the supplied raised shadow; NO white outline/border. */
+.mcqcBuilderGrid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start;min-width:0}
+.mcqcBuilderMain,.mcqcBuilderAside{min-width:0;border:0;border-radius:16px;background:var(--cd-bg);box-shadow:var(--cd-raise)}
+.mcqcBuilderMain{display:flex;flex-direction:column;gap:20px;padding:20px 22px 24px}
+.mcqcBuilderAside{display:flex;flex-direction:column;gap:14px;padding:14px 12px;border-radius:12px}
+.mcqcQuestionsHeading{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.mcqcQuestionsHeading h2{margin:0 0 6px;font-size:18px;line-height:28px;font-weight:700}
+.mcqcQuestionsHeading p{margin:0;font-size:15px;line-height:23px}
+.mcqcBuilderAction{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:9px 16px;border:0;border-radius:28px;background:var(--cd-bg);box-shadow:var(--cd-raise);color:#2D4CC8;font-size:15px;line-height:22px;font-weight:600;white-space:nowrap}
+.mcqcBuilderAction:active,.mcqcFooterPill:active{box-shadow:var(--cd-inset)}
+.mcqcTopAdd{flex:0 0 auto;min-width:118px;min-height:50px;border:1px solid #2D4CC8;border-radius:30px;font-size:18px}
+.mcqcNumberNavigation{display:flex;align-items:center;gap:12px;width:100%;min-width:0;margin:6px 0 0}
+.mcqcRoundNav{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;padding:0;border:0;border-radius:50%;background:var(--cd-bg);box-shadow:-3px -3px 5px #FFFFFF,3px 3px 5px #C4C4C4}
+.mcqcQuestionNumbers{display:flex;align-items:center;gap:12px;flex:1 1 auto;width:0;min-width:0;padding:5px 3px 9px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-behavior:smooth;scrollbar-width:none}
+.mcqcQuestionNumbers::-webkit-scrollbar{display:none}
+.mcqcQuestionNumber{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;flex:0 0 66px;width:66px;height:49px;padding:4px;border:1px solid #A6AFB5;border-radius:4px;background:var(--cd-bg);box-shadow:-2px -2px 2px #FFFFFF,2px 2px 3px #C4C4C4;color:#374151;font-size:18px;line-height:24px;font-weight:700}
+.mcqcQuestionNumber small{font-size:11px;line-height:14px;font-weight:600;color:inherit}
+.mcqcQuestionNumber i{position:absolute;right:6px;top:5px;width:8px;height:8px;border-radius:50%;background:currentColor;opacity:0}
+.mcqcQuestionNumber.is-complete{border-color:#2A7308;color:#2A7308}
+.mcqcQuestionNumber.is-partial{border-color:#C05512;color:#C05512}
+.mcqcQuestionNumber.is-active{border-color:#2D4CC8;background:#D9E2FB;color:#2D4CC8}
+.mcqcQuestionNumber.is-complete i,.mcqcQuestionNumber.is-partial i,.mcqcQuestionNumber.is-active i{opacity:1}
+.mcqcQuestionProgress{width:calc(100% - 100px);height:17px;min-height:17px;margin:-7px auto 0;padding:4px;border:0;border-radius:50px;background:var(--cd-bg);box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.mcqcQuestionProgress>span{display:block;max-width:100%;height:100%;border-radius:50px;background:#2A7308;transition:width .2s ease}
+
+/* Form container: one neutral frame, not nested white border frames. */
+.mcqcQuestionForm{display:flex;flex-direction:column;gap:14px;min-width:0;padding:14px 12px 16px;border:0;border-radius:16px;background:var(--cd-bg)}
+.mcqcBuilderField{display:flex;flex-direction:column;gap:6px;position:relative;min-width:0}
+.mcqcBuilderField>label{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#374151;font-size:14px;line-height:22px;font-weight:600}
+.mcqcBuilderField>label small{font-size:11px;line-height:18px;font-weight:400;color:#4B5563}
+.mcqcBuilderField input,.mcqcBuilderField textarea{display:block;width:100%;min-width:0;border:0;border-radius:6px;background:var(--cd-bg);box-shadow:var(--cd-inset);color:var(--cd-text);font-size:14px;line-height:22px;outline:none}
+.mcqcBuilderField input{min-height:44px;padding:9px 12px}
+.mcqcBuilderField textarea{min-height:76px;padding:11px 12px;resize:vertical}
+.mcqcSelectRoot{position:relative;min-width:0;width:100%}
+.mcqcSelectTrigger{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-width:0;min-height:44px;padding:9px 12px;border:0;border-radius:5px;background:var(--cd-bg);box-shadow:var(--cd-inset);color:#374151;text-align:left;font:400 14px/22px "Segoe UI",Arial,sans-serif}
+.mcqcSelectTrigger>span{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.mcqcTypeRoot .mcqcSelectTrigger{min-height:52px;padding:10px 16px}
+.mcqcSelectList,.mcqcTypeDropdown{position:absolute;top:calc(100% + 5px);left:0;z-index:120;width:100%;min-width:0;max-height:270px;overflow-y:auto;overscroll-behavior:contain;padding:9px;border:0;border-radius:9px;background:var(--cd-bg);box-shadow:-4px -4px 7px #FFFFFF,4px 4px 8px #C4C4C4;scrollbar-width:thin}
+.mcqcSelectItem{display:flex;align-items:center;gap:10px;width:100%;min-height:37px;padding:6px 8px;border:0;border-radius:5px;background:transparent;color:#374151;text-align:left;font:400 13px/20px "Segoe UI",Arial,sans-serif}
+.mcqcSelectItem:hover,.mcqcSelectItem[aria-checked="true"]{box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.mcqcSelectItem[aria-checked="true"]>span:last-child,.mcqcTypeOption[aria-checked="true"]>span:last-child{color:#2D4CC8;font-weight:600}
+.mcqcOptionRadio,.mcqcDDSelectedCheck{position:relative;display:grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--cd-bg);box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.mcqcOptionRadio::after{content:"";width:11px;height:11px;border:1px solid #BBC5CB;border-radius:50%}
+.mcqcOptionRadio.mcqcOptionSelected::after{background:#2D4CC8;border-color:#2D4CC8}
+.mcqcDDSelectedCheck{width:24px;height:24px;flex-basis:24px;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF}
+.mcqcDDSelectedCheck::before{content:"";position:absolute;width:14px;height:14px;inset:5px;border-radius:50%;background:#2D4CC8}
+.mcqcDDSelectedCheck::after{content:"";position:absolute;top:9px;left:9px;width:7px;height:4px;border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;transform:rotate(-45deg)}
+.mcqcTypeDropdown{max-height:min(440px,60dvh);padding:10px}
+.mcqcTypeSearch{display:flex;align-items:center;gap:10px;min-height:43px;padding:7px 11px;border-radius:6px;background:var(--cd-bg);box-shadow:var(--cd-inset)}
+.mcqcTypeSearch input{flex:1 1 auto;width:100%;min-width:0;height:28px;min-height:0;padding:0;border:0;background:transparent;box-shadow:none;outline:none;color:#374151;font-size:14px}
+.mcqcTypeGroups{margin-top:10px}
+.mcqcTypeGroup{border-top:1px solid #C7D1D7}
+.mcqcTypeHeading{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:49px;padding:10px 8px;border:0;background:transparent;color:#2D4CC8;text-align:left;font:700 15px/22px "Segoe UI",Arial,sans-serif}
+.mcqcTypeOptions{padding-bottom:9px}
+.mcqcTypeOption{display:flex;align-items:center;gap:11px;width:100%;min-height:40px;padding:7px 8px;border:0;border-radius:5px;background:transparent;color:#374151;text-align:left;font:400 14px/20px "Segoe UI",Arial,sans-serif}
+.mcqcTypeOption:hover{box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.mcqcTypeEmpty{padding:10px;font-size:13px}
+
+/* Accordion: each section is a single raised frame. Open content is part of the SAME frame. */
+.mcqcDDPanel{min-width:0;border:0;border-radius:6px;background:var(--cd-bg);box-shadow:var(--cd-raise)}
+.mcqcDDPanelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:55px;padding:9px 15px;border:0;border-radius:6px;background:var(--cd-bg);color:#374151;text-align:left;font:600 16px/24px "Segoe UI",Arial,sans-serif}
+.mcqcDDPanel.is-open .mcqcDDPanelHead{border-radius:6px 6px 0 0;box-shadow:0 2px 3px rgba(120,130,135,.16)}
+.mcqcDDPanelHeading{display:flex;align-items:center;gap:10px;flex:1 1 auto;min-width:0}
+.mcqcDDPanelHeading strong{font-size:inherit;font-weight:600}
+.mcqcDDPanelIcon{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:var(--cd-bg);box-shadow:-2px -2px 3px #FFFFFF,2px 2px 3px #C4C4C4}
+.mcqcDDPanelCount{flex:0 0 auto;margin-left:auto;color:#4B5563;font-size:11px;font-weight:400;line-height:17px}
+.mcqcDDPanelHead>.mcqcIcon{flex:0 0 20px}
+.mcqcDDPanelBody{display:flex;flex-direction:column;gap:16px;min-width:0;padding:16px 14px 18px;border:0;border-radius:0 0 6px 6px;background:var(--cd-bg)}
+.mcqcDDThree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end;gap:14px 18px;min-width:0}
+.mcqcDDThree .mcqcBuilderField>label{font-size:13px;line-height:20px}
+.mcqcDDThree .mcqcSelectTrigger{min-height:44px;padding:8px 10px;font-size:13px}
+
+/* Rich text editor from supplied match.tsx, with original compact toolbar. */
+.mcqcEditorSurface{min-width:0;padding:6px;border:0;border-radius:6px;background:var(--cd-bg);box-shadow:inset -3px -3px 4px #FFFFFF,inset 3px 3px 4px #C4C4C4}
+.mcqcRichEditorRoot{position:relative;min-width:0;width:100%}
+.mcqcRichToolbar{display:flex;align-items:center;gap:4px;flex-wrap:nowrap;width:100%;min-width:0;min-height:39px;padding:4px 14px 4px 6px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;border:0;border-radius:4px 4px 0 0;background:var(--cd-bg);box-shadow:0 2px 3px rgba(120,130,135,.20)}
+.mcqcRichToolbar>button,.mcqcRichToolbar .mcqcRichMenuRoot>button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 29px;width:29px;min-width:29px;height:29px;min-height:29px;padding:3px;border:0;border-radius:3px;background:var(--cd-bg);box-shadow:-1px -1px 2px #FFFFFF,1px 1px 2px #C4C4C4}
+.mcqcRichMenuRoot{position:relative;flex:0 0 auto}
+.mcqcRichToolbar .mcqcRichMenuRoot:last-child{margin-right:8px}
+.mcqcRichToolbar .mcqcRichMenuRoot>.mcqcToolbarSelect{display:flex;align-items:center;justify-content:space-between;gap:5px;flex:0 0 auto;width:auto;min-width:70px;max-width:none;padding:4px 6px;font:400 13px/20px "Segoe UI",Arial,sans-serif}
+.mcqcRichToolbar .mcqcRichMenuRoot>.mcqcToolbarFont{min-width:94px}
+.mcqcRichToolbar .mcqcRichMenuRoot>.mcqcToolbarSize{min-width:58px}
+.mcqcRichEditable{display:block;width:100%;min-width:0;min-height:72px;padding:10px 13px 18px;border:0;border-radius:0 0 5px 5px;background:transparent;outline:0;color:#374151;font:400 14px/22px "Segoe UI",Arial,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere}
+.mcqcRichEditable:focus-visible{outline:none}
+.mcqcRichWordCount{position:absolute;right:11px;bottom:3px;z-index:1;padding:0 2px;background:#DFE6E9;color:#5C6772;font:400 11px/15px "Segoe UI",Arial,sans-serif;pointer-events:none;white-space:nowrap;font-variant-numeric:tabular-nums}
+.mcqcRichEditable:empty::before{content:attr(data-placeholder);color:#8A939A;pointer-events:none}
+.mcqcRichEditable img{max-width:100%;max-height:260px;height:auto;vertical-align:middle}
+.mcqcRichEditable a{color:#2D4CC8;overflow-wrap:anywhere}
+.mcqcRichEditable ul,.mcqcRichEditable ol{padding-left:25px;margin:6px 0 8px;list-style-position:outside}
+.mcqcRichEditable ul{list-style-type:disc}.mcqcRichEditable ol{list-style-type:decimal}
+.mcqcFloatingFormatMenu{position:fixed;z-index:2147483000;display:flex;flex-direction:column;gap:5px;max-height:min(345px,75dvh);padding:10px;border:0;border-radius:9px;background:#DFE6E9;box-shadow:-4px -4px 7px #FFFFFF,4px 4px 8px #C4C4C4;overflow-y:auto;overscroll-behavior:contain}
+.mcqcFloatingFormatMenu>button{display:flex;align-items:center;justify-content:flex-start;flex:0 0 33px;width:100%;min-height:33px;padding:5px 9px;border:0;border-radius:5px;background:#DFE6E9;box-shadow:-1px -1px 2px #FFFFFF,1px 1px 2px #C4C4C4;color:#374151;text-align:left;font:400 13px/20px "Segoe UI",Arial,sans-serif}
+.mcqcFloatingFormatMenu>button:hover,.mcqcFloatingFormatMenu>button[aria-selected="true"]{box-shadow:inset -2px -2px 3px #FFFFFF,inset 2px 2px 3px #C4C4C4}
+.mcqcFloatingFormatMenu.mcqcFloatingSymbols{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-content:start;gap:6px}
+.mcqcFloatingFormatMenu.mcqcFloatingSymbols>button{display:grid;place-items:center;width:100%;min-width:0;height:44px;min-height:44px;padding:0;text-align:center;font-size:20px;font-weight:500}
+
+/* Matching pairs: original 888 × 84 row, 58 × 56 number, 213 × 56 left, 508 × 56 right. */
+.mcqcConnectPairHead{display:grid;grid-template-columns:58px minmax(0,213px) minmax(0,1fr) 24px;align-items:center;gap:14px;padding:0 14px 1px;text-align:center;font-size:12px;line-height:18px}
+.mcqcConnectPairHead strong{font-weight:600}
+.mcqcMatchPairs{display:flex;flex-direction:column;gap:14px;min-width:0}
+.mcqcMatchPairRow.mcqcConnectPairRow{display:grid;grid-template-columns:58px minmax(0,213px) minmax(0,1fr) 24px;align-items:center;gap:14px;min-width:0;min-height:84px;padding:14px;border:0;border-radius:8px;background:var(--cd-bg);box-shadow:var(--cd-raise)}
+.mcqcMatchPairRow .mcqcDDLetter{display:grid;place-items:center;align-self:center;width:58px;min-height:56px;border:0;border-radius:8px;background:var(--cd-bg);box-shadow:var(--cd-inset);color:#374151;font-size:16px;line-height:24px;font-weight:600}
+.mcqcMatchPairRow input{display:block;width:100%;min-width:0;min-height:56px;padding:10px 14px;border:0;border-radius:8px;background:var(--cd-bg);box-shadow:var(--cd-inset);color:#374151;font:400 16px/24px "Segoe UI",Arial,sans-serif}
+.mcqcMatchPairRow input::placeholder{color:#7A858D}
+.mcqcIconButton{display:grid;place-items:center;flex:0 0 24px;width:24px;height:24px;padding:4px;border:0;border-radius:50%;background:var(--cd-bg);box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4}
+.mcqcMatchPairRow .mcqcDDRemoveDrag{justify-self:center}
+.mcqcMatchPairActions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-width:0;margin:3px 0}
+.mcqcMatchPairActions small{color:#4B5563;font-size:11px}
+.mcqcDDAddSmall{min-height:34px;padding:6px 12px;border:1px solid #2D4CC8;border-right-color:#E01E5A;border-radius:24px;color:#2D4CC8;font-size:13px;line-height:19px}
+.mcqcMatchExtras{display:flex;flex-direction:column;gap:12px;min-width:0;padding:14px;border:0;border-radius:8px;background:var(--cd-bg);box-shadow:var(--cd-raise)}
+.mcqcDDToggleRow{display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:0;min-height:44px;padding:8px 17px;border:0;border-radius:5px;background:var(--cd-bg);box-shadow:inset -2px -2px 3px #FFFFFF,inset 2px 2px 3px #C4C4C4;color:#374151;font-size:13px;line-height:20px}
+.mcqcDDToggleRow>span:first-child{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.mcqcDDToggleRow>.mcqcSwitch{margin-right:7px}
+.mcqcMatchExtraEditor{display:flex;flex-direction:column;gap:8px;min-width:0;padding:0;border:0;background:transparent;box-shadow:none}
+.mcqcMatchExtraEditor .mcqcRichEditable{min-height:85px}
+.mcqcMatchExtraSaveRow{display:flex;justify-content:flex-end;align-items:center;padding:0 4px}
+.mcqcMatchExtraSave{display:inline-flex;align-items:center;justify-content:center;min-width:78px;min-height:34px;padding:6px 15px;border:0;border-radius:24px;background:var(--cd-bg);box-shadow:-3px -3px 4px #FFFFFF,3px 3px 4px #C4C4C4;color:#374151;font-size:13px;font-weight:600}
+.mcqcMatchExtraActions{display:flex;justify-content:flex-start}
+.mcqcConnectExtraChips{display:flex;flex-wrap:wrap;gap:7px}
+.mcqcConnectExtraChips button{display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:4px 7px;border:1px solid #A5CB8E;border-radius:4px;background:#E3F3D8;color:#2A7308;font:400 12px/18px "Segoe UI",Arial,sans-serif;overflow-wrap:anywhere}
+
+/* Switch: same 61×28 pill; inset a little farther from every section edge. */
+.mcqcSwitch{position:relative;display:inline-block;flex:0 0 61px;width:61px;height:28px;padding:0;border:0;border-radius:32px;background:var(--cd-bg);box-shadow:-3px -3px 4px #FFFFFF,3px 3px 4px #C4C4C4}
+.mcqcSwitch::before{content:"";position:absolute;left:4px;top:4px;width:53px;height:20px;border-radius:32px;background:var(--cd-bg);box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.mcqcSwitch.mcqcSwitchOn::before{background:linear-gradient(110deg,#2D4CC8,#E01E5A);box-shadow:none}
+.mcqcSwitchText{position:absolute;top:4px;right:9px;z-index:2;color:#606162;font:500 11px/20px "Segoe UI",Arial,sans-serif}
+.mcqcSwitchOn .mcqcSwitchText{right:auto;left:10px;color:#FFFFFF}
+.mcqcSwitchKnob{position:absolute;top:4px;left:4px;z-index:3;width:20px;height:20px;border-radius:50%;background:#606162;box-shadow:-1px -1px 2px #FFFFFF,1px 1px 2px #AEB7BB}
+.mcqcSwitchOn .mcqcSwitchKnob{left:37px;background:var(--cd-bg);box-shadow:-1px -1px 2px #FFFFFF,1px 2px 3px #8E9A9F}
+
+/* Grading, simulator, and feedback frames. */
+.mcqcDDCustomZone{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:13px}
+.mcqcDDCustomZone input{width:110px;min-height:40px;padding:8px 11px;border:0;border-radius:5px;background:var(--cd-bg);box-shadow:var(--cd-inset);color:#374151}
+.mcqcDDScoreCheck{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;min-height:44px;padding:8px 11px;border:1px solid #A75AB0;border-radius:5px;color:#78267C;font-size:13px;font-weight:600}
+.mcqcDDScoreCheck strong{padding:5px 12px;border-radius:20px;color:#FFFFFF;font-size:12px}
+.mcqcDDCorrect{background:#2A7308}.mcqcDDDistractor{background:#B31B2A}
+.mcqcDDScoreTable{display:flex;flex-direction:column;gap:11px;min-width:0}
+.mcqcDDScoreHead,.mcqcDDScoreRow{display:grid;grid-template-columns:minmax(0,1fr) minmax(78px,116px);align-items:center;gap:12px;min-width:0;font-size:13px}
+.mcqcDDScoreHead{font-weight:600}
+.mcqcDDScoreRow>span{display:flex;align-items:center;min-height:44px;min-width:0;padding:8px 12px;border:0;border-radius:5px;background:var(--cd-bg);box-shadow:var(--cd-inset)}
+.mcqcDDScoreRow .mcqcSelectTrigger{min-height:44px;padding:8px 10px;font-size:13px}
+.mcqcDDFeedbackField{width:100%;min-width:0}
+.mcqcDDFeedbackField .mcqcRichEditable{min-height:52px}
+.mcqcDDFeedbackField>label{font-size:14px;font-weight:600}
+/* Label AND editable text share the reference's full/partial/zero marks colours. */
+.mcqcDDFeedbackfeedbackFull>label,.mcqcDDFeedbackfeedbackFull .mcqcRichEditable,.mcqcDDFeedbackfeedbackFull .mcqcRichEditable *{color:#2A7308}
+.mcqcDDFeedbackfeedbackPartial>label,.mcqcDDFeedbackfeedbackPartial .mcqcRichEditable,.mcqcDDFeedbackfeedbackPartial .mcqcRichEditable *{color:#C45C13}
+.mcqcDDFeedbackfeedbackZero>label,.mcqcDDFeedbackfeedbackZero .mcqcRichEditable,.mcqcDDFeedbackfeedbackZero .mcqcRichEditable *{color:#B31B2A}
+.mcqcDDFeedbackField .mcqcRichEditable:empty::before{color:#8A939A}
+.mcqcDDFeedbackSubpanel{min-width:0;margin-top:2px;border:0;border-radius:7px;background:var(--cd-bg);box-shadow:var(--cd-raise)}
+.mcqcDDFeedbackSubhead{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:45px;padding:7px 11px;border:0;border-radius:7px;background:var(--cd-bg);color:#374151;text-align:left;font-size:14px;font-weight:600}
+.mcqcDDFeedbackSubhead small{margin-left:auto;font-size:11px;font-weight:400;color:#4B5563}
+.mcqcDDFeedbackSubbody{display:flex;flex-direction:column;gap:12px;padding:9px 12px 13px}
+.mcqcHintChecks{display:flex;flex-direction:column;gap:8px}
+.mcqcHintChecks label{display:flex;align-items:center;gap:12px;min-height:32px;color:#374151;font:500 14px/22px "Segoe UI",Arial,sans-serif;letter-spacing:.02em;cursor:pointer}
+.mcqcHintChecks label.is-checked{color:#2D4CC8;font-weight:600}
+.mcqcHintChecks input[type="checkbox"]{appearance:none;-webkit-appearance:none;position:relative;display:grid;place-items:center;flex:0 0 24px;width:24px;height:24px;margin:0;border:0;border-radius:4px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px rgba(196,196,196,.8);cursor:pointer}
+.mcqcHintChecks input[type="checkbox"]:checked{box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF}
+.mcqcHintChecks input[type="checkbox"]:checked::before{content:"";position:absolute;left:5px;top:5px;width:14px;height:14px;border-radius:3px;background:#2D4CC8}
+.mcqcHintChecks input[type="checkbox"]::after{content:"";position:relative;width:8px;height:5px;border-left:2px solid #FFFFFF;border-bottom:2px solid #FFFFFF;transform:translateY(-1px) rotate(-45deg);opacity:0}
+.mcqcHintChecks input[type="checkbox"]:checked::after{opacity:1}
+.mcqcHintChecks input[type="checkbox"]:focus-visible{outline:2px solid #2D4CC8;outline-offset:3px}
+.mcqcValidationErrors{margin:3px 0;color:#B42318;font-size:13px;line-height:20px}
+.mcqcValidationErrors p{margin:3px 0}
+
+/* Question Settings: same data controls, spacing, and dimensions as the supplied file. */
+.mcqcAsideSection{display:flex;flex-direction:column;gap:12px;min-width:0;padding:14px 12px;border:0;border-radius:5px;background:var(--cd-bg)}
+.mcqcAsideSection h3{margin:0;font-size:16px;line-height:24px;font-weight:600}
+.mcqcBuilderAside .mcqcBuilderField{gap:5px}
+.mcqcBuilderAside .mcqcBuilderField>label{font-size:14px;line-height:20px;font-weight:600}
+.mcqcBuilderAside .mcqcSelectTrigger,.mcqcBuilderAside .mcqcBuilderField input{min-height:38px;height:38px;padding:7px 11px;font-size:14px;line-height:21px}
+.mcqcBuilderAside .mcqcSelectList{max-height:260px}
+.mcqcConnectPoints{appearance:auto;-webkit-appearance:auto}
+.mcqcTagHolder{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.mcqcAddTag{display:inline-flex;align-items:center;gap:5px;min-height:30px;padding:5px 8px;border:0;border-radius:5px;background:var(--cd-bg);box-shadow:-2px -2px 3px #FFFFFF,2px 2px 3px #C4C4C4;color:#2A7308;font-size:13px}
+.mcqcBuilderAside .mcqcTagInput{flex:1 1 100px;min-width:80px;max-width:100%;height:34px;min-height:34px;padding:5px 8px}
+.mcqcTagRow{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-height:26px}
+.mcqcTagRow button{display:inline-flex;align-items:center;gap:6px;max-width:100%;padding:4px 8px;border:1px solid #91B67F;border-radius:4px;background:#E1ECD8;color:#2A7308;font-size:11px;line-height:16px;overflow-wrap:anywhere}
+.mcqcMandatory{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px;font-size:14px;font-weight:600}
+.mcqcMandatory .mcqcSwitch{margin-right:8px}
+.mcqcAsideHint{margin:-6px 0 0;font-size:11px;line-height:17px}
+.mcqcStatGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.mcqcStatGrid>div{min-width:0;text-align:center}
+.mcqcStatGrid strong{display:grid;place-items:center;min-width:0;height:48px;border:0;border-radius:7px;background:var(--cd-bg);box-shadow:-2px -2px 3px #FFFFFF,2px 2px 3px #C4C4C4;font-size:22px;font-weight:700}
+.mcqcStatGrid span{display:block;margin-top:6px;font-size:12px;line-height:17px}
+.mcqcStatGrid>div:nth-child(1) strong,.mcqcStatGrid>div:nth-child(1) span{color:#67096E}
+.mcqcStatGrid>div:nth-child(2) strong,.mcqcStatGrid>div:nth-child(2) span{color:#2D4CC8}
+.mcqcStatGrid>div:nth-child(3) strong,.mcqcStatGrid>div:nth-child(3) span{color:#2A7308}
+.mcqcSummaryProgress{height:3px;margin-top:3px;border-radius:5px;background:linear-gradient(90deg,#67096E,#2D4CC8,#E01E5A);overflow:hidden}
+.mcqcSummaryProgress>span{display:block;height:100%;background:#2A7308}
+.mcqcBuilderSummary>p{margin:0;font-size:11px;line-height:17px}
+.mcqcMatchPassingScore{display:block;position:relative;width:100%;min-height:42px;border:0;border-radius:5px;background:var(--cd-bg);box-shadow:var(--cd-inset)}
+.mcqcPassingScoreTrigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:42px;padding:8px 12px;border:0;background:transparent;color:#374151;text-align:left;font-size:14px}
+.mcqcPassingScoreMenu{position:fixed;z-index:2147483000;display:flex;flex-direction:column;gap:5px;min-width:0;max-height:160px;padding:8px;border:0;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 7px #FFFFFF,4px 4px 8px #C4C4C4;overflow-y:auto;overscroll-behavior:contain}
+.mcqcPassingScoreOption{display:flex;align-items:center;gap:10px;flex:0 0 34px;min-height:34px;width:100%;padding:5px 8px;border:0;border-radius:5px;background:#DFE6E9;color:#374151;text-align:left;font-size:13px}
+.mcqcPassingScoreOption:hover,.mcqcPassingScoreOption.is-selected{box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.mcqcPassingScoreOption.is-selected>span:last-child{color:#2D4CC8;font-weight:600}
+.mcqcPassingScoreRadio{display:grid;place-items:center;flex:0 0 21px;width:21px;height:21px;border-radius:50%;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.mcqcPassingScoreRadio.is-selected::after{content:"";width:11px;height:11px;border-radius:50%;background:#2D4CC8}
+
+/* Bottom buttons: same raised pills, no additional white outline. */
+.mcqcBuilderBottom{display:flex;align-items:center;justify-content:center;position:relative;min-height:56px;margin-top:6px}
+.mcqcBuilderArrows{display:flex;gap:14px;position:absolute;right:0}
+.mcqcSubmitQuestion{min-width:204px;min-height:48px;border:1px solid #2D4CC8;border-radius:28px;font-size:18px}
+.mcqcBuilderNotice{margin:12px 0 0;color:#B31B2A;font-size:13px;line-height:20px}
+.mcqcBuilderPageFooter{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:32px}
+.mcqcFooterPill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:132px;min-height:45px;padding:8px 18px;border:0;border-radius:28px;background:var(--cd-bg);box-shadow:var(--cd-raise);color:#374151;font:600 15px/24px "Segoe UI",Arial,sans-serif}
+.mcqcBuilderPageFooter>.mcqcFooterPill{min-width:175px}
+.mcqcSaveContinueGroup{display:flex;align-items:center;justify-content:flex-end;gap:18px;flex-wrap:wrap}
+.mcqcFooterContinue{color:#2A7308}
+.mcqcSaveSuccessToast{color:#2A7308;font-size:12px}
+
+/* Learner preview is functional, but does not add a second border frame. */
+.mcqcConnectPreview{min-width:0;color:#374151}
+.mcqcConnectPreviewTop{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.mcqcConnectPreviewTop h2{margin:0 0 5px;font-size:20px}.mcqcConnectPreviewTop p{margin:0}
+.mcqcConnectPreviewCard{padding:22px;border:0;border-radius:16px;background:var(--cd-bg);box-shadow:var(--cd-raise)}
+.mcqcConnectPreviewCard h3{margin:0 0 10px;font-size:17px;line-height:26px}
+.mcqcConnectPreviewCard>p{font-size:14px;line-height:24px}
+.mcqcConnectBoard{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(35px,10vw,150px);min-width:0;margin:24px 0}
+.mcqcConnectColumn{display:flex;flex-direction:column;gap:12px;min-width:0}
+.mcqcConnectColumn h4{margin:0 0 5px;text-align:center;font-size:15px}
+.mcqcConnectDotItem{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:60px;padding:10px 12px;border:0;border-radius:9px;background:var(--cd-bg);box-shadow:-3px -3px 4px #FFFFFF,3px 3px 4px #C4C4C4;color:#374151;text-align:left;font:400 14px/22px "Segoe UI",Arial,sans-serif}
+.mcqcConnectDotItem>span{min-width:0;overflow-wrap:anywhere}
+.mcqcConnectDotItem>i{display:block;flex:0 0 15px;width:15px;height:15px;border:2px solid #2D4CC8;border-radius:50%;background:var(--cd-bg)}
+.mcqcConnectDotItem.is-selected{color:#2D4CC8;outline:1px solid #2D4CC8}
+.mcqcConnectLines{position:absolute;inset:0;z-index:2;overflow:visible;pointer-events:none}
+.mcqcConnectPreviewActions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:12px}
+.mcqcConnectResult,.mcqcConnectHint{margin-top:16px;padding:12px 15px;border:0;border-radius:7px;background:var(--cd-bg);box-shadow:var(--cd-inset)}
+.mcqcConnectResult p{margin:6px 0}
+.mcqcConnectPairImage{max-width:100%;max-height:70px;object-fit:contain}
+.mcqcConnectBoard.is-square .mcqcConnectDotItem>i{border-radius:2px}
+.mcqcConnectBoard.is-stacked{grid-template-columns:minmax(0,1fr);gap:24px}
+
+/* Tablet: keep the settings panel usable without squeezing pair descriptions. */
+@media(max-width:1200px){
+ .mcqcPageContent{padding:20px 18px 28px}
+ .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr) 260px;gap:16px}
+ .mcqcBuilderMain{padding:18px 15px 22px}
+ .mcqcMatchPairRow.mcqcConnectPairRow,.mcqcConnectPairHead{grid-template-columns:48px minmax(0,32%) minmax(0,1fr) 24px;gap:10px}
+ .mcqcMatchPairRow .mcqcDDLetter{width:48px}
+ .mcqcMatchPairRow input{font-size:14px}
+}
+@media(max-width:960px){
+ .mcqcBuilderGrid{grid-template-columns:minmax(0,1fr)}
+ .mcqcBuilderAside{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:14px}
+ .mcqcMatchPairRow.mcqcConnectPairRow,.mcqcConnectPairHead{grid-template-columns:58px minmax(0,213px) minmax(0,1fr) 24px;gap:14px}
+ .mcqcMatchPairRow .mcqcDDLetter{width:58px}
+}
+@media(max-width:720px){
+ .mcqcPageContent{padding:18px 13px 25px}
+ .mcqcBuilderTop{gap:12px}
+ .mcqcBuilderCrumb{font-size:13px;gap:7px}
+ .mcqcBuilderWelcome{width:100%;min-height:76px;padding:11px}
+ .mcqcBuilderWelcome h2{font-size:18px;line-height:24px}
+ .mcqcBuilderMain{padding:13px 10px 17px;gap:16px}
+ .mcqcBuilderAside{grid-template-columns:minmax(0,1fr)}
+ .mcqcQuestionsHeading h2{font-size:17px;line-height:24px}
+ .mcqcQuestionsHeading p{font-size:12px;line-height:19px}
+ .mcqcTopAdd{min-width:88px;min-height:42px;padding:7px 10px;font-size:14px}
+ .mcqcNumberNavigation{gap:7px}
+ .mcqcRoundNav{flex-basis:30px;width:30px;height:30px}
+ .mcqcQuestionNumber{flex-basis:59px;width:59px;height:50px}
+ .mcqcQuestionNumbers{gap:8px}
+ .mcqcQuestionProgress{width:calc(100% - 75px)}
+ .mcqcQuestionForm{padding:12px 9px;gap:14px}
+ .mcqcDDPanelHead{min-height:52px;padding:8px 10px;font-size:14px;line-height:22px}
+ .mcqcDDPanelBody{padding:12px 10px 15px;gap:14px}
+ .mcqcDDThree{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .mcqcMatchPairRow.mcqcConnectPairRow,.mcqcConnectPairHead{grid-template-columns:40px minmax(0,1fr) minmax(0,1.35fr) 24px;gap:7px}
+ .mcqcMatchPairRow.mcqcConnectPairRow{min-height:70px;padding:9px}
+ .mcqcMatchPairRow .mcqcDDLetter{width:40px;min-height:48px}
+ .mcqcMatchPairRow input{min-height:48px;padding:7px 8px;font-size:13px;line-height:20px}
+ .mcqcBuilderPageFooter{flex-wrap:wrap;gap:14px}
+ .mcqcSaveContinueGroup{gap:10px}
+ .mcqcRichToolbar{max-width:100%;overflow-x:auto}
+ .mcqcConnectBoard{gap:30px}
+ .mcqcConnectDotItem{min-height:72px;padding:8px;font-size:12px}
+}
+@media(max-width:500px){
+ .mcqcBuilderCrumb{font-size:12px}
+ .mcqcDDThree{grid-template-columns:minmax(0,1fr)}
+ .mcqcMatchPairRow.mcqcConnectPairRow{grid-template-columns:34px minmax(0,1fr) 24px;gap:8px;padding:10px;min-height:0}
+ .mcqcMatchPairRow .mcqcDDLetter{grid-column:1;grid-row:1;width:34px;min-height:44px}
+ .mcqcMatchPairRow>input:nth-of-type(1){grid-column:2;grid-row:1}
+ .mcqcMatchPairRow>input:nth-of-type(2){grid-column:2 / 4;grid-row:2}
+ .mcqcMatchPairRow .mcqcDDRemoveDrag{grid-column:3;grid-row:1}
+ .mcqcMatchPairRow input{min-height:44px}
+ .mcqcConnectPairHead{display:none}
+ .mcqcDDToggleRow{padding:8px 12px;font-size:12px}
+ .mcqcDDToggleRow>.mcqcSwitch{margin-right:5px}
+ .mcqcDDPanelCount{font-size:10px}
+ .mcqcDDPanelHeading{gap:7px}
+ .mcqcDDPanelIcon{flex-basis:26px;width:26px;height:26px}
+ .mcqcBuilderBottom{justify-content:flex-start;padding-bottom:51px}
+ .mcqcBuilderArrows{right:0;bottom:0}
+ .mcqcSubmitQuestion{min-width:0;font-size:14px}
+ .mcqcBuilderPageFooter>.mcqcFooterPill{min-width:0}
+ .mcqcSaveContinueGroup{width:100%;justify-content:space-between}
+ .mcqcFooterPill{flex:1 1 auto;min-width:0;padding:8px 12px;font-size:13px}
+ .mcqcConnectBoard{gap:18px}
+ .mcqcConnectDotItem{min-height:80px}
+ .mcqcFloatingFormatMenu.mcqcFloatingSymbols{grid-template-columns:repeat(5,minmax(0,1fr))}
+}
+@media(max-width:350px){
+ .mcqcMatchPairRow.mcqcConnectPairRow{grid-template-columns:30px minmax(0,1fr) 24px;gap:6px;padding:8px}
+ .mcqcMatchPairRow .mcqcDDLetter{width:30px}
+ .mcqcBuilderWelcome h2{font-size:16px}
+ .mcqcStatGrid{gap:6px}
+ .mcqcStatGrid strong{font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){.mcqcQuestionProgress>span{transition:none}.mcqcQuestionNumbers{scroll-behavior:auto}}
+
+/* Review preview: matching supplied reference screenshot, no extra creator frames. */
+/* Preview page */
+.cdPreviewPage {
+  min-width: 0;
+  color: #374151;
+}
+
+.cdPreviewBreadcrumb {
+  margin-bottom: 24px;
+  font-size: 13px;
+  line-height: 21px;
+}
+
+.cdPreviewHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.cdPreviewHeading h1 {
+  margin: 0 0 5px;
+  color: #374151;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 27px;
+}
+
+.cdPreviewHeading p {
+  margin: 0;
+  color: #56616A;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.cdPreviewOverview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.cdPreviewStats {
+  display: grid;
+  grid-template-columns: 105px 105px minmax(170px, 1fr);
+  align-items: stretch;
+  gap: 10px;
+  min-width: min(100%, 390px);
+  padding: 8px;
+  border-radius: 7px;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4;
+}
+
+.cdPreviewStats > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  min-height: 50px;
+  padding: 5px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+}
+
+.cdPreviewStats > div > strong {
+  color: #374151;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.cdPreviewStats > div > span {
+  color: #374151;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.cdPreviewStats .cdPreviewReady {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 7px 10px;
+  box-shadow: none;
+}
+
+.cdReadyIcon {
+  display: grid;
+  flex: 0 0 20px;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #2A7308;
+  border-radius: 4px;
+  color: #2A7308 !important;
+  font-size: 13px !important;
+  font-weight: 700;
+}
+
+.cdPreviewReady > span:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.cdPreviewReady > span:last-child strong {
+  color: #2A7308;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.cdPreviewReady small {
+  color: #56616A;
+  font-size: 9px;
+  line-height: 13px;
+}
+
+.cdPreviewReady:not(.is-ready) .cdReadyIcon,
+.cdPreviewReady:not(.is-ready) > span:last-child strong {
+  color: #C05512 !important;
+  border-color: #C05512;
+}
+
+.cdPreviewTools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cdPreviewFilterRoot {
+  position: relative;
+}
+
+.cdPreviewFilterButton {
+  min-width: 145px;
+  min-height: 38px;
+  padding: 7px 11px;
+  border-color: #D1D8DC;
+  border-radius: 6px;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.cdPreviewFilterMenu {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 6px);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 145px;
+  padding: 7px;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 7px #FFFFFF, 5px 5px 10px #B8C1C6;
+}
+
+.cdPreviewFilterMenu button {
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #374151;
+  text-align: left;
+  font: 400 12px/18px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.cdPreviewFilterMenu button:hover,
+.cdPreviewFilterMenu button.is-selected {
+  box-shadow: inset 2px 2px 3px #C4C4C4, inset -2px -2px 3px #FFFFFF;
+}
+
+.cdPreviewLearnerButton {
+  min-height: 38px;
+  padding: 7px 13px;
+  border-color: #D1D8DC;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.cdPreviewQuestion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  margin-bottom: 20px;
+}
+
+.cdPreviewMeta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 32px;
+}
+
+.cdPreviewTypePill,
+.cdPreviewStatusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 5px 13px;
+  border-radius: 20px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.cdPreviewStatusPill b {
+  font-weight: 600;
+}
+
+.cdPreviewStatusPill b.is-complete { color: #2A7308; }
+.cdPreviewStatusPill b.is-incomplete { color: #C05512; }
+
+.cdPreviewEditButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 18px;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font: 500 11px/16px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.cdPreviewPromptCard,
+.cdPreviewSection {
+  min-width: 0;
+  border-radius: 6px;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4;
+}
+
+.cdPreviewPromptCard h2 {
+  margin: 0;
+  padding: 12px 16px;
+  border-bottom: 1px solid #C9D1D5;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.cdPreviewPromptText {
+  min-height: 52px;
+  padding: 13px 16px;
+  color: #374151;
+  font-size: 12px;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+}
+
+.cdPreviewPromptText p,
+.cdPreviewPromptText ul,
+.cdPreviewPromptText ol {
+  margin-top: 0;
+  margin-bottom: 7px;
+}
+
+.cdPreviewSection {
+  overflow: visible;
+}
+
+.cdPreviewSectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  color: #374151;
+  text-align: left;
+  font: 600 13px/19px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.cdPreviewSectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.cdPreviewSectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  padding: 13px 12px 14px;
+}
+
+.cdPreviewPairTable {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.cdPreviewPairHeader,
+.cdPreviewPairRow {
+  display: grid;
+  grid-template-columns: minmax(120px, .9fr) minmax(0, 2.6fr) minmax(65px, .6fr);
+  align-items: stretch;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cdPreviewPairHeader {
+  color: #374151;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 17px;
+}
+
+.cdPreviewPairRow > div {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 38px;
+  padding: 7px 10px;
+  border: 1px solid #D0D7DB;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font-size: 11px;
+  line-height: 17px;
+  overflow-wrap: anywhere;
+}
+
+.cdPreviewPairLeft {
+  gap: 7px;
+}
+
+.cdPreviewPairLeft > span {
+  flex: 0 0 auto;
+  color: #4B5563;
+}
+
+.cdPreviewPairRow.is-filled .cdPreviewPairRight {
+  border-color: #80B76E;
+  color: #2A7308;
+}
+
+.cdPreviewPairMarks {
+  justify-content: flex-start;
+}
+
+.cdPreviewMatchCheck {
+  display: grid;
+  flex: 0 0 15px;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: #2A7308;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.cdPreviewExtraAnswers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.cdPreviewExtraAnswers h3 {
+  margin: 0;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 17px;
+}
+
+.cdPreviewExtraAnswers p {
+  margin: 0;
+  color: #56616A;
+  font-size: 11px;
+  line-height: 17px;
+}
+
+.cdPreviewExtraChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cdPreviewExtraChips span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 6px 9px;
+  border: 1px solid #8EA8E9;
+  border-radius: 4px;
+  background: #DFE6E9;
+  color: #2D4CC8;
+  font-size: 11px;
+  line-height: 16px;
+  overflow-wrap: anywhere;
+}
+
+.cdPreviewExtraChips b {
+  flex: 0 0 auto;
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: #2D4CC8;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.cdPreviewSettingsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px 14px;
+}
+
+.cdReadValue {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cdReadValue > span,
+.cdPreviewLongValue > span {
+  color: #374151;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 17px;
+}
+
+.cdReadValue > strong {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 34px;
+  padding: 7px 10px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 17px;
+  overflow-wrap: anywhere;
+}
+
+.cdPreviewLongValue {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cdPreviewLongValue > div {
+  min-height: 32px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font-size: 11px;
+  line-height: 17px;
+  overflow-wrap: anywhere;
+}
+
+.cdPreviewToggleList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cdPreviewToggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 36px;
+  padding: 5px 11px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font-size: 11px;
+  line-height: 17px;
+}
+
+.cdPreviewToggle {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 44px;
+  align-items: center;
+  width: 44px;
+  height: 22px;
+  padding: 0;
+  border-radius: 20px;
+  background: #DFE6E9;
+  box-shadow: inset 2px 2px 3px #C4C4C4, inset -2px -2px 3px #FFFFFF;
+}
+
+.cdPreviewToggle b {
+  position: absolute;
+  right: 5px;
+  color: #374151;
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.cdPreviewToggle i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #D8E0E4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+}
+
+.cdPreviewToggle.is-on {
+  background: linear-gradient(110deg, #2D4CC8 15%, #E01E5A 88%);
+  box-shadow: none;
+}
+
+.cdPreviewToggle.is-on b {
+  right: auto;
+  left: 5px;
+  color: #FFFFFF;
+}
+
+.cdPreviewToggle.is-on i {
+  left: 25px;
+  background: #FFFFFF;
+}
+
+.cdPreviewSimulatorTitle {
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.cdPreviewSimulatorTable {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cdPreviewSimulatorHead,
+.cdPreviewSimulatorRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(80px, 120px);
+  align-items: center;
+  gap: 12px;
+}
+
+.cdPreviewSimulatorHead {
+  padding: 0 5px 2px;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.cdPreviewSimulatorRow span,
+.cdPreviewSimulatorRow strong {
+  min-height: 32px;
+  padding: 7px 10px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 17px;
+}
+
+.cdPreviewFeedbackCards {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.cdPreviewFeedbackCard {
+  min-width: 0;
+  padding: 11px 13px;
+  border-radius: 5px;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 3px #FFFFFF, 2px 2px 3px #C4C4C4;
+}
+
+.cdPreviewFeedbackCard h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 9px;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 17px;
+}
+
+.cdPreviewFeedbackCard h3 > span {
+  display: grid;
+  flex: 0 0 18px;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #DFE6E9;
+  box-shadow: -2px -2px 2px #FFFFFF, 2px 2px 2px #C4C4C4;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.cdFullFeedback h3 { color: #2A7308; }
+.cdPartialFeedback h3 { color: #C05512; }
+.cdZeroFeedback h3 { color: #A91E2C; }
+.cdFullFeedback h3 > span { color: #2A7308; }
+.cdPartialFeedback h3 > span { color: #C05512; }
+.cdZeroFeedback h3 > span { color: #A91E2C; }
+
+.cdPreviewFeedbackCard > div:not(.cdIcon) {
+  min-height: 27px;
+  padding: 7px 9px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font-size: 11px;
+  line-height: 17px;
+  overflow-wrap: anywhere;
+}
+
+.cdFullFeedback > div { color: #2A7308 !important; }
+.cdPartialFeedback > div { color: #C05512 !important; }
+.cdZeroFeedback > div { color: #A91E2C !important; }
+
+.cdPreviewQuestionSettingGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.cdPreviewQuestionSettingGrid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cdPreviewQuestionSettingGrid > div > span {
+  color: #374151;
+  font-size: 10px;
+  line-height: 15px;
+}
+
+.cdPreviewQuestionSettingGrid strong {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  min-height: 32px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF, inset 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  overflow-wrap: anywhere;
+}
+
+.cdPreviewQuestionSettingGrid strong img {
+  flex: 0 0 16px;
+}
+
+.cdPreviewEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-height: 180px;
+  justify-content: center;
+  padding: 25px;
+  border-radius: 8px;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4;
+  text-align: center;
+}
+
+.cdPreviewEmpty p {
+  margin: 0;
+  color: #56616A;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.cdPreviewEmpty button {
+  min-height: 38px;
+  padding: 8px 17px;
+  border: 0;
+  border-radius: 25px;
+  background: #DFE6E9;
+  box-shadow: -3px -3px 4px #FFFFFF, 3px 3px 4px #C4C4C4;
+  color: #374151;
+  font: 600 12px/18px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+
+
+/* Reference preview controls and footer, scoped to the preview only. */
+.cdPreviewPage .cdPreviewBreadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:26px;margin-bottom:24px}
+.cdPreviewPage .cdPreviewBreadcrumb a,.cdPreviewPage .cdPreviewBreadcrumb button{border:0;background:none;padding:0;color:#374151;text-decoration:none;font:400 13px/20px "Segoe UI",Arial,sans-serif}
+.cdPreviewPage .cdPreviewBreadcrumb strong{color:#2D4CC8;font-weight:700}
+.cdPreviewPage .cdPreviewFilterButton,.cdPreviewPage .cdPreviewLearnerButton{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#DFE6E9;box-shadow:-3px -3px 4px #FFFFFF,3px 3px 4px #C4C4C4;border:0;color:#374151;font-family:"Segoe UI",Arial,sans-serif;cursor:pointer}
+.cdPreviewPage .cdPreviewLearnerButton{color:#2D4CC8;font-weight:700}
+.cdPreviewPage .cdPreviewFilterButton{justify-content:space-between;box-shadow:inset -3px -3px 4px #FFFFFF,inset 3px 3px 4px #C4C4C4}
+.cdPreviewPage .cdPreviewSectionIcon{display:grid;place-items:center;flex:0 0 25px;width:25px;height:25px;border-radius:50%;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4}
+.cdPreviewPage .cdPreviewPairMarksBar{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:34px;padding:8px 11px;border:1px solid #A75AB0;border-radius:5px;color:#78267C;font-size:11px}
+.cdPreviewPage .cdPreviewPairMarksBar strong{padding:5px 11px;border-radius:20px;background:#2A7308;color:white;font-size:10px;white-space:nowrap}
+.cdPreviewPage .cdPreviewFooter{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}
+.cdPreviewPage .cdFooterPill{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:8px 18px;border:0;border-radius:25px;background:#DFE6E9;box-shadow:-3px -3px 4px #FFFFFF,3px 3px 4px #C4C4C4;color:#374151;font:600 13px/20px "Segoe UI",Arial,sans-serif}
+.cdPreviewPage .cdFooterPill.cdContinueButton{color:#2D4CC8}
+.cdPreviewPage .cdPreviewPromptText,.cdPreviewPage .cdPreviewLongValue>div,.cdPreviewPage .cdPreviewFeedbackCard>div{white-space:pre-wrap;overflow-wrap:anywhere}
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewSectionBody{padding:14px}
+@media(max-width:1000px){.cdPreviewPage .cdPreviewQuestionSettingGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){
+ .cdPreviewPage .cdPreviewOverview{align-items:stretch}
+ .cdPreviewPage .cdPreviewStats{flex:1 1 100%;min-width:0;grid-template-columns:1fr 1fr minmax(115px,1.3fr)}
+ .cdPreviewPage .cdPreviewTools{width:100%;justify-content:flex-end}
+ .cdPreviewPage .cdPreviewSettingsGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .cdPreviewPage .cdPreviewQuestionSettingGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .cdPreviewPage .cdPreviewPairHeader,.cdPreviewPage .cdPreviewPairRow{grid-template-columns:minmax(80px,.9fr) minmax(0,2fr) 52px;gap:6px}
+ .cdPreviewPage .cdPreviewPairRow>div{padding:6px;font-size:10px}
+ .cdPreviewPage .cdPreviewSectionBody{padding:10px}
+ .cdPreviewPage .cdPreviewFooter{flex-wrap:wrap}
+}
+@media(max-width:440px){
+ .cdPreviewPage .cdPreviewStats{grid-template-columns:1fr 1fr}
+ .cdPreviewPage .cdPreviewStats .cdPreviewReady{grid-column:1/-1}
+ .cdPreviewPage .cdPreviewPairHeader{display:none}
+ .cdPreviewPage .cdPreviewPairHeader,.cdPreviewPage .cdPreviewPairRow{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 42px;gap:5px}
+ .cdPreviewPage .cdPreviewPairRow>div{font-size:9px;line-height:14px}
+ .cdPreviewPage .cdPreviewQuestionSettingGrid{grid-template-columns:minmax(0,1fr)}
+ .cdPreviewPage .cdPreviewFilterButton{min-width:120px}
+ .cdPreviewPage .cdPreviewLearnerButton{padding-inline:9px}
+ .mcqcHintChecks label{font-size:13px}
+}
+
+/* 2026-10-28 targeted corrections. Existing builder sizes and shadows retained. */
+/* Keep the live word count visible within the rich editor, independent of toolbar width. */
+.mcqcRichEditorRoot{padding-bottom:19px}
+.mcqcRichWordCount{position:absolute;bottom:2px;right:12px;z-index:2;display:block;min-width:45px;text-align:right;background:#DFE6E9;color:#374151;font:600 12px/16px "Segoe UI",Arial,sans-serif;font-variant-numeric:tabular-nums;pointer-events:none}
+.mcqcRichEditable{padding-bottom:12px}
+.mcqcDDPanelCount,.mcqcDDFeedbackField label small,.mcqcWriteField label small,.mcqcDDFeedbackSubhead small{font-variant-numeric:tabular-nums}
+
+/* Reference Ready icon: 17.99px raised square, green checkmark on ready. */
+.cdPreviewPage .cdReadyIcon{position:relative;display:block;flex:0 0 18px;width:18px;height:18px;border:0;border-radius:2px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px rgba(196,196,196,.8);font-size:0!important;color:transparent!important}
+.cdPreviewPage .cdPreviewReady.is-ready .cdReadyIcon::before{content:"";position:absolute;inset:2px;border-radius:2px;background:#2A7308}
+.cdPreviewPage .cdPreviewReady.is-ready .cdReadyIcon::after{content:"";position:absolute;left:6px;top:6px;width:6px;height:4px;border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;transform:rotate(-45deg)}
+.cdPreviewPage .cdPreviewReady:not(.is-ready) .cdReadyIcon{display:grid;place-items:center;font-size:12px!important;color:#C05512!important}
+
+/* Reference preview ON/OFF: 66x36 raised shell, 56x28 inset track and 28px knob. */
+.cdPreviewPage .cdPreviewToggle{position:relative;display:inline-block;flex:0 0 66px;width:66px;height:36px;padding:0;border:0;border-radius:32px;background:#DFE6E9;box-shadow:-4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4}
+.cdPreviewPage .cdPreviewToggle::before{content:"";position:absolute;top:4px;left:5px;width:56px;height:28px;border-radius:32px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.cdPreviewPage .cdPreviewToggle b{position:absolute;z-index:2;top:8px;right:8px;left:auto;color:#374151;font:600 12px/20px "Segoe UI",Arial,sans-serif;letter-spacing:.03em}
+.cdPreviewPage .cdPreviewToggle i{position:absolute;z-index:3;top:4px;left:4px;width:28px;height:28px;border-radius:50%;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;transition:left .15s ease}
+.cdPreviewPage .cdPreviewToggle.is-on{background:#DFE6E9;box-shadow:-4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4}
+.cdPreviewPage .cdPreviewToggle.is-on b{left:9px;right:auto;color:#2D4CC8;background:linear-gradient(180deg,#2D4CC8 0%,#E01E5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cdPreviewPage .cdPreviewToggle.is-on i{left:34px;background:#DFE6E9}
+.cdPreviewPage .cdPreviewToggleRow{min-height:46px;padding:5px 13px}
+
+/* Preview Advanced Settings: original 3-column grid; additional line options wrap naturally. */
+.cdPreviewPage .cdPreviewAdvancedSection .cdPreviewSettingsGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px}
+.cdPreviewPage .cdPreviewAdvancedSection .cdPreviewLongValue{margin-top:14px}
+
+/* Preview Explanation and Hint: visible read-only inset fields, as in the reference. */
+.cdPreviewPage .cdPreviewLearningSection .cdPreviewReadOnlyField{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:10px 12px;border:0;border-radius:4px;outline:0;resize:vertical;background:#DFE6E9;box-shadow:inset -2px -2px 3px #FFFFFF,inset 2px 2px 3px #C4C4C4;color:#2F3547;font:400 12px/19px "Segoe UI",Arial,sans-serif;overflow-wrap:anywhere}
+.cdPreviewPage .cdPreviewLearningSection .cdPreviewReadOnlyField::placeholder{color:#7B838B}
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid{gap:10px}
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid strong{min-height:36px}
+@media(max-width:720px){.cdPreviewPage .cdPreviewAdvancedSection .cdPreviewSettingsGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.cdPreviewPage .cdPreviewToggleRow{gap:12px}}
+@media(max-width:440px){.cdPreviewPage .cdPreviewAdvancedSection .cdPreviewSettingsGrid{grid-template-columns:minmax(0,1fr)}.cdPreviewPage .cdPreviewToggleRow>span:first-child{min-width:0;overflow-wrap:anywhere}}
+
+
+/* Connect the Dots: Preview-only corrections.
+   Add this at the END of your existing connectdot.css. */
+
+/* Explanation and Hint are plain text inside the existing raised cards. */
+.cdPreviewPage .cdPreviewLearningSection .cdPreviewFeedbackCard.cdLearningText > div {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #374151;
+  font: 400 11px/17px "Segoe UI", Arial, sans-serif;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* First row: Difficulty, Bloom, Category, Mandatory.
+   Second row: Tags (two columns wide). */
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    "difficulty bloom category mandatory"
+    "tags tags . .";
+  align-items: start;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid > div {
+  min-width: 0;
+  grid-column: auto;
+  grid-row: auto;
+}
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid > div:nth-child(1) { grid-area: difficulty; }
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid > div:nth-child(2) { grid-area: bloom; }
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid > div:nth-child(3) { grid-area: category; }
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid > div:nth-child(4) { grid-area: tags; }
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid > div:nth-child(5) { grid-area: mandatory; }
+
+/* Keep the existing Figma field dimensions and inset shadows. */
+.cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid strong {
+  min-height: 36px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF,
+              inset 2px 2px 3px #C4C4C4;
+}
+
+@media (max-width: 900px) {
+  .cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "difficulty bloom"
+      "category mandatory"
+      "tags tags";
+  }
+}
+
+@media (max-width: 480px) {
+  .cdPreviewPage .cdPreviewQuestionSettings .cdPreviewQuestionSettingGrid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "difficulty"
+      "bloom"
+      "category"
+      "mandatory"
+      "tags";
+  }
+}
+
+/* ==========================================================
+   NUMERIC VALUE - MATCHING PAIRS PREVIEW ONLY
+   Matches the supplied second screenshot. No builder/text-mode changes.
+   ========================================================== */
+
+/* Wide Slope Question, compact Numeric Value, compact Marks. */
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairHeader,
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRow {
+  display: grid;
+  grid-template-columns: minmax(0, 3.5fr) minmax(0, 1fr) minmax(0, .9fr);
+  gap: 10px;
+  align-items: stretch;
+  min-width: 0;
+}
+
+/* Retain the original neutral inset frames for all three cells. */
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRow > div {
+  min-width: 0;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid #D0D7DB;
+  border-radius: 4px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 3px #FFFFFF,
+              inset 2px 2px 3px #C4C4C4;
+  color: #374151;
+  font: 400 11px/17px "Segoe UI", Arial, sans-serif;
+}
+
+/* Completed numeric pair: ONLY the left question is green. */
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRow.is-filled .cdPreviewPairLeft {
+  border-color: #80B76E;
+  color: #2A7308;
+}
+
+/* The number and marks must NOT inherit text-mode green styling. */
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRow.is-filled .cdPreviewPairRight,
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRow.is-filled .cdPreviewPairMarks {
+  border-color: #D0D7DB;
+  color: #374151;
+}
+
+/* Question text can wrap; tick stays on the far right. */
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewNumericQuestionText {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: inherit;
+  overflow-wrap: anywhere;
+}
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairLeft .cdPreviewMatchCheck {
+  display: grid;
+  place-items: center;
+  flex: 0 0 15px;
+  width: 15px;
+  height: 15px;
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #2A7308;
+  box-shadow: none;
+  color: #FFFFFF;
+  font: 700 10px/15px "Segoe UI", Arial, sans-serif;
+}
+
+/* Numeric values remain strings (for example, 02 is displayed as 02). */
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRight,
+.cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairMarks {
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+/* Saved distractors: blue full-width bar and right-aligned pill. */
+.cdPreviewPage .cdPreviewNumericExtras .cdPreviewExtraChips {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cdPreviewPage .cdPreviewNumericExtras .cdPreviewExtraChips > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 32px;
+  padding: 4px 7px;
+  border: 1px solid #8EA8E9;
+  border-radius: 4px;
+  background: #DFE6E9;
+  color: #2D4CC8;
+}
+.cdPreviewPage .cdPreviewNumericExtras .cdPreviewExtraChips > span > b {
+  flex: 0 0 auto;
+  margin-left: auto;
+  border-radius: 20px;
+  background: #2D4CC8;
+  color: #FFFFFF;
+}
+
+@media (max-width: 720px) {
+  .cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairHeader,
+  .cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRow {
+    grid-template-columns: minmax(0, 2.8fr) minmax(0, 1fr) minmax(0, .85fr);
+    gap: 6px;
+  }
+  .cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRow > div {
+    padding: 7px 6px;
+    font-size: 10px;
+    line-height: 15px;
+  }
+}
+
+@media (max-width: 440px) {
+  .cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairHeader,
+  .cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRow {
+    grid-template-columns: minmax(0, 2fr) minmax(0, .8fr) minmax(0, .7fr);
+    gap: 5px;
+  }
+  .cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairRow > div {
+    padding: 6px 5px;
+    font-size: 9px;
+    line-height: 14px;
+  }
+  .cdPreviewPage .cdPreviewNumericPairTable .cdPreviewPairLeft .cdPreviewMatchCheck {
+    flex-basis: 14px;
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+    line-height: 14px;
+  }
+}
+
+
+/* ================================================
+   PREVIEW ONLY - ON/OFF labels without circle knobs
+   Keeps the original raised 66x36 neumorphic shell.
+   ================================================ */
+.cdPreviewPage .cdPreviewToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 66px;
+  width: 66px;
+  height: 36px;
+  background: #DFE6E9;
+  box-shadow: -4px -4px 4px rgba(255,255,255,.5), 4px 4px 4px #C4C4C4;
+}
+.cdPreviewPage .cdPreviewToggle::before {
+  content: "";
+  position: absolute;
+  inset: 4px 5px;
+  border-radius: 32px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+}
+.cdPreviewPage .cdPreviewToggle b,
+.cdPreviewPage .cdPreviewToggle.is-on b {
+  position: relative;
+  z-index: 2;
+  top: auto;
+  left: auto;
+  right: auto;
+  margin: 0;
+  width: auto;
+  text-align: center;
+  font: 600 12px/20px "Segoe UI", Arial, sans-serif;
+  letter-spacing: .03em;
+}
+.cdPreviewPage .cdPreviewToggle:not(.is-on) b {
+  color: #606162;
+  background: none;
+  -webkit-text-fill-color: #606162;
+}
+.cdPreviewPage .cdPreviewToggle.is-on b {
+  color: #2D4CC8;
+  background: linear-gradient(180deg,#2D4CC8 0%,#E01E5A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cdPreviewPage .cdPreviewToggle i,
+.cdPreviewPage .cdPreviewToggle::after { display: none; }
+
+
+/* ============================================================
+   PICTURE MODE ONLY — matching pairs editor and preview.
+   All existing text/numeric, settings, layout and navigator CSS
+   above is unchanged. Dimensions reflect supplied screenshot.
+   ============================================================ */
+.mcqcConnectBuilder .mcqcPicturePairHead,
+.mcqcConnectBuilder .mcqcMatchPairRow.mcqcPicturePairRow{
+  grid-template-columns:58px minmax(0,508px) minmax(0,213px) 24px;
+  gap:14px;
+}
+.mcqcConnectBuilder .mcqcPicturePairHead strong{
+  font-size:12px;
+  font-weight:600;
+  line-height:18px;
+}
+.mcqcConnectBuilder .mcqcMatchPairRow.mcqcPicturePairRow{
+  min-height:160px;
+  padding:14px;
+  align-items:center;
+}
+.mcqcConnectBuilder .mcqcPicturePairRow .mcqcDDLetter{
+  min-height:56px;
+}
+.mcqcConnectBuilder .mcqcPictureFileFrame{
+  display:flex;
+  align-items:center;
+  gap:30px;
+  min-width:0;
+  min-height:120px;
+  height:120px;
+  padding:16px 14px;
+  border-radius:8px;
+  background:#DFE6E9;
+  box-shadow:var(--cd-inset);
+  overflow:hidden;
+}
+.mcqcConnectBuilder .mcqcPictureThumb{
+  display:grid;
+  place-items:center;
+  flex:0 0 140px;
+  width:140px;
+  height:80px;
+  max-width:100%;
+  min-width:0;
+  padding:6px;
+  border-radius:8px;
+  background:#DFE6E9;
+  box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;
+  overflow:hidden;
+}
+.mcqcConnectBuilder .mcqcPictureThumb img,
+.cdPreviewPage .cdPreviewPicturePairTable .mcqcPictureThumb img{
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+}
+.mcqcConnectBuilder .mcqcPictureMissing,
+.cdPreviewPage .cdPreviewPicturePairTable .mcqcPictureMissing{
+  color:#68737A;
+  font:400 12px/18px "Segoe UI",Arial,sans-serif;
+}
+.mcqcConnectBuilder .mcqcPictureFileControls{
+  display:flex;
+  flex:1 1 auto;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:11px;
+  min-width:0;
+}
+.mcqcConnectBuilder .mcqcPictureChooseFile{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  flex:0 0 auto;
+  min-height:36px;
+  padding:8px 12px;
+  border:.5px solid #2A7308;
+  border-radius:4px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 4px #FFFFFF,4px 4px 8px #C4C4C4;
+  color:#2A7308;
+  font:600 13px/18px "Segoe UI",Arial,sans-serif;
+  white-space:nowrap;
+  cursor:pointer;
+}
+/* upload.svg is the original blue asset; recolor ONLY inside Picture's Choose File control. */
+.mcqcConnectBuilder .mcqcPictureChooseFile .mcqcIcon{
+  filter:brightness(0) saturate(100%) invert(36%) sepia(66%) saturate(1018%) hue-rotate(65deg) brightness(90%) contrast(99%);
+}
+.mcqcConnectBuilder .mcqcPictureFileInput{
+  position:absolute;
+  width:100%;height:100%;inset:0;
+  opacity:0;
+  padding:0;
+  cursor:pointer;
+  box-shadow:none;
+  min-height:0;
+}
+.mcqcConnectBuilder .mcqcPictureFileControls small{
+  display:block;
+  width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#606162;
+  font:400 11px/20px "Segoe UI",Arial,sans-serif;
+}
+.mcqcConnectBuilder .mcqcPictureAnswerFrame{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  height:56px;
+  padding:0 12px;
+  border-radius:8px;
+  background:#DFE6E9;
+  box-shadow:var(--cd-inset);
+  color:#374151;
+  font:400 16px/24px "Segoe UI",Arial,sans-serif;
+}
+.mcqcConnectBuilder .mcqcPictureAnswerFrame span{flex:0 0 auto;margin-right:6px;}
+.mcqcConnectBuilder .mcqcPictureAnswerFrame input{
+  flex:1 1 auto;
+  width:100%;
+  min-width:0;
+  min-height:0;
+  height:100%;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  outline:0;
+  font:inherit;
+}
+/* Figma preview: wide diagram | answer | marks; check inside the diagram card. */
+.cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairHeader,
+.cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairRow{
+  display:grid;
+  grid-template-columns:minmax(0,3.5fr) minmax(0,1fr) minmax(0,.9fr);
+  gap:10px;
+  align-items:center;
+}
+.cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairRow>div{
+  min-width:0;
+  min-height:68px;
+  padding:7px 10px;
+  border:1px solid #D0D7DB;
+  border-radius:4px;
+  background:#DFE6E9;
+  box-shadow:inset -2px -2px 3px #FFFFFF,inset 2px 2px 3px #C4C4C4;
+  color:#374151;
+  font:400 11px/17px "Segoe UI",Arial,sans-serif;
+}
+.cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairRow .cdPreviewPairLeft{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:68px;
+}
+.cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairRow.is-filled .cdPreviewPairLeft{
+  border-color:#80B76E;
+}
+.cdPreviewPage .cdPreviewPicturePairTable .mcqcPictureThumb{
+  display:grid;
+  place-items:center;
+  flex:0 0 90px;
+  width:90px;
+  height:52px;
+  min-width:0;
+  padding:4px;
+  border-radius:5px;
+  background:#DFE6E9;
+  box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;
+  overflow:hidden;
+}
+.cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairLeft .cdPreviewMatchCheck{
+  margin-left:auto;
+  flex:0 0 15px;
+  color:#fff;
+}
+.cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairRow.is-filled .cdPreviewPairRight{
+  color:#374151;
+  border-color:#D0D7DB;
+}
+.cdPreviewPage .cdPreviewPictureExtras .cdPreviewExtraChips{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.cdPreviewPage .cdPreviewPictureExtras .cdPreviewExtraChips>span{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  min-height:32px;
+  border-color:#8EA8E9;
+  color:#2D4CC8;
+}
+.cdPreviewPage .cdPreviewPictureExtras .cdPreviewExtraChips>span>b{
+  margin-left:auto;
+  color:#FFFFFF;
+}
+@media(max-width:1050px){
+  .mcqcConnectBuilder .mcqcPicturePairHead,
+  .mcqcConnectBuilder .mcqcMatchPairRow.mcqcPicturePairRow{
+    grid-template-columns:48px minmax(0,2fr) minmax(0,1fr) 24px;
+    gap:10px;
+  }
+  .mcqcConnectBuilder .mcqcPictureFileFrame{gap:12px;padding:12px;}
+  .mcqcConnectBuilder .mcqcPictureThumb{flex-basis:110px;width:110px;}
+}
+@media(max-width:720px){
+  .mcqcConnectBuilder .mcqcPicturePairHead,
+  .mcqcConnectBuilder .mcqcMatchPairRow.mcqcPicturePairRow{
+    grid-template-columns:40px minmax(0,1fr) 24px;
+    gap:10px;
+  }
+  .mcqcConnectBuilder .mcqcPicturePairHead{display:none;}
+  .mcqcConnectBuilder .mcqcPicturePairRow .mcqcDDLetter{grid-column:1;grid-row:1;width:40px;}
+  .mcqcConnectBuilder .mcqcPictureFileFrame{grid-column:2 / 4;grid-row:1;min-height:100px;height:auto;}
+  .mcqcConnectBuilder .mcqcPictureAnswerFrame{grid-column:2 / 3;grid-row:2;width:100%;}
+  .mcqcConnectBuilder .mcqcPicturePairRow .mcqcDDRemoveDrag{grid-column:3;grid-row:2;}
+  .mcqcConnectBuilder .mcqcPictureThumb{flex-basis:100px;width:100px;height:72px;}
+  .cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairHeader,
+  .cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairRow{
+    grid-template-columns:minmax(0,2.2fr) minmax(0,1fr) minmax(0,.65fr);
+    gap:6px;
+  }
+}
+@media(max-width:440px){
+  .mcqcConnectBuilder .mcqcMatchPairRow.mcqcPicturePairRow{
+    grid-template-columns:34px minmax(0,1fr) 24px;
+    gap:8px;
+    padding:10px;
+  }
+  .mcqcConnectBuilder .mcqcPicturePairRow .mcqcDDLetter{width:34px;}
+  .mcqcConnectBuilder .mcqcPictureFileFrame{gap:8px;padding:9px;}
+  .mcqcConnectBuilder .mcqcPictureThumb{flex-basis:72px;width:72px;height:66px;padding:3px;}
+  .mcqcConnectBuilder .mcqcPictureChooseFile{font-size:11px;min-height:32px;padding:5px 7px;}
+  .mcqcConnectBuilder .mcqcPictureFileControls small{font-size:9px;line-height:15px;}
+  .mcqcConnectBuilder .mcqcPictureAnswerFrame{height:48px;font-size:13px;}
+  .cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairHeader,
+  .cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairRow{
+    grid-template-columns:minmax(0,1.8fr) minmax(0,1fr) minmax(0,.55fr);
+    gap:5px;
+  }
+  .cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairRow>div{padding:5px;font-size:9px;line-height:14px;}
+  .cdPreviewPage .cdPreviewPicturePairTable .mcqcPictureThumb{flex-basis:62px;width:62px;height:44px;padding:2px;}
+  .cdPreviewPage .cdPreviewPicturePairTable .cdPreviewPairLeft{gap:3px;}
+}
+
+
+/* Fix the duplicate 0/250: the sole counter for the Extra Answer editor sits above its toolbar. */
+.mcqcConnectBuilder .mcqcMatchExtraTopCounter{
+  display:block;
+  align-self:flex-end;
+  min-height:16px;
+  margin:0 2px 0 0;
+  color:#374151;
+  font:400 12px/16px "Segoe UI",Arial,sans-serif;
+  font-variant-numeric:tabular-nums;
+}
+
+/* Picture matching only: keep thumbnail, file chooser and label INSIDE the card on phones. */
+@media(max-width:720px){
+  .mcqcConnectBuilder .mcqcMatchPairRow.mcqcPicturePairRow{
+    align-items:center;
+    min-width:0;
+  }
+  .mcqcConnectBuilder .mcqcPictureFileFrame{
+    box-sizing:border-box;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    overflow:hidden;
+  }
+  .mcqcConnectBuilder .mcqcPictureFileControls{
+    box-sizing:border-box;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+  }
+  .mcqcConnectBuilder .mcqcPictureChooseFile{
+    box-sizing:border-box;
+    max-width:100%;
+  }
+  .mcqcConnectBuilder .mcqcPictureAnswerFrame{
+    box-sizing:border-box;
+    max-width:100%;
+    min-width:0;
+  }
+}
+@media(max-width:440px){
+  .mcqcConnectBuilder .mcqcMatchPairRow.mcqcPicturePairRow{
+    grid-template-columns:34px minmax(0,1fr) 24px;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+  }
+  .mcqcConnectBuilder .mcqcPictureFileFrame{
+    display:grid;
+    grid-template-columns:minmax(0,72px) minmax(0,1fr);
+    align-items:center;
+    gap:8px;
+    padding:8px;
+    min-height:100px;
+    height:auto;
+  }
+  .mcqcConnectBuilder .mcqcPictureThumb{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    height:66px;
+    flex:none;
+  }
+  .mcqcConnectBuilder .mcqcPictureFileControls{
+    gap:5px;
+    align-items:stretch;
+    overflow:hidden;
+  }
+  .mcqcConnectBuilder .mcqcPictureChooseFile{
+    width:max-content;
+    max-width:100%;
+    min-height:32px;
+    padding:5px 6px;
+    gap:4px;
+    font-size:10px;
+    line-height:15px;
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+  .mcqcConnectBuilder .mcqcPictureChooseFile .mcqcIcon{
+    flex:0 0 13px;
+    width:13px;
+    height:13px;
+  }
+  .mcqcConnectBuilder .mcqcPictureFileControls small{
+    min-width:0;
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+}
+@media(max-width:350px){
+  .mcqcConnectBuilder .mcqcMatchPairRow.mcqcPicturePairRow{
+    grid-template-columns:30px minmax(0,1fr) 24px;
+    gap:6px;
+    padding:8px;
+  }
+  .mcqcConnectBuilder .mcqcPicturePairRow .mcqcDDLetter{width:30px;}
+  .mcqcConnectBuilder .mcqcPictureFileFrame{
+    grid-template-columns:minmax(0,1fr);
+    justify-items:start;
+    gap:8px;
+    padding:9px;
+  }
+  .mcqcConnectBuilder .mcqcPictureThumb{
+    width:min(110px,100%);
+    height:70px;
+  }
+  .mcqcConnectBuilder .mcqcPictureFileControls{width:100%;}
+  .mcqcConnectBuilder .mcqcPictureChooseFile{white-space:nowrap;}
+}

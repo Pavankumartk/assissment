@@ -9,19 +9,20 @@ import { useEffect, useRef, useState } from "react";
 import Sidebar from "../../common/sidebar/page";
 import Header from "../../common/header/Header";
 import "./viewresult.css";
-import {getTextResultRelease} from "../result-release";
-import {asMCQResult} from "../../type-specific/fill-in-the-blanks/result-adapter";
+import {releaseForAssessment, readAssessmentResult} from "../assessment-result-bridge";
+import {getActiveAssessmentId,getAssessment} from "@/modules/assessments/storage/assessment-storage";
 
 const ICONS = "/assets/viewericons/";
 
 type ResultQuestion = {
   text: string;
+  sourceIndex?: number;
   options: string[];
   correct: number;
   selected: number | null;
   answerText?: string | null;
   expectedAnswer?: string;
-  questionType?: "mcq" | "short-answer" | "one-word" | "fill-in-the-blanks" | "true-false" | "long-answer" | "drag-and-drop" | "memory-game";
+  questionType?: "mcq" | "short-answer" | "one-word";
   gradingStatus?: "correct" | "incorrect" | "pending" | "unanswered";
   points: number;
   hint?: string;
@@ -61,7 +62,7 @@ const previewReviewQuestions: ResultQuestion[] = Array.from({length:20},(_,i) =>
 type SavedResult = {
   title?: string;
   questions?: ResultQuestion[];
-  assessmentType?: "mcq" | "short-answer" | "one-word" | "fill-in-the-blanks" | "true-false" | "long-answer" | "drag-and-drop" | "memory-game";
+  assessmentType?: "mcq" | "short-answer" | "one-word";
   pendingCount?: number;
   scorePercent?: number | null;
   totalQuestions?: number;
@@ -132,7 +133,7 @@ function dataCount(value: unknown, fallback: number): number {
   return typeof value === "number" && Number.isFinite(value) ? Math.max(0, value) : fallback;
 }
 
-export default function ViewResultPage({source="mcq"}:{source?:"mcq"|"fill-in-the-blanks"|"true-false"}={}) {
+export default function ViewResultPage() {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [saved, setSaved] = useState<SavedResult | null>(null);
@@ -151,22 +152,10 @@ export default function ViewResultPage({source="mcq"}:{source?:"mcq"|"fill-in-th
   const [isRetry, setIsRetry] = useState(false);
   const [retryNotice, setRetryNotice] = useState("");
 
-  // Results and review sections reuse a bounded scroll container. Reset its
-  // position after each screen change, including client-side navigation.
   useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = 0;
-  }, [isDetailedReview, isRevisionFolder, isRetry]);
-
-  useEffect(() => {
-    try {
-      const text = assessmentStorage.getItem(source==="fill-in-the-blanks"?"fillBlanksViewerResult":source==="true-false"?"trueFalseViewerResult":"viewerAssessmentResult");
-      if (text) {
-        const parsed: unknown = JSON.parse(text);
-        if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) setSaved(source==="fill-in-the-blanks"?asMCQResult(parsed) as SavedResult:parsed as SavedResult);
-      }
-    } catch { /* Retain Figma preview figures until a real submission is available. */ }
+    try { const parsed = readAssessmentResult(); if (parsed) setSaved(parsed as SavedResult); } catch { /* Show no submission rather than an invented result. */ }
     setLoaded(true);
-  }, [source]);
+  }, []);
 
   const title = saved?.title || preview.title;
   const questions = Array.isArray(saved?.questions) ? saved.questions : [];
@@ -175,8 +164,9 @@ export default function ViewResultPage({source="mcq"}:{source?:"mcq"|"fill-in-th
   const incorrect = dataCount(saved?.incorrectAnswers, preview.incorrect);
   const unanswered = dataCount(saved?.unanswered, preview.unanswered);
   const pending = saved?.pendingCount ?? (saved?.questions || []).filter(q=>getReviewStatus(q)==="pending").length;
-  const release = saved?.assessmentType === "short-answer" || saved?.assessmentType === "one-word" || saved?.assessmentType === "fill-in-the-blanks" || saved?.assessmentType === "long-answer"
-    ? getTextResultRelease(saved.assessmentType,pending) : null;
+  const activeId = getActiveAssessmentId();
+  const activeType = activeId ? getAssessment(activeId)?.typeCode || "mcq" : "mcq";
+  const release = saved ? releaseForAssessment(activeType,pending) : null;
   const scoreHidden = Boolean(release && !release.showScore);
   const answersHidden = Boolean(release && !release.showCorrectAnswers);
   const scorePending = Boolean(saved && (saved.scorePercent === null || pending > 0));
@@ -294,17 +284,15 @@ export default function ViewResultPage({source="mcq"}:{source?:"mcq"|"fill-in-th
       return;
     }
     try {
-      if(saved?.assessmentType==="fill-in-the-blanks"){
-        const wrongIndexes=questions.flatMap((q,index)=>getReviewStatus(q)==="incorrect"?[index]:[]);
-        assessmentStorage.setItem("fillBlanksRetryIndexes",JSON.stringify(wrongIndexes));
-        assessmentStorage.removeItem("fillBlanksRetryViewerState");
-        assessmentStorage.setItem("fillBlanksViewerStarted","yes");
-        router.push(`${viewerPath()}?retry=wrong`);
-        return;
-      }
-      assessmentStorage.setItem(source==="true-false"?"trueFalseRetryQuestions":"viewerRetryQuestions", JSON.stringify(wrongQuestions));
-      assessmentStorage.setItem(source==="true-false"?"trueFalseRetryDurationMinutes":"viewerRetryDurationMinutes", String(retryDuration));
-      assessmentStorage.setItem(source==="true-false"?"trueFalseViewerResult":"viewerAssessmentResult", JSON.stringify({ ...saved, retryAttemptsUsed: retryUsed + 1 }));
+      assessmentStorage.setItem("viewerRetryQuestions", JSON.stringify(wrongQuestions));
+      // Existing Fill-in-the-Blanks and Match viewers need the original question
+      // indexes (their creator arrays are not MCQ-style result question objects).
+      const sourceIndexes = wrongQuestions.map(q => q.sourceIndex ?? questions.indexOf(q)).filter((v): v is number => Number.isInteger(v) && Number(v) >= 0);
+      if (activeType === "fill-in-the-blanks") assessmentStorage.setItem("fillBlanksRetryIndexes", JSON.stringify(sourceIndexes));
+      if (activeType === "match-the-following") assessmentStorage.setItem("matchFollowingRetryIndexes", JSON.stringify(sourceIndexes));
+      if (activeType === "memory-game") assessmentStorage.setItem("memoryGameRetryIndexes", JSON.stringify(sourceIndexes));
+      assessmentStorage.setItem("viewerRetryDurationMinutes", String(retryDuration));
+      assessmentStorage.setItem("viewerAssessmentResult", JSON.stringify({ ...saved, retryAttemptsUsed: retryUsed + 1 }));
       router.push(`${viewerPath()}?retry=wrong`);
     } catch {
       setRetryNotice("Unable to start the retry. Please allow browser storage and try again.");
@@ -312,14 +300,16 @@ export default function ViewResultPage({source="mcq"}:{source?:"mcq"|"fill-in-th
   };
 
   return (
-    <main className={`superAdminPage institutionAdminPage vrAppShell${saved?.assessmentType === "drag-and-drop" ? " vrDragDropResult" : ""}`}>
+    <main className="superAdminPage institutionAdminPage vrAppShell">
       <div className="dashboardLayout vrLayout">
         <Sidebar />
         <section className="mainContent vrMain">
           <div className="vrHeader"><Header /></div>
           <div className="institutionScrollArea vrScroll" ref={scrollRef}>
             <div className="pageContent institutionPageContent vrContent">
-              {loaded && saved && release && release.mode !== "immediate" ? (
+              {loaded && !saved ? (
+                <div className="vrResultReleaseNotice" role="status"><h1>No submission found</h1><p>Complete this assessment to see your result.</p><button type="button" onClick={() => router.push(demoDashboardPath())}>Back to Dashboard</button></div>
+              ) : loaded && saved && release && release.mode !== "immediate" ? (
                 <div className="vrResultReleaseNotice" role="status">
                   <img src="/assets/viewericons/checkmark-circle.svg" width={52} height={52} alt="" />
                   <h1>Assessment Submitted</h1><p>{release.message}</p>
@@ -363,7 +353,7 @@ export default function ViewResultPage({source="mcq"}:{source?:"mcq"|"fill-in-th
                   {reviewQuestions[activeQuestion] ? (() => {
                     const q = reviewQuestions[activeQuestion];
                     const status = getReviewStatus(q);
-                    const isText = q.questionType === "one-word" || q.questionType === "short-answer" || q.questionType === "fill-in-the-blanks" || q.questionType === "long-answer" || q.questionType === "drag-and-drop";
+                    const isText = q.questionType === "one-word" || q.questionType === "short-answer";
                     const answer = isText ? (q.answerText?.trim() || "Not answered") : q.selected === null || q.selected < 0 ? "Not answered" : q.options[q.selected] || "Not provided";
                     const rightAnswer = isText ? (q.expectedAnswer?.trim() || "Awaiting grading") : q.options[q.correct] || "Not provided";
                     const isSaved = bookmarkedIndexes.includes(activeQuestion);
@@ -373,7 +363,7 @@ export default function ViewResultPage({source="mcq"}:{source?:"mcq"|"fill-in-th
                     return <section className="vrDetailQuestionCard" aria-label={`Question ${activeQuestion + 1}`}>
                       <div className="vrDetailQuestionTop">
                         <strong>Question {String(activeQuestion + 1).padStart(2, "0")}/{reviewQuestions.length}</strong>
-                        <div className="vrDetailQuestionBadges"><span className={`vrDetailStatusPill vrDetailStatusPill--${status}`}><img src={status === "correct" ? "/assets/viewericons/checkmark-circle.svg" : status === "incorrect" ? "/assets/viewericons/cancel-circle.svg" : "/assets/viewericons/minus-circle.svg"} width={17} height={17} alt="" aria-hidden="true" />{status === "correct" ? "Correct" : status === "incorrect" ? "Incorrect" : status === "pending" ? "Pending Grading" : "Unanswered"}</span><span className="vrDetailPointPill">{q.questionType === "one-word" ? "One Word" : q.questionType === "short-answer" ? "Short Answer" : q.questionType === "fill-in-the-blanks" ? "Fill in the Blanks" : q.questionType === "long-answer" ? "Long Answer" : q.questionType === "drag-and-drop" ? "Drag & Drop" : "MCQ"} : {q.points || 1} Point{q.points === 1 ? "" : "s"}</span><button type="button" className={`vrDetailFlag ${flaggedQuestionIndexes.includes(activeQuestion) ? "isFlagged" : ""}`} onClick={() => toggleReviewFlag(activeQuestion)} aria-pressed={flaggedQuestionIndexes.includes(activeQuestion)} aria-label={flaggedQuestionIndexes.includes(activeQuestion) ? "Remove review flag" : "Flag this question"} title={flaggedQuestionIndexes.includes(activeQuestion) ? "Remove review flag" : "Flag this question"}><img src="/assets/viewericons/flag.svg" width={19} height={19} alt="" aria-hidden="true" /></button><button type="button" className={`vrDetailBookmark ${isSaved ? "isSaved" : ""}`} onClick={() => toggleBookmark(activeQuestion)} aria-label={isSaved ? "Remove from revision folder" : "Save to revision folder"} title={isSaved ? "Remove from revision folder" : "Save to revision folder"}><img src="/assets/viewericons/bookmark.svg" width={20} height={20} alt="" aria-hidden="true" /></button></div>
+                        <div className="vrDetailQuestionBadges"><span className={`vrDetailStatusPill vrDetailStatusPill--${status}`}><img src={status === "correct" ? "/assets/viewericons/checkmark-circle.svg" : status === "incorrect" ? "/assets/viewericons/cancel-circle.svg" : "/assets/viewericons/minus-circle.svg"} width={17} height={17} alt="" aria-hidden="true" />{status === "correct" ? "Correct" : status === "incorrect" ? "Incorrect" : status === "pending" ? "Pending Grading" : "Unanswered"}</span><span className="vrDetailPointPill">{q.questionType === "one-word" ? "One Word" : q.questionType === "short-answer" ? "Short Answer" : "MCQ"} : {q.points || 1} Point{q.points === 1 ? "" : "s"}</span><button type="button" className={`vrDetailFlag ${flaggedQuestionIndexes.includes(activeQuestion) ? "isFlagged" : ""}`} onClick={() => toggleReviewFlag(activeQuestion)} aria-pressed={flaggedQuestionIndexes.includes(activeQuestion)} aria-label={flaggedQuestionIndexes.includes(activeQuestion) ? "Remove review flag" : "Flag this question"} title={flaggedQuestionIndexes.includes(activeQuestion) ? "Remove review flag" : "Flag this question"}><img src="/assets/viewericons/flag.svg" width={19} height={19} alt="" aria-hidden="true" /></button><button type="button" className={`vrDetailBookmark ${isSaved ? "isSaved" : ""}`} onClick={() => toggleBookmark(activeQuestion)} aria-label={isSaved ? "Remove from revision folder" : "Save to revision folder"} title={isSaved ? "Remove from revision folder" : "Save to revision folder"}><img src="/assets/viewericons/bookmark.svg" width={20} height={20} alt="" aria-hidden="true" /></button></div>
                       </div>
                       <p className="vrDetailQuestionText">{q.text || "Question text not available"}</p>
                       <div className="vrDetailAnswers">
@@ -382,7 +372,7 @@ export default function ViewResultPage({source="mcq"}:{source?:"mcq"|"fill-in-th
                       </div>
                       {(!release || release.showExplanation) && <div className="vrDetailInfoBox"><div className="vrDetailInfoHead"><span className="vrDetailSmallIcon vrDetailSmallIcon--orange"><img src="/assets/viewericons/brain.svg" width={17} height={17} alt="" aria-hidden="true" /></span><strong>Master Explanation</strong></div><p>{q.explanation || (q.correct >= 0 ? `${rightAnswer} is the correct answer.` : "An explanation was not saved for this question.")}</p></div>}
                       <div className="vrDetailInfoBox"><div className="vrDetailInfoHead"><span className="vrDetailSmallIcon vrDetailSmallIcon--yellow"><img src="/assets/viewericons/idea.svg" width={17} height={17} alt="" aria-hidden="true" /></span><strong>Hints</strong></div><p>{q.hint?.trim() || "No hint was saved for this question."}</p></div>
-                      {(!release || release.showExplanation) && <div className="vrDetailInfoBox"><div className="vrDetailInfoHead"><span className="vrDetailSmallIcon vrDetailSmallIcon--purple"><img src="/assets/viewericons/filep.svg" width={17} height={17} alt="" aria-hidden="true" /></span><strong>{isText ? "Answer Review" : "Option Level Justification"}</strong></div><div className="vrDetailTableScroll"><table className="vrDetailJustification"><thead><tr><th>Option</th><th>Result</th><th>Explanation</th></tr></thead><tbody>{q.options.length ? q.options.map((option, i) => <tr key={i}><td>{String.fromCharCode(65 + i)}. {option}</td><td><span className={`vrDetailOptionPill ${i === q.correct ? "isRight" : "isWrong"}`}>{i === q.correct ? "Correct Answer" : "Wrong Answer"}</span></td><td>{q.optionExplanations?.[i] || (i === q.correct ? "Matches the correct answer" : "Does not match the correct answer")}</td></tr>) : <tr><td colSpan={3}>{isText ? (status === "pending" ? "This written response is awaiting grading." : q.questionType === "fill-in-the-blanks" ? "Blank answers are listed above." : q.questionType === "drag-and-drop" ? "Drop-zone answers are listed above." : "Written response recorded; no multiple-choice options apply.") : "No answer options saved."}</td></tr>}</tbody></table></div></div>}
+                      {(!release || release.showExplanation) && <div className="vrDetailInfoBox"><div className="vrDetailInfoHead"><span className="vrDetailSmallIcon vrDetailSmallIcon--purple"><img src="/assets/viewericons/filep.svg" width={17} height={17} alt="" aria-hidden="true" /></span><strong>{isText ? "Answer Review" : "Option Level Justification"}</strong></div><div className="vrDetailTableScroll"><table className="vrDetailJustification"><thead><tr><th>Option</th><th>Result</th><th>Explanation</th></tr></thead><tbody>{q.options.length ? q.options.map((option, i) => <tr key={i}><td>{String.fromCharCode(65 + i)}. {option}</td><td><span className={`vrDetailOptionPill ${i === q.correct ? "isRight" : "isWrong"}`}>{i === q.correct ? "Correct Answer" : "Wrong Answer"}</span></td><td>{q.optionExplanations?.[i] || (i === q.correct ? "Matches the correct answer" : "Does not match the correct answer")}</td></tr>) : <tr><td colSpan={3}>{isText ? (status === "pending" ? "This written response is awaiting grading." : "Written response recorded; no multiple-choice options apply.") : "No answer options saved."}</td></tr>}</tbody></table></div></div>}
                       <div className="vrDetailInfoBox"><div className="vrDetailInfoHead"><span className="vrDetailSmallIcon vrDetailSmallIcon--green"><img src="/assets/viewericons/graduation-cap.svg" width={17} height={17} alt="" aria-hidden="true" /></span><strong>Learning Insights</strong></div><div className="vrDetailTableScroll"><table className="vrDetailInsights"><thead><tr><th>Topic</th><th>Blooms Level</th><th>Skill</th><th>Difficulty</th></tr></thead><tbody><tr><td>{q.topic || "Not specified"}</td><td>{q.bloom || "Not specified"}</td><td>{q.skill || "Not specified"}</td><td>{q.difficulty || "Not specified"}</td></tr></tbody></table></div></div>
                       <div className="vrDetailBottom"><button type="button" onClick={() => previousIndex === undefined ? backFromDetail() : setActiveQuestion(previousIndex)} className="vrDetailBack"><img src="/assets/viewericons/arrowleft.svg" width={19} height={19} alt="" aria-hidden="true" />{previousIndex === undefined ? "Back" : "Previous"}</button><button type="button" className="vrDetailNext" disabled={nextIndex === undefined} onClick={() => nextIndex !== undefined && setActiveQuestion(nextIndex)}>Next<img src="/assets/viewericons/arrowrightg.svg" width={20} height={20} alt="" aria-hidden="true" /></button></div>
                     </section>;

@@ -1,0 +1,25 @@
+/* Submission confirmation — Figma frame; scoped to this dialog only. */
+.viewerAppShell .viewerSubmitOverlay{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(47,53,71,.24)}
+.viewerAppShell .viewerSubmitDialog{box-sizing:border-box;width:min(564px,100%);height:303px;max-height:calc(100dvh - 32px);padding:22px 22px 19px;border-radius:22px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;display:flex;flex-direction:column;justify-content:space-between;gap:17px;color:#2F3547;overflow-y:auto}
+.viewerAppShell .viewerSubmitNotice{display:flex;align-items:flex-start;gap:10px;width:100%;min-height:166px;padding:16px 15px;border:1px solid #C05512;transform: translateY(7);border-radius:23px}
+.viewerAppShell .viewerSubmitIcon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#C05512;box-shadow:none}
+.viewerAppShell .viewerSubmitIcon img{display:block;width:24px;height:24px;object-fit:contain}
+.viewerAppShell .viewerSubmitNoticeText{min-width:0;flex:1}
+.viewerAppShell .viewerSubmitDialog h2{margin:5px 0 14px;color:#2F3547;font:700 17px/22px 'Segoe UI',Arial,sans-serif;text-align:left}
+.viewerAppShell .viewerSubmitDialog p{margin:0;text-align:left;font:400 14px/23px 'Segoe UI',Arial,sans-serif;letter-spacing:.01em}
+.viewerAppShell .viewerSubmitDialog .viewerSubmitQuestion{margin:0 0 13px;font-weight:600}
+.viewerAppShell .viewerSubmitDialog .viewerSubmitDescription{font-size:13px;line-height:23px}
+.viewerAppShell .viewerSubmitActions{display:flex;align-items:center;justify-content:space-between;width:100%;gap:14px;margin:0}
+.viewerAppShell .viewerSubmitActions button{display:flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:9px 16px;border-radius:28px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;font:600 16px/22px 'Segoe UI',Arial,sans-serif;white-space:nowrap;cursor:pointer}
+.viewerAppShell .viewerSubmitActions img{display:block;width:20px;height:20px;object-fit:contain;flex:none}
+.viewerAppShell .viewerSubmitBack{width:170px;color:#2F3547;border:1px solid transparent}
+.viewerAppShell .viewerSubmitConfirm{width:224px;color:#2A7308;border:1px solid #2A7308}
+.viewerAppShell .viewerSubmitActions button:focus-visible{outline:2px solid #2D4CC8;outline-offset:3px}
+@media(max-width:600px){.viewerAppShell .viewerSubmitDialog{height:auto;min-height:303px;max-height:calc(100dvh - 32px);padding:15px;gap:18px}.viewerAppShell .viewerSubmitNotice{padding:13px 11px;gap:9px;min-height:0}.viewerAppShell .viewerSubmitDialog h2{font-size:16px;margin:5px 0 10px}.viewerAppShell .viewerSubmitDialog p{font-size:13px;line-height:20px}.viewerAppShell .viewerSubmitDialog .viewerSubmitDescription{font-size:12px;line-height:20px}.viewerAppShell .viewerSubmitActions button{flex:1;width:auto;min-width:0;padding:9px 8px;font-size:14px;gap:6px}}
+@media(max-width:370px){.viewerAppShell .viewerSubmitActions button{font-size:12px}.viewerAppShell .viewerSubmitActions img{width:16px;height:16px}}
+
+
+/* Submission dialogs only — no existing question or page styles changed. */
+.viewerAppShell .viewerSubmitDialog{height:auto;min-height:303px;max-height:calc(100dvh - 32px);overflow-y:auto;justify-content:flex-start;gap:18px}
+.viewerAppShell .viewerSubmitNotice{transform:none;min-height:0;flex-shrink:0}
+.viewerAppShell .viewerSubmitActions{flex-shrink:0;margin-top:auto}

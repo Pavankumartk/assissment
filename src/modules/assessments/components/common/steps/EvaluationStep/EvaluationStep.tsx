@@ -1,6 +1,7 @@
 "use client";
 import WizardStepLink from "@/modules/assessments/components/common/WizardStepLink";
-import { assessmentStorage } from "@/modules/assessments/storage/assessment-storage";
+import { assessmentStorage, getActiveAssessmentId, getAssessment } from "@/modules/assessments/storage/assessment-storage";
+import { getAssessmentAdapter } from "@/modules/assessments/config/component-registry";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -19,6 +20,24 @@ const initialSettings: EvaluationSettings = {
   reviewAvailability: "After submission",
 };
 const steps = ["Type", "Details", "Content", "Evaluation", "Review"] as const;
+// Each assessment has a separate storage namespace and a registered draft key.
+// Image-Based and Match the Following intentionally retain their existing MCQ-compatible
+// evaluation key so their current Review pages continue to read saved settings.
+type EvaluationPageProps = {
+  detailsKey?: string;
+  evaluationKey?: string;
+  typeLabel?: string;
+};
+const activeWizard = (overrides: EvaluationPageProps = {}) => {
+  const record = getAssessment(getActiveAssessmentId() || "");
+  const adapter = record ? getAssessmentAdapter(record.typeCode) : undefined;
+  return {
+    record,
+    adapter,
+    key: overrides.evaluationKey || adapter?.draftKeys.evaluation || "mcqAssessmentEvaluationDraft",
+    detailsKey: overrides.detailsKey || adapter?.draftKeys.details || "mcqAssessmentDraft",
+  };
+};
 const categories = [
   { id: "feedback" as const, heading: "Feedback And Results", subtitle: "Configure Scoring, Passing Criteria, Attempts, And What Learners See After Completing The Assessment.", iconSrc: "/assets/assessmenticons/chartpurple.svg", tabs: ["Score", "Passing", "Attempts", "Feedback", "Results"] },
   { id: "security" as const, heading: "Security & Integrity", subtitle: "Configure Proctoring, Browser Restrictions, Question Security, And Assessment Integrity Controls.", iconSrc: "/assets/assessmenticons/security-lock.svg", tabs: ["Proctoring", "Access", "Monitoring", "Restrictions"] },
@@ -49,7 +68,7 @@ function EvaluationNeumoDropdown({ label, value, options, onChange, disabled = f
 }
 
 
-export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", evaluationKey = "mcqAssessmentEvaluationDraft", typeLabel = "MCQ" }: { detailsKey?: string; evaluationKey?: string; typeLabel?: string } = {}) {
+export default function EvaluationPage({detailsKey,evaluationKey,typeLabel}:EvaluationPageProps = {}) {
   const router = useRouter();
   const redirectRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [openPanels, setOpenPanels] = useState<PanelId[]>([]);
@@ -57,13 +76,17 @@ export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", eval
   const [settings, setSettings] = useState<EvaluationSettings>(initialSettings);
   const [message, setMessage] = useState("");
   const [configuredTotalMarks,setConfiguredTotalMarks]=useState(30);
+  const [assessmentTitle,setAssessmentTitle]=useState("Assessment Evaluation (MCQ)");
   useEffect(()=>{
-    try {const draft=JSON.parse(assessmentStorage.getItem(detailsKey)||"{}");const n=Number(draft.totalMarks);if(Number.isFinite(n)&&n>0)setConfiguredTotalMarks(n);}catch{}
+    const {record}=activeWizard({detailsKey,evaluationKey});
+    if (typeLabel || (record && record.typeCode !== "mcq")) setAssessmentTitle(`Assessment Evaluation (${typeLabel || record?.typeLabel || "Assessment"})`);
+    if(record?.marks && Number(record.marks)>0) setConfiguredTotalMarks(Number(record.marks));
+    try {const draft=JSON.parse(assessmentStorage.getItem(activeWizard({detailsKey,evaluationKey}).detailsKey)||"{}");const n=Number(draft.totalMarks);if(Number.isFinite(n)&&n>0)setConfiguredTotalMarks(n);}catch{}
   },[]);
 
   const [saving, setSaving] = useState(false);
   useEffect(() => {
-    try { const saved = assessmentStorage.getItem(evaluationKey); if (saved) setSettings({ ...initialSettings, ...JSON.parse(saved) }); }
+    try { const saved = assessmentStorage.getItem(activeWizard({detailsKey,evaluationKey}).key); if (saved) setSettings({ ...initialSettings, ...JSON.parse(saved) }); }
     catch { /* Keep defaults when browser storage is unavailable. */ }
     return () => { if (redirectRef.current) clearTimeout(redirectRef.current); };
   }, []);
@@ -85,7 +108,7 @@ export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", eval
   const saveAndContinue = () => {
     if (saving) return;
     try {
-      assessmentStorage.setItem(evaluationKey, JSON.stringify({ ...settings, ...controls }));
+      assessmentStorage.setItem(activeWizard({detailsKey,evaluationKey}).key, JSON.stringify({ ...settings, ...controls }));
       setMessage("Successfully saved");
       setSaving(true);
       redirectRef.current = setTimeout(() => router.push("/assessments/create/review"), 1000);
@@ -100,7 +123,7 @@ export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", eval
   });
   useEffect(() => {
     try {
-      const draft = assessmentStorage.getItem(evaluationKey);
+      const draft = assessmentStorage.getItem(activeWizard({detailsKey,evaluationKey}).key);
       if (draft) {
         const saved = JSON.parse(draft) as Record<string, string>;
         setControls(previous => ({ ...previous, ...Object.fromEntries(Object.keys(previous).filter(key => typeof saved[key] === "string").map(key => [key, saved[key]])) }));
@@ -109,7 +132,7 @@ export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", eval
   }, []);
   const [readyToAutosave,setReadyToAutosave]=useState(false);
   useEffect(()=>{const frame=window.requestAnimationFrame(()=>setReadyToAutosave(true));return()=>window.cancelAnimationFrame(frame);},[]);
-  useEffect(()=>{ if(!readyToAutosave) return; try {assessmentStorage.setItem(evaluationKey,JSON.stringify({...settings,...controls}));}catch{} },[settings,controls,readyToAutosave]);
+  useEffect(()=>{ if(!readyToAutosave) return; try {assessmentStorage.setItem(activeWizard({detailsKey,evaluationKey}).key,JSON.stringify({...settings,...controls}));}catch{} },[settings,controls,readyToAutosave]);
   const control = (name: string, fallback = "") => controls[name] ?? fallback;
   const changeControl = (name: string, value: string) => { setControls(old => ({ ...old, [name]: value })); setMessage(""); };
   const switchRow = (label: string, key: string, dependent = false) => {
@@ -137,7 +160,7 @@ export default function EvaluationPage({ detailsKey = "mcqAssessmentDraft", eval
     <Sidebar /><section className="mainContent evaluationMainContent"><div className="evaluationHeaderSlot"><Header /></div><div className="institutionScrollArea evaluationScrollArea"><div className="pageContent institutionPageContent evaluationPageContent">
       <nav className="evaluationBreadcrumb" aria-label="Breadcrumb"><Link href="/assessments">Assessment</Link><span className="evaluationBreadcrumbChevrons" aria-hidden="true">»</span><span>Create Assessment</span></nav>
       <ol className="evaluationWizard" aria-label="Assessment creation progress">{steps.map((step, index) => <li key={step} className={`evaluationWizardStep ${index < 3 ? "is-complete" : index === 3 ? "is-current" : "is-upcoming"}`} aria-current={index === 3 ? "step" : undefined}><WizardStepLink index={index} current={3}/><span className="evaluationWizardNumber"><span className="evaluationWizardDigit">{index + 1}</span></span><span className="evaluationWizardLabel">{step}</span></li>)}</ol>
-      <div className="evaluationTitleGroup"><h1>Assessment Evaluation ({typeLabel})</h1><p>Set Evaluation, Feedback, Results, And Security.</p></div>
+      <div className="evaluationTitleGroup"><h1>{assessmentTitle}</h1><p>Set Evaluation, Feedback, Results, And Security.</p></div>
       <div className="evaluationQuestionLayout"><div className="evaluationQuestionMain">
       <div className="evaluationPanels">{categories.map(category => { const isOpen = openPanels.includes(category.id); return <section key={category.id} className={`evaluationPanel evaluationPanel--${category.id} ${isOpen ? "is-open" : ""}`}>
         <div className="evaluationPanelHeader"><div className="evaluationPanelIcon" aria-hidden="true"><img src={category.iconSrc} alt="" width={37} height={37} onError={event => { event.currentTarget.style.visibility = "hidden"; }} /></div><div className="evaluationPanelText"><h2>{category.heading}</h2><p>{category.subtitle}</p></div><button type="button" className="evaluationExpandButton" aria-label={`${isOpen ? "Collapse" : "Expand"} ${category.heading}`} aria-expanded={isOpen} aria-controls={`evaluation-content-${category.id}`} onClick={() => togglePanel(category.id)}><img className="evaluationChevronAsset" src="/assets/assessmenticons/arrow-down-01.svg" width={20} height={20} alt="" /></button></div>

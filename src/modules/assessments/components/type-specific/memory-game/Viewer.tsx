@@ -148,6 +148,8 @@ function readInstructions(draft: Record<string, unknown>): string[] {
 
 export default function MemoryGameViewer({ questions: incoming, assessmentTitle, contentDraftKey = "memoryGameContentDraft" }: MemoryViewerProps) {
   const router = useRouter();
+  const isRetry = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("retry") === "wrong";
+  const progressKey = isRetry ? "memoryGameViewerAttemptDraftRetry" : "memoryGameViewerAttemptDraft";
   const [ready, setReady] = useState(false);
   const [questions, setQuestions] = useState<MemoryQuestion[]>([]);
   const [title, setTitle] = useState(DEFAULT_TITLE);
@@ -195,7 +197,12 @@ export default function MemoryGameViewer({ questions: incoming, assessmentTitle,
   useEffect(() => {
     const draft = readJson(contentDraftKey);
     const saved = Array.isArray(draft.questions) ? draft.questions.map(normalizeQuestion).filter((q): q is MemoryQuestion => q !== null) : [];
-    const chosen = incoming ? incoming.map(normalizeQuestion).filter((q): q is MemoryQuestion => q !== null) : saved;
+    let chosen = incoming ? incoming.map(normalizeQuestion).filter((q): q is MemoryQuestion => q !== null) : saved;
+    if (isRetry) {
+      let indexes: number[] = [];
+      try { const raw: unknown = JSON.parse(assessmentStorage.getItem("memoryGameRetryIndexes") || "[]"); if (Array.isArray(raw)) indexes = raw.filter((x): x is number => typeof x === "number" && Number.isInteger(x) && x >= 0); } catch { /* No retry selection */ }
+      chosen = chosen.filter((_, index) => indexes.includes(index));
+    }
     const details = readJson("memoryGameAssessmentDraft");
     setDetailsDraft(details);
     setInstructionLines(readInstructions(details));
@@ -203,12 +210,14 @@ export default function MemoryGameViewer({ questions: incoming, assessmentTitle,
     const name = assessmentTitle || String(details.assessmentTitle || details.title || assessment?.title || DEFAULT_TITLE);
     const rawDuration = String(details.duration ?? details.timeLimit ?? (chosen[0]?.timeLimit && Number(chosen[0].timeLimit) > 0 ? chosen[0].timeLimit : "60"));
     const minutes = Math.max(1, toNumber(Number.parseFloat(rawDuration), 60) * (/hour/i.test(rawDuration) ? 60 : 1));
-    setDuration(Math.floor(minutes * 60));
-    setSecondsLeft(Math.floor(minutes * 60));
+    const retryMinutes = Number(assessmentStorage.getItem("viewerRetryDurationMinutes"));
+    const actualSeconds = isRetry && Number.isFinite(retryMinutes) && retryMinutes > 0 ? Math.floor(retryMinutes * 60) : Math.floor(minutes * 60);
+    setDuration(actualSeconds);
+    setSecondsLeft(actualSeconds);
     setTitle(name);
     setQuestions(chosen);
     try {
-      const savedProgress = assessmentStorage.getItem("memoryGameViewerAttemptDraft");
+      const savedProgress = assessmentStorage.getItem(progressKey);
       if (savedProgress && !isPreview) {
         const data = JSON.parse(savedProgress) as { games?: Record<number, Attempt>; current?: number; flagged?: number[]; secondsLeft?: number; scratchNote?: string; assessmentStarted?: boolean };
         if (data.games && typeof data.games === "object") setGames(data.games);
@@ -227,7 +236,7 @@ export default function MemoryGameViewer({ questions: incoming, assessmentTitle,
   useEffect(() => {
     if (!ready || submitted || isPreview) return;
     try {
-      assessmentStorage.setItem("memoryGameViewerAttemptDraft", JSON.stringify({
+      assessmentStorage.setItem(progressKey, JSON.stringify({
         current, games, flagged, secondsLeft, scratchNote, assessmentStarted,
       }));
     } catch { /* Storage may be disabled. */ }
@@ -281,7 +290,7 @@ export default function MemoryGameViewer({ questions: incoming, assessmentTitle,
   };
   const navigate = (to: number) => { if (to < 0 || to >= total) return; clearTimers(); updateGame(current, prev => ({ ...prev, locked: false, opened: [] })); setPeek(false); setCurrent(to); setHintVisible(false); };
   const saveToolReturn = (url: string) => {
-    try { assessmentStorage.setItem("memoryGameViewerAttemptDraft", JSON.stringify({ current, games, flagged, secondsLeft, scratchNote, assessmentStarted })); } catch {}
+    try { assessmentStorage.setItem(progressKey, JSON.stringify({ current, games, flagged, secondsLeft, scratchNote, assessmentStarted })); } catch {}
     router.push(url);
   };
   const submit = () => {
@@ -301,14 +310,18 @@ export default function MemoryGameViewer({ questions: incoming, assessmentTitle,
       submittedAt: new Date().toISOString() };
     if (!isPreview) {
       try {
-        assessmentStorage.setItem("memoryGameViewerResult", JSON.stringify(data));
-        // The shared Results page reads this existing key. No Results page edits.
-        assessmentStorage.setItem("viewerAssessmentResult", JSON.stringify(data));
-        const prior = JSON.parse(assessmentStorage.getItem("viewerAttempts") || "[]") as unknown;
-        const attempts = [...(Array.isArray(prior) ? prior : []), data];
-        assessmentStorage.setItem("viewerAttempts", JSON.stringify(attempts));
-        updateAssessment({ attemptCount: attempts.length });
-        assessmentStorage.removeItem("memoryGameViewerAttemptDraft");
+        if (isRetry) {
+          // Preserve the learner's original score and question-review history.
+          assessmentStorage.setItem("viewerRetryResult", JSON.stringify(data));
+        } else {
+          assessmentStorage.setItem("memoryGameViewerResult", JSON.stringify(data));
+          assessmentStorage.setItem("viewerAssessmentResult", JSON.stringify(data));
+          const prior = JSON.parse(assessmentStorage.getItem("viewerAttempts") || "[]") as unknown;
+          const attempts = [...(Array.isArray(prior) ? prior : []), data];
+          assessmentStorage.setItem("viewerAttempts", JSON.stringify(attempts));
+          updateAssessment({ attemptCount: attempts.length });
+        }
+        assessmentStorage.removeItem(progressKey);
       } catch { /* The UI remains usable when localStorage is restricted. */ }
     }
     setRelease(memoryRelease()); setSubmitOpen(false); setSubmitted(true); setSuccessOpen(true);
@@ -343,7 +356,7 @@ export default function MemoryGameViewer({ questions: incoming, assessmentTitle,
     setAcceptedInstructions(false);
     setHintVisible(false);
     try {
-      if (!isPreview) assessmentStorage.setItem("memoryGameViewerAttemptDraft", JSON.stringify({
+      if (!isPreview) assessmentStorage.setItem(progressKey, JSON.stringify({
         current, games, flagged, secondsLeft, scratchNote, assessmentStarted: true,
       }));
     } catch { /* Keep the Start Assessment action usable when storage is restricted. */ }
@@ -518,7 +531,7 @@ export default function MemoryGameViewer({ questions: incoming, assessmentTitle,
         </div>
       </section>
       {submitOpen && <ViewerSubmitConfirm answered={checkedCount} remaining={total - checkedCount} flagged={flagged.length} onBack={() => setSubmitOpen(false)} onSubmit={submit} />}
-      {successOpen && release && <TextSubmitSuccess title={title} scorePercent={Math.round(earnedPoints / Math.max(1, totalPoints) * 100)} pendingCount={0} passingScore={passingLabel} release={release} isRetry={false} onClose={() => { setSuccessOpen(false); router.push(!isPreview && release.mode === "immediate" ? resultPath() : demoDashboardPath()); }} />}
+      {successOpen && release && <TextSubmitSuccess title={title} scorePercent={Math.round(earnedPoints / Math.max(1, totalPoints) * 100)} pendingCount={0} passingScore={passingLabel} release={release} isRetry={isRetry} onClose={() => { setSuccessOpen(false); router.push(!isPreview && release.mode === "immediate" ? resultPath() : demoDashboardPath()); }} />}
     </div>
   </main>;
 }

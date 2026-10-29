@@ -1,0 +1,227 @@
+/* Image-based MCQ learner viewer — scoped to this page only.
+   Layout and size/shadow values follow the supplied Figma and viewer references.
+   Sidebar, Header and their global styles are not changed. */
+.mqv-shell{--mqv-bg:#DFE6E9;--mqv-ink:#374151;--mqv-blue:#2D4CC8;--mqv-green:#2A7308;--mqv-orange:#CB5F14;--mqv-raised:-4px -4px 8px #FFFFFF,4px 4px 8px #C4C4C4;--mqv-raised-sm:-2px -2px 3px #FFFFFF,2px 2px 4px #C4C4C4;--mqv-inset:inset -2px -2px 3px #FFFFFF,inset 2px 2px 3px #C4C4C4;position:fixed;inset:0;display:block;width:100%;height:100dvh;min-height:0;overflow:hidden;background:var(--mqv-bg);color:var(--mqv-ink);font:400 16px/1.5 'Segoe UI',Inter,Arial,sans-serif}
+.mqv-shell *,.mqv-shell *::before,.mqv-shell *::after{box-sizing:border-box}
+html:has(.mqv-shell),body:has(.mqv-shell){height:100%;overflow:hidden;overscroll-behavior:none}
+body:has(.mqv-shell){margin:0}
+.mqv-shell button,.mqv-shell input{font:inherit}
+.mqv-shell button{cursor:pointer}
+.mqv-shell button:disabled{cursor:not-allowed;opacity:.55}
+.mqv-shell button:focus-visible,.mqv-shell a:focus-visible,.mqv-shell input:focus-visible+.mqv-option-radio{outline:2px solid #2D4CC8;outline-offset:3px}
+.mqv-shell h1,.mqv-shell h2,.mqv-shell p{margin:0}
+.mqv-shell .mqv-layout{display:flex;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden}
+.mqv-shell .mqv-page.viewerMain{display:flex;flex:1 1 0%;flex-direction:column;width:auto;min-width:0;min-height:0;height:100%;overflow:hidden}
+.mqv-shell .mqv-header.viewerSharedHeader{position:relative;z-index:2;flex:0 0 auto;width:100%;height:80px;min-height:80px}
+.mqv-shell .mqv-header .topHeader{display:flex;justify-content:flex-end;width:100%}
+.mqv-shell .mqv-header .topHeader .headerRight{margin-left:auto}
+.mqv-shell .mqv-scroll.viewerScroll{flex:1 1 0%;width:100%;min-height:0;max-height:100%;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.mqv-shell .mqv-inner.institutionPageContent{width:100%;max-width:1141px;min-width:0;margin:0 auto;padding:24px 24px 45px}
+.mqv-shell .mqv-heading-row{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:11px}
+.mqv-shell .mqv-heading-left{min-width:0}
+.mqv-shell .mqv-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:24px;margin-bottom:14px;font-size:16px;line-height:24px;letter-spacing:.02em}
+.mqv-shell .mqv-breadcrumb a{color:#2F3547;text-decoration:none}
+.mqv-shell .mqv-breadcrumb strong{color:var(--mqv-blue);font-weight:700;overflow-wrap:anywhere}
+.mqv-shell .mqv-heading-row h1{color:var(--mqv-blue);font-size:24px;line-height:32px;font-weight:700;letter-spacing:.02em}
+.mqv-shell .mqv-clock{display:flex;align-items:center;justify-content:center;flex:none;gap:5px;width:219px;min-width:219px;height:48px;margin-top:-8px;padding:11px 12px;background:var(--mqv-bg);border-radius:8px;box-shadow:var(--mqv-inset);color:#111;font-size:18px;font-weight:600}
+.mqv-shell .mqv-clock-part{display:flex;align-items:center;gap:6px}
+.mqv-shell .mqv-clock-digit{display:grid;place-items:center;width:24px;height:24px;border-radius:4px;background:var(--mqv-bg);box-shadow:var(--mqv-raised-sm);font-variant-numeric:tabular-nums}
+.mqv-shell .mqv-clock-sep{font-size:20px;line-height:1;margin:0 1px;font-weight:700}
+.mqv-shell .mqv-content-grid{display:grid;grid-template-columns:minmax(0,740px) minmax(0,328px);gap:24px;align-items:stretch}
+.mqv-shell .mqv-question-card,.mqv-shell .mqv-navigator{min-width:0;border-radius:8px;background:var(--mqv-bg);box-shadow:var(--mqv-raised)}
+.mqv-shell .mqv-question-card{display:flex;flex-direction:column;align-items:stretch;min-height:1217px;padding:24px}
+.mqv-shell .mqv-question-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;line-height:26px;font-weight:700;letter-spacing:.02em}
+.mqv-shell .mqv-question-meta strong:last-child{font-size:14px}
+.mqv-shell .mqv-progress-row{display:flex;align-items:center;gap:12px;margin:0 0 16px}
+.mqv-shell .mqv-progress-row>strong{min-width:34px;text-align:right;color:var(--mqv-green);font-size:16px}
+.mqv-shell .mqv-progress-track{flex:1;min-width:0;height:18px;padding:4px;border-radius:50px;box-shadow:var(--mqv-inset);overflow:hidden}
+.mqv-shell .mqv-progress-fill{height:100%;border-radius:50px;background:var(--mqv-green);transition:width .2s ease}
+.mqv-shell .mqv-question-card>h2{color:var(--mqv-blue);font-size:18px;line-height:28px;font-weight:700;margin-bottom:4px;letter-spacing:.02em}
+.mqv-shell .mqv-question-text{color:#2F3547;font-size:18px;line-height:28px;font-weight:600;letter-spacing:.01em;margin-bottom:24px}
+/* ONE outer image panel. The image itself may contain its own original artwork borders.
+   Creator uploads (portrait, wide, or square) always stay within this one 692x443 frame. */
+.mqv-shell .mqv-diagram-box{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:100%;height:443px;min-height:0;min-width:0;margin:0 0 24px;padding:16px;overflow:hidden;border-radius:4px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4}
+.mqv-shell .mqv-question-image{display:block;flex:0 1 auto;max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;object-position:center;image-rendering:auto}
+.mqv-shell .mqv-image-error{max-width:100%;font-size:14px;line-height:22px;text-align:center;color:#9B3D1A;overflow-wrap:anywhere}
+.mqv-shell .mqv-options{display:flex;flex-direction:column;gap:24px;min-width:0}
+.mqv-shell .mqv-option{position:relative;display:flex;align-items:center;gap:14px;width:100%;min-width:0;min-height:50px;padding:9px 15px;border:1px solid transparent;border-radius:8px;background:var(--mqv-bg);box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;color:var(--mqv-ink);font-size:18px;line-height:26px;font-weight:400;letter-spacing:.02em;cursor:pointer;transition:box-shadow .15s ease}
+.mqv-shell .mqv-option-selected{box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4}
+/* The whole option is one accessible button. No overlay checkbox obscures clicks. */
+.mqv-shell .mqv-option{appearance:none;-webkit-appearance:none;text-align:left;font-family:'Segoe UI',Inter,Arial,sans-serif}
+.mqv-shell .mqv-option:focus-visible{outline:2px solid #2D4CC8;outline-offset:3px}
+/* Figma Frame 2095586206: EXACT selected appearance.
+   Raised 24px background circle + blue 16px center + 12px white tick.
+   The white tick is the supplied Figma vector rendered as CSS, not a new icon file.
+   It works even if /assets/viewericons/tick.svg is missing. */
+.mqv-shell .mqv-option-radio{
+  position:relative;
+  display:grid;
+  place-items:center;
+  flex:0 0 24px;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:#DFE6E9;
+  box-shadow:inset -2px -2px 2px #FFFFFF,
+             inset 2px 2px 2px #C4C4C4;
+}
+.mqv-shell .mqv-option-radio-dot{
+  position:relative;
+  display:grid;
+  place-items:center;
+  flex:0 0 16px;
+  width:16px;
+  height:16px;
+  border:1.5px solid #C6C6C9;
+  border-radius:50%;
+  background:transparent;
+}
+.mqv-shell .mqv-option-selected .mqv-option-radio{
+  background:#DFE6E9;
+  box-shadow:4px 4px 4px #C4C4C4,
+             -4px -4px 4px #FFFFFF;
+}
+.mqv-shell .mqv-option-selected .mqv-option-radio-dot{
+  background:#2D4CC8;
+  border:1.5px solid #2D4CC8;
+}
+/* Figma white check: centred, visible on the blue circle (not a solid dot). */
+.mqv-shell .mqv-option-white-check{
+  display:block;
+  position:relative;
+  width:12px;
+  height:12px;
+  flex:0 0 12px;
+}
+.mqv-shell .mqv-option-white-check::after{
+  content:"";
+  position:absolute;
+  left:2.5px;
+  top:2.7px;
+  width:7px;
+  height:4px;
+  border-left:1.6px solid #FFFFFF;
+  border-bottom:1.6px solid #FFFFFF;
+  transform:rotate(-45deg);
+  transform-origin:center;
+}
+.mqv-shell .mqv-option-label{min-width:0;overflow-wrap:anywhere}
+.mqv-shell .mqv-option:disabled{opacity:1;cursor:not-allowed}
+/* Figma hint: 66px high card, 39px bulb and icon-only eye control. */
+.mqv-shell .mqv-hint-panel{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 12px;width:100%;min-height:66px;margin-top:24px;padding:12px 16px 12px 17px;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4}
+.mqv-shell .mqv-hint-name{display:flex;align-items:center;gap:14px;min-width:0;color:#63560B;font-size:18px;line-height:24px;font-weight:600;letter-spacing:.02em}
+.mqv-shell .mqv-hint-bulb{display:grid;place-items:center;flex:0 0 39px;width:39px;height:39px;border:1px solid #63560B;border-radius:50%;background:#DFE6E9;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF}
+.mqv-shell .mqv-hint-bulb-icon{display:block;width:26px;height:26px;object-fit:contain}
+.mqv-shell .mqv-hint-toggle{display:grid;place-items:center;flex:0 0 36px;width:36px;min-width:36px;height:36px;min-height:36px;padding:0;border:0;border-radius:50%;background:#DFE6E9;box-shadow:-3px -3px 4px #FFFFFF,3px 3px 4px #C4C4C4;color:#374151}
+.mqv-shell .mqv-hint-toggle:active{box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.mqv-shell .mqv-hint-toggle .mqv-hint-eye-icon{display:block;width:20px;height:20px;object-fit:contain}
+.mqv-shell .mqv-hint-text{grid-column:1/-1;width:100%;padding:12px 1px 2px;font-size:14px;line-height:22px;color:#374151;overflow-wrap:anywhere}
+.mqv-shell .mqv-notice{margin-top:12px;font-size:14px;line-height:22px;color:#81510A}
+.mqv-shell .mqv-question-footer{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-top:20px}
+.mqv-shell .mqv-bloom{display:flex;flex-direction:column;align-items:flex-start;gap:5px;font-size:14px}
+.mqv-shell .mqv-bloom strong{font-weight:600}
+.mqv-shell .mqv-bloom span{min-width:170px;max-width:100%;padding:7px 14px;border-radius:5px;background:#DFE6E9;box-shadow:var(--mqv-inset);font-size:14px}
+.mqv-shell .mqv-flag-button{display:flex;align-items:center;justify-content:center;flex:none;gap:9px;min-height:42px;padding:9px 14px;border:0;border-radius:5px;background:#DFE6E9;box-shadow:var(--mqv-raised-sm);color:#C05512;font-size:15px;font-weight:600}
+.mqv-shell .mqv-flag-button.is-flagged{box-shadow:var(--mqv-inset)}
+.mqv-shell .mqv-bottom-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:auto;padding-top:34px}
+.mqv-shell .mqv-pill{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-width:0;min-height:50px;padding:10px 22px;border:0;border-radius:40px;background:#DFE6E9;box-shadow:var(--mqv-raised);color:#2F3547;font-size:18px;line-height:28px;font-weight:600;white-space:nowrap}
+.mqv-shell .mqv-previous{min-width:170px}
+.mqv-shell .mqv-next{min-width:171px;color:var(--mqv-green);border:1px solid var(--mqv-green)}
+/* Navigator: current/in-progress BLUE; completed GREEN; pending ORANGE. */
+.mqv-shell .mqv-navigator{padding:24px 19px}
+.mqv-shell .mqv-navigator>h2{margin:0 0 23px;color:var(--mqv-blue);font-size:18px;line-height:28px;font-weight:700}
+.mqv-shell .mqv-number-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 12px;margin:0 0 24px}
+.mqv-shell .mqv-number{display:grid;place-items:center;min-width:0;width:100%;height:42px;padding:0;border:1px solid transparent;border-radius:5px;background:#DFE6E9;box-shadow:var(--mqv-raised-sm);color:#31344B;font-size:16px;font-weight:600}
+.mqv-shell .mqv-number.is-complete{border-color:var(--mqv-green);color:var(--mqv-green)}
+.mqv-shell .mqv-number.is-current{border-color:#DBE2FD;box-shadow:var(--mqv-inset);color:var(--mqv-blue);font-weight:700}
+.mqv-shell .mqv-number.is-progress{border-color:var(--mqv-blue);color:var(--mqv-blue)}
+.mqv-shell .mqv-number.is-pending{border-color:var(--mqv-orange);color:var(--mqv-orange)}
+.mqv-shell .mqv-status-list{display:flex;flex-direction:column;gap:14px;margin:0 0 22px}
+.mqv-shell .mqv-status-row{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;padding:8px 12px;border-radius:7px;background:#DFE6E9;box-shadow:var(--mqv-inset);font-size:15px;font-weight:600}
+.mqv-shell .mqv-status-left{display:inline-flex;align-items:center;gap:12px;min-width:0}
+.mqv-shell .mqv-status-dot{display:grid;place-items:center;flex:0 0 20px;width:20px;height:20px;border:1px solid #BEC4C7;border-radius:50%}
+.mqv-shell .mqv-status-answered{border:0}
+.mqv-shell .mqv-flag-glyph{display:flex;align-items:center;justify-content:center;flex:0 0 20px;width:20px;height:20px}
+.mqv-shell .mqv-status-row strong{font-variant-numeric:tabular-nums}
+.mqv-shell .mqv-green{color:var(--mqv-green)}
+.mqv-shell .mqv-orange{color:var(--mqv-orange)}
+.mqv-shell .mqv-navigator>h2.mqv-tools-heading{margin:19px 4px 14px}
+.mqv-shell .mqv-tool-list{display:flex;flex-direction:column;gap:14px}
+.mqv-shell .mqv-tool{display:flex;align-items:center;gap:13px;min-height:42px;width:100%;padding:8px 12px;border:0;border-radius:5px;text-align:left;background:#DFE6E9;box-shadow:var(--mqv-raised-sm);font-size:14px;font-weight:600}
+.mqv-shell .mqv-tool>.mqv-external-arrow{margin-left:auto}
+.mqv-shell .mqv-scratch{color:#005358}
+.mqv-shell .mqv-calculator{color:#850593}
+.mqv-shell .mqv-formula{color:var(--mqv-green)}
+.mqv-shell .mqv-submit-status{margin-top:18px;color:var(--mqv-green);font-size:14px;font-weight:600}
+.mqv-shell .mqv-empty,.mqv-shell .mqv-empty-options{padding:16px 0;font-size:14px}
+.mqv-shell .mqv-asset{display:block;flex:none;object-fit:contain}
+.mqv-shell .mqv-modal-backdrop{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px;background:#24344370}
+.mqv-shell .mqv-modal{width:100%;max-width:460px;padding:26px;border-radius:12px;background:#DFE6E9;box-shadow:var(--mqv-raised)}
+.mqv-shell .mqv-modal h2{margin:0 0 14px;color:var(--mqv-blue);font-size:21px}
+.mqv-shell .mqv-modal p{margin:0 0 24px}
+.mqv-shell .mqv-modal>div{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:14px}
+.mqv-shell .mqv-modal .mqv-pill{font-size:14px;min-height:42px;min-width:0}
+/* Tablet: preserve two-column design until there is too little room. */
+@media(max-width:1230px){
+ .mqv-shell .mqv-inner.institutionPageContent{padding:22px 20px 40px}
+ .mqv-shell .mqv-content-grid{grid-template-columns:minmax(0,1fr) minmax(245px,285px);gap:18px}
+ .mqv-shell .mqv-question-card{min-height:0;padding:20px}
+ .mqv-shell .mqv-diagram-box{height:auto;aspect-ratio:692/443;padding:12px}
+ .mqv-shell .mqv-question-image{width:100%;height:100%}
+ .mqv-shell .mqv-navigator{padding:20px 14px}
+ .mqv-shell .mqv-bottom-actions{padding-top:30px;gap:12px}
+ .mqv-shell .mqv-pill{padding:9px 14px;font-size:16px}
+ .mqv-shell .mqv-previous,.mqv-shell .mqv-next{min-width:0}
+}
+@media(max-width:1020px){
+ .mqv-shell .mqv-content-grid{grid-template-columns:minmax(0,1fr)}
+ .mqv-shell .mqv-question-card{min-height:0}
+ .mqv-shell .mqv-clock{margin-top:0}
+}
+@media(max-width:640px){
+ .mqv-shell .mqv-header.viewerSharedHeader{height:auto;min-height:64px}
+ .mqv-shell .mqv-inner.institutionPageContent{padding:16px 12px 30px}
+ .mqv-shell .mqv-heading-row{flex-direction:column;gap:12px;margin-bottom:18px}
+ .mqv-shell .mqv-breadcrumb{font-size:12px;line-height:20px;gap:5px;margin-bottom:12px}
+ .mqv-shell .mqv-heading-row h1{font-size:20px;line-height:28px}
+ .mqv-shell .mqv-clock{align-self:center;width:max-content;max-width:100%;min-width:0;height:42px;padding:8px 12px;margin:0}
+ .mqv-shell .mqv-clock-digit{width:23px;height:25px;font-size:16px}
+ .mqv-shell .mqv-question-card,.mqv-shell .mqv-navigator{padding:14px}
+ .mqv-shell .mqv-question-card>h2{font-size:17px;line-height:26px}
+ .mqv-shell .mqv-question-text{font-size:14px;line-height:22px;margin-bottom:15px}
+ .mqv-shell .mqv-diagram-box{width:100%;height:auto;min-height:0;aspect-ratio:692/443;padding:8px;margin-bottom:18px}
+ .mqv-shell .mqv-options{gap:15px}
+ .mqv-shell .mqv-option{min-height:48px;padding:9px 11px;gap:12px;font-size:14px;line-height:22px}
+ .mqv-shell .mqv-hint-panel{min-height:66px;padding:11px 12px;gap:0 8px}
+ .mqv-shell .mqv-hint-name{font-size:16px;gap:10px}
+ .mqv-shell .mqv-hint-bulb{width:35px;height:35px;flex-basis:35px}
+ .mqv-shell .mqv-hint-bulb-icon{width:25px;height:25px}
+ .mqv-shell .mqv-hint-toggle{flex-basis:32px;width:32px;min-width:32px;height:32px;min-height:32px}
+ .mqv-shell .mqv-question-footer{align-items:flex-start;gap:12px}
+ .mqv-shell .mqv-bloom{font-size:12px}
+ .mqv-shell .mqv-bloom span{min-width:105px;font-size:13px}
+ .mqv-shell .mqv-flag-button{font-size:12px;gap:5px;padding:8px 9px}
+ .mqv-shell .mqv-bottom-actions{gap:10px;padding-top:24px}
+ .mqv-shell .mqv-pill{flex:1;min-height:44px;padding:8px 10px;gap:7px;font-size:13px;line-height:22px}
+ .mqv-shell .mqv-navigator>h2{font-size:16px;margin-bottom:15px}
+ .mqv-shell .mqv-number-grid{gap:10px}
+ .mqv-shell .mqv-number{height:40px;font-size:15px}
+ .mqv-shell .mqv-status-row{font-size:14px}
+ .mqv-shell .mqv-tool{font-size:13px}
+}
+@media(max-width:360px){
+ .mqv-shell .mqv-inner.institutionPageContent{padding-inline:10px}
+ .mqv-shell .mqv-clock{padding:8px 9px}
+ .mqv-shell .mqv-clock-digit{width:21px}
+ .mqv-shell .mqv-number-grid{gap:7px}
+ .mqv-shell .mqv-flag-button{max-width:125px}
+}
+@media(prefers-reduced-motion:reduce){.mqv-shell .mqv-option,.mqv-shell .mqv-progress-fill{transition:none}}
+
+/* Keep expired real assessments readable, but not interactive.
+   An expired demo resets on reload and has a visible Restart demo button. */
+.mqv-shell .mqv-completed-state{margin-top:14px}
+.mqv-shell .mqv-restart-demo{margin-top:10px;padding:9px 14px;border:1px solid #2D4CC8;border-radius:7px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;color:#2D4CC8;font-weight:600;cursor:pointer}
+
+/* Keep options fully visible while the assessment is active. */
+.mqv-shell .mqv-option:not(:disabled){opacity:1}

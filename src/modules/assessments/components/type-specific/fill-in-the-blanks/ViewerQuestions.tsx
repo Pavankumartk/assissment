@@ -9,7 +9,7 @@ import "./viewfilblanks.css";
 import "@/modules/assessments/components/viewer/AssessmentViewer/viewer.css";
 import {getTextResultRelease} from "@/modules/assessments/components/viewer/result-release";
 import ViewerDialogs from "./ViewerDialogs";
-import { assessmentStorage, updateAssessment, resultPath } from "@/modules/assessments/storage/assessment-storage";
+import { assessmentStorage, updateAssessment, resultPath, viewerPath } from "@/modules/assessments/storage/assessment-storage";
 
 // Use the same icon folder and filenames as the supplied viewer.
 const ICONS = "/assets/viewericons/";
@@ -370,9 +370,9 @@ export default function ViewFillBlanksPage() {
                 </div>
                 <h2 className="fillViewerToolsHeading">Tools</h2>
                 <div className="fillViewerToolsList">
-                  <button type="button" onClick={() => router.push("/scratch")}><Icon name="sticky-note.svg"/>Scratch Pad<Icon name="arrowupright.svg" size={18}/></button>
-                  <button type="button" onClick={() => router.push("/calculator")}><Icon name="calculator.svg"/>Calculator<Icon name="arrowup.svg" size={18}/></button>
-                  <button type="button" onClick={() => router.push("/formulasheet")}><Icon name="sigma.svg"/>Formula Sheet<Icon name="arrowupg.svg" size={18}/></button>
+                  <button type="button" onClick={() => router.push(`${viewerPath()}/scratch`)}><Icon name="sticky-note.svg"/>Scratch Pad<Icon name="arrowupright.svg" size={18}/></button>
+                  <button type="button" onClick={() => router.push(`${viewerPath()}/calculator`)}><Icon name="calculator.svg"/>Calculator<Icon name="arrowup.svg" size={18}/></button>
+                  <button type="button" onClick={() => router.push(`${viewerPath()}/formulasheet`)}><Icon name="sigma.svg"/>Formula Sheet<Icon name="arrowupg.svg" size={18}/></button>
                 </div>
               </aside>
             </div>

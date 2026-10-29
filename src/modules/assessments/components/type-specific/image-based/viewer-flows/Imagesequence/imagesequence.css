@@ -1,0 +1,235 @@
+/* Fill in the Blanks viewer — ONLY the exam screen from the supplied reference.
+   Uses the existing shared Header, Sidebar and /assets/viewericons/ assets. */
+.viewerAppShell{
+  --viewer-bg:#DFE6E9;
+  --viewer-ink:#2F3547;
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100dvh;
+  min-height:0!important;
+  max-height:100dvh;
+  margin:0;
+  padding:0;
+  overflow:hidden!important;
+  background:var(--viewer-bg);
+  color:var(--viewer-ink);
+  font-family:'Segoe UI',Arial,sans-serif;
+}
+.viewerAppShell *,.viewerAppShell *::before,.viewerAppShell *::after{box-sizing:border-box}
+html:has(.viewerAppShell),body:has(.viewerAppShell){height:100%;overflow:hidden!important;overscroll-behavior:none}
+body:has(.viewerAppShell){margin:0}
+.viewerLayout{display:flex;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden}
+.viewerMain{display:flex;flex:1 1 0%;flex-direction:column;min-width:0;min-height:0;height:100%;overflow:hidden}
+.viewerSharedHeader{flex:0 0 auto;min-width:0;width:100%}
+.viewerAppShell .viewerSharedHeader .topHeader{width:100%;display:flex;justify-content:flex-end}
+.viewerAppShell .viewerSharedHeader .topHeader .headerRight{margin-left:auto}
+.viewerScroll{flex:1 1 0%;min-width:0;min-height:0;max-height:100%;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.viewerContent{width:100%;max-width:1260px;min-width:0;height:auto;min-height:0;margin:0 auto;padding:26px 24px 55px}
+
+/* Heading, breadcrumbs and countdown match the original Viewer sizing. */
+.viewerExamTop{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+.viewerBreadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:24px;margin:0;font-size:16px;line-height:24px;letter-spacing:.02em}
+.viewerBreadcrumb a{color:var(--viewer-ink);text-decoration:none}
+.viewerBreadcrumb img{flex:none;display:block;object-fit:contain}
+.viewerBreadcrumb strong{color:#2D4CC8;font-weight:700;overflow-wrap:anywhere}
+.viewerExamClock{display:flex;align-items:center;justify-content:center;gap:5px;padding:11px 12px;border-radius:8px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.viewerTimeGroup{display:flex;align-items:center;gap:4px}
+.viewerTimeColon{font-weight:700;font-size:20px;margin-inline:2px}
+.viewerTimeDigit{display:grid;place-items:center;width:26px;height:28px;border-radius:4px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;font-size:18px;font-weight:600}
+.viewerPageHeading{margin-bottom:20px}
+.viewerPageHeading h1{margin:0;color:#2D4CC8;font-size:24px;line-height:32px;font-weight:700;letter-spacing:.02em}
+
+/* Two exam cards (question + navigator), no instruction or summary landing page. */
+.viewerExamGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,345px);gap:24px;align-items:stretch}
+.viewerExamCard{min-width:0;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4}
+.viewerQuestionCard{display:flex;flex-direction:column;gap:20px;min-height:765px;padding:24px}
+.viewerProgressArea{width:100%}
+.viewerProgressLabel{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:16px;line-height:22px;color:#374151}
+.viewerProgressLabel strong{font-weight:700}
+.viewerProgressLabel span{color:#374151}
+.viewerProgressLabel .viewerMarks{font-size:15px}
+.viewerProgressRow{display:flex;align-items:center;gap:12px;margin-top:7px;color:#2A7308}
+.viewerProgressTrack{flex:1;min-width:0;height:18px;padding:4px;border-radius:40px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.viewerProgressTrack span{display:block;height:100%;min-width:0;border-radius:30px;background:#2A7308;transition:width .2s ease}
+.viewerProgressRow strong{font-size:16px;font-weight:700}
+.viewerQuestionHeading h2{margin:0 0 8px;font-size:18px;line-height:28px;color:#2D4CC8}
+.viewerQuestionHeading p{margin:0;font-size:16px;line-height:26px;color:#374151}
+.viewerBlankGroups{display:flex;flex-direction:column;gap:22px}
+.viewerBlankGroup{min-width:0}
+.viewerBlankGroup h3{margin:0 0 10px;color:#2D4CC8;font-size:15px;font-weight:600}
+.viewerAnswerList{display:grid;gap:18px}
+.viewerAnswer{display:flex;align-items:center;gap:12px;position:relative;min-height:54px;width:100%;padding:9px 15px;border:1px solid transparent;text-align:left;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4;color:#374151;font:400 17px/26px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.viewerAnswer:disabled{cursor:default}
+.viewerAnswer:focus-visible,.viewerQuestionTile:focus-visible,.viewerExamButton:focus-visible,.viewerFlagButton:focus-visible,.viewerToolsList button:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+.viewerAnswer.isSelected{border-color:transparent;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4}
+.viewerAnswer.isCorrect,.viewerAnswer.isIncorrect{box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4}
+.viewerAnswer.isCorrect{border-color:#2A7308}
+.viewerAnswer.isIncorrect{border-color:#A91E2C}
+.viewerAnswerRadio{position:relative;display:grid;place-items:center;width:24px;height:24px;flex:0 0 24px;border-radius:50%;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.viewerAnswerRadio::before{content:'';width:16px;height:16px;border:1.5px solid #C6C6C9;border-radius:50%}
+/* Selected: 24px raised option with a centered 16px blue circle and white tick. */
+.viewerAnswer.isSelected .viewerAnswerRadio{background:#DFE6E9;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #FFFFFF}
+.viewerAnswer.isSelected .viewerAnswerRadio::before{width:16px;height:16px;background:#2D4CC8;border:1.5px solid #2D4CC8;border-radius:50%}
+.viewerAnswer.isSelected .viewerAnswerRadio::after{content:"";position:absolute;top:8px;left:7px;width:10px;height:6px;border-left:1.5px solid #FFFFFF;border-bottom:1.5px solid #FFFFFF;transform:rotate(-45deg)}
+.viewerAnswer.isCorrect .viewerAnswerRadio,.viewerAnswer.isIncorrect .viewerAnswerRadio{position:relative;box-shadow:4px 4px 4px #C4C4C4,-4px -4px 4px #fff}
+.viewerAnswer.isCorrect .viewerAnswerRadio::before{background:#2A7308;border-color:#2A7308}
+.viewerAnswer.isCorrect .viewerAnswerRadio::after{content:'';position:absolute;left:10px;top:10px;width:8px;height:5px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg)}
+.viewerAnswer.isIncorrect .viewerAnswerRadio::before{background:transparent;border-color:#A91E2C}
+.viewerAnswer.isIncorrect .viewerAnswerRadio::after{content:'×';position:absolute;left:7px;top:5px;color:#A91E2C;font:600 18px/18px 'Segoe UI',Arial,sans-serif}
+.viewerAnswerFeedback{margin-left:auto;font-size:13px;font-weight:600}
+.viewerAnswer.isCorrect .viewerAnswerFeedback{color:#2A7308}
+.viewerAnswer.isIncorrect .viewerAnswerFeedback{color:#A91E2C}
+
+/* Hint and Bloom's Taxonomy retain the supplied card's heights, type and shadows. */
+.viewerHintBox{border-radius:8px;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}
+.viewerHintToggle{display:flex;align-items:center;width:100%;min-height:66px;padding:10px 16px;background:transparent;border:0;text-align:left;cursor:pointer;color:#63560B;font:600 18px 'Segoe UI',Arial,sans-serif}
+.viewerHintTitle{display:flex;align-items:center;gap:14px}
+.viewerHintIcon{display:grid;place-items:center;width:39px;height:39px;flex:0 0 39px;border-radius:50%;border:1px solid #63560B;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}
+.viewerHintTitle small{display:block;margin-top:5px;color:#374151;font-size:14px;font-weight:400;line-height:21px}
+.viewerQuestionSettings{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.viewerQuestionSettings label{display:block;font-size:15px;font-weight:600;margin-bottom:8px}
+.viewerBloomValue{display:block;min-width:175px;max-width:100%;padding:9px 14px;min-height:42px;border-radius:8px;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4}
+.viewerFlagButton{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 16px;min-height:42px;border:0;border-radius:5px;color:#C05512;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4;cursor:pointer;font:600 15px 'Segoe UI',Arial,sans-serif}
+.viewerFlagButton.isFlagged{box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+.viewerFlagButton:disabled{cursor:default;opacity:.6}
+.viewerInlineNotice{margin:0;color:#C05512;font-size:14px;line-height:22px}
+.viewerExamActions{display:flex;align-items:center;justify-content:flex-start;gap:16px;margin-top:auto;padding-top:12px}
+.viewerExamButton{display:flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:10px 18px;border:0;border-radius:30px;background:#DFE6E9;color:#374151;font:600 16px 'Segoe UI',Arial,sans-serif;box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4;cursor:pointer;white-space:nowrap}
+.viewerExamButton:disabled{opacity:.5;cursor:not-allowed}
+.viewerExamActions>.viewerNext{margin-left:auto}
+.viewerExamButton.viewerNext{color:#2A7308;border:1px solid #2A7308}
+
+/* Right-hand question navigator, response counters and tools. */
+.viewerNavigator{display:flex;flex-direction:column;gap:19px;padding:24px 19px}
+.viewerNavigator h2{margin:0;color:#2D4CC8;font-size:18px;line-height:28px;font-weight:700}
+.viewerQuestionTiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 12px}
+.viewerQuestionTile{min-width:0;aspect-ratio:1/1;min-height:38px;border:1px solid #adb5bb;border-radius:5px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;color:#374151;font:600 16px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.viewerQuestionTile.is-answered{border-color:#2A7308;color:#2A7308}
+.viewerQuestionTile.is-flagged,.viewerQuestionTile.is-skipped{border-color:#C05512;color:#C05512}
+.viewerQuestionTile.is-current{border-color:#2D4CC8;color:#2D4CC8;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.viewerStatusRows{display:grid;gap:14px;margin-top:4px}
+.viewerStatusRows>div{display:flex;align-items:center;gap:11px;min-height:44px;padding:8px 12px;border-radius:6px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:15px}
+.viewerStatusRows img{width:22px;height:22px;object-fit:contain}
+.viewerStatusRows strong{margin-left:auto}
+.viewerStatusRows>div:first-child strong{color:#2A7308}
+.viewerStatusRows>div:last-child strong{color:#C05512}
+.viewerRemainingCircle{display:block;flex:0 0 22px;width:22px;height:22px;border:1px solid #C4C4C4;border-radius:50%}
+.viewerToolsHeading{margin-top:8px!important}
+.viewerToolsList{display:grid;gap:13px}
+.viewerToolsList button{display:flex;align-items:center;gap:12px;min-height:42px;width:100%;padding:8px 12px;border:0;border-radius:5px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;text-align:left;font:600 14px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.viewerToolsList button:nth-child(1){color:#005C60}
+.viewerToolsList button:nth-child(2){color:#780A87}
+.viewerToolsList button:nth-child(3){color:#2A7308}
+.viewerToolsList button img{width:22px;height:22px;flex:0 0 22px;object-fit:contain}
+.viewerToolsList button img:last-child{width:18px;height:18px;flex:0 0 18px;margin-left:auto}
+
+/* Responsiveness: desktop proportions remain the same, cards stack on mobile. */
+@media(max-width:1050px){
+  .viewerContent{padding:22px 20px 40px}
+  .viewerExamGrid{grid-template-columns:minmax(0,1fr) 265px;gap:16px}
+  .viewerQuestionCard{padding:18px;min-height:0}
+  .viewerNavigator{padding:18px 12px}
+  .viewerQuestionTiles{gap:9px}
+  .viewerExamActions{flex-wrap:wrap}
+}
+@media(max-width:780px){
+  .viewerExamGrid{grid-template-columns:minmax(0,1fr)}
+  .viewerNavigator{padding:20px}
+  .viewerQuestionTiles{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .viewerExamTop{gap:14px}
+  .viewerQuestionCard{min-height:0}
+  .viewerExamActions{flex-wrap:nowrap}
+}
+@media(max-width:520px){
+  .viewerContent{padding:16px 12px 28px}
+  .viewerExamTop .viewerBreadcrumb{font-size:12px;line-height:20px;gap:5px}
+  .viewerBreadcrumb img{width:15px;height:15px}
+  /* Timer sits on its own centered row on narrow screens, never squeezed beside the breadcrumb. */
+  .viewerExamTop{flex-direction:column;align-items:stretch;gap:12px}
+  .viewerExamClock{align-self:center;flex:none;width:max-content;max-width:100%;margin:0 auto;padding:11px 14px;gap:7px}
+  .viewerTimeGroup{gap:6px}
+  .viewerTimeColon{font-size:19px;margin-inline:3px}
+  .viewerPageHeading h1{font-size:20px;line-height:28px}
+  .viewerQuestionCard,.viewerNavigator{padding:14px}
+  .viewerQuestionCard{gap:17px}
+  .viewerQuestionHeading p{font-size:14px;line-height:22px}
+  .viewerAnswer{font-size:14px;line-height:22px}
+  .viewerQuestionTiles{gap:8px}
+  .viewerQuestionTile{min-height:38px}
+  .viewerQuestionSettings{align-items:flex-start}
+  .viewerFlagButton{font-size:13px}
+  .viewerExamActions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .viewerExamActions .viewerExamButton{min-height:44px;padding:8px;font-size:12px;gap:6px}
+  .viewerExamActions>.viewerExamButton:first-child{grid-column:1}
+  .viewerExamActions>.viewerNext{grid-column:2;margin-left:0}
+  .viewerTimeDigit{width:clamp(24px,7.4vw,28px);height:32px;font-size:17px}
+}
+@media(max-width:360px){
+  .viewerExamClock{padding:9px 10px;gap:5px}
+  .viewerTimeGroup{gap:4px}
+  .viewerTimeColon{font-size:17px;margin-inline:2px}
+  .viewerTimeDigit{width:23px;height:29px;font-size:15px}
+  .viewerStatusRows>div{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){.viewerProgressTrack span{transition:none}}
+
+
+/* Image sequencing only: existing dashboard header/sidebar/navigator untouched. */
+.viewImageSequenceApp .viewerExamGrid{grid-template-columns:minmax(0,740px) minmax(0,328px);gap:24px}
+.viewImageSequenceApp .viewerQuestionCard{min-height:860px;gap:21px}
+.viewImageSequenceApp .viewerQuestionHeading h2{margin-bottom:7px}
+.viewImageSequenceApp .viewerQuestionHeading p{font-weight:600;font-size:18px}
+.viewImageSequenceApp .seq-list{display:flex;flex-direction:column;gap:16px;width:100%;min-width:0}
+.viewImageSequenceApp .seq-row{display:grid;grid-template-columns:114px minmax(0,1fr) 76px 76px;gap:16px;align-items:stretch;min-width:0}
+.viewImageSequenceApp .seq-image-tile{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0;height:68px;padding:9px 10px 9px 14px;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #FFF,inset 4px 4px 4px #C4C4C4}
+.viewImageSequenceApp .seq-letter{flex:none;color:#374151;font-size:17px;line-height:24px}
+.viewImageSequenceApp .seq-image-frame{display:grid;place-items:center;width:50px;height:50px;flex:0 0 50px;padding:6px;border-radius:6px;background:#DFE6E9;box-shadow:-3px -3px 4px #FFF,3px 3px 4px #C4C4C4;overflow:hidden}
+.viewImageSequenceApp .seq-image-frame img{display:block;max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain}
+.viewImageSequenceApp .seq-image-placeholder{font-size:10px;color:#6B7280;text-align:center}
+.viewImageSequenceApp .seq-text-tile{display:flex;align-items:center;min-width:0;min-height:68px;padding:10px 21px;color:#374151;font-size:15px;line-height:22px;background:#DFE6E9;border-radius:8px;box-shadow:inset -4px -4px 4px #FFF,inset 4px 4px 4px #C4C4C4;overflow-wrap:anywhere}
+.viewImageSequenceApp .seq-arrow-btn{display:grid;place-items:center;min-width:0;width:76px;height:68px;padding:8px;border:0;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #FFF,inset 4px 4px 4px #C4C4C4;cursor:pointer}
+.viewImageSequenceApp .seq-arrow-btn img{display:block;object-fit:contain;width:28px;height:28px;min-width:0;min-height:0;padding:7px;border-radius:6px;box-sizing:content-box;background:#DFE6E9;box-shadow:-3px -3px 4px #FFF,3px 3px 4px #C4C4C4}
+.viewImageSequenceApp .seq-arrow-btn:active:not(:disabled) img{box-shadow:inset -2px -2px 3px #FFF,inset 2px 2px 3px #C4C4C4}
+.viewImageSequenceApp .seq-arrow-btn:disabled{cursor:default;opacity:1;filter:none}
+.viewImageSequenceApp .seq-arrow-btn:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+.viewImageSequenceApp .viewerHintToggle{justify-content:space-between}
+.viewImageSequenceApp .seq-hint-eye{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#DFE6E9;box-shadow:-3px -3px 4px #FFF,3px 3px 4px #C4C4C4}
+.viewImageSequenceApp .seq-hint-eye img{width:20px;height:20px;object-fit:contain}
+.viewImageSequenceApp .viewerQuestionCard .viewerExamActions{margin-top:auto;margin-bottom:10px}
+.viewImageSequenceApp .viewerExamActions>.viewerNext{margin-left:auto}
+/* Navigation: current blue, in progress orange, complete green, pending neutral. */
+.viewImageSequenceApp .viewerQuestionTile.is-current{border-color:#2D4CC8;color:#2D4CC8;box-shadow:inset -2px -2px 2px #FFF,inset 2px 2px 2px #C4C4C4}
+.viewImageSequenceApp .viewerQuestionTile.is-answered{border-color:#2A7308;color:#2A7308}
+.viewImageSequenceApp .viewerQuestionTile.is-progress{border-color:#CB5F14;color:#CB5F14}
+.viewImageSequenceApp .viewerQuestionTile.is-pending{border-color:#ADB5BB;color:#374151}
+@media(max-width:1150px){.viewImageSequenceApp .viewerExamGrid{grid-template-columns:minmax(0,1fr) 270px;gap:16px}.viewImageSequenceApp .seq-row{grid-template-columns:98px minmax(0,1fr) 56px 56px;gap:10px}.viewImageSequenceApp .seq-arrow-btn{width:56px}}
+@media(max-width:960px){.viewImageSequenceApp .viewerExamGrid{grid-template-columns:minmax(0,1fr)}.viewImageSequenceApp .viewerQuestionCard{min-height:0}}
+@media(max-width:780px){.viewImageSequenceApp .dashboardLayout > :first-child:not(.viewerMain){display:none}}
+@media(max-width:600px){
+ .viewImageSequenceApp .viewerQuestionCard{padding:14px;gap:17px}
+ .viewImageSequenceApp .viewerQuestionHeading p{font-size:14px}
+ .viewImageSequenceApp .seq-list{gap:12px}
+ .viewImageSequenceApp .seq-row{grid-template-columns:76px minmax(0,1fr) 42px 42px;gap:7px}
+ .viewImageSequenceApp .seq-image-tile{height:60px;gap:3px;padding:7px 5px}
+ .viewImageSequenceApp .seq-letter{font-size:12px}
+ .viewImageSequenceApp .seq-image-frame{width:38px;height:38px;flex-basis:38px;padding:4px}
+ .viewImageSequenceApp .seq-text-tile{min-height:60px;padding:7px 9px;font-size:12px;line-height:18px}
+ .viewImageSequenceApp .seq-arrow-btn{width:42px;height:60px;padding:5px}
+ .viewImageSequenceApp .seq-arrow-btn img{width:17px;height:17px;padding:6px}
+ .viewImageSequenceApp .viewerExamActions{display:flex;flex-wrap:wrap;justify-content:space-between}
+ .viewImageSequenceApp .viewerExamButton{flex:1 1 110px;font-size:12px;min-width:0;padding:9px 8px;gap:6px}
+}
+@media(max-width:370px){.viewImageSequenceApp .seq-row{grid-template-columns:62px minmax(0,1fr) 36px 36px;gap:5px}.viewImageSequenceApp .seq-image-frame{width:30px;height:30px;flex-basis:30px}.viewImageSequenceApp .seq-arrow-btn{width:36px}.viewImageSequenceApp .seq-arrow-btn img{width:15px;height:15px;padding:4px}.viewImageSequenceApp .seq-text-tile{font-size:11px;padding:6px}}
+
+/* Boundary arrows remain visible at full strength (first Up / last Down are no-op).
+   Keep the original artwork and shadows; never fade the SVG at the row ends. */
+.viewImageSequenceApp .seq-arrow-btn:disabled img{opacity:1;filter:none}
+
+/* Sequencing: active rearrange arrows remain legible, boundary arrows are clearly unavailable.
+   Reuse the original Figma-sized raised/inset tiles without changing other viewers. */
+.viewImageSequenceApp .seq-arrow-btn:not(:disabled){cursor:pointer;opacity:1;filter:none}
+.viewImageSequenceApp .seq-arrow-btn:not(:disabled) img{opacity:1;filter:none}
+.viewImageSequenceApp .seq-arrow-btn:disabled{cursor:not-allowed;opacity:.62}
+.viewImageSequenceApp .seq-arrow-btn:disabled img{opacity:.75}
+.viewImageSequenceApp .seq-arrow-btn:hover:not(:disabled) img{box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4}

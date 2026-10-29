@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import ImageBasedViewer from "@/modules/assessments/components/type-specific/image-based/Viewer";
+import ImageAssessmentInstructions from "@/modules/assessments/components/type-specific/image-based/ImageAssessmentInstructions";
+import ConnectDotsAssessmentInstructions from "@/modules/assessments/components/type-specific/connect-the-dots/Instructions";
 import MatchViewer from "@/modules/assessments/components/type-specific/match-the-following/Viewer";
+import ConnectDotsViewer from "@/modules/assessments/components/type-specific/connect-the-dots/Viewer";
 import MemoryViewer from "@/modules/assessments/components/type-specific/memory-game/Viewer";
 import Screen from "@/modules/assessments/components/viewer/AssessmentViewer/AssessmentViewer";
 import ShortViewer from "@/modules/assessments/components/type-specific/short-answer/Viewer";
@@ -24,6 +27,8 @@ export default function PageClient() {
 
   const router = useRouter();
   const [ready, setReady] = useState(false);
+  const [imageInstructionsNeeded, setImageInstructionsNeeded] = useState(false);
+  const [connectDotsInstructionsNeeded, setConnectDotsInstructionsNeeded] = useState(false);
 
   const isPreview =
     typeof window !== "undefined" &&
@@ -62,6 +67,34 @@ export default function PageClient() {
     }
 
     setActiveAssessmentId(assessmentId);
+    if (record.typeCode === "image-based" && !isPreview) {
+      const params = new URLSearchParams(window.location.search);
+      const instructionKey = `neurolxp.imageViewer.instructions.${assessmentId}`;
+      let acceptedBefore = false;
+      try { acceptedBefore = sessionStorage.getItem(instructionKey) === "accepted"; }
+      catch { /* private browsing: show instructions */ }
+      let completedMatching = false;
+      try { completedMatching = sessionStorage.getItem(`neurolxp.imageViewer.matching.finished.${assessmentId}`) === "1"; }
+      catch { /* Private browsing: no persisted completion marker. */ }
+      setImageInstructionsNeeded(params.get("instructions") === "1" || params.get("retry") === "wrong" || !acceptedBefore || completedMatching);
+    } else {
+      setImageInstructionsNeeded(false);
+    }
+    // Connect the Dots uses the SAME instruction-first flow as the other assessments.
+    // Its own session key prevents accepting instructions for one assessment from
+    // accidentally skipping them on another assessment.
+    if (record.typeCode === "connect-the-dots" && !isPreview) {
+      const params = new URLSearchParams(window.location.search);
+      let acceptedBefore = false;
+      try {
+        acceptedBefore = sessionStorage.getItem(`neurolxp.connectDotsViewer.instructions.${assessmentId}`) === "accepted";
+      } catch { /* Show instructions when session storage is disabled. */ }
+      setConnectDotsInstructionsNeeded(
+        params.get("instructions") === "1" || params.get("retry") === "wrong" || !acceptedBefore
+      );
+    } else {
+      setConnectDotsInstructionsNeeded(false);
+    }
     setReady(true);
   }, [assessmentId, isPreview, router]);
 
@@ -74,6 +107,8 @@ export default function PageClient() {
       ? ImageBasedViewer
       : type === "match-the-following"
       ? MatchViewer
+      : type === "connect-the-dots"
+      ? ConnectDotsViewer
       : type === "memory-game"
       ? MemoryViewer
       : type === "short-answer"
@@ -84,6 +119,38 @@ export default function PageClient() {
 
   if (!ready || !type) {
     return null;
+  }
+
+  if (type === "image-based" && imageInstructionsNeeded) {
+    return <div className="assessment-variant assessment-variant--image-based">
+      <ImageAssessmentInstructions assessmentId={assessmentId} onStart={() => {
+        try {
+          sessionStorage.setItem(`neurolxp.imageViewer.instructions.${assessmentId}`, "accepted");
+          // Explicitly starting the test creates a new Image Matching attempt.
+          // Other image viewers ignore this marker and remain unchanged.
+          sessionStorage.setItem(`neurolxp.imageViewer.matching.run.${assessmentId}`, String(Date.now()));
+          sessionStorage.removeItem(`neurolxp.imageViewer.matching.finished.${assessmentId}`);
+        } catch { /* continue in this tab */ }
+        const url = new URL(window.location.href);
+        url.searchParams.delete("instructions");
+        window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+        setImageInstructionsNeeded(false);
+      }} />
+    </div>;
+  }
+
+  if (type === "connect-the-dots" && connectDotsInstructionsNeeded) {
+    return <div className="assessment-variant assessment-variant--connect-the-dots">
+      <ConnectDotsAssessmentInstructions assessmentId={assessmentId} onStart={() => {
+        try {
+          sessionStorage.setItem(`neurolxp.connectDotsViewer.instructions.${assessmentId}`, "accepted");
+        } catch { /* Continue without session storage. */ }
+        const url = new URL(window.location.href);
+        url.searchParams.delete("instructions");
+        window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+        setConnectDotsInstructionsNeeded(false);
+      }} />
+    </div>;
   }
 
   return (

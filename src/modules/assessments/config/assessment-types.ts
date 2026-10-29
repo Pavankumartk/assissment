@@ -2,6 +2,7 @@
 export type AssessmentTypeGroup = {heading:string;items:string[]};
 export type AssessmentTypeDefinition = { code:string; label:string; category:string; implemented:boolean };
 export const DEFAULT_ASSESSMENT_TYPES: AssessmentTypeDefinition[] = [
+ {code:"connect-the-dots",label:"Connect the Dots",category:"Interactive Assessments",implemented:true},
  {code:"true-false",label:"True / False",category:"Academic assessment",implemented:true},
  {code:"fill-in-the-blanks",label:"Fill in the Blank",category:"Academic assessment",implemented:true},
  {code:"long-answer",label:"Long Answer / Essay",category:"Academic assessment",implemented:true},

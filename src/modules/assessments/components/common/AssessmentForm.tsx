@@ -33,9 +33,11 @@ import DragContent from "../type-specific/drag-and-drop/Content";
 import MemoryDetails from "../type-specific/memory-game/Details";
 import MemoryContent from "../type-specific/memory-game/Content";
 import MatchContent from "../type-specific/match-the-following/Content";
+import ConnectDotsContent from "../type-specific/connect-the-dots/Content";
 import MatchReview from "../type-specific/match-the-following/Review";
 import ImageContent from "../type-specific/image-based/Content";
 import ImageReview from "../type-specific/image-based/Review";
+import AssessmentContentEntry from "./AssessmentContentEntry";
 
 /** A single shared Creator for every assessment type (no MCQ-only routes). */
 export type AssessmentFormStep = "details" | "content" | "evaluation" | "review";
@@ -54,6 +56,7 @@ const TYPE_STEPS = {
  "short-answer": { details:ShortDetails, content:ShortContent, evaluation:ShortEvaluation, review:ShortReview },
  "one-word": { details:OneDetails, content:OneContent, evaluation:OneEvaluation, review:OneReview },
  "match-the-following": { details:DetailsStep, content:MatchContent, evaluation:EvaluationStep, review:MatchReview },
+ "connect-the-dots": { details:DetailsStep, content:ConnectDotsContent, evaluation:EvaluationStep, review:ReviewStep },
  "image-based": {details:DetailsStep, content:ImageContent, evaluation:EvaluationStep, review:ImageReview},
 };
 export default function AssessmentForm({ step }: { step: AssessmentFormStep }) {
@@ -73,11 +76,16 @@ export default function AssessmentForm({ step }: { step: AssessmentFormStep }) {
       if (name === "type") router.push("/assessments/create");
       else if (["details","content","evaluation","review"].includes(name)) router.push(`/assessments/create/${name}`);
     };
-    window.addEventListener("one-word-step",onWizardStep);
-    return () => window.removeEventListener("one-word-step",onWizardStep);
+    // Different creators use either direct router navigation or their step event.
+    // Accept each existing event without changing any creator page's CSS/markup.
+    const stepEvents = ["one-word-step", "assessment-step", "drag-and-drop-step", "memory-game-step"] as const;
+    stepEvents.forEach(name => window.addEventListener(name,onWizardStep));
+    return () => stepEvents.forEach(name => window.removeEventListener(name,onWizardStep));
   }, [router]);
   if (!typeCode) return null;
   const configured = TYPE_STEPS[typeCode as keyof typeof TYPE_STEPS];
-  const Screen = configured ? configured[step] : STEPS[step];
-  return <div className={`assessment-variant assessment-variant--${typeCode}`}><Screen /></div>;
+  // Reuse the existing Figma Review page for every assessment type.
+  // Keep type-specific Details, Content and Evaluation screens unchanged.
+  const Screen = step === "review" ? ReviewStep : configured ? configured[step] : STEPS[step];
+  return <div className={`assessment-variant assessment-variant--${typeCode}`}>{step === "content" && typeCode !== "mcq" ? <AssessmentContentEntry typeCode={typeCode} Editor={Screen} /> : <Screen />}</div>;
 }

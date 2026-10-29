@@ -3,10 +3,26 @@ import { assessmentStorage } from "@/modules/assessments/storage/assessment-stor
 export const IMAGE_CONTENT_KEY = "imageBasedContentDraft";
 export const IMAGE_RESULT_KEY = "imageBasedViewerResult";
 export type ImageMatchPair = { text: string; image: string };
-export type ImageSubtype = "multiple-choice" | "image-matching";
+export type ImageSubtype = "multiple-choice" | "image-matching" | "image-labeling" | "image-dropdown" | "image-sequencing" | "image-sorting";
+export type ImageSortingItem = { id:string; image:string; text:string; group:string };
+export const newSortingItem = ():ImageSortingItem => ({ id: typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`, image:"", text:"", group:"" });
+export type ImageSequenceStep = { id: string; image: string; text: string };
+export const newSequenceStep = (): ImageSequenceStep => ({ id: typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`, image: "", text: "" });
+export type ImageDropdownChoice = { id: string; text: string; correct: boolean };
+export type ImageDropdownSpot = { id: string; x: number; y: number; choices: ImageDropdownChoice[] };
+const makeId = () => typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
+export const newDropdownChoice = (text = "", correct = false): ImageDropdownChoice => ({ id: makeId(), text, correct });
+export const newDropdownSpot = (x: number, y: number): ImageDropdownSpot => ({ id: makeId(), x, y, choices: [newDropdownChoice(), newDropdownChoice()] });
+/** Percentage coordinates keep pin positions correct when the diagram resizes. */
+export type ImageLabelPin = { id: string; label: string; x: number; y: number };
+export const newLabelPin = (x: number, y: number): ImageLabelPin => ({
+  id: typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
+  label: "", x, y,
+});
 export type ImageOption = { text: string; image: string; explanation?: string };
 export type ImageQuestion = {
   id: string; text: string; image: string; options: ImageOption[]; correct: number;
+  galleryImages?: string[]; // Image-Based MCQ: 4 uploaded image slots; image remains the selected picture.
   points: number; difficulty: string; category: string; bloom: string;
   tags: string[]; mandatory: boolean; grading: string;
   feedback: string; hint: string; explanation: string;
@@ -15,6 +31,10 @@ export type ImageQuestion = {
   feedbackFull?: string; feedbackPartial?: string; feedbackZero?: string;
   showHintBefore?: boolean; allowHintRequest?: boolean;
   subtype?: ImageSubtype; matchPairs?: ImageMatchPair[]; matchExtras?: string[]; shuffleTexts?: boolean;
+  labelPins?: ImageLabelPin[]; labelExtras?: string[]; shuffleLabels?: boolean;
+  dropdownSpots?: ImageDropdownSpot[]; shuffleDropdowns?: boolean;
+  sequenceSteps?: ImageSequenceStep[]; shuffleSteps?: boolean;
+  sortingItems?: ImageSortingItem[]; sortingGroups?: string[]; shuffleSorting?: boolean;
 };
 export type ImageDraft = { questions: ImageQuestion[]; active: number; savedAt?: string };
 export const newImageQuestion = (): ImageQuestion => ({
@@ -32,6 +52,48 @@ export function imageCorrectIndices(q: ImageQuestion): number[] {
   return q.correct >= 0 && q.correct < q.options.length ? [q.correct] : [];
 }
 export function imageQuestionValid(q: ImageQuestion): boolean {
+  if (q.subtype === "image-sorting") {
+    if (!q.text?.trim() || !Number.isFinite(q.points) || q.points <= 0) return false;
+    const groups=q.sortingGroups||["Hardware","Software"];
+    if (groups.length < 2 || groups.length>4 || groups.some(g=>!g.trim())) return false;
+    if (new Set(groups.map(g=>g.trim().toLowerCase())).size!==groups.length) return false;
+    const items=q.sortingItems||[];
+    if (items.length < 2 || items.length>6) return false;
+    if (!items.every(item=>item.id && item.image && item.text?.trim() && groups.includes(item.group))) return false;
+    return new Set(items.map(item=>item.id)).size===items.length && new Set(items.map(item=>item.text.trim().toLowerCase())).size===items.length;
+  }
+  if (q.subtype === "image-sequencing") {
+    if (!q.text?.trim() || !Number.isFinite(q.points) || q.points <= 0) return false;
+    const steps = q.sequenceSteps || [];
+    if (steps.length < 2 || steps.length > 6) return false;
+    if (!steps.every(step => step.id && step.text?.trim() && step.image)) return false;
+    const ids = steps.map(step=>step.id);
+    const names = steps.map(step=>step.text.trim().toLowerCase());
+    return new Set(ids).size === steps.length && new Set(names).size === steps.length;
+  }
+  if (q.subtype === "image-dropdown") {
+    if (!q.text?.trim() || !q.image || !Number.isFinite(q.points) || q.points <= 0) return false;
+    const spots = q.dropdownSpots || [];
+    if (spots.length < 1 || spots.length > 5) return false;
+    const ids = spots.map(spot => spot.id);
+    if (new Set(ids).size !== ids.length) return false;
+    return spots.every(spot => {
+      if (![spot.x, spot.y].every(Number.isFinite) || spot.x < 0 || spot.x > 100 || spot.y < 0 || spot.y > 100) return false;
+      if (!Array.isArray(spot.choices) || spot.choices.length < 2 || spot.choices.length > 6) return false;
+      if (spot.choices.filter(choice => choice.correct).length !== 1 || spot.choices.some(choice => !choice.text?.trim())) return false;
+      const words = spot.choices.map(choice => choice.text.trim().toLowerCase());
+      return new Set(words).size === words.length;
+    });
+  }
+  if (q.subtype === "image-labeling") {
+    if (!q.text?.trim() || !q.image || !Number.isFinite(q.points) || q.points <= 0) return false;
+    const pins = q.labelPins || [];
+    if (pins.length < 2 || pins.length > 6) return false;
+    if (!pins.every(pin => pin.label?.trim() && Number.isFinite(pin.x) && Number.isFinite(pin.y) && pin.x >= 0 && pin.x <= 100 && pin.y >= 0 && pin.y <= 100)) return false;
+    if ((q.labelExtras || []).length > 6 || (q.labelExtras || []).some(s => !s.trim())) return false;
+    const labels = [...pins.map(pin => pin.label.trim().toLocaleLowerCase()), ...(q.labelExtras || []).map(s => s.trim().toLocaleLowerCase())];
+    return new Set(labels).size === labels.length;
+  }
   if (q.subtype === "image-matching") {
     if (!q.text?.trim() || !Number.isFinite(q.points) || q.points <= 0) return false;
     const rows = q.matchPairs || [];
@@ -63,6 +125,10 @@ export function imageGrade(q: ImageQuestion, response: number[]): number {
   return q.minimumZero === false ? -penalty : Math.max(0, -penalty);
 }
 export function imageQuestionStarted(q: ImageQuestion): boolean {
+  if (q.subtype === "image-sorting") return Boolean(q.text?.trim() || q.sortingItems?.some(item=>item.text?.trim() || item.image || item.group));
+  if (q.subtype === "image-sequencing") return Boolean(q.text?.trim() || q.image || q.sequenceSteps?.some(step => step.text?.trim() || step.image));
+  if (q.subtype === "image-dropdown") return Boolean(q.text?.trim() || q.image || q.dropdownSpots?.length);
+  if (q.subtype === "image-labeling") return Boolean(q.text?.trim() || q.image || q.labelPins?.length || q.labelExtras?.some(Boolean));
   if (q.subtype === "image-matching") return Boolean(q.text.trim() || q.matchPairs?.some(x => x.text.trim() || x.image) || q.matchExtras?.some(Boolean));
   return Boolean(q.text.trim() || q.image || q.options.some(x => x.text.trim() || x.image));
 }

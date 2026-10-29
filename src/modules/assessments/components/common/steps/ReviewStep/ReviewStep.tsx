@@ -1,7 +1,8 @@
 "use client";
 import WizardStepLink from "@/modules/assessments/components/common/WizardStepLink";
 import {validateMcqDetails,validateMcqQuestions} from "@/modules/assessments/validation/mcq-validation";
-import { assessmentStorage,updateAssessment } from "@/modules/assessments/storage/assessment-storage";
+import { assessmentStorage,updateAssessment,getActiveAssessmentId,getAssessment } from "@/modules/assessments/storage/assessment-storage";
+import { getAssessmentAdapter } from "@/modules/assessments/config/component-registry";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,7 +12,7 @@ import Header from "../../header/Header";
 import "./review.css";
 
 type Dict = Record<string, unknown>;
-type ReviewQuestion = { text?: string; points?: string | number; correct?: number; blankCorrect?: number[]; options?: string[]; difficulty?: string; bloom?: string; mandatory?: boolean };
+type ReviewQuestion = { text?: string; question?: string; label?: string; title?: string; points?: string | number; correct?: number; options?: string[]; difficulty?: string; bloom?: string; mandatory?: boolean };
 const ROOT = "/assets/assessmenticons/";
 const STEPS = ["Type", "Details", "Content", "Evaluation", "Review"];
 const DEFAULT_LEARNERS = [
@@ -32,70 +33,41 @@ function ReadSetting({ label, value }: { label: string; value: React.ReactNode }
 function ReadSwitch({ label, on }: { label: string; on: boolean }) { return <ReadSetting label={label} value={<ReviewSwitch enabled={on} />} />; }
 function InnerCard({ heading, icon, children }: { heading: string; icon: string; children: React.ReactNode }) { return <section className="reviewInnerCard"><h3><span className="reviewSmallIcon"><Asset name={icon} size={18}/></span>{heading}</h3><div className="reviewInnerRows">{children}</div></section>; }
 function ReviewSection({ number, title, icon, editRoute, children }: { number: number; title: string; icon: string; editRoute: string; children: React.ReactNode }) { return <section className="reviewSection"><div className="reviewSectionHead"><div className="reviewSectionTitle"><span className="reviewNumber"><Asset name={icon} size={20}/></span><strong>{number}. {title}</strong></div><Link className="reviewEdit" href={editRoute}><Asset name="editbig.svg" size={24}/>Edit</Link></div><div className="reviewSectionBody">{children}</div></section>; }
-export default function MCQReviewPage({ detailsKey = "mcqAssessmentDraft", contentKey = "mcqContentDraft", evaluationKey = "mcqAssessmentEvaluationDraft", fillBlanks = false, trueFalse = false, dragAndDrop = false, memoryGame = false }: { detailsKey?: string; contentKey?: string; evaluationKey?: string; fillBlanks?: boolean; trueFalse?: boolean; dragAndDrop?: boolean; memoryGame?: boolean } = {}) {
+type ReviewPageProps = {
+  detailsKey?: string;
+  contentKey?: string;
+  evaluationKey?: string;
+  dragAndDrop?: boolean;
+  fillBlanks?: boolean;
+  memoryGame?: boolean;
+  trueFalse?: boolean;
+};
+export default function MCQReviewPage({detailsKey,contentKey,evaluationKey}:ReviewPageProps = {}) {
   const router = useRouter();
   const [publishError,setPublishError]=useState("");
+  const [activeType,setActiveType] = useState("mcq");
+  const [typeLabel,setTypeLabel] = useState("MCQ");
+  const [activeTitle,setActiveTitle] = useState("");
+  const [activeCourse,setActiveCourse] = useState("");
+  const [activeTotal,setActiveTotal] = useState(0);
   const publish=()=>{
-    const validDetails=validateMcqDetails(details);
-    if(validDetails.ok===false){setPublishError(validDetails.message);return;}
-    if(memoryGame){
-      const expected=Number(details.questionCount);
-      const memoryQuestions=questions as (typeof questions[number] & {pairs?:{id?:string;left?:string;right?:string;leftImage?:string;rightImage?:string}[]})[];
-      const countValid=expected>0&&memoryQuestions.length===expected&&memoryQuestions.every(q=>{
-        const pairs=Array.isArray(q.pairs)?q.pairs:[];
-        return Boolean(q.text?.trim()) && pairs.length>=2 && pairs.every(p=>(Boolean(p.left?.trim())||Boolean(p.leftImage))&&(Boolean(p.right?.trim())||Boolean(p.rightImage))) && Number(q.points)>0;
-      });
-      const sum=memoryQuestions.reduce((total,q)=>total+Number(q.points||0),0);
-      if(!countValid || (Number(details.totalMarks)>0&&Math.abs(sum-Number(details.totalMarks))>0.001)){
-        setPublishError(`Complete all ${expected||"configured"} Memory Game questions, match at least two card pairs per question, and confirm the total marks before publishing.`);
-        return;
-      }
-    }else if(dragAndDrop){
-      const expected=Number(details.questionCount);
-      const zones=(text:string)=>[...new Set([...text.matchAll(/\[\[(\d+)\]\]/g)].map(m=>m[1]))];
-      const valid=expected>0&&questions.length===expected&&questions.every(q=>{
-        const row=q as typeof q & {items?:{id:string;text:string;role:string}[];mapping?:Record<string,string>};
-        const ids=zones(String(q.text||""));
-        const items=Array.isArray(row.items)?row.items:[];
-        return Boolean(row.text?.trim())&&ids.length>0&&items.length>=2&&items.every(item=>Boolean(item.text?.trim()))&&
-          ids.every(id=>items.some(item=>item.id===row.mapping?.[id]&&item.role==="Correct"))&&Number(q.points)>0;
-      });
-      const marks=questions.reduce((sum,q)=>sum+Number(q.points||0),0);
-      if(!valid || (Number(details.totalMarks)>0&&Math.abs(marks-Number(details.totalMarks))>0.001)){
-        setPublishError(`Complete all ${expected||"configured"} Drag & Drop questions and map each drop zone before publishing.`);
-        return;
-      }
-    }else if(fillBlanks){
-      const count = Number(details.questionCount);
-      const valid = questions.length === count && questions.every(q => {
-        const text = String(q.text || "");
-        const blanks = text.match(/_{3,}|\[\[blank\]\]|\{\{blank\}\}/gi) || [];
-        const options = Array.isArray(q.options) ? q.options : [];
-        const indices = Array.isArray(q.blankCorrect) ? q.blankCorrect : [];
-        return blanks.length > 0 && options.filter(o => o.trim()).length >= 2 &&
-          blanks.every((_,i) => Number.isInteger(indices[i]) && options[indices[i]]?.trim()) && Number(q.points)>0;
-      });
-      if(!valid){setPublishError(`Complete and save all ${count} Fill in the Blanks questions before publishing.`);return;}
-    }else if(trueFalse){
-      const expected = Number(details.questionCount);
-      const configuredMarks = Number(details.totalMarks);
-      const savedMarks = questions.reduce((sum,q)=>sum+Number(q.points||0),0);
-      const valid = Number.isInteger(expected) && expected>0 && questions.length === expected &&
-        questions.every(q => {
-          const options = Array.isArray(q.options) ? q.options : [];
-          const correct = Number(q.correct);
-          return Boolean(q.text?.trim()) && q.text!.trim().length<=250 &&
-            options.length>=2 && options[0]?.trim().toLowerCase()==="true" && options[1]?.trim().toLowerCase()==="false" &&
-            options.every(o=>typeof o==="string" && Boolean(o.trim())) &&
-            Number.isInteger(correct) && correct>=0 && correct<options.length && Number(q.points)>0;
-        }) && (!Number.isFinite(configuredMarks)||configuredMarks<=0||Math.abs(savedMarks-configuredMarks)<0.001);
-      if(!valid){setPublishError(`Complete all ${expected || "configured"} True / False questions, their correct answers and marks before publishing.`);return;}
-    }else{
+    const record=getAssessment(getActiveAssessmentId()||"");
+    if (!record || record.typeCode !== activeType) {setPublishError("Choose the assessment you are creating before publishing.");return;}
+    if(activeType==="mcq"){
+      const validDetails=validateMcqDetails(details);
+      if(validDetails.ok===false){setPublishError(validDetails.message);return;}
       const validQuestions=validateMcqQuestions(questions,Number(details.questionCount??20),Number(details.totalMarks??20));
       if(validQuestions.ok===false){setPublishError(validQuestions.message);return;}
+    } else {
+      // The Drag & Drop / Memory Game creator persists questions in its own draft.
+      // Never publish an empty draft by applying MCQ-only validation to these types.
+      if (!questions.length) {setPublishError(`Save the ${typeLabel} questions in Content before publishing.`);return;}
+      const configuredCount=Number(details.questionCount || details.questions || 0);
+      if(configuredCount>0 && questions.length<configuredCount){setPublishError(`Save all ${configuredCount} questions before publishing.`);return;}
     }
-    updateAssessment({title,course,questions:questions.length,marks:Number(total)||0,status:"Published"});
-    router.push("/assessments/create");
+    const publishedMarks=questions.reduce((sum,q)=>sum+(Number(q.points)||0),0);
+    updateAssessment({title:activeTitle||title,course:activeCourse||course,questions:questions.length,marks:publishedMarks||activeTotal||Number(total)||0,status:"Published"});
+    router.push("/assessments");
   };
   const [details, setDetails] = useState<Dict>({});
   const [evaluation, setEvaluation] = useState<Dict>({});
@@ -103,22 +75,34 @@ export default function MCQReviewPage({ detailsKey = "mcqAssessmentDraft", conte
   const [content, setContent] = useState<Dict>({});
   useEffect(() => {
     const read = (key: string): Dict => { try { return JSON.parse(assessmentStorage.getItem(key) || "{}") as Dict; } catch { return {}; } };
-    const a = read(detailsKey); const c = read(contentKey);
-    setDetails(a); setEvaluation(read(evaluationKey)); setContent(c);
-    if (Array.isArray(c.questions)) setQuestions(c.questions as ReviewQuestion[]);
+    const record=getAssessment(getActiveAssessmentId()||"");
+    const type=record?.typeCode || "mcq";
+    const adapter=getAssessmentAdapter(type);
+    const a=read(detailsKey || adapter?.draftKeys.details || "mcqAssessmentDraft");
+    const c=read(contentKey || adapter?.draftKeys.content || "mcqContentDraft");
+    setActiveType(type);
+    setTypeLabel(record?.typeLabel || (type === "mcq" ? "MCQ" : type));
+    setActiveTitle(record?.title || "");
+    setActiveCourse(record?.course || "");
+    setActiveTotal(Number(record?.marks)||0);
+    setDetails(a);setEvaluation(read(evaluationKey || adapter?.draftKeys.evaluation || "mcqAssessmentEvaluationDraft"));setContent(c);
+    if(Array.isArray(c.questions))setQuestions(c.questions as ReviewQuestion[]);
+    else if(Array.isArray(c.items))setQuestions(c.items as ReviewQuestion[]);
+    else if(Array.isArray(c.cards))setQuestions(c.cards as ReviewQuestion[]);
+    else setQuestions([]);
   }, []);
-  const total = get(details, ["totalMarks"], "40");
-  const count = get(details, ["questionCount"], "20");
+  const total = get(details, ["totalMarks"], activeTotal ? String(activeTotal) : "40");
+  const count = get(details, ["questionCount"], questions.length ? String(questions.length) : "20");
   const mark = get(details, ["marksPerQuestion"], "1");
   const pass = get(details, ["passingScore", "gradeToPass"], get(evaluation, ["passingScore"], "60"));
   const passNumber = Number(pass.replace(/[^0-9.]/g, ""));
   const passingMarks = Number.isFinite(passNumber) ? `${Math.round(Number(total) * passNumber / 100)}/${total}` : "—";
   const duration = get(details, ["duration", "timeLimit"], "30 Minutes");
-  const title = get(details, ["assessmentTitle", "title", "assessmentName"], "Introduction to Artificial Intelligence");
-  const course = get(details, ["course", "courseName"], "Introduction to AI");
+  const title = get(details, ["assessmentTitle", "title", "assessmentName"], activeTitle || "Untitled Assessment");
+  const course = get(details, ["course", "courseName"], activeCourse || "—");
   const learnerRecords = Array.isArray(details.accommodationRows) ? details.accommodationRows as { learner: string; id?: string; extraTime?: string; accommodation?: string }[] : DEFAULT_LEARNERS;
   const totalQuestionMarks = questions.reduce((sum, q) => sum + Number(q.points || 0), 0);
-  const allCorrect = questions.length > 0 && questions.every(q => (fillBlanks ? !!q.blankCorrect?.length && q.blankCorrect.every(i => i >= 0) : (q.correct ?? -1) >= 0) && !!q.text?.trim() && (q.options || []).filter(Boolean).length >= 2);
+  const allCorrect = questions.length > 0 && (activeType !== "mcq" || questions.every(q => (q.correct ?? -1) >= 0 && !!q.text?.trim() && (q.options || []).filter(Boolean).length >= 2));
   const setting = (key: string, fallback = "on") => get(evaluation, [key], fallback);
   const isOn = (key: string, fallback = "on") => boolText(setting(key, fallback));
   return <main className="superAdminPage institutionAdminPage reviewAppShell"><div className="dashboardLayout reviewDashboardLayout"><Sidebar/><section className="mainContent reviewMainContent"><div className="reviewHeaderSlot"><Header/></div><div className="institutionScrollArea reviewScrollArea"><div className="pageContent institutionPageContent reviewPageContent">
@@ -127,7 +111,7 @@ export default function MCQReviewPage({ detailsKey = "mcqAssessmentDraft", conte
     <header className="reviewPageHeading"><h1>Review And Publish</h1><p>Everything Looks Ready ?</p></header>
     <div className="reviewSections">
       <ReviewSection number={1} title="Basic Information" icon="google-doc.svg" editRoute="/assessments/create/details?reviewSection=0"><div className="reviewFieldGrid two">
-        <ReadField label="Assessment Name" value={title}/><ReadField label="Assessment Type" value={get(details,["assessmentType"],"MCQ")}/>
+        <ReadField label="Assessment Name" value={title}/><ReadField label="Assessment Type" value={activeType === "mcq" ? get(details,["assessmentType"],"MCQ") : typeLabel}/>
         <ReadField label="Course" value={course}/><ReadField label="Module/ Unit" value={get(details,["module", "moduleUnit"],"Module 3 - AI Fundamentals")}/>
         <ReadField label="Category / Tags" value={Array.isArray(details.tags) ? details.tags.join(", ") : get(details,["category","tags"],"Artificial Intelligence, Fundamentals")} accent/><ReadField label="Language" value={get(details,["language"],"English")}/>
         <ReadField label="Description / Instructions" value={get(details,["description", "instructions"],"Assess learner understanding of core AI concepts.")} wide/>
@@ -149,7 +133,7 @@ export default function MCQReviewPage({ detailsKey = "mcqAssessmentDraft", conte
         <div className="reviewLearnerArea"><h3>Extra Time / Accommodations</h3><div className="reviewTableWrap"><table><thead><tr><th>Learner</th><th>ID</th><th>Extra Time</th><th>Accommodation</th></tr></thead><tbody>{learnerRecords.length ? learnerRecords.map((row,i)=><tr key={`${row.id || row.learner}-${i}`}><td><span className="reviewLinkText">{row.learner}</span></td><td>{row.id || `S${String(i+1).padStart(3,"0")}`}</td><td>{row.extraTime || "—"}</td><td>{row.accommodation || "—"}</td></tr>) : <tr><td colSpan={4}>No learner accommodations added.</td></tr>}</tbody></table></div></div>
       </ReviewSection>
       <ReviewSection number={5} title="Audience" icon="user-multiple2.svg" editRoute="/assessments/create/details?reviewSection=4"><div className="reviewFieldGrid two"><ReadField label="Who can take this assessment?" value={get(details,["audience", "assignTo", "whoCanTake"],"All enrolled learners")}/><ReadField label="Batch / Cohort" value={get(details,["batch", "batchCohort", "cohort"],"2026 — Batch A")}/><ReadField label="Academic Year" value={get(details,["academicYear"],"2026–2027")}/><ReadField label="Department" value={get(details,["department"],"Computer Science")}/><ReadField label="Section / Class" value={get(details,["section"],"Section A")}/><ReadField label="Excluded Learners" value={get(details,["excludedLearners", "exclusions"],"None")}/><ReadField label="Notify learners when published" value={<ReviewSwitch enabled={boolText((details.toggles as Dict | undefined)?.notifyLearners)}/>}/></div></ReviewSection>
-      <ReviewSection number={6} title="Questions" icon="circle-question-mark.svg" editRoute="/assessments/create/content?reviewEdit=questions"><div className="reviewFieldGrid two"><ReadField label="Total Questions" value={count}/><ReadField label="Marks" value={totalQuestionMarks || total}/><ReadField label="All Answers Verified" value={<span className="reviewStatus"><ReviewTick/>{questions.length ? (allCorrect ? "All Questions Completed" : "Review incomplete questions") : "Question data not saved yet"}</span>}/><ReadField label="Feedback" value={<span className="reviewStatus"><ReviewTick/> {Object.keys(content).length ? "Added" : "Awaiting question data"}</span>}/><ReadField label="Explanation" value={<span className="reviewStatus"><ReviewTick/> {Object.keys(content).length ? "Added" : "Awaiting question data"}</span>}/><ReadField label="Mandatory" value={questions.length ? `${questions.filter(q=>q.mandatory).length}/${questions.length}` : "—"}/><ReadField label="Difficulty" value={<div className="reviewPillGroup">{["Easy","Medium","Hard"].map((level,i)=><span key={level} className="reviewValuePill"><ReviewTick blue/>{questions.filter(q=>q.difficulty===level).length || (questions.length ? "0" : i+1)} {level}</span>)}</div>}/><ReadField label="Bloom's" value={<span className="reviewValuePill"><ReviewTick blue/>{questions[0]?.bloom || "Analyze"}</span>}/></div></ReviewSection>
+      <ReviewSection number={6} title="Questions" icon="circle-question-mark.svg" editRoute="/assessments/create/content?reviewEdit=questions"><div className="reviewFieldGrid two"><ReadField label="Total Questions" value={count}/><ReadField label="Marks" value={totalQuestionMarks || total}/><ReadField label={activeType === "mcq" ? "All Answers Verified" : "Questions Saved"} value={<span className="reviewStatus"><ReviewTick/>{!questions.length ? "Question data not saved yet" : activeType === "mcq" ? (allCorrect ? "All Questions Completed" : "Review incomplete questions") : "Questions saved for review"}</span>}/><ReadField label="Feedback" value={<span className="reviewStatus"><ReviewTick/> {Object.keys(content).length ? "Added" : "Awaiting question data"}</span>}/><ReadField label="Explanation" value={<span className="reviewStatus"><ReviewTick/> {Object.keys(content).length ? "Added" : "Awaiting question data"}</span>}/><ReadField label="Mandatory" value={questions.length ? `${questions.filter(q=>q.mandatory).length}/${questions.length}` : "—"}/><ReadField label="Difficulty" value={<div className="reviewPillGroup">{["Easy","Medium","Hard"].map((level,i)=><span key={level} className="reviewValuePill"><ReviewTick blue/>{questions.filter(q=>q.difficulty===level).length || (questions.length ? "0" : i+1)} {level}</span>)}</div>}/><ReadField label="Bloom's" value={<span className="reviewValuePill"><ReviewTick blue/>{questions[0]?.bloom || "Analyze"}</span>}/></div></ReviewSection>
       <ReviewSection number={7} title="Results" icon="chart.svg" editRoute="/assessments/create/evaluation"><div className="reviewFieldGrid two"><ReadField label="Show Result After Submission" value={<ReviewSwitch enabled={isOn("showResultAfterSubmission", isOn("showResults") ? "on" : "off")}/>}/><ReadField label="Show Score" value={<ReviewSwitch enabled={isOn("showScore")}/>}/><ReadField label="Show Pass/ Fail" value={<ReviewSwitch enabled={isOn("passFail")}/>}/><ReadField label="Show Correct Answers" value={<ReviewSwitch enabled={isOn("showCorrectAnswers")}/>}/><ReadField label="Result Available" value={setting("resultAvailable", "Immediately")}/></div></ReviewSection>
       <ReviewSection number={8} title="Feedback" icon="message-circle-more.svg" editRoute="/assessments/create/evaluation?reviewPanel=feedback"><div className="reviewInnerGrid"><InnerCard heading="ANSWER FEEDBACK" icon="message-circle-more.svg"><ReadSwitch label="Show Answer Feedback" on={isOn("answerFeedback")}/><ReadSwitch label="Show Explanation" on={isOn("explanation")}/><ReadSetting label="Feedback Timing" value={setting("feedbackTiming","After")}/><div className="reviewCheckStack">{["Correct Answer Feedback","Wrong Answer Feedback","Question Explanation"].map(label=><span key={label}><ReviewTick/>{label}</span>)}</div></InnerCard><InnerCard heading="COGNITIVE & BEHAVIORAL INSIGHTS" icon="blueview.svg"><ReadSwitch label="Answer Switching Behavioral" on={isOn("answerSwitching")}/><ReadSwitch label="Review Wrong Answers" on={isOn("reviewWrong")}/><ReadSwitch label="View Weakness Map" on={isOn("weaknessMap")}/></InnerCard></div></ReviewSection>
       <ReviewSection number={9} title="Security & Integrity" icon="shield-check.svg" editRoute="/assessments/create/evaluation?reviewPanel=security"><div className="reviewInnerGrid"><InnerCard heading="ASSESSMENT ACCESS" icon="lock.svg"><ReadSetting label="Access Control" value={setting("accessControl","Open")}/><ReadSwitch label="Require Secure Browser" on={isOn("secureBrowser")}/><ReadSwitch label="Prevent Copy / Paste" on={isOn("copyPaste")}/><ReadSwitch label="Prevent Printing" on={isOn("printing")}/></InnerCard><InnerCard heading="PROCTORING" icon="video.svg"><ReadSwitch label="Webcam Monitoring" on={isOn("webcam")}/><ReadSwitch label="Screen Monitoring" on={isOn("screenMonitoring")}/><ReadSwitch label="Full-Screen Mode" on={isOn("fullScreen")}/><ReadSwitch label="Identity Verification" on={isOn("identity")}/></InnerCard><InnerCard heading="MONITORING" icon="blueview.svg"><ReadSwitch label="Detect Tab Switching" on={isOn("tabSwitching")}/><ReadSwitch label="Detect Multiple Screens" on={isOn("multipleScreens")}/><ReadSwitch label="Detect Browser Exit" on={isOn("browserExit")}/><ReadSwitch label="Record Violations" on={isOn("recordViolations")}/><ReadSetting label="Violation Threshold" value={setting("violationThreshold","3")}/><ReadSetting label="Action" value={setting("violationAction","Warn")}/></InnerCard></div></ReviewSection>

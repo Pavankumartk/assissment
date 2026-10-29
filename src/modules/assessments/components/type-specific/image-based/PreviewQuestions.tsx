@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   CheckCircle2, ChevronDown, ChevronLeft, ChevronUp,
   ClipboardList, Eye, Image as PictureIcon, Pencil, ShieldCheck,
-  SlidersHorizontal, Sparkles, Tag, Target, XCircle,
+  SlidersHorizontal, Sparkles, Target, XCircle,
 } from "lucide-react";
 import Sidebar from "../../common/sidebar/page";
 import Header from "../../common/header/Header";
@@ -21,6 +21,10 @@ import {
 import "./image-based.css";
 import "./image-based-preview.css";
 
+// Image Labeling uses the same existing assessment icon assets as the creator.
+function LabelPreviewAsset({file,size=18}:{file:string;size?:number}){
+  return <img className="ibqpAssetIcon" src={`/assets/assessmenticons/${file}`} alt="" width={size} height={size} aria-hidden="true" draggable={false}/>;
+}
 type Filter = "all" | "complete" | "incomplete";
 type Fold = "grading" | "feedback" | "settings";
 const CONTENT_URL = "/assessments/create/content";
@@ -64,6 +68,10 @@ export default function ImageBasedPreviewQuestions() {
   const [learnerMode, setLearnerMode] = useState(false);
   const [chosen, setChosen] = useState<Record<string, number[]>>({});
   const [matchingAnswers, setMatchingAnswers] = useState<Record<string, Record<number,string>>>({});
+  const [labelAnswers, setLabelAnswers] = useState<Record<string,Record<string,string>>>({});
+  const [dropdownAnswers,setDropdownAnswers]=useState<Record<string,Record<string,string>>>({});
+  const [sequenceOrders,setSequenceOrders]=useState<Record<string,string[]>>({});
+  const [sortingAnswers,setSortingAnswers]=useState<Record<string,Record<string,string>>>({});
   const [fold, setFold] = useState<Record<Fold, boolean>>({ grading: true, feedback: true, settings: true });
   const [error, setError] = useState("");
   const [details, setDetails] = useState({ count: 20, totalMarks: 40, title: "Image-Based Assessment", course: "", passingScore: 60 });
@@ -116,6 +124,18 @@ export default function ImageBasedPreviewQuestions() {
       setError("Could not save the Image-Based assessment. Return to Create Questions and save the draft.");
     }
   };
+  const getSequenceOrder = (q:ImageQuestion):string[] => {
+    const steps = q.sequenceSteps || [];
+    const ids=steps.map(step=>step.id);
+    return q.shuffleSteps!==false ? [...ids].reverse() : ids;
+  };
+  const movePreviewSequence = (q:ImageQuestion,index:number,direction:-1|1) => {
+    const current=[...(sequenceOrders[q.id] || getSequenceOrder(q))];
+    const dest=index+direction;
+    if(dest<0||dest>=current.length)return;
+    [current[index],current[dest]]=[current[dest],current[index]];
+    setSequenceOrders(previous=>({...previous,[q.id]:current}));
+  };
   const chooseOption = (q: ImageQuestion, index: number) => {
     const now = chosen[q.id] || [];
     const next = q.allowMultiple ? (now.includes(index) ? now.filter(n => n !== index) : [...now, index]) : [index];
@@ -123,7 +143,7 @@ export default function ImageBasedPreviewQuestions() {
   };
 
   if (!loaded) return null;
-  return <main className="ibqApp ibqpApp superAdminPage institutionAdminPage">
+  return <main className={`ibqApp ibqpApp ${questions.some(q=>q.subtype === "image-labeling")?"ibqpApp--labeling":""} ${questions.some(q=>q.subtype === "image-dropdown")?"ibqpApp--dropdown":""} ${questions.some(q=>q.subtype === "image-sequencing")?"ibqpApp--sequencing":""} ${questions.some(q=>q.subtype === "image-sorting")?"ibqpApp--sorting":""} superAdminPage institutionAdminPage`}>
     <div className="dashboardLayout ibqLayout">
       <Sidebar />
       <section className="mainContent ibqMain">
@@ -156,7 +176,7 @@ export default function ImageBasedPreviewQuestions() {
                     <option value="all">All Questions</option><option value="complete">Complete Questions</option><option value="incomplete">Incomplete Questions</option>
                   </select><ChevronDown size={18} />
                 </label>
-                <button type="button" className="ibqpLearnerButton" onClick={() => { setLearnerMode(v => !v); setChosen({}); setMatchingAnswers({}); }}>
+                <button type="button" className="ibqpLearnerButton" onClick={() => { setLearnerMode(v => !v); setChosen({}); setMatchingAnswers({}); setLabelAnswers({}); setDropdownAnswers({}); setSequenceOrders({});setSortingAnswers({}); }}>
                   <Eye size={20} /> {learnerMode ? "Admin Preview" : "Learner Preview"}
                 </button>
               </div>
@@ -182,7 +202,87 @@ export default function ImageBasedPreviewQuestions() {
                     <h2>Questions {index + 1}</h2>
                     <p>{asText(q.text) || "Question text is missing"}</p>
                   </section>
-                  {q.subtype === "image-matching" ? <section className="ibqpPanelSection ibqpMatchingSection">
+                  {q.subtype === "image-sorting" ? <section className="ibqpPanelSection ibqpSortingSection">
+                    <SectionTitle name="Drag Items" icon={<LabelPreviewAsset file="chart-02.svg" size={18}/>}/>
+                    <div className="ibqpSortingBody">
+                      <div className="ibqpSortingList">
+                        {(q.shuffleSorting!==false?[...(q.sortingItems||[])].reverse():(q.sortingItems||[])).map((item,i)=><div className="ibqpSortingRow" key={item.id}>
+                          <div className="ibqpSortingPicture"><b>{String.fromCharCode(65+i)}.</b><span>{item.image?<img src={item.image} alt={`Sorting item ${i+1}`}/>:<PictureIcon size={22}/>}</span></div>
+                          <div className="ibqpSortingText">{item.text||`Item ${i+1}`}</div>
+                          <div className="ibqpSortingChoices" role="group" aria-label={`Sort ${item.text||`item ${i+1}`} into group`}>
+                            {(q.sortingGroups||["Hardware","Software"]).map((group,j)=><button key={j} type="button" className={sortingAnswers[q.id]?.[item.id]===group?"is-selected":""} aria-pressed={sortingAnswers[q.id]?.[item.id]===group} onClick={()=>setSortingAnswers(previous=>({...previous,[q.id]:{...(previous[q.id]||{}),[item.id]:group}}))}><span className="ibqpSortingChoiceLabel">{group}</span></button>)}
+                          </div>
+                        </div>)}
+                      </div>
+                      <div className="ibqpSortingShuffle">Shuffle the Steps for learners <DisplaySwitch on={q.shuffleSorting!==false}/></div>
+                      {learnerMode&&<p className="ibqpSortingStatus" role="status">{(q.sortingItems||[]).filter(item=>sortingAnswers[q.id]?.[item.id]===item.group).length} of {(q.sortingItems||[]).length} items sorted correctly.</p>}
+                    </div>
+                  </section> : q.subtype === "image-sequencing" ? <section className="ibqpPanelSection ibqpSequenceSection">
+                    <SectionTitle name="Drag Items" icon={<LabelPreviewAsset file="chart-02.svg" size={18}/>}/>
+                    <div className="ibqpSequenceBody">
+                      <div className="ibqpSequenceList">
+                        {(sequenceOrders[q.id]||getSequenceOrder(q)).map((stepId,i)=>{
+                          const step=(q.sequenceSteps||[]).find(v=>v.id===stepId);
+                          if(!step) return null;
+                          return <div className="ibqpSequenceRow" key={step.id}>
+                            <div className="ibqpSequencePicture"><b>{String.fromCharCode(65+i)}.</b><span>{step.image?<img src={step.image} alt={`Sequence step ${i+1}`}/>:<PictureIcon size={22}/>}</span></div>
+                            <span className="ibqpSequenceText">{step.text||`Step ${i+1}`}</span>
+                            <div className="ibqpSequenceOrder"><button type="button" disabled={i===0} onClick={()=>movePreviewSequence(q,i,-1)} aria-label={`Move ${step.text||`step ${i+1}`} up`}><LabelPreviewAsset file="arrow-up-big.svg" size={28}/></button><button type="button" disabled={i===(q.sequenceSteps||[]).length-1} onClick={()=>movePreviewSequence(q,i,1)} aria-label={`Move ${step.text||`step ${i+1}`} down`}><LabelPreviewAsset file="arrow-down-big.svg" size={28}/></button></div>
+                          </div>;
+                        })}
+                      </div>
+                      <div className="ibqpSequenceShuffle">Shuffle the Steps for learners <DisplaySwitch on={q.shuffleSteps!==false}/></div>
+                      {learnerMode&&<p className="ibqpSequenceStatus" role="status">{(sequenceOrders[q.id]||getSequenceOrder(q)).every((id,i)=>id===(q.sequenceSteps||[])[i]?.id) ? "Correct order!" : "Use the up/down buttons to arrange the steps in the correct order."}</p>}
+                    </div>
+                  </section> : q.subtype === "image-dropdown" ? <section className="ibqpPanelSection ibqpDropdownSection">
+                    <SectionTitle name="Question and Image" icon={<LabelPreviewAsset file="image-02.svg" size={18}/>} />
+                    <div className="ibqpDropdownBody">
+                      <div className="ibqpDropdownFrame">
+                        <div className="ibqpDropdownStage">
+                          {q.image ? <img src={q.image} alt={`Diagram for question ${index+1}`} />:<div className="ibqpMissingImage">No image uploaded</div>}
+                          {(q.dropdownSpots||[]).map((spot,i)=>{
+                            const values=q.shuffleDropdowns!==false?[...spot.choices].reverse():spot.choices;
+                            return <label className="ibqpDropdownOnImage" style={{left:`clamp(80px, ${spot.x}%, calc(100% - 80px))`,top:`clamp(20px, ${spot.y}%, calc(100% - 20px))`}} key={spot.id}>
+                              <span className="sr-only">Dropdown {i+1} on the picture</span>
+                              <select aria-label={`Dropdown ${i+1} on the picture`} value={dropdownAnswers[q.id]?.[spot.id]||""} onChange={e=>setDropdownAnswers(prev=>({...prev,[q.id]:{...(prev[q.id]||{}),[spot.id]:e.target.value}}))}>
+                                <option value="">Choose...</option>
+                                {values.map(choice=><option key={choice.id} value={choice.id}>{choice.text}</option>)}
+                              </select>
+                              <LabelPreviewAsset file="arrow-down-01.svg" size={19}/>
+                            </label>;
+                          })}
+                        </div>
+                      </div>
+                      <div className="ibqpDropdownShuffle">Shuffle the choices <DisplaySwitch on={q.shuffleDropdowns!==false}/></div>
+                      {learnerMode && (q.dropdownSpots||[]).length>0&&<div className="ibqpDropdownProgress" role="status">{(q.dropdownSpots||[]).filter(spot=>!!dropdownAnswers[q.id]?.[spot.id]).length} of {(q.dropdownSpots||[]).length} choices selected.</div>}
+                    </div>
+                  </section> : q.subtype === "image-labeling" ? <section className="ibqpPanelSection ibqpLabelingSection">
+                    <SectionTitle name="Question and Image" icon={<LabelPreviewAsset file="image-02.svg" size={18}/>} />
+                    <div className="ibqpLabelingBody">
+                      <div className="ibqpLabelingStage">
+                        {q.image ? <img src={q.image} alt={`Labeling diagram for question ${index+1}`} /> : <div className="ibqpMissingImage"><PictureIcon size={35}/> Missing image</div>}
+                        {(q.labelPins || []).map((pin,i)=><span key={pin.id} className="ibqpLabelPin" style={{left:`${pin.x}%`,top:`${pin.y}%`}}>{i+1}</span>)}
+                      </div>
+                      <div className="ibqpLabelChoices">
+                        {(q.labelPins || []).map((pin,i)=>{
+                          const all=[...(q.labelPins||[]).map(p=>p.label),...(q.labelExtras||[])];
+                          const options=q.shuffleLabels!==false?[...all].reverse():all;
+                          const selectedLabel=labelAnswers[q.id]?.[pin.id]||"";
+                          return <label className="ibqpLabelChoice" key={pin.id}>
+                            <span className="ibqpLabelChoiceNo">{i+1}</span>
+                            <select aria-label={`Choose label for pin ${i+1}`} value={selectedLabel} onChange={e=>setLabelAnswers(prev=>({...prev,[q.id]:{...(prev[q.id]||{}),[pin.id]:e.target.value}}))}>
+                              <option value="">Choose Label</option>
+                              {options.map((name,j)=><option key={`${name}-${j}`} value={name}>{name}</option>)}
+                            </select>
+                          </label>;
+                        })}
+                      </div>
+                      <div className="ibqpMatchingShuffle">Shuffle the Labels <DisplaySwitch on={q.shuffleLabels!==false}/></div>
+                      {learnerMode&&(q.labelPins||[]).length>0&&<div className="ibqpLabelResult" role="status">
+                        {(q.labelPins||[]).every(pin=>labelAnswers[q.id]?.[pin.id]===pin.label) ? "All labels are correct!" : "Choose a matching label for each pin."}
+                      </div>}
+                    </div>
+                  </section> : q.subtype === "image-matching" ? <section className="ibqpPanelSection ibqpMatchingSection">
                     <SectionTitle name="Picture and matching text" icon={<SlidersHorizontal size={18}/>} />
                     <div className="ibqpMatchingBody">
                       <div className="ibqpMatchingHead"><b>Image</b><b>Matching Word</b></div>
@@ -214,7 +314,7 @@ export default function ImageBasedPreviewQuestions() {
                   </section>}
                   {!learnerMode && <>
                     <section className="ibqpPanelSection">
-                      <SectionTitle name="Grading Method" icon={<ClipboardList size={19} />} open={fold.grading} onClick={() => setFold(p => ({ ...p, grading: !p.grading }))} />
+                      <SectionTitle name="Grading Method" icon={(q.subtype === "image-labeling" || q.subtype === "image-dropdown" || q.subtype === "image-sequencing") ? <LabelPreviewAsset file="clipboard-check.svg" size={19}/> : <ClipboardList size={19} />} open={fold.grading} onClick={() => setFold(p => ({ ...p, grading: !p.grading }))} />
                       {fold.grading && <div className="ibqpGradingBody">
                         <div className="ibqpGradingFields">
                           <div><label>Grading Method</label><span>{q.gradingMethod || q.grading || "Partial credit - equal marks"}<ChevronDown size={16} /></span></div>
@@ -225,7 +325,7 @@ export default function ImageBasedPreviewQuestions() {
                       </div>}
                     </section>
                     <section className="ibqpPanelSection">
-                      <SectionTitle name={q.subtype === "image-matching" ? "Feedback and Learning" : "Feedback"} icon={<ShieldCheck size={18} />} count={`${(q.feedbackFull || q.feedback || "").length}/250`} open={fold.feedback} onClick={() => setFold(p => ({ ...p, feedback: !p.feedback }))} />
+                      <SectionTitle name={q.subtype === "image-matching" || q.subtype === "image-labeling" || q.subtype === "image-dropdown" || q.subtype === "image-sequencing" || q.subtype === "image-sorting" ? "Feedback and Learning" : "Feedback"} icon={(q.subtype === "image-labeling" || q.subtype === "image-dropdown" || q.subtype === "image-sequencing") ? <LabelPreviewAsset file="message-circle-more.svg" size={18}/> : <ShieldCheck size={18} />} count={`${(q.feedbackFull || q.feedback || "").length}/250`} open={fold.feedback} onClick={() => setFold(p => ({ ...p, feedback: !p.feedback }))} />
                       {fold.feedback && <div className="ibqpFeedbackList">
                         <FeedbackItem tone="full" title="Full Marks" content={q.feedbackFull || q.feedback} icon={<CheckCircle2 size={19} />} />
                         <FeedbackItem tone="partial" title="Partial Marks" content={q.feedbackPartial} icon={<Target size={19} />} />
@@ -235,13 +335,13 @@ export default function ImageBasedPreviewQuestions() {
                       </div>}
                     </section>
                     <section className="ibqpPanelSection">
-                      <SectionTitle name="Question Settings" icon={<SlidersHorizontal size={19} />} open={fold.settings} onClick={() => setFold(p => ({ ...p, settings: !p.settings }))} />
+                      <SectionTitle name="Question Settings" icon={(q.subtype === "image-labeling" || q.subtype === "image-dropdown" || q.subtype === "image-sequencing") ? <LabelPreviewAsset file="tag-01.svg" size={19}/> : <SlidersHorizontal size={19} />} open={fold.settings} onClick={() => setFold(p => ({ ...p, settings: !p.settings }))} />
                       {fold.settings && <div className="ibqpQuestionSettings">
-                        <div><label>Difficulty</label><span><Target size={18} />{q.difficulty || "—"}</span></div>
-                        <div><label>Blooms Taxonomy</label><span><Sparkles size={18} />{q.bloom || "—"}</span></div>
-                        <div><label>Category</label><span><PictureIcon size={18} />{q.category || "—"}</span></div>
-                        <div><label>Tags</label><span><Tag size={18} />{q.tags?.join(", ") || "—"}</span></div>
-                        <div><label>Mandatory</label><span className="ibqpMandatory"><CheckCircle2 size={18} />{q.mandatory ? "YES" : "NO"}</span></div>
+                        <div><label>Difficulty</label><span><LabelPreviewAsset file="target-01.svg" size={20}/>{q.difficulty || "—"}</span></div>
+                        <div><label>Blooms Taxonomy</label><span><LabelPreviewAsset file="brain.svg" size={20}/>{q.bloom || "—"}</span></div>
+                        <div><label>Category</label><span><LabelPreviewAsset file="folder-03.svg" size={20}/>{q.category || "—"}</span></div>
+                        <div><label>Tags</label><span><LabelPreviewAsset file="tag-01.svg" size={20}/>{q.tags?.join(", ") || "—"}</span></div>
+                        <div><label>Mandatory</label><span className="ibqpMandatory"><LabelPreviewAsset file="checkmark-circle-02.svg" size={20}/>{q.mandatory ? "YES" : "NO"}</span></div>
                       </div>}
                     </section>
                   </>}

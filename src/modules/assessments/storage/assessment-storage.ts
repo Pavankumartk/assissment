@@ -78,7 +78,19 @@ export function duplicateAssessment(id: string) {
   }
   return saveAssessment(copy);
 }
-export const DRAFT_KEYS = ["imageBasedContentDraft","imageBasedViewerResult","imageBasedViewerAnswers","matchFollowingContentDraft","matchFollowingPassingScore","longAnswerAssessmentDraft","longAnswerContentDraft","longAnswerEvaluationDraft","longAnswerQuestionCount","mcqQuestionCount","mcqAssessmentDraft","mcqContentDraft","mcqAssessmentEvaluationDraft","viewerAssessmentResult","viewerRetryResult","viewerCurrentQuestion","viewerRetryQuestions","viewerRetryDurationMinutes","viewerScratchPads","viewerFormulaStars","viewerFlaggedQuestionIndexes","viewerBookmarkedQuestionIndexes","viewerReviewedQuestionIndexes","shortAnswerAssessmentDraft","shortAnswerContentDraft","shortAnswerEvaluationDraft","oneWordAssessmentDraft","oneWordContentDraft","oneWordPreviewDraft","oneWordEvaluationDraft","shortAnswerViewerResult","oneWordViewerResult","shortAnswerViewerScratchPads","viewerScratchPads","shortAnswerViewerFormulaStars"];
+
+// Keep draft copying complete for every registered creator, including its evaluation settings.
+const ADDITIONAL_WORKFLOW_DRAFT_KEYS = [
+  "trueFalseAssessmentDraft", "trueFalseContentDraft", "trueFalseEvaluationDraft",
+  "fillBlanksAssessmentDraft", "fillBlanksContentDraft", "fillBlanksEvaluationDraft",
+  "longAnswerAssessmentDraft", "longAnswerContentDraft", "longAnswerEvaluationDraft",
+  "dragDropAssessmentDraft", "dragDropContentDraft", "dragDropEvaluationDraft",
+  "memoryGameAssessmentDraft", "memoryGameContentDraft", "memoryGameEvaluationDraft",
+  "imageBasedContentDraft", "imageBasedViewerResult", "matchFollowingContentDraft",
+  "neurolxp-one-word-evaluation", "oneWordPreviewDraft",
+] as const;
+
+export const DRAFT_KEYS = ["connectDotsContentDraft","connectDotsViewerState","mcqQuestionCount","mcqAssessmentDraft","mcqContentDraft","mcqAssessmentEvaluationDraft","viewerAssessmentResult","viewerRetryResult","viewerCurrentQuestion","viewerRetryQuestions","viewerRetryDurationMinutes","viewerScratchPads","viewerFormulaStars","viewerFlaggedQuestionIndexes","viewerBookmarkedQuestionIndexes","viewerReviewedQuestionIndexes","shortAnswerAssessmentDraft","shortAnswerContentDraft","shortAnswerEvaluationDraft","oneWordAssessmentDraft","oneWordContentDraft","oneWordPreviewDraft","oneWordEvaluationDraft","shortAnswerViewerResult","oneWordViewerResult","shortAnswerViewerScratchPads","viewerScratchPads","shortAnswerViewerFormulaStars"].concat([...ADDITIONAL_WORKFLOW_DRAFT_KEYS]);
 /** Drop-in replacement for legacy sessionStorage usage; data is isolated by assessmentId. */
 export const assessmentStorage = {
   getItem(key:string):string|null {

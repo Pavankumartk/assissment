@@ -1,7 +1,7 @@
 /** Frontend-only *runtime* capabilities, independent of localStorage metadata. */
 import { mcqAssessmentAdapter } from "../components/type-specific/mcq";
 
-export type QuestionMode = "single-choice" | "short-answer" | "one-word" | "matching" | "image-based" | "true-false" | "fill-in-the-blanks" | "long-answer" | "drag-and-drop" | "memory-game";
+export type QuestionMode = "single-choice" | "short-answer" | "one-word" | "matching" | "image-based" | "true-false" | "fill-in-the-blanks" | "long-answer" | "drag-and-drop" | "memory-game" | "connect-the-dots";
 export interface AssessmentAdapter {
   code: string;
   questionMode: QuestionMode;
@@ -14,6 +14,7 @@ export const ASSESSMENT_ADAPTERS: Record<string, AssessmentAdapter> = {
   "fill-in-the-blanks": { code:"fill-in-the-blanks", questionMode:"fill-in-the-blanks", draftKeys:{details:"fillBlanksAssessmentDraft",content:"fillBlanksContentDraft",evaluation:"fillBlanksEvaluationDraft"} },
   "long-answer": { code:"long-answer", questionMode:"long-answer", draftKeys:{details:"longAnswerAssessmentDraft",content:"longAnswerContentDraft",evaluation:"longAnswerEvaluationDraft"} },
   "drag-and-drop": { code:"drag-and-drop", questionMode:"drag-and-drop", draftKeys:{details:"dragDropAssessmentDraft",content:"dragDropContentDraft",evaluation:"dragDropEvaluationDraft"} },
+  "connect-the-dots": { code:"connect-the-dots", questionMode:"connect-the-dots", draftKeys:{details:"mcqAssessmentDraft",content:"connectDotsContentDraft",evaluation:"mcqAssessmentEvaluationDraft"} },
   "memory-game": { code:"memory-game", questionMode:"memory-game", draftKeys:{details:"memoryGameAssessmentDraft",content:"memoryGameContentDraft",evaluation:"memoryGameEvaluationDraft"} },
   "image-based": {code:"image-based",questionMode:"image-based",draftKeys:{details:"mcqAssessmentDraft",content:"imageBasedContentDraft",evaluation:"mcqAssessmentEvaluationDraft"}},
   "match-the-following": {code:"match-the-following",questionMode:"matching",draftKeys:{details:"mcqAssessmentDraft",content:"matchFollowingContentDraft",evaluation:"mcqAssessmentEvaluationDraft"}},

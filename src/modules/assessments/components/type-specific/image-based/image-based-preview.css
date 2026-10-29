@@ -372,3 +372,240 @@
   .ibqpApp .ibqpMatchingRow { min-height: 56px; }
   .ibqpApp .ibqpMatchingRow select { height: 56px; padding: 0 30px 0 12px; font-size: 14px; background-position: right 8px center; }
 }
+
+/* Image Labeling Preview; scoped to this subtype, retaining other previews. */
+.ibqpApp .ibqpLabelingBody{display:flex;flex-direction:column;gap:24px;padding:24px;background:#DFE6E9;}
+.ibqpApp .ibqpLabelingStage{position:relative;width:min(100%,800px);aspect-ratio:16/9;margin:0 auto;border:1px solid #D7D5D5;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;overflow:hidden;}
+.ibqpApp .ibqpLabelingStage>img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;}
+.ibqpApp .ibqpLabelChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;width:100%;max-width:800px;margin:0 auto;}
+.ibqpApp .ibqpLabelChoice{display:flex;gap:12px;align-items:center;min-width:0;}
+.ibqpApp .ibqpLabelChoiceNo{flex:0 0 48px;height:56px;border-radius:8px;display:grid;place-items:center;background:#DFE6E9;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;color:#374151;font:600 16px/24px "Segoe UI",Inter,sans-serif;}
+.ibqpApp .ibqpLabelChoice select{min-width:0;width:100%;height:56px;padding:0 32px 0 16px;border:0;border-radius:8px;appearance:auto;background:#DFE6E9;box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;color:#374151;font:400 16px/24px "Segoe UI",Inter,sans-serif;}
+.ibqpApp .ibqpLabelResult{padding:16px;border-radius:8px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;color:#2A7308;font:600 16px/24px "Segoe UI",Inter,sans-serif;}
+@media(max-width:620px){.ibqpApp .ibqpLabelingBody{padding:12px;gap:16px}.ibqpApp .ibqpLabelChoices{grid-template-columns:1fr}.ibqpApp .ibqpLabelChoiceNo{height:48px;flex-basis:38px}.ibqpApp .ibqpLabelChoice select{height:48px}.ibqpApp .ibqpLabelPin{height:24px;min-width:24px;font-size:12px}}
+.ibqpApp .ibqpLabelingStage{aspect-ratio:auto;}
+.ibqpApp .ibqpLabelingStage>img{position:relative;inset:auto;width:100%;height:auto;object-fit:contain;display:block;}
+
+/* Image Labeling preview: Figma Drag Items with functional draggable label chips. */
+.ibqpApp .ibqpLabelingSection .ibqpSectionTitle strong {font-family:"Segoe UI",Inter,sans-serif;font-size:16px;font-weight:600;line-height:28px;letter-spacing:.02em;}
+.ibqpApp .ibqpLabelInstructions {margin:0;color:#374151;font:400 14px/24px "Segoe UI",Inter,sans-serif;letter-spacing:.02em;}
+.ibqpApp .ibqpLabelDragBank {display:flex;align-items:center;flex-wrap:wrap;gap:16px;width:100%;max-width:800px;margin:0 auto;}
+.ibqpApp .ibqpLabelDragChip {cursor:grab;min-height:48px;min-width:110px;max-width:100%;padding:9px 18px;border:1px solid #D7D5D5;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;color:#374151;font:600 16px/24px "Segoe UI",Inter,sans-serif;letter-spacing:.02em;overflow-wrap:anywhere;}
+.ibqpApp .ibqpLabelDragChip:active {cursor:grabbing;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;}
+.ibqpApp .ibqpLabelChoice {border-radius:8px;}
+.ibqpApp .ibqpLabelChoice:hover,.ibqpApp .ibqpLabelChoice:focus-within {outline:1px solid rgba(45,76,200,.4);outline-offset:3px;}
+.ibqpApp .ibqpLabelPin {height:32px;min-width:32px;padding:0 6px;border:0;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;color:#2D4CC8;font:600 16px/22px "Segoe UI",Inter,sans-serif;}
+@media(max-width:760px){.ibqpApp .ibqpLabelDragBank{gap:10px}.ibqpApp .ibqpLabelDragChip{min-width:0;min-height:42px;padding:8px 12px;font-size:14px}}
+
+/* Image Labeling preview parity with creator and prior assessment designs. */
+.ibqpApp .ibqpAssetIcon{display:block;width:18px;height:18px;object-fit:contain;}
+.ibqpApp .ibqpLabelingSection .ibqpTitleIcon .ibqpAssetIcon{width:18px;height:18px;}
+.ibqpApp .ibqpLabelChoice select{
+  appearance:none;-webkit-appearance:none;
+  background-color:#DFE6E9;
+  background-image:url('/assets/assessmenticons/arrow-down-01.svg');
+  background-repeat:no-repeat;background-position:right 16px center;background-size:20px 20px;
+  box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;
+  border:0;border-radius:8px;color:#374151;
+  min-height:56px;height:56px;padding:0 44px 0 16px;
+  font:400 16px/24px 'Segoe UI',Inter,sans-serif;
+}
+.ibqpApp .ibqpLabelChoice select:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px;}
+/* Read-only preview switches use the exact same ON/OFF geometry as creator. */
+.ibqpApp .ibqpSwitch{width:61px;min-width:61px;height:28px;padding:0;border-radius:32px;background:#DFE6E9;box-shadow:-4px -4px 4px rgba(255,255,255,.5),4px 4px 4px #C4C4C4;position:relative;isolation:isolate;}
+.ibqpApp .ibqpSwitch::before{content:'';position:absolute;top:4px;left:4px;width:53px;height:20px;border-radius:32px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;}
+.ibqpApp .ibqpSwitch.isOn::before{background:linear-gradient(113.24deg,#2D4CC8 21.1%,#E01E5A 65.02%);box-shadow:none;}
+.ibqpApp .ibqpSwitch>span{position:absolute;z-index:1;top:4px;right:9px;left:auto;width:auto;min-width:0;height:20px;line-height:20px;padding:0;background:transparent!important;box-shadow:none;color:#374151;font:400 12px/20px 'Segoe UI',Arial,sans-serif;}
+.ibqpApp .ibqpSwitch.isOn>span{left:11px;right:auto;color:#FFFFFF;}
+.ibqpApp .ibqpSwitch>i{position:absolute;z-index:2;top:4px;left:4px;width:20px;height:20px;border-radius:50%;background:#606162;box-shadow:none;transition:left .16s ease;}
+.ibqpApp .ibqpSwitch.isOn>i{left:37px;background:#DFE6E9;box-shadow:0 -2px 4px rgba(0,0,0,.1),0 4px 4px rgba(0,0,0,.25);}
+@media(max-width:600px){.ibqpApp .ibqpLabelChoice select{height:48px;min-height:48px;font-size:14px;background-position:right 10px center;padding:0 36px 0 12px;}}
+
+/* Labeling preview: one arrow per select, safely inside the inset control. */
+.ibqpApp--labeling .ibqpFilter{position:relative;min-width:0;overflow:hidden;}
+.ibqpApp--labeling .ibqpFilter select{appearance:none;-webkit-appearance:none;min-width:0;max-width:100%;height:100%;font:400 15px/22px 'Segoe UI',Inter,sans-serif;padding:0 44px 0 16px;background:transparent;box-shadow:none;position:relative;z-index:1;}
+.ibqpApp--labeling .ibqpFilter>svg{width:20px;height:20px;right:14px;top:50%;transform:translateY(-50%);z-index:0;pointer-events:none;}
+.ibqpApp .ibqpLabelingSection .ibqpLabelChoice{min-width:0;}
+.ibqpApp .ibqpLabelingSection .ibqpLabelChoice>select{
+  box-sizing:border-box;display:block;flex:1 1 0;min-width:0;max-width:100%;
+  appearance:none;-webkit-appearance:none;
+  background:#DFE6E9 url('/assets/assessmenticons/arrow-down-01.svg') no-repeat right 14px center;
+  background-size:20px 20px;padding:0 48px 0 16px;
+  box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;
+  border:0;border-radius:8px;font:400 16px/24px 'Segoe UI',Inter,sans-serif;
+}
+.ibqpApp--labeling .ibqpSectionTitle{display:flex;align-items:center;min-width:0;gap:12px;}
+.ibqpApp--labeling .ibqpSectionTitle strong{min-width:0;flex:1 1 auto;overflow-wrap:anywhere;}
+.ibqpApp--labeling .ibqpSectionTitle>svg:last-child{width:20px;height:20px;flex:0 0 20px;margin-left:auto;}
+@media(max-width:640px){.ibqpApp--labeling .ibqpFilter select{font-size:14px;padding:0 40px 0 12px}.ibqpApp .ibqpLabelingSection .ibqpLabelChoice>select{font-size:14px;background-position:right 9px center;padding:0 36px 0 12px;}}
+
+/* Question Settings: use the exact assessmenticons already shared by other assessment types.
+   Preserve the existing Figma field sizes, spacing and inset shadows. */
+.ibqpApp .ibqpQuestionSettings .ibqpAssetIcon{
+  flex:0 0 20px;width:20px;height:20px;display:block;object-fit:contain;
+}
+
+/* IMAGE DROPDOWN preview — Figma image-mounted choices.
+   Applies only to Image Dropdown, not Image Labeling or Image Matching. */
+.ibqpApp .ibqpDropdownSection .ibqpTitleIcon{color:#67096E;}
+.ibqpApp .ibqpDropdownBody{width:100%;padding:24px;display:flex;flex-direction:column;align-items:center;gap:32px;min-width:0;background:#DFE6E9;}
+.ibqpApp .ibqpDropdownFrame{width:min(692px,100%);padding:16px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;display:flex;align-items:center;justify-content:center;}
+.ibqpApp .ibqpDropdownStage{position:relative;display:block;width:fit-content;max-width:100%;min-width:200px;margin:auto;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;}
+.ibqpApp .ibqpDropdownStage>img{display:block;width:auto;height:auto;max-width:100%;max-height:383px;object-fit:contain;}
+.ibqpApp .ibqpDropdownOnImage{position:absolute;transform:translate(-50%,-50%);width:160px;height:40px;max-width:60%;background:#DFE6E9;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;border-radius:6px;display:flex;align-items:center;gap:0;z-index:2;}
+.ibqpApp .ibqpDropdownOnImage select{position:relative;min-width:0;width:100%;height:100%;display:block;appearance:none;-webkit-appearance:none;background:transparent;border:0;border-radius:6px;padding:0 36px 0 14px;color:#2F3547;font:600 14px/22px "Segoe UI",Inter,sans-serif;cursor:pointer;text-overflow:ellipsis;}
+.ibqpApp .ibqpDropdownOnImage>.ibqpAssetIcon{position:absolute;pointer-events:none;right:10px;top:50%;transform:translateY(-50%);width:19px;height:19px;}
+.ibqpApp .ibqpDropdownOnImage:focus-within{outline:2px solid #2D4CC8;outline-offset:3px;}
+.ibqpApp .ibqpDropdownShuffle{width:100%;min-height:80px;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:4px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;color:#374151;font:400 16px/24px "Segoe UI",Inter,sans-serif;}
+.ibqpApp .ibqpDropdownProgress{font:600 14px/22px "Segoe UI",Inter,sans-serif;color:#2D4CC8;}
+@media(max-width:780px){.ibqpApp .ibqpDropdownBody{padding:14px;gap:18px}.ibqpApp .ibqpDropdownFrame{padding:10px}.ibqpApp .ibqpDropdownOnImage{width:125px;height:34px;max-width:70%}.ibqpApp .ibqpDropdownOnImage select{font-size:12px;padding:0 25px 0 8px}.ibqpApp .ibqpDropdownOnImage>.ibqpAssetIcon{width:15px;height:15px;right:6px}}
+@media(max-width:470px){.ibqpApp .ibqpDropdownOnImage{width:95px;height:30px;max-width:70%}.ibqpApp .ibqpDropdownOnImage select{font-size:11px;padding-left:5px;padding-right:18px}.ibqpApp .ibqpDropdownOnImage>.ibqpAssetIcon{width:12px;height:12px;right:3px}.ibqpApp .ibqpDropdownShuffle{padding:12px}}
+
+/* Image-Based preview only: keep uploaded pictures, dropdowns and panels inside
+   their responsive frames without altering other assessment-type styles. */
+.ibqpApp .ibqpPage,.ibqpApp .ibqpReviewPanel,.ibqpApp .ibqpQuestion,
+.ibqpApp .ibqpPanelSection,.ibqpApp .ibqpDropdownBody,
+.ibqpApp .ibqpDropdownFrame,.ibqpApp .ibqpDropdownStage,
+.ibqpApp .ibqpLabelingStage,.ibqpApp .ibqpMatchingRow {min-width:0;max-width:100%;}
+.ibqpApp .ibqpDropdownFrame {overflow:hidden;}
+.ibqpApp .ibqpDropdownStage {max-width:100%;min-width:0;overflow:hidden;}
+.ibqpApp .ibqpDropdownStage>img {display:block;max-width:100%;height:auto;object-fit:contain;}
+.ibqpApp .ibqpDropdownOnImage {max-width:70%;}
+.ibqpApp .ibqpDropdownOnImage select {min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;}
+.ibqpApp .ibqpDropdownOnImage>.ibqpAssetIcon {position:absolute;top:50%;right:10px;transform:translateY(-50%);pointer-events:none;}
+.ibqpApp .ibqpQuestionText,.ibqpApp .ibqpQuestionText p {max-width:100%;overflow-wrap:anywhere;}
+@media (max-width: 760px) {
+ .ibqpApp .ibqpPage {padding:14px 12px 28px;}
+ .ibqpApp .ibqpReviewPanel {padding:16px 12px;}
+ .ibqpApp .ibqpTopRow {gap:14px;}
+ .ibqpApp .ibqpSummary {display:flex;flex-wrap:wrap;gap:8px;padding:10px;min-width:0;}
+ .ibqpApp .ibqpStat,.ibqpApp .ibqpReady {min-width:0;flex:1 1 100px;}
+ .ibqpApp .ibqpActionsTop {display:flex;flex-wrap:wrap;}
+ .ibqpApp .ibqpGradingFields {grid-template-columns:1fr;gap:14px;}
+ .ibqpApp .ibqpQuestionSettings {grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+ .ibqpApp .ibqpFeedbackList {padding:16px 10px;}
+ .ibqpApp .ibqpFeedbackItem {padding:14px 12px;}
+ .ibqpApp .ibqpFeedbackText {margin-left:0;max-width:100%;}
+ .ibqpApp .ibqpMatchingBody {min-width:0;}
+ .ibqpApp .ibqpMatchingHead,.ibqpApp .ibqpMatchingRow {min-width:0;max-width:100%;}
+ .ibqpApp .ibqpDropdownBody {padding:14px;gap:18px;}
+ .ibqpApp .ibqpDropdownFrame {padding:9px;}
+ .ibqpApp .ibqpDropdownStage>img {max-height:320px;}
+ .ibqpApp .ibqpFooter {flex-wrap:wrap;align-items:center;gap:12px;}
+ .ibqpApp .ibqpFooter button {min-width:0;}
+}
+@media (max-width: 480px) {
+ .ibqpApp .ibqpSummary {gap:7px;}
+ .ibqpApp .ibqpStat {flex:1 1 calc(50% - 7px);}
+ .ibqpApp .ibqpReady {flex:1 1 100%;}
+ .ibqpApp .ibqpQuestionSettings {grid-template-columns:1fr;}
+ .ibqpApp .ibqpQuestionSettings span {min-width:0;max-width:100%;overflow-wrap:anywhere;}
+ .ibqpApp .ibqpDropdownBody {padding:10px;}
+ .ibqpApp .ibqpDropdownStage>img {max-height:250px;}
+ .ibqpApp .ibqpDropdownOnImage {width:min(95px,65%);height:30px;}
+ .ibqpApp .ibqpDropdownOnImage select {font-size:11px;padding:0 18px 0 5px;}
+ .ibqpApp .ibqpDropdownOnImage>.ibqpAssetIcon {right:3px;width:12px;height:12px;}
+ .ibqpApp .ibqpQuestionMeta {flex-wrap:wrap;gap:7px;}
+ .ibqpApp .ibqpFooter {justify-content:stretch;}
+ .ibqpApp .ibqpFooter button {flex:1 1 100%;}
+}
+
+/* Image Sequencing preview — the same 28px arrow-up-big/down-big assets as the creator. */
+.ibqpApp--sequencing .ibqpSequenceSection{min-width:0;max-width:100%}
+.ibqpApp--sequencing .ibqpSequenceBody{box-sizing:border-box;display:flex;flex-direction:column;gap:26px;width:100%;min-width:0;padding:24px 28px;background:#DFE6E9}
+.ibqpApp--sequencing .ibqpSequenceList{display:flex;flex-direction:column;gap:14px;width:min(100%,1180px);margin-inline:auto;min-width:0}
+.ibqpApp--sequencing .ibqpSequenceRow{box-sizing:border-box;display:grid;grid-template-columns:124px minmax(0,1fr) 136px;align-items:center;gap:24px;width:100%;min-height:76px;padding:10px 16px;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4}
+.ibqpApp--sequencing .ibqpSequencePicture{display:flex;gap:12px;align-items:center;min-width:0}
+.ibqpApp--sequencing .ibqpSequencePicture>b{font:400 18px/26px "Segoe UI",Inter,sans-serif;color:#374151}
+.ibqpApp--sequencing .ibqpSequencePicture>span{display:grid;place-items:center;width:58px;height:46px;overflow:hidden;background:#DFE6E9;border-radius:6px;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4}
+.ibqpApp--sequencing .ibqpSequencePicture img{display:block;width:100%;height:100%;object-fit:contain;max-width:100%}
+.ibqpApp--sequencing .ibqpSequenceText{display:flex;align-items:center;box-sizing:border-box;width:100%;min-width:0;min-height:56px;padding:12px 20px;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;font:400 16px/24px "Segoe UI",Inter,sans-serif;color:#374151;overflow-wrap:anywhere}
+.ibqpApp--sequencing .ibqpSequenceOrder{display:flex;align-items:center;justify-content:center;gap:16px;min-height:56px;width:136px;background:transparent;box-shadow:none}
+.ibqpApp--sequencing .ibqpSequenceOrder>button{display:grid;place-items:center;flex:0 0 60px;height:56px;width:60px;padding:0;border:0;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;cursor:pointer}
+.ibqpApp--sequencing .ibqpSequenceOrder>button img{display:block;width:28px;height:28px;object-fit:contain}
+.ibqpApp--sequencing .ibqpSequenceOrder>button:disabled{opacity:.4;cursor:not-allowed}
+.ibqpApp--sequencing .ibqpSequenceOrder>button:focus-visible{outline:2px solid #2D4CC8;outline-offset:3px}
+.ibqpApp--sequencing .ibqpSequenceShuffle{display:flex;align-items:center;justify-content:space-between;gap:16px;box-sizing:border-box;width:100%;min-height:58px;padding:12px 24px;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;color:#374151;font:400 16px/24px "Segoe UI",Inter,sans-serif}
+.ibqpApp--sequencing .ibqpSequenceStatus{font:600 14px/22px "Segoe UI",Inter,sans-serif;color:#2A7308}
+@media(max-width:850px){
+ .ibqpApp--sequencing .ibqpSequenceBody{padding:16px;gap:18px}
+ .ibqpApp--sequencing .ibqpSequenceRow{grid-template-columns:95px minmax(0,1fr) 100px;gap:10px;padding:10px}
+ .ibqpApp--sequencing .ibqpSequencePicture{gap:6px}
+ .ibqpApp--sequencing .ibqpSequencePicture>span{width:52px}
+ .ibqpApp--sequencing .ibqpSequenceText{padding:10px;font-size:14px}
+ .ibqpApp--sequencing .ibqpSequenceOrder{width:100px;gap:8px}
+ .ibqpApp--sequencing .ibqpSequenceOrder>button{height:48px;flex-basis:46px;width:46px}
+}
+@media(max-width:480px){
+ .ibqpApp--sequencing .ibqpSequenceRow{grid-template-columns:76px minmax(0,1fr);gap:10px}
+ .ibqpApp--sequencing .ibqpSequencePicture>span{width:48px;height:42px}
+ .ibqpApp--sequencing .ibqpSequenceText{min-height:46px;font-size:13px;line-height:19px}
+ .ibqpApp--sequencing .ibqpSequenceOrder{grid-column:1/-1;width:100%;min-height:48px;justify-content:flex-end;padding:0;box-sizing:border-box}
+ .ibqpApp--sequencing .ibqpSequenceOrder>button{height:48px;width:54px;flex-basis:54px}
+ .ibqpApp--sequencing .ibqpSequenceShuffle{padding:10px 12px;font-size:13px}
+}
+
+/* Image Sorting preview — Figma 692px centered row, inset item and group wells. */
+.ibqpApp--sorting .ibqpSortingSection,.ibqpApp--sorting .ibqpSortingBody,.ibqpApp--sorting .ibqpSortingList{min-width:0;max-width:100%}
+.ibqpApp--sorting .ibqpSortingBody{box-sizing:border-box;display:flex;flex-direction:column;gap:30px;width:100%;padding:26px 24px;background:#DFE6E9}
+.ibqpApp--sorting .ibqpSortingList{display:flex;flex-direction:column;gap:14px;width:min(100%,692px);margin:0 auto}
+.ibqpApp--sorting .ibqpSortingRow{box-sizing:border-box;display:grid;grid-template-columns:118px minmax(0,271px) 1fr;align-items:center;gap:14px;width:100%;min-height:70px}
+.ibqpApp--sorting .ibqpSortingPicture{display:flex;align-items:center;justify-content:space-between;gap:10px;box-sizing:border-box;width:118px;max-width:100%;height:70px;padding:12px 14px;background:#DFE6E9;border-radius:8px;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.ibqpApp--sorting .ibqpSortingPicture>b{font:400 18px/26px "Segoe UI",Inter,sans-serif;color:#374151}
+.ibqpApp--sorting .ibqpSortingPicture>span{display:grid;place-items:center;box-sizing:border-box;width:44px;height:44px;flex:0 0 44px;padding:2px;overflow:hidden;border-radius:4px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4}
+.ibqpApp--sorting .ibqpSortingPicture img{display:block;width:100%;height:100%;object-fit:contain}
+.ibqpApp--sorting .ibqpSortingText{display:flex;align-items:center;box-sizing:border-box;min-width:0;min-height:70px;padding:10px 18px;border-radius:8px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;font:600 16px/24px "Segoe UI",Inter,sans-serif;color:#374151;overflow-wrap:anywhere}
+.ibqpApp--sorting .ibqpSortingChoices{display:flex;align-items:center;gap:10px;min-width:0;min-height:70px}
+.ibqpApp--sorting .ibqpSortingChoices>button{display:flex;align-items:center;justify-content:center;flex:1 1 0;box-sizing:border-box;min-width:0;min-height:46px;padding:8px;border:0;border-radius:32px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;color:#374151;font:600 14px/22px "Segoe UI",Inter,sans-serif;overflow-wrap:anywhere;cursor:pointer}
+.ibqpApp--sorting .ibqpSortingChoices>button.is-selected{color:#2D4CC8;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;outline:1px solid #2D4CC8}
+.ibqpApp--sorting .ibqpSortingChoices>button:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+.ibqpApp--sorting .ibqpSortingShuffle{display:flex;align-items:center;justify-content:space-between;gap:16px;box-sizing:border-box;min-height:58px;width:100%;padding:12px 24px;border-radius:8px;background:#DFE6E9;box-shadow:inset -4px -4px 4px #FFFFFF,inset 4px 4px 4px #C4C4C4;font:400 16px/24px "Segoe UI",Inter,sans-serif;color:#374151}
+.ibqpApp--sorting .ibqpSortingStatus{margin:0;font:600 14px/22px "Segoe UI",Inter,sans-serif;color:#2A7308}
+@media(max-width:870px){
+ .ibqpApp--sorting .ibqpSortingBody{padding:16px;gap:20px}
+ .ibqpApp--sorting .ibqpSortingRow{grid-template-columns:100px minmax(0,1fr);gap:10px;padding:10px;border-radius:8px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4}
+ .ibqpApp--sorting .ibqpSortingPicture{width:100px;height:60px}
+ .ibqpApp--sorting .ibqpSortingText{min-height:60px;padding:10px;font-size:14px}
+ .ibqpApp--sorting .ibqpSortingChoices{grid-column:1/-1;min-height:50px}
+}
+@media(max-width:480px){
+ .ibqpApp--sorting .ibqpSortingBody{padding:10px}
+ .ibqpApp--sorting .ibqpSortingRow{grid-template-columns:90px minmax(0,1fr);gap:8px;padding:8px}
+ .ibqpApp--sorting .ibqpSortingPicture{width:90px;padding:9px;gap:4px}
+ .ibqpApp--sorting .ibqpSortingPicture>span{width:40px;height:40px;flex-basis:40px}
+ .ibqpApp--sorting .ibqpSortingText{font-size:13px;line-height:19px}
+ .ibqpApp--sorting .ibqpSortingChoices>button{font-size:12px;min-height:44px;padding:6px}
+ .ibqpApp--sorting .ibqpSortingShuffle{font-size:13px;padding:10px 12px}
+}
+
+/* Image Sorting preview: Figma inset group wells with raised Hardware/Software choices. */
+.ibqpApp--sorting .ibqpSortingChoices{align-items:stretch;min-width:0;gap:10px}
+.ibqpApp--sorting .ibqpSortingChoices>button{display:flex;align-items:center;justify-content:center;flex:1 1 0;min-width:0;min-height:70px;padding:9px;border:0;border-radius:8px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;outline:none;color:#374151;font:400 14px/22px "Segoe UI",Inter,sans-serif}
+.ibqpApp--sorting .ibqpSortingChoices .ibqpSortingChoiceLabel{display:grid;place-items:center;box-sizing:border-box;width:100%;min-height:46px;padding:7px;border-radius:32px;background:#DFE6E9;box-shadow:-2px -2px 2px #FFFFFF,2px 2px 2px #C4C4C4;color:inherit;text-align:center;overflow-wrap:anywhere}
+.ibqpApp--sorting .ibqpSortingChoices>button.is-selected{color:#2D4CC8;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;outline:1px solid #2D4CC8}
+.ibqpApp--sorting .ibqpSortingChoices>button.is-selected .ibqpSortingChoiceLabel{box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;font-weight:700}
+.ibqpApp--sorting .ibqpSortingChoices>button:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+@media(max-width:820px){
+ .ibqpApp--sorting .ibqpSortingChoices>button{min-height:58px;padding:6px}
+ .ibqpApp--sorting .ibqpSortingChoices .ibqpSortingChoiceLabel{min-height:42px}
+}
+@media(max-width:510px){
+ .ibqpApp--sorting .ibqpSortingChoices{flex-wrap:wrap;gap:8px}
+ .ibqpApp--sorting .ibqpSortingChoices>button{flex:1 1 90px;min-height:52px;padding:5px}
+ .ibqpApp--sorting .ibqpSortingChoices .ibqpSortingChoiceLabel{min-height:40px;font-size:12px}
+}
+
+/* Image-Based Preview: remove bright-blue focus/selection outlines without
+   altering the existing Figma neumorphic surfaces or other assessment types. */
+.ibqpApp :is(button,input,select,textarea,[contenteditable="true"],[tabindex]):is(:focus,:focus-visible),
+.ibqpApp :is(.ibqpLabelChoice,.ibqpDropdownOnImage):focus-within,
+.ibqpApp .ibqpAnswer.isChosen,
+.ibqpApp--sorting .ibqpSortingChoices>button.is-selected {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+.ibqpApp--sorting .ibqpSortingChoices>button.is-selected {
+  color: #374151;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+}
+.ibqpApp :is(button,select):focus-visible { filter: brightness(.97); }

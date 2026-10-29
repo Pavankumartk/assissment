@@ -6,7 +6,10 @@ import { createPortal } from "react-dom";
 import Sidebar from "../../common/sidebar/page";
 import Header from "../../common/header/Header";
 import "./matchthefollowing.css";
-import { assessmentStorage, resultPath } from "@/modules/assessments/storage/assessment-storage";
+import { assessmentStorage, resultPath, viewerPath } from "@/modules/assessments/storage/assessment-storage";
+import ViewerSubmitConfirm from "@/modules/assessments/components/viewer/ViewerSubmitConfirm";
+import TextSubmitSuccess from "@/modules/assessments/components/viewer/TextSubmitSuccess";
+import { releaseForAssessment } from "@/modules/assessments/components/viewer/assessment-result-bridge";
 // Keep the user's existing viewer icon folder. Add missing SVG files here.
 const ICONS = "/assets/viewericons/";
 const CONTENT_KEYS = [
@@ -349,6 +352,8 @@ function MatchSelect({ question, termIndex, selected, answers, disabled, onSelec
 }
 export default function MatchFollowingViewerPage() {
   const router = useRouter();
+  const isRetry = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("retry") === "wrong";
+  const sessionKey = isRetry ? `${SESSION_KEY}Retry` : SESSION_KEY;
   const [draft, setDraft] = useState<ViewerDraft>(DEMO);
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number[]>>({});
@@ -358,17 +363,24 @@ export default function MatchFollowingViewerPage() {
   const [expiresAt, setExpiresAt] = useState(0);
   const [now, setNow] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [submitOpen, setSubmitOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
   const [ready, setReady] = useState(false);
   const [notice, setNotice] = useState("");
   const signature = `${draft.title}|${draft.questions.length}|${draft.questions.map(q => q.id + q.text).join("|")}`;
   useEffect(() => {
-    const loaded = loadViewerDraft();
+    let loaded = loadViewerDraft();
+    if (isRetry) {
+      let indexes: number[] = [];
+      try { const values: unknown = JSON.parse(assessmentStorage.getItem("matchFollowingRetryIndexes") || "[]"); if (Array.isArray(values)) indexes = values.filter((v): v is number => typeof v === "number" && Number.isInteger(v) && v >= 0); } catch { /* No retry data */ }
+      loaded = { ...loaded, questions: loaded.questions.filter((_, index) => indexes.includes(index)) };
+    }
     const stamp = `${loaded.title}|${loaded.questions.length}|${loaded.questions.map(q => q.id + q.text).join("|")}`;
     const time = Date.now();
     setDraft(loaded);
     setNow(time);
     let state: Partial<ViewerState> = {};
-    try { state = JSON.parse(assessmentStorage.getItem(SESSION_KEY) || "{}"); }
+    try { state = JSON.parse(assessmentStorage.getItem(sessionKey) || "{}"); }
     catch { /* Start a fresh attempt. */ }
     if (state.signature === stamp && !state.submitted && Number(state.expiresAt) > time) {
       setCurrent(Math.min(Math.max(Number(state.current) || 0, 0), loaded.questions.length - 1));
@@ -414,7 +426,7 @@ export default function MatchFollowingViewerPage() {
   useEffect(() => {
     if (!ready) return;
     const state: ViewerState = { signature, current, answers, flagged, skipped, expiresAt, submitted };
-    try { assessmentStorage.setItem(SESSION_KEY, JSON.stringify(state)); }
+    try { assessmentStorage.setItem(sessionKey, JSON.stringify(state)); }
     catch { /* Continue when browser storage is unavailable. */ }
   }, [ready, signature, current, answers, flagged, skipped, expiresAt, submitted]);
   useEffect(() => {
@@ -422,14 +434,14 @@ export default function MatchFollowingViewerPage() {
     setSubmitted(true);
     setNotice("Time is up. Your assessment has been submitted.");
     try {
-      assessmentStorage.setItem("matchFollowingViewerResult", JSON.stringify({
+      assessmentStorage.setItem(isRetry ? "matchFollowingRetryResult" : "matchFollowingViewerResult", JSON.stringify({
         title: draft.title, answers, score, answered, total, flagged,
         totalMarks: draft.questions.reduce((sum, q) => sum + q.points, 0),
         questions: draft.questions.map((q, i) => ({ text: q.text, terms: q.terms, options: q.options, correct: q.correct, selected: answers[i] ?? [], points: q.points })),
         submittedAt: new Date().toISOString(),
       }));
     } catch { /* Submission remains finished. */ }
-    if (new URLSearchParams(window.location.search).get("preview") !== "true") router.replace(resultPath());
+    if (new URLSearchParams(window.location.search).get("preview") !== "true") setSuccessOpen(true);
   }, [ready, submitted, expiresAt, secondsLeft, draft, answers, score, answered, total, flagged, router]);
   const selectMatch = (row: number, option: number) => {
     if (submitted || !question) return;
@@ -457,19 +469,20 @@ export default function MatchFollowingViewerPage() {
     setFlagged(previous => previous.includes(current)
       ? previous.filter(i => i !== current) : [...previous, current]);
   };
-  const submit = () => {
-    if (!window.confirm(`Submit this assessment? ${answered} answered, ${remaining} unanswered and ${flagged.length} flagged.`)) return;
+  const submit = () => { setSubmitOpen(true); };
+  const confirmSubmission = () => {
     try {
-      assessmentStorage.setItem("matchFollowingViewerResult", JSON.stringify({
+      assessmentStorage.setItem(isRetry ? "matchFollowingRetryResult" : "matchFollowingViewerResult", JSON.stringify({
         title: draft.title, answers, score, answered, total, flagged,
         totalMarks: draft.questions.reduce((sum, q) => sum + q.points, 0),
         questions: draft.questions.map((q, i) => ({ text: q.text, terms: q.terms, options: q.options, correct: q.correct, selected: answers[i] ?? [], points: q.points })),
         submittedAt: new Date().toISOString(),
       }));
-    } catch { /* Submission still finishes without storage. */ }
+    } catch { /* Submission remains complete even when storage is unavailable. */ }
     setSubmitted(true);
+    setSubmitOpen(false);
     setNotice("Assessment submitted.");
-    if (new URLSearchParams(window.location.search).get("preview") !== "true") router.push(resultPath());
+    if (new URLSearchParams(window.location.search).get("preview") !== "true") setSuccessOpen(true);
   };
   return <main className="superAdminPage institutionAdminPage viewerAppShell viewMatchFollowingApp">
     <div className="dashboardLayout viewerLayout">
@@ -567,9 +580,9 @@ export default function MatchFollowingViewerPage() {
                 </div>
                 <h2 className="viewerToolsHeading">Tools</h2>
                 <div className="viewerToolsList">
-                  <button type="button" onClick={() => router.push("/scratch")}><Icon name="sticky-note.svg" />Scratch Pad<Icon name="arrowupright.svg" size={18} /></button>
-                  <button type="button" onClick={() => router.push("/calculator")}><Icon name="calculator.svg" />Calculator<Icon name="arrowup.svg" size={18} /></button>
-                  <button type="button" onClick={() => router.push("/formulasheet")}><Icon name="sigma.svg" />Formula Sheet<Icon name="arrowupg.svg" size={18} /></button>
+                  <button type="button" onClick={() => router.push(`${viewerPath()}/scratch`)}><Icon name="sticky-note.svg" />Scratch Pad<Icon name="arrowupright.svg" size={18} /></button>
+                  <button type="button" onClick={() => router.push(`${viewerPath()}/calculator`)}><Icon name="calculator.svg" />Calculator<Icon name="arrowup.svg" size={18} /></button>
+                  <button type="button" onClick={() => router.push(`${viewerPath()}/formulasheet`)}><Icon name="sigma.svg" />Formula Sheet<Icon name="arrowupg.svg" size={18} /></button>
                 </div>
               </aside>
             </div>
@@ -577,5 +590,7 @@ export default function MatchFollowingViewerPage() {
         </div>
       </section>
     </div>
+    {submitOpen && !submitted && <ViewerSubmitConfirm answered={answered} remaining={remaining} flagged={flagged.length} onBack={() => setSubmitOpen(false)} onSubmit={confirmSubmission} />}
+    {successOpen && <TextSubmitSuccess title={draft.title} scorePercent={Math.round(score / Math.max(1, questions.reduce((sum,q) => sum + q.points, 0)) * 100)} pendingCount={0} passingScore="60%" release={releaseForAssessment("match-the-following")} isRetry={isRetry} onClose={() => setSuccessOpen(false)} />}
   </main>;
 }
