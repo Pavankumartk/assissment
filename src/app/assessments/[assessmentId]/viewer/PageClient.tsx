@@ -7,6 +7,8 @@ import ImageBasedViewer from "@/modules/assessments/components/type-specific/ima
 import ImageAssessmentInstructions from "@/modules/assessments/components/type-specific/image-based/ImageAssessmentInstructions";
 import ConnectDotsAssessmentInstructions from "@/modules/assessments/components/type-specific/connect-the-dots/Instructions";
 import MatchViewer from "@/modules/assessments/components/type-specific/match-the-following/Viewer";
+import ClickableHotspotViewer from "@/modules/assessments/components/type-specific/clickable-hotspot/Viewer";
+import ClickableHotspotInstructions from "@/modules/assessments/components/type-specific/clickable-hotspot/Instructions";
 import ConnectDotsViewer from "@/modules/assessments/components/type-specific/connect-the-dots/Viewer";
 import MemoryViewer from "@/modules/assessments/components/type-specific/memory-game/Viewer";
 import Screen from "@/modules/assessments/components/viewer/AssessmentViewer/AssessmentViewer";
@@ -14,6 +16,7 @@ import ShortViewer from "@/modules/assessments/components/type-specific/short-an
 import OneViewer from "@/modules/assessments/components/type-specific/one-word/Viewer";
 
 import {
+  assessmentStorage,
   setActiveAssessmentId,
   getAssessment,
 } from "@/modules/assessments/storage/assessment-storage";
@@ -26,6 +29,7 @@ export default function PageClient() {
   }>();
 
   const router = useRouter();
+  const [hotspotInstructionsNeeded, setHotspotInstructionsNeeded] = useState(false);
   const [ready, setReady] = useState(false);
   const [imageInstructionsNeeded, setImageInstructionsNeeded] = useState(false);
   const [connectDotsInstructionsNeeded, setConnectDotsInstructionsNeeded] = useState(false);
@@ -95,6 +99,26 @@ export default function PageClient() {
     } else {
       setConnectDotsInstructionsNeeded(false);
     }
+    if (record.typeCode === "clickable-hotspot" && !isPreview) {
+      const params = new URLSearchParams(window.location.search);
+      const key = `neurolxp.clickableHotspotViewer.instructions.${assessmentId}`;
+      let accepted = false;
+      try { accepted = sessionStorage.getItem(key) === "accepted"; }
+      catch { /* Always show the instructions if storage is disabled. */ }
+      setHotspotInstructionsNeeded(params.get("instructions") === "1" || params.get("retry") === "wrong" || !accepted);
+    } else {
+      setHotspotInstructionsNeeded(false);
+    }
+    // A learner's completed Hotspot attempt must not open again unless retry was explicitly requested.
+    if (record.typeCode === "clickable-hotspot" && !isPreview) {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("retry") !== "wrong") {
+        try {
+          const stored = JSON.parse(assessmentStorage.getItem("viewerAttemptDraft") || "{}");
+          if (stored.finished) { router.replace("/learner"); return; }
+        } catch { /* Invalid legacy attempt state: continue normally. */ }
+      }
+    }
     setReady(true);
   }, [assessmentId, isPreview, router]);
 
@@ -103,7 +127,9 @@ export default function PageClient() {
     : null;
 
   const Viewer =
-    type === "image-based"
+    type === "clickable-hotspot"
+      ? ClickableHotspotViewer
+      : type === "image-based"
       ? ImageBasedViewer
       : type === "match-the-following"
       ? MatchViewer
@@ -150,6 +176,19 @@ export default function PageClient() {
         window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
         setConnectDotsInstructionsNeeded(false);
       }} />
+    </div>;
+  }
+
+  if (type === "clickable-hotspot" && hotspotInstructionsNeeded) {
+    return <div className="assessment-variant assessment-variant--clickable-hotspot">
+      <ClickableHotspotInstructions assessmentId={assessmentId} onStart={() => {
+        try { sessionStorage.setItem(`neurolxp.clickableHotspotViewer.instructions.${assessmentId}`, "accepted"); }
+        catch { /* Continue in this tab. */ }
+        const url = new URL(window.location.href);
+        url.searchParams.delete("instructions");
+        window.history.replaceState(window.history.state,"",`${url.pathname}${url.search}${url.hash}`);
+        setHotspotInstructionsNeeded(false);
+      }}/>
     </div>;
   }
 

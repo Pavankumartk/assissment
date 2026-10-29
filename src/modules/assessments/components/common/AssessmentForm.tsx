@@ -33,6 +33,7 @@ import DragContent from "../type-specific/drag-and-drop/Content";
 import MemoryDetails from "../type-specific/memory-game/Details";
 import MemoryContent from "../type-specific/memory-game/Content";
 import MatchContent from "../type-specific/match-the-following/Content";
+import ClickableHotspotContent from "../type-specific/clickable-hotspot/Content";
 import ConnectDotsContent from "../type-specific/connect-the-dots/Content";
 import MatchReview from "../type-specific/match-the-following/Review";
 import ImageContent from "../type-specific/image-based/Content";
@@ -48,6 +49,7 @@ const STEPS = {
   review: ReviewStep,
 };
 const TYPE_STEPS = {
+ "clickable-hotspot": {details:DetailsStep, content:ClickableHotspotContent, evaluation:EvaluationStep, review:ReviewStep},
  "true-false": { details:TrueFalseDetails, content:TrueFalseContent, evaluation:TrueFalseEvaluation, review:TrueFalseReview },
  "fill-in-the-blanks": { details:FillDetails, content:FillContent, evaluation:FillEvaluation, review:FillReview },
  "long-answer": { details:LongDetails, content:LongContent, evaluation:LongEvaluation, review:LongReview },

@@ -81,6 +81,7 @@ export function duplicateAssessment(id: string) {
 
 // Keep draft copying complete for every registered creator, including its evaluation settings.
 const ADDITIONAL_WORKFLOW_DRAFT_KEYS = [
+  "clickableHotspotContentDraft",
   "trueFalseAssessmentDraft", "trueFalseContentDraft", "trueFalseEvaluationDraft",
   "fillBlanksAssessmentDraft", "fillBlanksContentDraft", "fillBlanksEvaluationDraft",
   "longAnswerAssessmentDraft", "longAnswerContentDraft", "longAnswerEvaluationDraft",
