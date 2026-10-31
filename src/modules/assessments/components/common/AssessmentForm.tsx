@@ -1,4 +1,7 @@
 "use client";
+import ProblemSolvingContent from "../type-specific/problem-solving/Content";
+import AssignmentEvaluationStep from "../type-specific/assignment/Evaluation";
+import AssignmentContentStep from "../type-specific/assignment/Content";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getActiveAssessmentId, getAssessment } from "../../storage/assessment-storage";
@@ -49,6 +52,9 @@ const STEPS = {
   review: ReviewStep,
 };
 const TYPE_STEPS = {
+  "problem-solving-challenge": {details:STEPS.details,content:ProblemSolvingContent,evaluation:STEPS.evaluation,review:STEPS.review},
+  "problem-solving": {details:STEPS.details,content:ProblemSolvingContent,evaluation:STEPS.evaluation,review:STEPS.review},
+  "assignment": {details:STEPS.details,content:AssignmentContentStep,evaluation:AssignmentEvaluationStep,review:ReviewStep},
  "clickable-hotspot": {details:DetailsStep, content:ClickableHotspotContent, evaluation:EvaluationStep, review:ReviewStep},
  "true-false": { details:TrueFalseDetails, content:TrueFalseContent, evaluation:TrueFalseEvaluation, review:TrueFalseReview },
  "fill-in-the-blanks": { details:FillDetails, content:FillContent, evaluation:FillEvaluation, review:FillReview },

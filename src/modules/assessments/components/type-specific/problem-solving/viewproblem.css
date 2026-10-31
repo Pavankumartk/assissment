@@ -1,0 +1,309 @@
+/* Problem Solving viewer only. Every selector is scoped to viewProblemApp so
+   other existing assessment flows keep their CSS, sizing and shadows. */
+.viewProblemApp.viewerAppShell{--viewer-bg:#DFE6E9;--viewer-ink:#2F3547;position:fixed;inset:0;width:100%;height:100dvh;min-height:0!important;max-height:100dvh;margin:0;padding:0;overflow:hidden!important;background:var(--viewer-bg);color:var(--viewer-ink);font-family:'Segoe UI',Arial,sans-serif}
+.viewProblemApp *,.viewProblemApp *::before,.viewProblemApp *::after{box-sizing:border-box}
+html:has(.viewProblemApp),body:has(.viewProblemApp){height:100%;overflow:hidden!important;overscroll-behavior:none}
+body:has(.viewProblemApp){margin:0}
+.viewProblemApp .viewerLayout{display:flex;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden}
+.viewProblemApp .viewerMain{display:flex;flex:1 1 0%;flex-direction:column;min-width:0;min-height:0;height:100%;overflow:hidden}
+.viewProblemApp .viewerSharedHeader{flex:0 0 auto;min-width:0;width:100%}
+.viewProblemApp .viewerSharedHeader .topHeader{width:100%;display:flex;justify-content:flex-end}
+.viewProblemApp .viewerSharedHeader .topHeader .headerRight{margin-left:auto}
+.viewProblemApp .viewerScroll{flex:1 1 0%;min-width:0;min-height:0;max-height:100%;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.viewProblemApp .viewerContent{width:100%;max-width:1260px;min-width:0;height:auto;min-height:0;margin:0 auto;padding:26px 24px 55px}
+
+/* Existing breadcrumb, clock and heading proportions. */
+.viewProblemApp .viewerExamTop{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+.viewProblemApp .viewerBreadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:24px;margin:0;font-size:16px;line-height:24px;letter-spacing:.02em}
+.viewProblemApp .viewerBreadcrumb a{color:var(--viewer-ink);text-decoration:none}
+.viewProblemApp .viewerBreadcrumb img{flex:none;display:block;object-fit:contain}
+.viewProblemApp .viewerBreadcrumb strong{color:#2D4CC8;font-weight:700;overflow-wrap:anywhere}
+.viewProblemApp .viewerExamClock{display:flex;align-items:center;justify-content:center;gap:5px;padding:11px 12px;border-radius:8px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.viewProblemApp .viewerTimeGroup{display:flex;align-items:center;gap:4px}
+.viewProblemApp .viewerTimeColon{font-weight:700;font-size:20px;margin-inline:2px}
+.viewProblemApp .viewerTimeDigit{display:grid;place-items:center;width:26px;height:28px;border-radius:4px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;font-size:18px;font-weight:600}
+.viewProblemApp .viewerPageHeading{margin-bottom:20px}
+.viewProblemApp .viewerPageHeading h1{margin:0;color:#2D4CC8;font-size:24px;line-height:32px;font-weight:700;letter-spacing:.02em}
+
+/* Two original viewer cards and identical neumorphic shadows. */
+.viewProblemApp .viewerExamGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,345px);gap:24px;align-items:stretch}
+.viewProblemApp .viewerExamCard{min-width:0;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4}
+.viewProblemApp .viewerQuestionCard{display:flex;flex-direction:column;gap:20px;min-height:900px;padding:24px}
+.viewProblemApp .viewerProgressArea{width:100%}
+.viewProblemApp .viewerProgressLabel{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:16px;line-height:22px;color:#374151}
+.viewProblemApp .viewerProgressLabel strong{font-weight:700}
+.viewProblemApp .viewerProgressLabel span{color:#374151}
+.viewProblemApp .viewerProgressLabel .viewerMarks{font-size:15px}
+.viewProblemApp .viewerProgressRow{display:flex;align-items:center;gap:12px;margin-top:7px;color:#2A7308}
+.viewProblemApp .viewerProgressTrack{flex:1;min-width:0;height:18px;padding:4px;border-radius:40px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.viewProblemApp .viewerProgressTrack>span{display:block;height:100%;min-width:0;border-radius:30px;background:#2A7308;transition:width .2s ease}
+.viewProblemApp .viewerProgressRow strong{font-size:16px;font-weight:700}
+.viewProblemApp .viewerQuestionHeading h2{margin:0 0 4px;font-size:18px;line-height:28px;color:#2D4CC8}
+.viewProblemApp .viewerQuestionHeading h3{margin:0 0 2px;color:#2F3547;font-size:18px;font-weight:600;line-height:28px}
+.viewProblemApp .viewerQuestionHeading p{margin:0;font-size:14px;line-height:26px;color:#374151;letter-spacing:.01em}
+
+/* Screenshot's 3-row step area, replacing the old multiple-choice tiles. */
+.viewProblemApp .viewerProblemPanel{display:flex;flex-direction:column;gap:24px;min-width:0;padding:16px;border-radius:2px;background:#DFE6E9;box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4}
+.viewProblemApp .viewerProblemStep{display:flex;flex-direction:column;gap:16px;min-width:0;padding:16px;border-radius:8px;background:#DFE6E9;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.viewProblemApp .viewerProblemStepHeading{display:flex;justify-content:space-between;align-items:center;gap:12px;min-width:0}
+.viewProblemApp .viewerProblemStepHeading label{min-width:0;font-size:16px;line-height:24px;font-weight:600;color:#2F3547;letter-spacing:.02em}
+.viewProblemApp .viewerProblemStepHeading>span{flex:none;color:#2D4CC8;font-weight:600;font-size:14px;line-height:22px;letter-spacing:.02em}
+.viewProblemApp .viewerProblemInput{display:block;min-width:0;width:100%;height:44px;border:1px solid #9E9E9E;border-radius:4px;outline:none;background:transparent;color:#2F3547;padding:8px 22px;font:400 14px/28px 'Segoe UI',Arial,sans-serif;letter-spacing:.02em}
+.viewProblemApp .viewerProblemInput::placeholder{opacity:1;color:#374151}
+.viewProblemApp .viewerProblemInput:focus{border-color:#2D4CC8;box-shadow:0 0 0 1px #2D4CC8}
+.viewProblemApp .viewerProblemInput:disabled{opacity:.72;cursor:not-allowed}
+
+/* Hint, Bloom's Taxonomy and flag controls use the same supplied styles. */
+.viewProblemApp .viewerHintBox{border-radius:8px;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}
+.viewProblemApp .viewerHintToggle{display:flex;align-items:center;width:100%;min-height:66px;padding:10px 16px;background:transparent;border:0;text-align:left;cursor:pointer;color:#63560B;font:600 18px 'Segoe UI',Arial,sans-serif}
+.viewProblemApp .viewerHintTitle{display:flex;align-items:center;gap:14px}
+.viewProblemApp .viewerHintIcon{display:grid;place-items:center;width:39px;height:39px;flex:0 0 39px;border-radius:50%;border:1px solid #63560B;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4}
+.viewProblemApp .viewerHintTitle small{display:block;margin-top:5px;color:#374151;font-size:14px;font-weight:400;line-height:21px}
+.viewProblemApp .viewerQuestionSettings{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.viewProblemApp .viewerBloomLabel{display:block;font-size:15px;font-weight:600;margin-bottom:8px}
+.viewProblemApp .viewerBloomValue{display:block;min-width:175px;max-width:100%;padding:9px 14px;min-height:40px;border-radius:8px;box-shadow:inset -4px -4px 4px #fff,inset 4px 4px 4px #C4C4C4}
+.viewProblemApp .viewerFlagButton{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 16px;min-height:42px;border:0;border-radius:5px;color:#C05512;background:#DFE6E9;box-shadow:-3px -3px 4px #fff,3px 3px 4px #C4C4C4;cursor:pointer;font:600 15px 'Segoe UI',Arial,sans-serif}
+.viewProblemApp .viewerFlagButton.isFlagged{box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+.viewProblemApp .viewerFlagButton:disabled{cursor:not-allowed;opacity:.6}
+.viewProblemApp .viewerInlineNotice{margin:0;color:#C05512;font-size:14px;line-height:22px}
+.viewProblemApp .viewerExamActions{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:auto;padding-top:12px}
+.viewProblemApp .viewerExamButton{display:flex;align-items:center;justify-content:center;gap:12px;min-height:54px;min-width:170px;padding:10px 18px;border:0;border-radius:32px;background:#DFE6E9;color:#374151;font:600 20px 'Segoe UI',Arial,sans-serif;box-shadow:-4px -4px 4px #fff,4px 4px 4px #C4C4C4;cursor:pointer;white-space:nowrap}
+.viewProblemApp .viewerExamButton:disabled{opacity:.5;cursor:not-allowed}
+.viewProblemApp .viewerExamButton.viewerNext{color:#2A7308;border:1px solid #2A7308}
+
+/* Navigator colors: present blue, completed green, partial orange, untouched grey. */
+.viewProblemApp .viewerNavigator{display:flex;flex-direction:column;gap:19px;padding:24px 19px}
+.viewProblemApp .viewerNavigator h2{margin:0;color:#2D4CC8;font-size:18px;line-height:28px;font-weight:700}
+.viewProblemApp .viewerQuestionTiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 12px}
+.viewProblemApp .viewerQuestionTile{position:relative;min-width:0;aspect-ratio:1/1;min-height:38px;border:1px solid #adb5bb;border-radius:5px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;color:#374151;font:600 16px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.viewProblemApp .viewerQuestionTile.is-completed{border-color:#2A7308;color:#2A7308}
+.viewProblemApp .viewerQuestionTile.is-in-progress{border-color:#C05512;color:#C05512}
+.viewProblemApp .viewerQuestionTile.is-current{border-color:#2D4CC8;color:#2D4CC8;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4}
+.viewProblemApp .viewerQuestionTile.is-remaining{border-color:#C4C4C4;color:#374151}
+.viewProblemApp .viewerTileFlag{position:absolute;top:2px;right:2px;width:6px;height:6px;border-radius:50%;background:#C05512}
+.viewProblemApp .viewerStatusRows{display:grid;gap:14px;margin-top:4px}
+.viewProblemApp .viewerStatusRows>div{display:flex;align-items:center;gap:11px;min-height:44px;padding:8px 12px;border-radius:6px;box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;font-size:15px}
+.viewProblemApp .viewerStatusRows img{width:22px;height:22px;object-fit:contain}
+.viewProblemApp .viewerStatusRows strong{margin-left:auto}
+.viewProblemApp .viewerStatusRows>div:first-child strong{color:#2A7308}
+.viewProblemApp .viewerStatusRows>div:last-child strong{color:#C05512}
+.viewProblemApp .viewerRemainingCircle{display:block;flex:0 0 22px;width:22px;height:22px;border:1px solid #C4C4C4;border-radius:50%}
+.viewProblemApp .viewerToolsHeading{margin-top:8px!important}
+.viewProblemApp .viewerToolsList{display:grid;gap:13px}
+.viewProblemApp .viewerToolsList button{display:flex;align-items:center;gap:12px;min-height:42px;width:100%;padding:8px 12px;border:0;border-radius:5px;background:#DFE6E9;box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;text-align:left;font:600 14px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.viewProblemApp .viewerToolsList button:nth-child(1){color:#005C60}
+.viewProblemApp .viewerToolsList button:nth-child(2){color:#780A87}
+.viewProblemApp .viewerToolsList button:nth-child(3){color:#2A7308}
+.viewProblemApp .viewerToolsList button img{width:22px;height:22px;flex:0 0 22px;object-fit:contain}
+.viewProblemApp .viewerToolsList button img:last-child{width:18px;height:18px;flex:0 0 18px;margin-left:auto}
+.viewProblemApp .viewerQuestionTile:focus-visible,.viewProblemApp .viewerProblemInput:focus-visible,.viewProblemApp .viewerExamButton:focus-visible,.viewProblemApp .viewerFlagButton:focus-visible,.viewProblemApp .viewerToolsList button:focus-visible,.viewProblemApp .viewerHintToggle:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px}
+
+/* Keep desktop unchanged. Stack cards on tablets/phones without overlapping. */
+@media(max-width:1050px){
+  .viewProblemApp .viewerContent{padding:22px 20px 40px}
+  .viewProblemApp .viewerExamGrid{grid-template-columns:minmax(0,1fr) 265px;gap:16px}
+  .viewProblemApp .viewerQuestionCard{padding:18px;min-height:0}
+  .viewProblemApp .viewerNavigator{padding:18px 12px}
+  .viewProblemApp .viewerQuestionTiles{gap:9px}
+  .viewProblemApp .viewerExamButton{min-width:140px;font-size:17px}
+}
+@media(max-width:780px){
+  .viewProblemApp .viewerExamGrid{grid-template-columns:minmax(0,1fr)}
+  .viewProblemApp .viewerNavigator{padding:20px}
+  .viewProblemApp .viewerQuestionTiles{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .viewProblemApp .viewerExamTop{gap:14px}
+  .viewProblemApp .viewerQuestionCard{min-height:0}
+}
+@media(max-width:520px){
+  .viewProblemApp .viewerContent{padding:16px 12px 28px}
+  .viewProblemApp .viewerExamTop .viewerBreadcrumb{font-size:12px;line-height:20px;gap:5px}
+  .viewProblemApp .viewerBreadcrumb img{width:15px;height:15px}
+  .viewProblemApp .viewerExamTop{flex-direction:column;align-items:stretch;gap:12px}
+  .viewProblemApp .viewerExamClock{align-self:center;flex:none;width:max-content;max-width:100%;margin:0 auto;padding:11px 14px;gap:7px}
+  .viewProblemApp .viewerTimeGroup{gap:6px}
+  .viewProblemApp .viewerTimeColon{font-size:19px;margin-inline:3px}
+  .viewProblemApp .viewerPageHeading h1{font-size:20px;line-height:28px}
+  .viewProblemApp .viewerQuestionCard,.viewProblemApp .viewerNavigator{padding:14px}
+  .viewProblemApp .viewerQuestionCard{gap:17px}
+  .viewProblemApp .viewerQuestionHeading p{font-size:14px;line-height:22px}
+  .viewProblemApp .viewerProblemPanel{padding:10px;gap:12px}
+  .viewProblemApp .viewerProblemStep{padding:12px;gap:10px}
+  .viewProblemApp .viewerProblemStepHeading label{font-size:14px;line-height:22px}
+  .viewProblemApp .viewerProblemInput{font-size:13px;padding:8px 12px}
+  .viewProblemApp .viewerQuestionTiles{gap:8px}
+  .viewProblemApp .viewerQuestionTile{min-height:38px}
+  .viewProblemApp .viewerQuestionSettings{align-items:flex-start}
+  .viewProblemApp .viewerFlagButton{font-size:13px}
+  .viewProblemApp .viewerExamActions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .viewProblemApp .viewerExamButton{min-width:0;min-height:44px;padding:8px;font-size:14px;gap:6px}
+  .viewProblemApp .viewerTimeDigit{width:clamp(24px,7.4vw,28px);height:32px;font-size:17px}
+}
+@media(max-width:360px){
+  .viewProblemApp .viewerExamClock{padding:9px 10px;gap:5px}
+  .viewProblemApp .viewerTimeGroup{gap:4px}
+  .viewProblemApp .viewerTimeColon{font-size:17px;margin-inline:2px}
+  .viewProblemApp .viewerTimeDigit{width:23px;height:29px;font-size:15px}
+  .viewProblemApp .viewerStatusRows>div{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){.viewProblemApp .viewerProgressTrack>span{transition:none}}
+
+/* Problem Solving-only patch: sentences expand, invalid numeric/word answers
+   do not count as completed; hint assets retain the original card layout. */
+.viewProblemApp .viewerProblemTextarea{
+  min-height:70px;height:auto;resize:vertical;line-height:24px;
+  padding-top:9px;padding-bottom:9px;font-family:'Segoe UI',Arial,sans-serif;
+}
+.viewProblemApp .viewerProblemError{
+  margin:-9px 0 0;color:#B42318;font-size:12px;line-height:18px;
+}
+.viewProblemApp .viewerHintTitle{min-width:0;flex:1}
+.viewProblemApp .viewerHintTitle>span:last-child{min-width:0}
+.viewProblemApp .viewerHintVisibility{
+  display:grid;place-items:center;flex:none;width:28px;height:28px;
+  margin-left:auto;color:#63560B;
+}
+.viewProblemApp .viewerHintIcon{color:#63560B}
+.viewProblemApp .viewerHintIcon>svg,.viewProblemApp .viewerHintVisibility>svg{display:block}
+.viewProblemApp .viewerHintIcon>img,.viewProblemApp .viewerHintVisibility>img{display:block;object-fit:contain}
+@media(max-width:520px){
+  .viewProblemApp .viewerProblemTextarea{min-height:76px}
+  .viewProblemApp .viewerProblemError{font-size:11px}
+}
+
+/* Instructions use the same shared learner header/sidebar; only Problem Solving is styled here. */
+.viewProblemApp .psInstructionsTitle{font:700 26px/36px "Segoe UI",sans-serif;color:#374151;margin:24px 0}
+.viewProblemApp .psInstructionsGrid{display:grid;grid-template-columns:minmax(250px,1fr) minmax(0,1.5fr);gap:24px;align-items:start}
+.viewProblemApp .psInstructionsCard{min-width:0;padding:26px;background:#DFE6E9;border-radius:14px;box-shadow:-4px -4px 7px #fff,4px 4px 7px #C4C4C4}
+.viewProblemApp .psInstructionsCard h2{margin:0 0 18px;font-size:20px;color:#2D4CC8}
+.viewProblemApp .psInstructionsCard p,.viewProblemApp .psInstructionsCard li{font-size:16px;line-height:26px;color:#374151}
+.viewProblemApp .psInstructionsCard ol{padding-left:24px;margin:0 0 24px}
+.viewProblemApp .psInstructionsCheck{display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:24px;margin-top:20px}
+.viewProblemApp .psInstructionsCheck input{width:20px;height:20px;accent-color:#2D4CC8;flex:none;margin-top:2px}
+.viewProblemApp .psInstructionsActions{display:flex;justify-content:flex-end;gap:20px;flex-wrap:wrap;margin-top:24px}
+@media(max-width:800px){.viewProblemApp .psInstructionsGrid{grid-template-columns:minmax(0,1fr)}.viewProblemApp .psInstructionsCard{padding:18px}.viewProblemApp .psInstructionsActions>*{flex:1;min-width:110px}}
+.viewProblemApp .psSubmittedCard{max-width:780px;margin:24px auto;padding:36px}
+.viewProblemApp .psSubmittedCard h1{color:#2A7308;font-size:26px;margin:0 0 18px}
+.viewProblemApp .psSubmittedCard .viewerExamButton{margin-top:24px}
+
+/* ============================================================
+   Problem Solving only: shared learner instructions / submission
+   confirmation / success / results / retry UI. No global rules.
+   ============================================================ */
+.viewProblemApp .psAssessmentSummary,
+.viewProblemApp .psResultCard,
+.viewProblemApp .psResultSummary,
+.viewProblemApp .psResultsStats > div {
+  min-width:0;background:#DFE6E9;border-radius:16px;
+  box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4;
+}
+.viewProblemApp .psAssessmentSummary{padding:26px;display:flex;flex-direction:column;gap:24px}
+.viewProblemApp .psSummaryHeading{display:flex;gap:16px;align-items:center;min-width:0}
+.viewProblemApp .psSummaryEmblem{display:grid;place-items:center;flex:none;width:58px;height:58px;border-radius:15px;color:#2D4CC8;font:700 18px 'Segoe UI',sans-serif;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+.viewProblemApp .psSummaryHeading h2{margin:0;color:#374151;font:700 21px/28px 'Segoe UI',sans-serif;overflow-wrap:anywhere}
+.viewProblemApp .psSummaryHeading p{margin:5px 0 0;font:400 14px/20px 'Segoe UI',sans-serif;color:#2D4CC8}
+.viewProblemApp .psSummaryFacts{margin:0;display:grid;gap:12px}
+.viewProblemApp .psSummaryFacts>div{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border-radius:8px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+.viewProblemApp .psSummaryFacts dt{font:500 15px/22px 'Segoe UI',sans-serif;color:#374151}
+.viewProblemApp .psSummaryFacts dd{margin:0;color:#2D4CC8;font:700 16px/22px 'Segoe UI',sans-serif;text-align:right}
+.viewProblemApp .psInstructionsGrid .psInstructionsCard{border-radius:16px;padding:26px}
+.viewProblemApp .psInstructionsGrid .psInstructionsCard h2{font:700 20px/28px 'Segoe UI',sans-serif;color:#374151}
+.viewProblemApp .psInstructionsCheck{padding:14px 16px;border-radius:8px;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+.viewProblemApp .psInstructionsActions .viewerExamButton{font-size:17px;min-height:48px}
+.viewProblemApp .psModalBackdrop{position:fixed;inset:0;z-index:1500;display:grid;place-items:center;padding:22px;background:rgba(28,38,56,.54);overscroll-behavior:contain}
+.viewProblemApp .psModalCard{width:min(100%,540px);max-height:min(90dvh,760px);overflow-y:auto;display:flex;align-items:center;flex-direction:column;gap:18px;text-align:center;background:#DFE6E9;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:30px 26px;box-shadow:-5px -5px 12px rgba(255,255,255,.85),8px 9px 24px rgba(20,35,58,.27);color:#374151}
+.viewProblemApp .psModalSymbol{display:grid;place-items:center;width:66px;height:66px;flex:none;border:2px solid #2D4CC8;border-radius:50%;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;font:700 31px/1 'Segoe UI',sans-serif;color:#2D4CC8}
+.viewProblemApp .psModalSymbol-danger{color:#C05512;border-color:#C05512}
+.viewProblemApp .psModalSymbol-success{color:#2A7308;border-color:#2A7308}
+.viewProblemApp .psModalCard h2{margin:0;font:700 24px/32px 'Segoe UI',sans-serif;letter-spacing:.02em;color:#374151}
+.viewProblemApp .psModalCard p{margin:0;font:400 16px/25px 'Segoe UI',sans-serif;color:#374151;overflow-wrap:anywhere}
+.viewProblemApp .psModalActions{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;width:100%;margin-top:10px}
+.viewProblemApp .psModalActions .viewerExamButton{flex:1 1 180px;max-width:250px;min-width:0;min-height:48px;font-size:16px;padding:10px 14px}
+.viewProblemApp .psResultPageHeading{margin:28px 0 20px}
+.viewProblemApp .psResultPageHeading h1{font:700 26px/34px 'Segoe UI',sans-serif;color:#374151;margin:0}
+.viewProblemApp .psResultPageHeading p{margin:8px 0 0;font:400 17px/24px 'Segoe UI',sans-serif;color:#2D4CC8}
+.viewProblemApp .psResultSummary{display:flex;align-items:center;gap:20px;padding:26px;margin-bottom:22px}
+.viewProblemApp .psResultCheck{width:65px;height:65px;display:grid;place-items:center;flex:none;border:2px solid #2A7308;border-radius:50%;color:#2A7308;font:700 34px/1 'Segoe UI',sans-serif;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4}
+.viewProblemApp .psResultSummary h2{font:700 22px/30px 'Segoe UI',sans-serif;margin:0;color:#2A7308}
+.viewProblemApp .psResultSummary p{margin:7px 0 0;font:400 15px/24px 'Segoe UI',sans-serif;color:#374151}
+.viewProblemApp .psSubmittedTime{font-size:13px!important;opacity:.8}
+.viewProblemApp .psResultsStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0 0 22px}
+.viewProblemApp .psResultsStats>div{padding:22px 18px;display:flex;flex-direction:column;gap:7px;align-items:center;text-align:center}
+.viewProblemApp .psResultsStats span{font:500 14px/20px 'Segoe UI',sans-serif;color:#374151}
+.viewProblemApp .psResultsStats strong{font:700 28px/36px 'Segoe UI',sans-serif;color:#2D4CC8}
+.viewProblemApp .psResultsStats>div:nth-child(2) strong{color:#2A7308}
+.viewProblemApp .psResultsStats>div:nth-child(3) strong{color:#C05512}
+.viewProblemApp .psResultCard{padding:24px;margin:0 0 22px}
+.viewProblemApp .psResultCard p{font:400 15px/25px 'Segoe UI',sans-serif;color:#374151;margin:14px 0 0}
+.viewProblemApp .psResultSectionHead{display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid #CBD1D7;padding:0 0 15px}
+.viewProblemApp .psResultSectionHead h2{margin:0;color:#374151;font:700 20px/28px 'Segoe UI',sans-serif}
+.viewProblemApp .psResultSectionHead>span{color:#374151;font:600 14px/22px 'Segoe UI',sans-serif}
+.viewProblemApp .psResultPill{padding:5px 15px;border-radius:20px;border:1px solid #C05512;color:#C05512!important;background:rgba(192,85,18,.08)}
+.viewProblemApp .psResultPill.is-green{border-color:#2A7308;color:#2A7308!important;background:rgba(42,115,8,.07)}
+.viewProblemApp .psResultMarks strong{color:#2A7308;font-size:31px}
+.viewProblemApp .psReviewQuestionList{display:grid;gap:10px;margin-top:16px}
+.viewProblemApp .psReviewQuestion{border-radius:8px;background:#DFE6E9;box-shadow:inset -3px -3px 4px #fff,inset 3px 3px 4px #C4C4C4;overflow:hidden}
+.viewProblemApp .psReviewQuestion summary{display:flex;align-items:center;gap:12px;min-height:57px;padding:12px 15px;cursor:pointer;color:#374151;list-style:none;font:600 15px/24px 'Segoe UI',sans-serif}
+.viewProblemApp .psReviewQuestion summary::-webkit-details-marker{display:none}
+.viewProblemApp .psReviewQuestion summary:after{content:'⌄';font-size:22px;margin-left:4px;color:#2D4CC8}
+.viewProblemApp .psReviewQuestion[open] summary:after{transform:rotate(180deg)}
+.viewProblemApp .psReviewQNumber{display:grid;place-items:center;width:35px;height:35px;flex:none;border-radius:7px;color:#2D4CC8;box-shadow:-2px -2px 4px #fff,2px 2px 4px #C4C4C4}
+.viewProblemApp .psReviewStatus{margin-left:auto;color:#606162;font-size:13px;white-space:nowrap}
+.viewProblemApp .psReviewStatus.is-green{color:#2A7308}
+.viewProblemApp .psReviewStatus.is-orange{color:#C05512}
+.viewProblemApp .psReviewFlag{color:#C05512;font-size:12px}
+.viewProblemApp .psReviewAnswers{padding:0 18px 18px;border-top:1px solid #CBD1D7}
+.viewProblemApp .psReviewAnswers>p{font-weight:600}
+.viewProblemApp .psReviewAnswers>div{padding:10px 0;border-bottom:1px solid #CDD4D8}
+.viewProblemApp .psReviewAnswers>div strong{font:600 14px/20px 'Segoe UI',sans-serif;color:#2D4CC8}
+.viewProblemApp .psReviewAnswers>div p{margin:5px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.viewProblemApp .psResultsActions{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin:22px 0 12px}
+.viewProblemApp .psResultsActions .viewerExamButton{min-height:48px;font-size:17px}
+.viewProblemApp .psAttemptsHelp{color:#C05512;font:400 14px/22px 'Segoe UI',sans-serif;text-align:right}
+.viewProblemApp .viewerSubmitFromNav{width:100%;font-size:14px;min-height:44px;min-width:0;margin-top:8px}
+@media(max-width:780px){
+ .viewProblemApp .psResultsStats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .viewProblemApp .psResultSummary{padding:20px}
+}
+@media(max-width:520px){
+ .viewProblemApp .psAssessmentSummary,.viewProblemApp .psInstructionsGrid .psInstructionsCard{padding:16px}
+ .viewProblemApp .psModalCard{padding:22px 16px;gap:14px}
+ .viewProblemApp .psModalCard h2{font-size:21px;line-height:28px}
+ .viewProblemApp .psModalActions{gap:10px}
+ .viewProblemApp .psModalActions .viewerExamButton{flex:1 1 120px;max-width:none;font-size:13px}
+ .viewProblemApp .psResultSummary{align-items:flex-start;gap:12px;padding:16px}
+ .viewProblemApp .psResultCheck{width:43px;height:43px;font-size:23px}
+ .viewProblemApp .psResultSummary h2{font-size:18px;line-height:24px}
+ .viewProblemApp .psResultsStats{gap:10px}
+ .viewProblemApp .psResultsStats>div{padding:16px 9px}
+ .viewProblemApp .psResultsStats strong{font-size:23px}
+ .viewProblemApp .psResultCard{padding:16px}
+ .viewProblemApp .psReviewQuestion summary{gap:7px;padding:10px 8px;flex-wrap:wrap;font-size:13px}
+ .viewProblemApp .psReviewStatus{margin-left:0}
+ .viewProblemApp .psResultSectionHead h2{font-size:18px}
+ .viewProblemApp .psResultsActions .viewerExamButton{flex:1 1 100%;min-width:0}
+}
+
+/* Problem Solving learner stages use the SAME shared viewer instructions
+   classes as the existing assessments, without modifying shared styles. */
+.viewProblemApp .viewerPageHeading p{font:400 16px/24px 'Segoe UI',Arial,sans-serif;color:#374151;margin:8px 0 0}
+.viewProblemApp .viewerColumns{width:100%;min-width:0}
+.viewProblemApp .viewerSummary,.viewProblemApp .viewerRightColumn{min-width:0}
+.viewProblemApp .viewerStatIcon img{display:block;width:24px;height:24px;object-fit:contain}
+.viewProblemApp .viewerConfirmation .viewerStart:disabled{cursor:not-allowed}
+/* Retry confirmation uses the same neumorphic button treatment as the shared
+   assessment confirmation. Only this type-specific retry dialog is custom. */
+.viewProblemApp .psModalBackdrop{z-index:9999}
+.viewProblemApp .psModalCard{border-radius:16px;box-shadow:-4px -4px 8px #fff,4px 4px 8px #C4C4C4}
+.viewProblemApp .psModalCard .viewerExamButton{border:0;border-radius:24px;box-shadow:-4px -4px 4px #fff,4px 4px 8px #C4C4C4}
+.viewProblemApp .psModalCard .viewerExamButton.viewerNext{color:#2A7308}
+@media(max-width:750px){.viewProblemApp .viewerColumns{display:flex;flex-direction:column}.viewProblemApp .viewerSummary,.viewProblemApp .viewerRightColumn{width:100%}}
+
+/* Problem Solving only: submission overlay must sit above one viewer frame;
+   Results are displayed through the shared assessment Results route. */
+.viewProblemApp.viewerAppShell{isolation:auto}
+.viewProblemApp .viewerMain{position:relative;z-index:auto}
+.viewProblemApp .viewerSharedHeader{z-index:1}
+@media(max-width:780px){
+  .viewProblemApp .viewerContent{min-width:0;max-width:100%}
+  .viewProblemApp .viewerExamCard{min-width:0}
+}

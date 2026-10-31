@@ -23,6 +23,9 @@ import {
 
 import { getDemoSession } from "@/modules/assessments/auth/demo-auth";
 
+import AssignmentViewer from "@/modules/assessments/components/type-specific/assignment/Viewer";
+
+import ProblemSolvingViewer from "@/modules/assessments/components/type-specific/problem-solving/Viewer";
 export default function PageClient() {
   const { assessmentId } = useParams<{
     assessmentId: string;
@@ -127,7 +130,7 @@ export default function PageClient() {
     : null;
 
   const Viewer =
-    type === "clickable-hotspot"
+     (type === "problem-solving-challenge" || type === "problem-solving") ? ProblemSolvingViewer : type === "assignment" ? AssignmentViewer : type === "clickable-hotspot"
       ? ClickableHotspotViewer
       : type === "image-based"
       ? ImageBasedViewer

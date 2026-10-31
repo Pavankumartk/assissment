@@ -1,0 +1,739 @@
+/* Assignment viewer — scoped to this route. Shared header/sidebar remain unchanged. */
+.viewAssignmentApp{--va-bg:#DFE6E9;--va-ink:#374151;--va-blue:#2D4CC8;--va-green:#2A7308;--va-inset:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;--va-raised:-4px -4px 4px #FFFFFF,4px 4px 4px #C4C4C4;position:fixed;inset:0;display:block;width:100%;height:100dvh;min-height:0;background:var(--va-bg);color:var(--va-ink);font-family:'Segoe UI',Arial,sans-serif;overflow:hidden}
+.viewAssignmentApp *,.viewAssignmentApp *::before,.viewAssignmentApp *::after{box-sizing:border-box}
+html:has(.viewAssignmentApp),body:has(.viewAssignmentApp){margin:0;height:100%;overflow:hidden}
+.viewAssignmentApp button,.viewAssignmentApp input{font-family:inherit}
+.viewAssignmentApp .vaLayout{display:flex;width:100%;height:100%;min-height:0;min-width:0;overflow:hidden}
+.viewAssignmentApp .vaMain{display:flex;flex:1 1 auto;flex-direction:column;height:100%;min-width:0;min-height:0;overflow:hidden}
+.viewAssignmentApp .vaSharedHeader{width:100%;flex:0 0 auto}
+.viewAssignmentApp .vaSharedHeader .topHeader{width:100%;display:flex;justify-content:flex-end}
+.viewAssignmentApp .vaSharedHeader .headerRight{margin-left:auto}
+.viewAssignmentApp .vaScroll{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;min-width:0;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.viewAssignmentApp .vaContent{width:100%;max-width:1230px;min-width:0;margin:auto;padding:24px 24px 48px}
+.viewAssignmentApp .vaIcon{display:inline-block;flex:0 0 auto;object-fit:contain;vertical-align:middle}
+.viewAssignmentApp .vaIconFallback{display:inline-grid;place-items:center;flex:none;min-width:20px;font-size:19px;line-height:1}
+.viewAssignmentApp .vaTop{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;min-width:0}
+.viewAssignmentApp .vaBreadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:9px;min-width:0;min-height:28px;font-size:16px;line-height:24px;letter-spacing:.01em}
+.viewAssignmentApp .vaBreadcrumb a{color:#2F3547;text-decoration:none}
+.viewAssignmentApp .vaBreadcrumb strong{color:var(--va-blue);font-weight:700;overflow-wrap:anywhere}
+.viewAssignmentApp .vaClock{display:flex;align-items:center;gap:7px;flex:none;min-height:52px;padding:6px 8px 4px;border:2px solid #fff;border-radius:8px;background:var(--va-bg);box-shadow:var(--va-inset)}
+.viewAssignmentApp .vaClockBlock{text-align:center;min-width:48px}
+.viewAssignmentApp .vaClockDigits{display:flex;gap:4px;justify-content:center}
+.viewAssignmentApp .vaClockDigits>span{display:grid;place-items:center;width:24px;height:25px;background:var(--va-bg);border-radius:4px;box-shadow:var(--va-raised);font-size:19px;line-height:24px;font-weight:600;color:#2F3547}
+.viewAssignmentApp .vaClockBlock small{display:block;margin-top:3px;font-size:10px;line-height:14px;color:#4b5563}
+.viewAssignmentApp .vaPageHeading{margin-top:-2px;margin-bottom:20px}
+.viewAssignmentApp .vaPageHeading h1{margin:0 0 7px;font-size:18px;line-height:28px;font-weight:700;color:var(--va-ink)}
+.viewAssignmentApp .vaPageHeading p{margin:0;font-size:15px;line-height:22px;letter-spacing:.02em}
+.viewAssignmentApp .vaGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,282px);align-items:start;gap:22px;width:100%;min-width:0}
+.viewAssignmentApp .vaCard{min-width:0;background:var(--va-bg);border-radius:8px;box-shadow:var(--va-raised)}
+.viewAssignmentApp .vaAssignmentCard{min-height:920px;padding:24px 21px 28px}
+.viewAssignmentApp .vaAssignmentName{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.viewAssignmentApp .vaAssignmentName h2{margin:0;color:var(--va-blue);font-size:16px;line-height:24px;font-weight:700;letter-spacing:.01em}
+.viewAssignmentApp .vaAssignmentName strong{white-space:nowrap;font-size:14px;line-height:22px}
+.viewAssignmentApp .vaDescription{margin:8px 0 10px;font-size:13px;line-height:22px;letter-spacing:.01em}
+.viewAssignmentApp .vaDates{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:6px 0 18px;font-size:13px;line-height:24px}
+.viewAssignmentApp .vaDates b{font-weight:600}.viewAssignmentApp .vaDates .vaDue{color:#CB5F14}
+.viewAssignmentApp .vaProgressRow{display:flex;align-items:center;gap:12px;width:100%;margin:8px 0 17px}
+.viewAssignmentApp .vaProgressTrack{height:18px;padding:4px;min-width:0;flex:1;border-radius:24px;background:var(--va-bg);box-shadow:var(--va-inset)}
+.viewAssignmentApp .vaProgressTrack>div{height:100%;background:var(--va-green);border-radius:20px;transition:width .2s ease}
+.viewAssignmentApp .vaProgressRow>strong{font-size:15px;color:var(--va-green);font-weight:700}
+.viewAssignmentApp .vaTabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:end;gap:6px;min-width:0;min-height:54px;margin:5px 0 26px;border:0;border-radius:4px;position:relative;padding-bottom:8px}
+.viewAssignmentApp .vaTabs>button{position:relative;min-width:0;min-height:48px;padding:8px 3px 12px;color:#374151;border:0;background:none;white-space:normal;cursor:pointer;font-size:15px;line-height:21px;letter-spacing:.01em}
+.viewAssignmentApp .vaTabs>button::after{content:'';position:absolute;bottom:-8px;left:0;right:0;height:8px;border-radius:10px;background:transparent;z-index:1}
+.viewAssignmentApp .vaTabs>button.is-active{color:var(--va-blue);font-weight:700}
+.viewAssignmentApp .vaTabs>button.is-active::after{background:var(--va-blue)}
+.viewAssignmentApp .vaTabBody{min-width:0}
+.viewAssignmentApp .vaTabBody>h3{margin:0 0 13px;font-size:15px;line-height:23px;font-weight:600}
+.viewAssignmentApp .vaResourceBox{display:grid;gap:20px;padding:16px 13px;box-shadow:var(--va-inset);border:1px solid #f7fafb;min-width:0}
+.viewAssignmentApp .vaResource{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;padding:10px 12px;border-radius:6px;box-shadow:var(--va-inset)}
+.viewAssignmentApp .vaResourceName{min-width:0;overflow-wrap:anywhere;font-size:14px;line-height:23px}
+.viewAssignmentApp .vaResourceName small{font-size:13px;white-space:nowrap}
+.viewAssignmentApp .vaDownload{display:flex;gap:8px;align-items:center;justify-content:center;min-height:36px;padding:5px 12px;flex:none;border:0;border-radius:22px;background:var(--va-bg);box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;color:#465466;font-size:13px;cursor:pointer}
+.viewAssignmentApp .vaDownload:active{box-shadow:var(--va-inset)}
+.viewAssignmentApp .vaMutedDownload{display:inline-flex;filter:grayscale(1) brightness(.6) sepia(.3)}
+.viewAssignmentApp .vaNoResources{margin:3px 0;font-size:14px}
+.viewAssignmentApp .vaTabBody>.vaStatusTitle{margin:23px 0 12px}
+.viewAssignmentApp .vaStatusBox{display:grid;gap:9px;padding:18px 16px 20px;border-radius:8px;box-shadow:var(--va-raised)}
+.viewAssignmentApp .vaStatusBox>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:13px;align-items:center;min-width:0}
+.viewAssignmentApp .vaStatusBox>div>*{min-width:0;min-height:38px;padding:8px 12px;border-radius:4px;display:flex;align-items:center;overflow-wrap:anywhere;box-shadow:var(--va-inset);font-size:14px;font-weight:400;line-height:20px}
+.viewAssignmentApp .vaStatusBox>div>strong{font-weight:600}.viewAssignmentApp .vaStatusBox .vaOrange{color:#CB5F14}.viewAssignmentApp .vaStatusBox .vaBlue{color:var(--va-blue)}.viewAssignmentApp .vaStatusBox .vaGreen{color:var(--va-green)}
+.viewAssignmentApp .vaAssignmentFooter{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-top:30px}
+.viewAssignmentApp .vaAssignmentFooter>div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.viewAssignmentApp .vaAssignmentFooter>div>strong{font-weight:600;font-size:14px}
+.viewAssignmentApp .vaAssignmentFooter>div>span{min-width:145px;padding:8px 12px;min-height:35px;border-radius:6px;box-shadow:var(--va-inset);font-size:14px}
+.viewAssignmentApp .vaBigButton{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:11px 23px;border:0;border-radius:32px;background:var(--va-bg);box-shadow:var(--va-raised);color:var(--va-ink);white-space:nowrap;font-size:18px;line-height:26px;font-weight:600;cursor:pointer}
+.viewAssignmentApp .vaBigButton:active{box-shadow:var(--va-inset)}
+.viewAssignmentApp .vaBigButton:disabled{opacity:.5;cursor:not-allowed}
+.viewAssignmentApp .vaAddSubmission,.viewAssignmentApp .vaNext,.viewAssignmentApp .vaBack{color:var(--va-green)}
+.viewAssignmentApp .vaAddSubmission{border:1px solid var(--va-green)}
+.viewAssignmentApp .vaNavigator{display:flex;flex-direction:column;gap:17px;padding:24px 18px 20px}
+.viewAssignmentApp .vaNavigator>h2{color:var(--va-blue);font-size:18px;line-height:28px;font-weight:700;margin:0}
+.viewAssignmentApp .vaNavItems{display:grid;gap:16px}
+.viewAssignmentApp .vaNavItems button{display:flex;align-items:center;text-align:left;padding:10px 17px;min-height:44px;min-width:0;border:0;border-radius:7px;background:var(--va-bg);box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;font-size:15px;line-height:22px;color:var(--va-ink);cursor:pointer}
+.viewAssignmentApp .vaNavItems button.is-active{color:var(--va-blue);border:1px solid var(--va-blue);font-weight:700}
+.viewAssignmentApp .vaNavigator>h2.vaToolsTitle{margin-top:5px}
+.viewAssignmentApp .vaTools{display:grid;gap:13px}
+.viewAssignmentApp .vaTools button{display:flex;align-items:center;gap:10px;min-height:43px;width:100%;padding:8px 12px;border:0;border-radius:5px;background:var(--va-bg);box-shadow:-2px -2px 3px #fff,2px 2px 3px #C4C4C4;text-align:left;font-size:14px;font-weight:600;cursor:pointer}
+.viewAssignmentApp .vaTools button:nth-child(1){color:#005C60}.viewAssignmentApp .vaTools button:nth-child(2){color:#7C0981}.viewAssignmentApp .vaTools button:nth-child(3){color:#2A7308}
+.viewAssignmentApp .vaTools button>.vaIcon:last-child,.viewAssignmentApp .vaTools button>.vaIconFallback:last-child{margin-left:auto}
+/* Submission tab: same dimensions, shadows and empty editor area as Figma. */
+.viewAssignmentApp .vaSubmissionTab>.vaTabTitle{margin:0 0 19px;color:var(--va-blue);font-size:18px;line-height:26px;font-weight:700}
+.viewAssignmentApp .vaFieldHeading{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 0 12px;font-size:15px;line-height:22px}
+.viewAssignmentApp .vaFieldHeading>label{font-weight:600}.viewAssignmentApp .vaFieldHeading>span{font-size:13px}
+.viewAssignmentApp .vaEditor{min-height:195px;min-width:0;padding:12px 13px;background:var(--va-bg);border-radius:6px;box-shadow:var(--va-inset)}
+.viewAssignmentApp .vaEditorToolbar{display:flex;align-items:center;gap:5px;min-width:0;width:100%;height:52px;padding:5px;background:var(--va-bg);border-radius:4px;box-shadow:var(--va-raised);overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#aebcc5 transparent}
+.viewAssignmentApp .vaEditorToolbar>button{display:flex;align-items:center;justify-content:center;gap:6px;min-width:35px;height:36px;flex:none;border:0;border-radius:4px;background:var(--va-bg);box-shadow:-2px -2px 2px #fff,2px 2px 2px #C4C4C4;color:#253249;cursor:pointer;font-size:18px}
+.viewAssignmentApp .vaEditorToolbar>button:disabled{opacity:.45;cursor:not-allowed}
+.viewAssignmentApp .vaEditorToolbar>button.vaEditorSelect{padding:0 10px;min-width:52px;font-size:15px;justify-content:space-between}
+.viewAssignmentApp .vaEditorToolbar>button.vaEditorSelect:nth-child(3){width:105px}
+.viewAssignmentApp .vaEditorToolbar>button.vaEditorSelect:nth-child(4){width:68px}
+.viewAssignmentApp .vaEditorToolbar>button.vaEditorSelect span{margin-left:5px;font-size:16px}
+.viewAssignmentApp .vaEditorContent{min-height:117px;padding:17px 6px 7px;outline:none;overflow-wrap:anywhere;font:400 15px/24px 'Segoe UI',Arial,sans-serif;white-space:pre-wrap}
+.viewAssignmentApp .vaEditorContent:focus-visible{outline:2px solid #2D4CC8;outline-offset:2px;border-radius:4px}
+.vaEditorPopup{position:fixed;z-index:99999;max-height:240px;overflow-y:auto;overscroll-behavior:contain;padding:7px;display:grid;gap:4px;border-radius:8px;background:#DFE6E9;box-shadow:-4px -4px 7px #fff,5px 5px 10px #aeb5b9}
+.vaEditorPopup button{min-height:32px;border:0;border-radius:5px;text-align:left;background:#DFE6E9;box-shadow:-1px -1px 2px #fff,1px 1px 2px #c4c4c4;color:#374151;cursor:pointer;padding:5px 9px;font-size:14px}
+.vaEditorPopup button i{display:inline-block;vertical-align:middle;width:14px;height:14px;margin-right:10px;border-radius:2px}
+.vaEditorPopup.is-symbols{grid-template-columns:repeat(6,minmax(0,1fr));max-height:245px}
+.vaEditorPopup.is-symbols button{text-align:center;font-size:19px;min-height:38px}
+.viewAssignmentApp .vaUploadHeading{display:block;margin:24px 0 15px;font-weight:600;font-size:15px}
+.viewAssignmentApp .vaFileChooser{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.viewAssignmentApp .vaChooseFile{min-height:44px;padding:8px 18px;border:0;border-radius:4px;background:var(--va-bg);box-shadow:var(--va-raised);font-size:17px;font-weight:600;color:var(--va-ink);cursor:pointer}
+.viewAssignmentApp .vaFileChooser span{font-size:13px;color:#606773}
+.viewAssignmentApp .vaDropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;min-height:111px;width:100%;border:1px dashed #828f9b;border-radius:7px;background:var(--va-bg);font-size:15px;cursor:pointer;text-align:center;padding:18px}
+.viewAssignmentApp .vaDropzone.is-dragging{border-color:var(--va-blue);background:#e5edf9}
+.viewAssignmentApp .vaAttachedFiles{display:grid;gap:7px;margin-top:12px}
+.viewAssignmentApp .vaAttachedFiles>div{display:flex;justify-content:space-between;align-items:center;gap:10px;min-width:0;padding:8px 12px;border-radius:5px;box-shadow:var(--va-inset);overflow-wrap:anywhere;font-size:13px}
+.viewAssignmentApp .vaAttachedFiles button{border:0;background:none;font-size:22px;cursor:pointer}
+.viewAssignmentApp .vaError{color:#B31B2A;font-weight:600;font-size:13px;line-height:21px;margin:9px 0}
+.viewAssignmentApp .vaNotice{color:#2A7308;font-size:13px;line-height:21px;margin:10px 0}
+.viewAssignmentApp .vaSubmissionActions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:34px}
+.viewAssignmentApp .vaSubmissionActions>div{display:flex;align-items:center;gap:18px}
+.viewAssignmentApp .vaSubmissionActions .vaBigButton{min-width:145px}
+.viewAssignmentApp .vaSimpleTab{min-height:470px}.viewAssignmentApp .vaInfoRow{display:flex;justify-content:space-between;gap:14px;padding:14px;margin-bottom:12px;box-shadow:var(--va-inset)}
+.viewAssignmentApp .vaSimpleTab .vaBigButton{margin-top:18px}
+.viewAssignmentApp button:focus-visible{outline:2px solid #2D4CC8;outline-offset:3px}
+@media(max-width:1170px){.viewAssignmentApp .vaContent{padding:20px 18px 38px}.viewAssignmentApp .vaGrid{grid-template-columns:minmax(0,1fr) 260px;gap:18px}.viewAssignmentApp .vaAssignmentCard{padding:20px 17px}.viewAssignmentApp .vaNavigator{padding:18px 12px}.viewAssignmentApp .vaResource{padding:8px}}
+@media(max-width:920px){.viewAssignmentApp .vaGrid{grid-template-columns:minmax(0,1fr)}.viewAssignmentApp .vaAssignmentCard{min-height:0}.viewAssignmentApp .vaNavigator{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px}.viewAssignmentApp .vaNavigator>.vaToolsTitle{grid-column:2;grid-row:1;margin:0!important}.viewAssignmentApp .vaTools{grid-column:2;grid-row:2}.viewAssignmentApp .vaNavItems{grid-column:1;grid-row:2;gap:9px}.viewAssignmentApp .vaTop{gap:15px}}
+@media(max-width:640px){.viewAssignmentApp .vaContent{padding:14px 12px 26px}.viewAssignmentApp .vaTop{flex-direction:column;align-items:flex-start;gap:10px}.viewAssignmentApp .vaClock{align-self:flex-end}.viewAssignmentApp .vaBreadcrumb{font-size:13px;line-height:20px;gap:5px}.viewAssignmentApp .vaPageHeading{margin-top:5px}.viewAssignmentApp .vaPageHeading h1{font-size:17px}.viewAssignmentApp .vaPageHeading p{font-size:13px}.viewAssignmentApp .vaAssignmentCard{padding:16px 12px}.viewAssignmentApp .vaAssignmentName h2{font-size:14px}.viewAssignmentApp .vaAssignmentName strong{font-size:12px}.viewAssignmentApp .vaDescription,.viewAssignmentApp .vaDates{font-size:12px}.viewAssignmentApp .vaTabs{gap:1px;margin-bottom:18px}.viewAssignmentApp .vaTabs>button{font-size:12px;line-height:17px;padding-inline:1px;min-height:48px}.viewAssignmentApp .vaResourceBox{gap:12px;padding:10px}.viewAssignmentApp .vaResource{min-height:58px}.viewAssignmentApp .vaResourceName,.viewAssignmentApp .vaResourceName small{font-size:12px}.viewAssignmentApp .vaDownload{font-size:12px;padding:5px 8px;gap:4px}.viewAssignmentApp .vaStatusBox{padding:10px;gap:8px}.viewAssignmentApp .vaStatusBox>div{gap:8px}.viewAssignmentApp .vaStatusBox>div>*{padding:8px;font-size:12px;line-height:17px}.viewAssignmentApp .vaAssignmentFooter{flex-wrap:wrap}.viewAssignmentApp .vaBigButton{font-size:15px;min-height:44px;padding:8px 16px}.viewAssignmentApp .vaNavigator{grid-template-columns:1fr}.viewAssignmentApp .vaNavigator>.vaToolsTitle{grid-row:auto;grid-column:1;margin-top:10px!important}.viewAssignmentApp .vaNavItems,.viewAssignmentApp .vaTools{grid-row:auto;grid-column:1}.viewAssignmentApp .vaEditor{padding:9px;min-height:180px}.viewAssignmentApp .vaEditorToolbar{gap:4px}.viewAssignmentApp .vaEditorToolbar>button{height:36px;min-width:35px}.viewAssignmentApp .vaUploadHeading{margin-top:18px}.viewAssignmentApp .vaSubmissionActions{flex-wrap:wrap}.viewAssignmentApp .vaSubmissionActions>div{margin-left:auto;gap:10px}.viewAssignmentApp .vaSubmissionActions .vaBigButton{min-width:85px}.viewAssignmentApp .vaSimpleTab{min-height:280px}}
+@media(max-width:390px){.viewAssignmentApp .vaContent{padding-inline:8px}.viewAssignmentApp .vaAssignmentCard{padding-inline:9px}.viewAssignmentApp .vaResource{flex-wrap:wrap}.viewAssignmentApp .vaResourceName{flex:1 1 100%}.viewAssignmentApp .vaDownload{margin-left:auto}.viewAssignmentApp .vaSubmissionActions>div{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.viewAssignmentApp .vaSubmissionActions .vaBigButton{min-width:0;width:100%}.viewAssignmentApp .vaTabs>button{font-size:11px}}
+
+/* Footer sits below the Assignment card, as in the supplied reference. */
+.viewAssignmentApp .vaPrimary{display:flex;flex-direction:column;gap:25px;min-width:0}
+.viewAssignmentApp .vaAssignmentCard:has(.vaSubmissionTab){min-height:0}
+@media(max-width:640px){.viewAssignmentApp .vaPrimary{gap:20px}}
+
+
+/* Assignment Submission toolbar only — buttons remain 36px, one row.
+   Native horizontal scrolling is kept; the separate left/right buttons are removed. */
+.viewAssignmentApp .vaEditorToolbarShell{
+  display:flex;min-width:0;width:100%;padding:5px 6px;
+  background:#DFE6E9;border-radius:5px;
+  box-shadow:-3px -3px 5px #FFFFFF,3px 3px 5px #C4C4C4;
+}
+.viewAssignmentApp .vaEditorToolbar{
+  display:flex;flex:1 1 auto;flex-wrap:nowrap;align-items:center;
+  width:100%;min-width:0;height:58px;gap:6px;padding:6px 5px 10px;
+  overflow-x:auto;overflow-y:hidden;border-radius:4px;box-shadow:none;
+  scrollbar-width:thin;scrollbar-color:#2D4CC8 #DFE6E9;
+  overscroll-behavior-x:contain;
+}
+.viewAssignmentApp .vaEditorToolbar>button{
+  display:flex;flex:0 0 auto;align-items:center;justify-content:center;
+  width:38px;min-width:38px;height:36px;min-height:36px;max-height:36px;
+  margin:0;padding:0 5px;border-radius:5px;white-space:nowrap;line-height:1;
+}
+.viewAssignmentApp .vaEditorToolbar>button.vaEditorSelect{
+  width:56px;min-width:56px;max-width:56px;height:36px;
+  justify-content:space-between;padding:0 8px;gap:4px;font-size:14px;
+}
+.viewAssignmentApp .vaEditorToolbar>button.vaEditorSelect:nth-child(3){width:108px;min-width:108px;max-width:108px}
+.viewAssignmentApp .vaEditorToolbar>button.vaEditorSelect:nth-child(4){width:64px;min-width:64px;max-width:64px}
+.viewAssignmentApp .vaEditorToolbar .vaSelectText{
+  display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.viewAssignmentApp .vaEditorToolbar .vaSelectArrow{
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+  width:13px;margin:0;color:#374151;line-height:16px;font-size:17px;
+}
+.viewAssignmentApp .vaEditorToolbar .vaToolGlyph{font-size:17px;font-weight:600;line-height:1}
+.viewAssignmentApp .vaEditorToolbar button .vaIcon,
+.viewAssignmentApp .vaEditorToolbar button .vaIconFallback{
+  max-height:20px;max-width:22px;object-fit:contain;
+}
+/* The toolbar, its dropdowns, and the page use a matching inset track
+   and a softly raised blue thumb. Chrome/Edge/Safari and Firefox supported. */
+.viewAssignmentApp .vaEditorToolbar::-webkit-scrollbar{height:10px}
+.viewAssignmentApp .vaEditorToolbar::-webkit-scrollbar-track{
+  border-radius:16px;background:#DFE6E9;
+  box-shadow:inset -2px -2px 2px #fff,inset 2px 2px 2px #C4C4C4;
+}
+.viewAssignmentApp .vaEditorToolbar::-webkit-scrollbar-thumb{
+  border-radius:16px;background:#2D4CC8;border:2px solid #DFE6E9;
+  box-shadow:0 1px 2px #9fa8b1;
+}
+.viewAssignmentApp .vaScroll,
+.vaEditorPopup.vaAssignmentFormatMenu{
+  scrollbar-width:thin;scrollbar-color:#8598A8 #DFE6E9;
+}
+.viewAssignmentApp .vaScroll::-webkit-scrollbar,
+.vaEditorPopup.vaAssignmentFormatMenu::-webkit-scrollbar{width:10px}
+.viewAssignmentApp .vaScroll::-webkit-scrollbar-track,
+.vaEditorPopup.vaAssignmentFormatMenu::-webkit-scrollbar-track{
+  border-radius:12px;background:#DFE6E9;
+  box-shadow:inset -2px -2px 3px #fff,inset 2px 2px 3px #C4C4C4;
+}
+.viewAssignmentApp .vaScroll::-webkit-scrollbar-thumb,
+.vaEditorPopup.vaAssignmentFormatMenu::-webkit-scrollbar-thumb{
+  border:2px solid #DFE6E9;border-radius:12px;background:#8C9EAE;
+  box-shadow:1px 1px 2px #C4C4C4;
+}
+/* This popup is portaled to body. Use its own class for reliable positioning. */
+.vaEditorPopup.vaAssignmentFormatMenu{
+  position:fixed;z-index:99999;overflow-y:auto;overflow-x:hidden;
+  min-width:0;overscroll-behavior:contain;
+  background:#DFE6E9;box-shadow:-3px -3px 5px #fff,3px 3px 6px #C4C4C4;
+}
+@media(max-width:640px){
+  .viewAssignmentApp .vaEditorToolbarShell{padding:4px;gap:0}
+  .viewAssignmentApp .vaEditorToolbar{height:58px;gap:5px;padding:6px 3px 10px}
+  .viewAssignmentApp .vaEditorToolbar>button,
+  .viewAssignmentApp .vaEditorToolbar>button.vaEditorSelect{
+    height:36px;min-height:36px;max-height:36px;
+  }
+}
+
+
+/* Assignment editor only: text and highlight colours, 4+3 tiles in two rows.
+   Keep one scroll-free palette beside the A and highlight-colour controls. */
+.vaEditorPopup.vaAssignmentFormatMenu.vaColorGridMenu{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-rows:repeat(2,42px);
+  gap:6px;
+  width:min(316px,calc(100vw - 16px))!important;
+  max-width:calc(100vw - 16px);
+  max-height:none!important;
+  overflow:visible!important;
+  padding:8px;
+  border-radius:9px;
+}
+.vaEditorPopup.vaColorGridMenu .vaColorGridChoice{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  min-width:0;
+  min-height:42px;
+  height:42px;
+  padding:3px 1px;
+  text-align:center;
+  cursor:pointer;
+  border-radius:5px;
+}
+.vaEditorPopup.vaColorGridMenu .vaColorGridChoice>i{
+  display:block;
+  flex:none;
+  margin:0;
+  width:22px;
+  height:17px;
+  border:1px solid rgba(47,53,71,.22);
+  border-radius:3px;
+}
+.vaEditorPopup.vaColorGridMenu .vaColorGridChoice>span{
+  display:block;
+  font-size:10px;
+  line-height:12px;
+  letter-spacing:-.15px;
+  white-space:nowrap;
+}
+@media(max-width:360px){
+  .vaEditorPopup.vaColorGridMenu .vaColorGridChoice>span{font-size:9px;}
+}
+
+/* Assignment tab progress rail — replace the white stripe with Figma neumorphism. */
+.viewAssignmentApp .vaTabs::before{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:8px;
+  background:#DFE6E9;border-radius:24px;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;
+  pointer-events:none;
+}
+.viewAssignmentApp .vaTabs>button.is-active::after{
+  background:#2D4CC8;box-shadow:0 1px 2px rgba(47,53,71,.16);
+}
+/* Special-character picker and other editor dropdowns: neutral neumorphic track,
+   never the browser's blue scrollbar. No toolbar behavior or buttons changed. */
+.vaEditorPopup.vaAssignmentFormatMenu,
+.vaEditorPopup.is-symbols{
+  scrollbar-width:thin;scrollbar-color:#94A4B1 #DFE6E9;
+}
+.vaEditorPopup.vaAssignmentFormatMenu::-webkit-scrollbar,
+.vaEditorPopup.is-symbols::-webkit-scrollbar{width:10px;height:10px;}
+.vaEditorPopup.vaAssignmentFormatMenu::-webkit-scrollbar-track,
+.vaEditorPopup.is-symbols::-webkit-scrollbar-track{
+  background:#DFE6E9;border-radius:18px;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;
+}
+.vaEditorPopup.vaAssignmentFormatMenu::-webkit-scrollbar-thumb,
+.vaEditorPopup.is-symbols::-webkit-scrollbar-thumb{
+  background:#9AA8B1;border:2px solid #DFE6E9;border-radius:18px;
+  box-shadow:-1px -1px 2px #FFFFFF,1px 1px 2px #C4C4C4;
+}
+
+
+/* Assignment editor: compact TWO-ROW colour & highlight palettes (7 colours).
+   Apply to both existing colour dropdowns; no nested scrollbars or hex text. */
+.vaEditorPopup.vaAssignmentFormatMenu.vaColorGridMenu{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-template-rows:repeat(2,50px)!important;
+  column-gap:8px;
+  row-gap:7px;
+  width:min(340px,calc(100vw - 16px))!important;
+  min-width:0;
+  height:auto!important;
+  max-height:none!important;
+  padding:8px;
+  overflow:hidden!important;
+  border-radius:9px;
+  background:#DFE6E9;
+  box-shadow:-4px -4px 5px #FFFFFF,4px 4px 6px #C4C4C4;
+  scrollbar-width:none!important;
+}
+.vaEditorPopup.vaAssignmentFormatMenu.vaColorGridMenu::-webkit-scrollbar{display:none!important;}
+.vaEditorPopup.vaColorGridMenu .vaColorGridChoice{
+  display:flex;align-items:center;justify-content:center;
+  min-width:0;width:100%;height:50px;min-height:50px;
+  padding:5px;border-radius:6px;background:#DFE6E9;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;
+}
+.vaEditorPopup.vaColorGridMenu .vaColorGridChoice>i{
+  display:block;width:38px;height:29px;margin:0;
+  border:1px solid rgba(47,53,71,.2);border-radius:5px;
+}
+.vaEditorPopup.vaColorGridMenu .vaColorGridChoice:focus-visible{
+  outline:2px solid #2D4CC8;outline-offset:1px;
+}
+/* Slightly wider alignment picker; regular dropdown behavior unchanged. */
+.vaEditorPopup.vaAssignmentFormatMenu.vaAlignmentMenu{
+  width:min(300px,calc(100vw - 16px))!important;
+}
+/* Neutral, raised scrollbar thumb inside an inset neumorphic track.
+   Applies to the formatting toolbar and to an existing special-character
+   picker (when present). It never modifies tab progress indicators. */
+.viewAssignmentApp .vaEditorToolbar,
+.vaEditorPopup.vaAssignmentFormatMenu,
+.vaEditorPopup.is-symbols{
+  scrollbar-color:#98A7B2 #DFE6E9;
+  scrollbar-width:thin;
+}
+.viewAssignmentApp .vaEditorToolbar::-webkit-scrollbar{height:10px;}
+.viewAssignmentApp .vaEditorToolbar::-webkit-scrollbar-track,
+.vaEditorPopup.vaAssignmentFormatMenu::-webkit-scrollbar-track,
+.vaEditorPopup.is-symbols::-webkit-scrollbar-track{
+  background:#DFE6E9;border-radius:16px;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;
+}
+.viewAssignmentApp .vaEditorToolbar::-webkit-scrollbar-thumb,
+.vaEditorPopup.vaAssignmentFormatMenu::-webkit-scrollbar-thumb,
+.vaEditorPopup.is-symbols::-webkit-scrollbar-thumb{
+  background:#98A7B2;border:2px solid #DFE6E9;border-radius:16px;
+  box-shadow:-1px -1px 2px #FFFFFF,1px 1px 2px #C4C4C4;
+}
+
+/* Assignment submission editor only: compact alignment + colour dropdowns.
+   4+3 standard-size swatches, no colour-picker scrollbar. */
+.vaEditorPopup.vaAssignmentFormatMenu.vaAlignmentMenu{
+  width:min(184px,calc(100vw - 16px))!important;
+  padding:6px;
+  gap:3px;
+}
+.vaEditorPopup.vaAssignmentFormatMenu.vaAlignmentMenu>button{
+  min-height:34px;
+  padding:5px 10px;
+  font-size:14px;
+}
+.vaEditorPopup.vaAssignmentFormatMenu.vaColorGridMenu{
+  width:min(214px,calc(100vw - 16px))!important;
+  max-width:calc(100vw - 16px)!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-template-rows:repeat(2,36px)!important;
+  gap:5px!important;
+  padding:7px!important;
+  max-height:none!important;
+  overflow:hidden!important;
+  scrollbar-width:none!important;
+}
+.vaEditorPopup.vaAssignmentFormatMenu.vaColorGridMenu::-webkit-scrollbar{
+  display:none!important;
+}
+.vaEditorPopup.vaColorGridMenu .vaColorGridChoice{
+  height:36px!important;
+  min-height:36px!important;
+  padding:4px!important;
+  border-radius:5px;
+}
+.vaEditorPopup.vaColorGridMenu .vaColorGridChoice>i{
+  width:23px!important;
+  height:23px!important;
+  border-radius:4px;
+  margin:0!important;
+}
+
+/* Grade Feedback and Settings tabs ONLY — derived from the supplied Figma
+   reference. Do not change the existing Assignment / Submission styling. */
+.viewAssignmentApp .vaAssignmentCard:has(.vaGradeTab),
+.viewAssignmentApp .vaAssignmentCard:has(.vaSettingsTab){min-height:0}
+.viewAssignmentApp .vaGradeTab,
+.viewAssignmentApp .vaSettingsTab{min-width:0;color:#374151}
+.viewAssignmentApp .vaGradeTab h3,
+.viewAssignmentApp .vaSettingsTab h3{margin:0 0 12px;font-size:15px;line-height:22px;font-weight:600}
+.viewAssignmentApp .vaGradeTab .vaInsetPanel,
+.viewAssignmentApp .vaSettingsTab .vaInsetPanel{background:#DFE6E9;border-radius:5px;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.viewAssignmentApp .vaGradeIntro{display:flex;justify-content:space-between;align-items:center;gap:15px;min-height:75px;padding:15px;margin-bottom:12px}
+.viewAssignmentApp .vaGradeIntro h3{margin:0 0 7px}
+.viewAssignmentApp .vaGradeIntro p{margin:0;font-size:12px;line-height:20px}
+.viewAssignmentApp .vaOutlineStatus{display:inline-flex;align-items:center;justify-content:center;min-width:70px;max-width:100%;padding:4px 7px;border:1px solid #CB5F14;border-radius:20px;color:#CB5F14;font:500 12px/17px 'Segoe UI',Arial,sans-serif;white-space:nowrap}
+.viewAssignmentApp .vaGradeSection{min-width:0;margin-bottom:13px;padding:14px 13px 15px}
+.viewAssignmentApp .vaGradeSection>h3{margin:0 0 15px}
+.viewAssignmentApp .vaDetailRows{display:grid;gap:9px}
+.viewAssignmentApp .vaDetailRows>div{display:grid;grid-template-columns:minmax(155px,42%) minmax(0,1fr);gap:12px;align-items:stretch;min-width:0}
+.viewAssignmentApp .vaDetailRows>div>strong,
+.viewAssignmentApp .vaDetailRows>div>span{display:flex;align-items:center;flex-wrap:wrap;gap:5px;min-width:0;min-height:40px;padding:7px 13px;border-radius:4px;font-size:13px;line-height:19px;overflow-wrap:anywhere;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.viewAssignmentApp .vaDetailRows>div>strong{font-weight:600}
+.viewAssignmentApp .vaDetailRows .vaOrange{color:#CB5F14}
+.viewAssignmentApp .vaDetailRows .vaGreen{color:#2A7308}
+.viewAssignmentApp .vaGradeFile{display:inline-flex;align-items:center;gap:5px;max-width:100%;overflow-wrap:anywhere}
+.viewAssignmentApp .vaGradeFile button{padding:0;text-align:left;border:0;background:none;color:#374151;text-decoration:underline;cursor:pointer;font-size:inherit}
+.viewAssignmentApp .vaGradeFile a{color:#374151;overflow-wrap:anywhere}
+.viewAssignmentApp .vaGradeTableWrap{max-width:100%;min-width:0;overflow-x:auto;border:1px solid #CCD2D5;border-radius:2px;scrollbar-width:thin;scrollbar-color:#99A7AF #DFE6E9}
+.viewAssignmentApp .vaGradeTableWrap::-webkit-scrollbar{height:9px}
+.viewAssignmentApp .vaGradeTableWrap::-webkit-scrollbar-track{background:#DFE6E9;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4}
+.viewAssignmentApp .vaGradeTableWrap::-webkit-scrollbar-thumb{border-radius:12px;background:#9EACB5;border:2px solid #DFE6E9}
+.viewAssignmentApp .vaGradeTable{width:100%;border-collapse:collapse;table-layout:fixed;font-size:12px;line-height:18px;color:#374151}
+.viewAssignmentApp .vaGradeTable th,
+.viewAssignmentApp .vaGradeTable td{border:1px solid #CBD3D8;padding:9px 8px;text-align:left;vertical-align:middle;overflow-wrap:anywhere}
+.viewAssignmentApp .vaGradeTable thead th{background:#D5DEE2;font-size:12px;font-weight:600}
+.viewAssignmentApp .vaGradeTable tbody td{font-weight:400}
+.viewAssignmentApp .vaGradeTable strong{font-weight:600}
+.viewAssignmentApp .vaGradeTable small{display:block;margin-top:3px;color:#485364;font-size:11px;line-height:16px}
+.viewAssignmentApp .vaGradeTable .vaGradeNumber{display:inline-flex;min-height:26px;min-width:36px;padding:4px 6px;align-items:center;justify-content:center;border:1px solid #BBC4C9;border-radius:4px;font-variant-numeric:tabular-nums}
+.viewAssignmentApp .vaGradeTable .vaFeedbackValue{display:block;min-width:0;min-height:26px;padding:4px 5px;border:1px solid #BBC4C9;border-radius:4px;font-size:11px}
+.viewAssignmentApp .vaMarksTable th:first-child{width:7%}
+.viewAssignmentApp .vaMarksTable th:nth-child(2){width:35%}
+.viewAssignmentApp .vaMarksTable th:nth-child(3){width:15%}
+.viewAssignmentApp .vaMarksTable th:nth-child(4){width:17%}
+.viewAssignmentApp .vaMarksTable th:nth-child(5){width:26%}
+.viewAssignmentApp .vaMarksTable td:first-child{text-align:center;font-weight:600}
+.viewAssignmentApp .vaMarksTable td:nth-child(3),
+.viewAssignmentApp .vaMarksTable td:nth-child(4){text-align:center}
+.viewAssignmentApp .vaMarksTable tfoot th{background:#DFE6E9;padding:11px 8px;font-weight:700}
+.viewAssignmentApp .vaMarksTable tfoot th:not(:first-child){text-align:center}
+.viewAssignmentApp .vaMarksTable tfoot th .vaOutlineStatus{font-size:11px;min-width:0}
+.viewAssignmentApp .vaGradeSummary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin-top:16px}
+.viewAssignmentApp .vaGradeSummary>div{min-width:0}
+.viewAssignmentApp .vaGradeSummary label{display:block;margin-bottom:8px;font-size:12px;line-height:19px;font-weight:600}
+.viewAssignmentApp .vaGradeInsetValue{display:flex;align-items:center;justify-content:flex-start;min-height:38px;padding:8px 12px;border-radius:5px;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;font-size:13px}
+.viewAssignmentApp .vaGradeSummary>div:last-child .vaGradeInsetValue{justify-content:center}
+.viewAssignmentApp .vaResultPill{display:inline-flex;align-items:center;justify-content:center;min-width:64px;max-width:100%;padding:3px 10px;border-radius:22px;border:1px solid #2A7308;color:#2A7308;font-size:12px;line-height:18px;font-weight:600;background:#DFE6E9}
+.viewAssignmentApp .vaResultPill.is-fail{border-color:#CB5F14;color:#CB5F14}
+.viewAssignmentApp .vaOverallLabel{display:block;margin:18px 0 8px;font-size:12px;font-weight:600}
+.viewAssignmentApp .vaOverallFeedback{min-height:52px;padding:10px;border-radius:5px;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;font-size:13px;line-height:20px;white-space:pre-wrap;overflow-wrap:anywhere}
+.viewAssignmentApp .vaLevelsTable th:nth-child(1){width:11%}
+.viewAssignmentApp .vaLevelsTable th:nth-child(2){width:27%}
+.viewAssignmentApp .vaLevelsTable th:nth-child(3){width:17%}
+.viewAssignmentApp .vaLevelsTable th:nth-child(4){width:45%}
+.viewAssignmentApp .vaResultTable th:nth-child(1){width:34%}
+.viewAssignmentApp .vaResultTable th:nth-child(2){width:37%}
+.viewAssignmentApp .vaResultTable th:nth-child(3){width:29%}
+.viewAssignmentApp .vaGradeFootnote{margin:0;padding:10px 12px;border:1px solid #CAD3D9;color:#CB5F14;font-size:11px;line-height:18px}
+.viewAssignmentApp .vaGradeActions{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:21px}
+.viewAssignmentApp .vaGradeActions .vaBigButton{min-width:110px;font-size:15px;min-height:43px}
+/* The Settings tab matches the screenshot's two inset cells per row. */
+.viewAssignmentApp .vaSettingsTab>h3{margin:0 0 16px}
+.viewAssignmentApp .vaSettingsRows{display:grid;gap:11px;padding:20px}
+.viewAssignmentApp .vaSettingsRows>div{display:grid;grid-template-columns:minmax(0,40%) minmax(0,1fr);align-items:stretch;gap:14px;min-width:0}
+.viewAssignmentApp .vaSettingsRows>div>strong,
+.viewAssignmentApp .vaSettingsRows>div>span{display:flex;align-items:center;min-width:0;min-height:40px;padding:8px 13px;border-radius:5px;box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;font-size:14px;line-height:21px;overflow-wrap:anywhere}
+.viewAssignmentApp .vaSettingsRows>div>strong{font-weight:600}
+.viewAssignmentApp .vaSettingsBack{margin-top:26px}
+.viewAssignmentApp .vaSettingsBack .vaBigButton{min-width:130px;font-size:16px}
+/* Keep all four tabs interactive, but make new sections fluid at tablet size. */
+@media(max-width:1080px){
+ .viewAssignmentApp .vaGradeSection{padding:12px 9px}
+ .viewAssignmentApp .vaGradeTable{font-size:11px}
+ .viewAssignmentApp .vaGradeTable th,.viewAssignmentApp .vaGradeTable td{padding:7px 5px}
+ .viewAssignmentApp .vaSettingsRows{padding:14px}
+}
+@media(max-width:700px){
+ .viewAssignmentApp .vaGradeIntro{flex-wrap:wrap;padding:12px}
+ .viewAssignmentApp .vaGradeSummary{gap:8px}
+ .viewAssignmentApp .vaGradeSummary label{font-size:11px}
+ .viewAssignmentApp .vaGradeInsetValue{padding:7px;font-size:12px}
+ .viewAssignmentApp .vaSettingsRows>div{grid-template-columns:minmax(0,41%) minmax(0,1fr);gap:9px}
+ .viewAssignmentApp .vaSettingsRows>div>strong,.viewAssignmentApp .vaSettingsRows>div>span{padding:8px;font-size:12px;line-height:18px}
+}
+@media(max-width:560px){
+ .viewAssignmentApp .vaGradeSection{padding:12px 9px}
+ .viewAssignmentApp .vaDetailRows>div{grid-template-columns:minmax(0,1fr)}
+ .viewAssignmentApp .vaGradeSummary{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .viewAssignmentApp .vaGradeSummary>div:last-child{grid-column:1 / -1}
+ .viewAssignmentApp .vaGradeTableWrap{overflow:visible;border:0}
+ .viewAssignmentApp .vaGradeTable,.viewAssignmentApp .vaGradeTable tbody,.viewAssignmentApp .vaGradeTable tfoot{display:block;width:100%}
+ .viewAssignmentApp .vaGradeTable thead{display:none}
+ .viewAssignmentApp .vaGradeTable tbody tr{display:grid;grid-template-columns:minmax(0,1fr);margin-bottom:9px;padding:8px;border:1px solid #CBD3D8;border-radius:6px}
+ .viewAssignmentApp .vaGradeTable tbody td{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;width:100%;padding:6px 5px;border:0;border-bottom:1px solid #CED5D8;text-align:right!important;overflow-wrap:anywhere}
+ .viewAssignmentApp .vaGradeTable tbody td:last-child{border-bottom:0}
+ .viewAssignmentApp .vaGradeTable tbody td::before{content:attr(data-label);flex:0 0 37%;text-align:left;font-weight:600;font-size:11px;color:#465266}
+ .viewAssignmentApp .vaGradeTable tbody td>*{min-width:0;text-align:right}
+ .viewAssignmentApp .vaMarksTable tbody td:nth-child(2){flex-direction:column;gap:3px}
+ .viewAssignmentApp .vaMarksTable tbody td:nth-child(2)::before{flex:auto}
+ .viewAssignmentApp .vaMarksTable tbody td:nth-child(2) strong,.viewAssignmentApp .vaMarksTable tbody td:nth-child(2) small{text-align:left}
+ .viewAssignmentApp .vaMarksTable tfoot tr{display:flex;align-items:center;justify-content:space-between;gap:5px;flex-wrap:wrap;padding:8px}
+ .viewAssignmentApp .vaMarksTable tfoot th{border:0;padding:4px;font-size:11px}
+ .viewAssignmentApp .vaMarksTable tfoot th:first-child{flex:1 1 100%;text-align:left}
+ .viewAssignmentApp .vaSettingsRows{padding:12px}
+ .viewAssignmentApp .vaSettingsRows>div{grid-template-columns:1fr;gap:5px}
+ .viewAssignmentApp .vaSettingsRows>div>strong,.viewAssignmentApp .vaSettingsRows>div>span{min-height:34px}
+ .viewAssignmentApp .vaGradeActions .vaBigButton{min-width:100px}
+}
+
+/* Grade Feedback corrections only: Figma-style total, guidance, and documents.
+   The creator, submission editor, settings tab and other viewers are unchanged. */
+.viewAssignmentApp .vaGradeTab .vaGradeTotalRow {
+  display:grid;
+  grid-template-columns:minmax(0,2.35fr) minmax(54px,.55fr) minmax(78px,.75fr) minmax(112px,.85fr);
+  align-items:center;
+  column-gap:12px;
+  width:100%;
+  min-width:0;
+  min-height:58px;
+  padding:9px 15px;
+  border:1px solid #CFD5D9;
+  border-radius:5px;
+  background:#DFE6E9;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;
+  color:#374151;
+  font-family:'Segoe UI',Arial,sans-serif;
+  font-size:15px;
+  line-height:22px;
+}
+.viewAssignmentApp .vaGradeTab .vaGradeTotalRow > * {min-width:0;}
+.viewAssignmentApp .vaGradeTab .vaGradeTotalLabel {font-size:15px;font-weight:700;overflow-wrap:anywhere;}
+.viewAssignmentApp .vaGradeTab .vaGradeTotalMax,
+.viewAssignmentApp .vaGradeTab .vaGradeTotalAwarded {font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;text-align:center;white-space:nowrap;}
+.viewAssignmentApp .vaGradeTab .vaGradeTotalStatus {display:flex;justify-content:center;align-items:center;min-width:0;}
+.viewAssignmentApp .vaGradeTab .vaGradeTotalStatus .vaOutlineStatus {
+  min-width:0;
+  min-height:31px;
+  width:max-content;
+  max-width:100%;
+  padding:5px 12px;
+  font-size:14px;
+  line-height:20px;
+  font-weight:500;
+  white-space:nowrap;
+  box-sizing:border-box;
+  flex-shrink:0;
+}
+/* A separate, inset guidance bar like the Figma reference. */
+.viewAssignmentApp .vaGradeTab .vaGradeFootnote {
+  display:flex;
+  align-items:center;
+  width:100%;
+  min-width:0;
+  min-height:49px;
+  margin:0;
+  padding:11px 19px;
+  border:1px solid #CCD5D9;
+  border-radius:4px;
+  background:#DFE6E9;
+  color:#CB5F14;
+  box-shadow:inset -2px -2px 2px #FFFFFF,inset 2px 2px 2px #C4C4C4;
+  font-size:13px;
+  line-height:21px;
+  overflow-wrap:anywhere;
+}
+/* Keep the document and paperclip icons next to each filename. */
+.viewAssignmentApp .vaGradeTab .vaDetailRows .vaGradeDocCell {align-items:flex-start;flex-direction:column;justify-content:center;gap:5px;}
+.viewAssignmentApp .vaGradeTab .vaGradeFile {display:inline-flex;align-items:center;flex-wrap:nowrap;gap:8px;min-width:0;max-width:100%;font-size:12px;line-height:20px;}
+.viewAssignmentApp .vaGradeTab .vaGradeFile .vaIcon,
+.viewAssignmentApp .vaGradeTab .vaGradeFile .vaIconFallback {display:inline-flex;align-items:center;justify-content:center;flex:0 0 17px;width:17px;height:17px;object-fit:contain;}
+.viewAssignmentApp .vaGradeTab .vaGradeFile button,
+.viewAssignmentApp .vaGradeTab .vaGradeFile a {text-decoration:none;overflow-wrap:anywhere;text-align:left;}
+/* Tablet and mobile: preserve all four summary values without the status
+   outline crossing the word (the previous five-cell table caused that). */
+@media(max-width:850px) {
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalRow {grid-template-columns:minmax(0,1.55fr) minmax(48px,.55fr) minmax(65px,.65fr) minmax(100px,.85fr);column-gap:7px;padding:9px 10px;font-size:13px;}
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalLabel,
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalMax,
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalAwarded {font-size:13px;}
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalStatus .vaOutlineStatus {font-size:12px;padding:5px 9px;}
+}
+@media(max-width:560px) {
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalRow {grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px;row-gap:8px;padding:12px;}
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalLabel {grid-column:1 / -1;font-size:14px;}
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalMax,
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalAwarded {text-align:left;font-size:14px;}
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalStatus {grid-column:1 / -1;justify-content:flex-start;}
+  .viewAssignmentApp .vaGradeTab .vaGradeTotalStatus .vaOutlineStatus {font-size:13px;min-height:30px;line-height:20px;}
+  .viewAssignmentApp .vaGradeTab .vaGradeFootnote {padding:10px 12px;font-size:12px;line-height:19px;}
+  .viewAssignmentApp .vaGradeTab .vaGradeFile {font-size:12px;}
+}
+
+
+/* Grade Feedback document rows only — match the two-column Figma reference.
+   All filenames, links, submission statuses and file handling stay dynamic. */
+.viewAssignmentApp .vaGradeTab .vaDetailRows {
+  gap: 14px;
+}
+.viewAssignmentApp .vaGradeTab .vaDetailRows > div {
+  grid-template-columns: minmax(0, 33%) minmax(0, 1fr);
+  gap: 16px;
+  min-width: 0;
+}
+.viewAssignmentApp .vaGradeTab .vaDetailRows > div > strong,
+.viewAssignmentApp .vaGradeTab .vaDetailRows > div > span {
+  min-height: 44px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background: #DFE6E9;
+  box-shadow: inset -2px -2px 2px #FFFFFF, inset 2px 2px 2px #C4C4C4;
+  color: #374151;
+  font-size: 14px;
+  line-height: 22px;
+}
+.viewAssignmentApp .vaGradeTab .vaDetailRows > div > strong {font-weight: 600;}
+.viewAssignmentApp .vaGradeTab .vaDetailRows > div > span.vaGradeDocCell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
+}
+.viewAssignmentApp .vaGradeTab .vaGradeFile {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #374151;
+  overflow-wrap: anywhere;
+}
+.viewAssignmentApp .vaGradeTab .vaGradeFile .vaIcon,
+.viewAssignmentApp .vaGradeTab .vaGradeFile .vaIconFallback {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  object-fit: contain;
+}
+.viewAssignmentApp .vaGradeTab .vaGradeFile a,
+.viewAssignmentApp .vaGradeTab .vaGradeFile button {
+  color: inherit;
+  font: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+.viewAssignmentApp .vaGradeTab .vaDetailRows .vaOrange {color:#CB5F14;}
+.viewAssignmentApp .vaGradeTab .vaDetailRows .vaGreen {color:#2A7308;}
+@media (max-width: 700px) {
+  .viewAssignmentApp .vaGradeTab .vaDetailRows > div {gap: 10px;}
+  .viewAssignmentApp .vaGradeTab .vaDetailRows > div > strong,
+  .viewAssignmentApp .vaGradeTab .vaDetailRows > div > span {padding: 10px 12px; font-size: 13px;}
+  .viewAssignmentApp .vaGradeTab .vaGradeFile {font-size:13px;}
+}
+@media (max-width: 560px) {
+  .viewAssignmentApp .vaGradeTab .vaDetailRows > div {
+    grid-template-columns: minmax(0,1fr);
+    gap: 5px;
+  }
+  .viewAssignmentApp .vaGradeTab .vaDetailRows {gap: 12px;}
+  .viewAssignmentApp .vaGradeTab .vaDetailRows > div > strong,
+  .viewAssignmentApp .vaGradeTab .vaDetailRows > div > span {min-height: 42px;}
+}
+
+/* Assignment learner instructions, native assessment submission dialogs. Scoped to Assignment only. */
+.viewAssignmentApp .vaInstructionsPage{max-width:1040px;margin:16px auto;padding:28px;background:#DFE6E9;border-radius:14px;box-shadow:-4px -4px 5px #fff,4px 4px 6px #c4c4c4;}
+.viewAssignmentApp .vaInstructionsPage h2{margin:0 0 8px;font-size:22px;color:#374151}
+.viewAssignmentApp .vaInstructionsIntro{margin:0 0 24px;color:#2D4CC8;font-weight:600}
+.viewAssignmentApp .vaInstructionsSummary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:24px}
+.viewAssignmentApp .vaInstructionsSummary>div{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:14px 16px;border-radius:8px;box-shadow:inset 2px 2px 3px #c4c4c4,inset -2px -2px 3px #fff;min-width:0;overflow-wrap:anywhere}
+.viewAssignmentApp .vaInstructionsPage ol{margin:0 0 24px;padding-left:23px;line-height:1.8}
+.viewAssignmentApp .vaInstructionsCheck,.viewAssignmentApp .vaSubmissionStatement{display:flex;align-items:center;gap:12px;margin:18px 0;font-size:15px}
+.viewAssignmentApp .vaInstructionsCheck input,.viewAssignmentApp .vaSubmissionStatement input{width:19px;height:19px;accent-color:#2D4CC8;flex:none}
+.viewAssignmentApp .vaNoDeadline{display:inline-flex;align-items:center;font-size:13px;color:#374151}
+.viewAssignmentApp .vaConfirmOverlay{position:fixed;z-index:10000;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(25,35,60,.4)}
+.viewAssignmentApp .vaConfirmCard{width:min(100%,500px);padding:28px;background:#DFE6E9;border-radius:15px;box-shadow:-5px -5px 10px #fff,5px 5px 10px #9aa5aa}
+.viewAssignmentApp .vaConfirmCard h2{margin:0 0 14px;font-size:21px;color:#374151}
+.viewAssignmentApp .vaConfirmCard p{margin:0 0 24px;line-height:1.6}
+.viewAssignmentApp .vaConfirmCard>div{display:flex;gap:16px;justify-content:flex-end;flex-wrap:wrap}
+@media(max-width:700px){.viewAssignmentApp .vaInstructionsPage{margin:12px 0;padding:18px}.viewAssignmentApp .vaInstructionsSummary{grid-template-columns:1fr}.viewAssignmentApp .vaConfirmCard{padding:18px}.viewAssignmentApp .vaConfirmCard>div{justify-content:stretch}.viewAssignmentApp .vaConfirmCard>div button{flex:1;min-width:135px}}
+
+/* Assignment instructions use the existing MCQ viewer's component classes.
+   This block affects only Assignment, and keeps the test layout untouched. */
+.viewAssignmentApp .vaMcqInstructions {
+  width: 100%;
+  min-width: 0;
+  padding-bottom: 28px;
+}
+.viewAssignmentApp .vaMcqInstructionColumns {
+  display: grid;
+  grid-template-columns: minmax(230px, 300px) minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+}
+.viewAssignmentApp .vaMcqInstructionSummary {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.viewAssignmentApp .vaMcqInstructionRight {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+.viewAssignmentApp .vaMcqInstructionColumns .viewerInstructions,
+.viewAssignmentApp .vaMcqInstructionColumns .viewerConfirmation {
+  min-width: 0;
+  max-width: 100%;
+}
+.viewAssignmentApp .vaMcqInstructionColumns .viewerInstructions ol {
+  list-style: none;
+}
+.viewAssignmentApp .vaMcqInstructionColumns .viewerInstructions li {
+  overflow-wrap: anywhere;
+}
+.viewAssignmentApp .vaMcqInstructionColumns .viewerStart:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+@media (max-width: 800px) {
+  .viewAssignmentApp .vaMcqInstructionColumns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .viewAssignmentApp .vaMcqInstructionSummary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+@media (max-width: 540px) {
+  .viewAssignmentApp .vaMcqInstructionSummary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .viewAssignmentApp .vaMcqInstructionRight {
+    gap: 14px;
+  }
+  .viewAssignmentApp .vaMcqInstructionColumns .viewerInstructions,
+  .viewAssignmentApp .vaMcqInstructionColumns .viewerConfirmation {
+    padding: 18px 14px;
+  }
+}

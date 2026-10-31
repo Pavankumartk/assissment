@@ -25,6 +25,7 @@ const SETTINGS = [
   { key: "scratchpad", label: "Scratchpad", icon: "sticky-note.svg", enabled: true },
 ] as const;
 const CONTENT_KEYS: Record<string, string[]> = {
+  "assignment": ["assignmentContentDraft"],
   "short-answer": ["shortAnswerContentDraft"],
   "one-word": ["oneWordContentDraft"],
   "true-false": ["trueFalseContentDraft"],
@@ -36,6 +37,7 @@ const CONTENT_KEYS: Record<string, string[]> = {
   "image-based": ["imageBasedContentDraft"],
 };
 const DETAIL_KEYS: Record<string, string[]> = {
+  "assignment": ["mcqAssessmentDraft"],
   "short-answer": ["shortAnswerAssessmentDraft"],
   "one-word": ["oneWordAssessmentDraft"],
   "true-false": ["trueFalseAssessmentDraft"],

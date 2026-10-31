@@ -1,7 +1,7 @@
 /** Frontend-only *runtime* capabilities, independent of localStorage metadata. */
 import { mcqAssessmentAdapter } from "../components/type-specific/mcq";
 
-export type QuestionMode = "single-choice" | "short-answer" | "one-word" | "matching" | "image-based" | "true-false" | "fill-in-the-blanks" | "long-answer" | "drag-and-drop" | "memory-game" | "connect-the-dots" | "clickable-hotspot";
+export type QuestionMode = "single-choice" | "short-answer" | "one-word" | "matching" | "image-based" | "true-false" | "fill-in-the-blanks" | "long-answer" | "drag-and-drop" | "memory-game" | "connect-the-dots" | "clickable-hotspot" | "assignment" | "problem-solving";
 export interface AssessmentAdapter {
   code: string;
   questionMode: QuestionMode;
@@ -10,6 +10,9 @@ export interface AssessmentAdapter {
 
 /** Add another adapter here when its Creator, Viewer, evaluation and results are implemented. */
 export const ASSESSMENT_ADAPTERS: Record<string, AssessmentAdapter> = {
+  "problem-solving-challenge": {code:"problem-solving-challenge",questionMode:"problem-solving",draftKeys:{details:"mcqAssessmentDraft",content:"problemSolvingContentDraft",evaluation:"mcqAssessmentEvaluationDraft"}},
+  "problem-solving": {code:"problem-solving",questionMode:"problem-solving",draftKeys:{details:"mcqAssessmentDraft",content:"problemSolvingContentDraft",evaluation:"mcqAssessmentEvaluationDraft"}},
+  "assignment": {code:"assignment",questionMode:"assignment",draftKeys:{details:"mcqAssessmentDraft",content:"assignmentContentDraft",evaluation:"mcqAssessmentEvaluationDraft"}},
   "clickable-hotspot": {code:"clickable-hotspot",questionMode:"clickable-hotspot",draftKeys:{details:"mcqAssessmentDraft",content:"clickableHotspotContentDraft",evaluation:"mcqAssessmentEvaluationDraft"}},
   "true-false": { code:"true-false", questionMode:"true-false", draftKeys:{details:"trueFalseAssessmentDraft",content:"trueFalseContentDraft",evaluation:"trueFalseEvaluationDraft"} },
   "fill-in-the-blanks": { code:"fill-in-the-blanks", questionMode:"fill-in-the-blanks", draftKeys:{details:"fillBlanksAssessmentDraft",content:"fillBlanksContentDraft",evaluation:"fillBlanksEvaluationDraft"} },
