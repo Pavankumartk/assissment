@@ -120,6 +120,8 @@ export function resultPath(id = getActiveAssessmentId()): string {
 }
 
 /** Publish an assessment using its type-specific draft, without a backend. */
+
+/** Publish an assessment using its type-specific draft, without a backend. */
 export function publishAssessment(typeCode: "short-answer" | "one-word" | "long-answer") {
  const detailKey = typeCode === "one-word" ? "oneWordAssessmentDraft" : typeCode === "long-answer" ? "longAnswerAssessmentDraft" : "shortAnswerAssessmentDraft";
  const contentKey = typeCode === "one-word" ? "oneWordContentDraft" : typeCode === "long-answer" ? "longAnswerContentDraft" : "shortAnswerContentDraft";
